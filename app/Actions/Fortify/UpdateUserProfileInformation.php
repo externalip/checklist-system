@@ -3,7 +3,7 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Employee;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
@@ -18,24 +18,14 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     public function update(User $user, array $input): void
     {
         Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
+            'username' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'gender' => ['required', 'string', 'max:255'],
+            'date_of_birth' => ['required', 'date'],
+            'contact' => ['required', 'integer', 'digits:10', Rule::unique('employees')->ignore($user->employee_id)],
+            'shift' => ['required', 'string', 'max:255'],
         ])->validateWithBag('updateProfileInformation');
-
-        if (isset($input['photo'])) {
-            $user->updateProfilePhoto($input['photo']);
-        }
-
-        if ($input['email'] !== $user->email &&
-            $user instanceof MustVerifyEmail) {
-            $this->updateVerifiedUser($user, $input);
-        } else {
-            $user->forceFill([
-                'name' => $input['name'],
-                'email' => $input['email'],
-            ])->save();
-        }
     }
 
     /**
@@ -46,11 +36,20 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
     protected function updateVerifiedUser(User $user, array $input): void
     {
         $user->forceFill([
-            'name' => $input['name'],
-            'email' => $input['email'],
-            'email_verified_at' => null,
+            'username' => $input['username'],
         ])->save();
+    }
 
-        $user->sendEmailVerificationNotification();
+    protected function updateProfileEmployee(User $user, Employee $employee, array $input): void
+    {
+        $employee = Employee::where('id', $user->employee_id)->first();
+        $employee->forceFill([
+            'first_name' => $input['first_name'],
+            'last_name' => $input['last_name'],
+            'gender' => $input['gender'],
+            'date_of_birth' => $input['date_of_birth'],
+            'contact' => $input['contact'],
+            'shift' => $input['shift'],
+        ])->save();
     }
 }
