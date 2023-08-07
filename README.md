@@ -45,12 +45,6 @@ Here is how you can run the project locally:
     ```
 1. Create database `checklist-system` (you can change database name)
 
-1. Go to `.env` file
-
-    - set database credentials (`DB_DATABASE=checklist-system`, `DB_USERNAME=root`, `DB_PASSWORD=`)
-    - paste `TMDB_TOKEN=(your API key)`
-        > Make sure to follow your database username and password
-
 1. Install PHP dependencies
 
     ```sh
