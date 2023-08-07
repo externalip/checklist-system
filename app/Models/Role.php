@@ -10,7 +10,7 @@ class Role extends Authenticatable
 {
     use HasFactory;
 
-    protected $table = 'roles';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,4 +20,8 @@ class Role extends Authenticatable
         'position',
         'description',
     ];
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
 }

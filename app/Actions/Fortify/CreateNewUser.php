@@ -4,10 +4,11 @@ namespace App\Actions\Fortify;
 
 use App\Models\User;
 use App\Models\Employee;
+use Illuminate\Validation\Rule;
+use Laravel\Jetstream\Jetstream;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
-use Laravel\Jetstream\Jetstream;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -20,6 +21,7 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input): User
     {
+        ;
         Validator::make($input, [
             'role_id' => ['required', 'integer'],
             'username' => ['required', 'string', 'max:255'],
@@ -29,7 +31,7 @@ class CreateNewUser implements CreatesNewUsers
             'last_name' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'string', 'max:255'],
             'date_of_birth' => ['required', 'date'],
-            'contact' => ['required', 'string', 'max:255'],
+            'contact' => ['required', 'integer', 'digits:10'],
             'shift' => ['required', 'string', 'max:255'],
             // Add any other validation rules for employee details if required.
         ])->validate();

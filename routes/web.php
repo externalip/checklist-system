@@ -2,7 +2,7 @@
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\UserController;
 use Inertia\Inertia;
 
 /*
@@ -23,6 +23,12 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
+});
+Route::get('/accountmanager', [UserController::class, 'AccountManager']);
+
+
+Route::Get('/Test', function () {
+    return Inertia::render('Test');
 });
 
 Route::middleware([
