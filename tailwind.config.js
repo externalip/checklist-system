@@ -12,6 +12,7 @@ export default {
         "./resources/views/**/*.blade.php",
         "./resources/js/**/*.vue",
         "./tailwind-theme.js",
+        "./node_modules/flowbite/**/*.js",
     ],
 
     theme: {
@@ -22,5 +23,5 @@ export default {
         },
     },
 
-    plugins: [forms, typography, FormKitVariants],
+    plugins: [forms, typography, FormKitVariants, require("flowbite/plugin")],
 };
