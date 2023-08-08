@@ -48,7 +48,7 @@ Here is how you can run the project locally:
 1. Install PHP dependencies
 
     ```sh
-    composer install --prefer-source
+    composer install --prefer-dist 
     ```
 
 1. install front-end dependencies
