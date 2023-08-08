@@ -148,7 +148,7 @@
                 </svg>
             </button>
             <div id="myComp" class="comp flex">
-                <img src="logo.png" class="h-9 mr-3" alt="Flowbite Logo" />
+                <img src="/Logo.png" class="h-9 mr-3" alt="MA Technology Logo" />
                 <p class="self-center text-3xl font-semibold collapse  md:visible">MA Technology</p>
             </div>
         </nav>
