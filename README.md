@@ -48,7 +48,7 @@ Here is how you can run the project locally:
 1. Install PHP dependencies
 
     ```sh
-    composer install --prefer-dist 
+    composer install --prefer-dist
     ```
 
 1. install front-end dependencies
@@ -61,6 +61,18 @@ Here is how you can run the project locally:
 
     ```
     php artisan migrate
+    ```
+
+1. Run key generate
+
+    ```
+    php artisan key:generate
+    ```
+
+1. Run Database Seeder
+
+    ```
+    php artisan db:seed
     ```
 
 1. Run server

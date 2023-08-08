@@ -17,17 +17,16 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         // Generate 6 users
-        for ($i = 1; $i < 6; $i++) 
-        {
+        for ($i = 1; $i < 6; $i++) {
             DB::table('users')->insert([
                 'employee_id' => random_int(3, 53),
 
                 // Sample username : `user1`
-                'username' => 'user'.$i,
+                'username' => 'user' . $i,
 
                 // Password is `password` for all generated users
                 'password' => Hash::make('password'),
-                
+
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);
