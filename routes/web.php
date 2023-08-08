@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
 use Inertia\Inertia;
 
 /*
@@ -20,11 +21,13 @@ Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
+
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
 });
 Route::get('/accountmanager', [UserController::class, 'AccountManager']);
+Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
 
 
 Route::Get('/Test', function () {

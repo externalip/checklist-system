@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -67,9 +68,15 @@ class UserController extends Controller
     public function AccountManager()
     {
         $users = User::with('employee.role')->get();
-        // ddd($users);
         return Inertia::render('AccountManager/index', [
             'users' => $users,
+        ]);
+    }
+    public function showRegistrationForm()
+    {
+        $roles = Role::all();
+        return Inertia::render('Auth/Register', [
+            'roles' => $roles,
         ]);
     }
 }
