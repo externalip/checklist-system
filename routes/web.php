@@ -34,3 +34,8 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 });
+
+// Audit Trail
+
+Route::get('/audit', [\App\Http\Controllers\AuditController::class, 'index'])
+    ->name('audit');
