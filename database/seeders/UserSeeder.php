@@ -16,20 +16,26 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Generate 6 users
-        for ($i = 1; $i < 6; $i++) {
-            DB::table('users')->insert([
-                'employee_id' => random_int(3, 53),
+        $employeeIds = DB::table('employees')->pluck('id')->toArray();
 
-                // Sample username : `user1`
-                'username' => 'user' . $i,
+        for ($i = 1; $i < 50; $i++) {
+            $username = 'user' . $i;
 
-                // Password is `password` for all generated users
-                'password' => Hash::make('password'),
+            $existingUser = DB::table('users')->where('username', $username)->first();
 
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ]);
+            if (!$existingUser) {
+                do {
+                    $randomEmployeeId = $employeeIds[array_rand($employeeIds)];
+                } while (DB::table('users')->where('employee_id', $randomEmployeeId)->exists());
+
+                DB::table('users')->insert([
+                    'employee_id' => $randomEmployeeId,
+                    'username' => $username,
+                    'password' => Hash::make('password'),
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ]);
+            }
         }
     }
 }
