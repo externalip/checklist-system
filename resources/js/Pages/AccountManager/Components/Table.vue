@@ -1,23 +1,24 @@
 <script>
-import { defineProps } from 'vue';
+import { defineProps, ref, onMounted } from 'vue';
 import editModal from './EditModal.vue';
-import { initFlowbite } from 'flowbite'
-
+import { initFlowbite } from 'flowbite';
+import Pagination from './Pagination.vue';
 export default {
     components: {
         editModal,
-    },
-    mounted() {
-        initFlowbite();
+        Pagination,
     },
     props: {
-        users: Array,
+        users: Object,
     },
-    methods: {
-
+    setup() {
+        onMounted(() => {
+            initFlowbite();
+        });
     },
 };
 </script>
+
 <template>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -30,7 +31,7 @@ export default {
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="user in users" :key="user.id">
+                <tr v-for="user in users.data" :key="user.id">
                     <td class="px-6 py-4">{{ user.id }}</td>
                     <td class="px-6 py-4">{{ user.username }}</td>
                     <td class="px-6 py-4">{{ user.employee?.role?.position }}</td>
@@ -49,6 +50,7 @@ export default {
                 </tr>
             </tbody>
         </table>
+        <Pagination :data="users" />
     </div>
 </template>
 
