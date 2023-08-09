@@ -31,7 +31,7 @@ Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('
 Route::get('/5S-Checklist', [UserController::class, 'show5SForm'])->name('5S-Checklist');
 
 Route::Get('/Test', function () {
-    return Inertia::render('Test');
+    return Inertia::render('AccountManager/Components/EditUserModal');
 });
 
 Route::middleware([

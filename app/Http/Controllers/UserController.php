@@ -55,7 +55,23 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // check if put or patch
+        if ($request->isMethod('put')) {
+            // update user
+            $user = User::find($id);
+            $user->employee_id = $request->input('employee_id');
+            $user->username = $request->input('username');
+            $user->save();
+            return response()->json(['message' => 'User Updated', 'status' => 'success']);
+        } else {
+            // update user
+            $user = User::find($id);
+            $user->employee_id = $request->input('employee_id');
+            $user->username = $request->input('username');
+            $user->save();
+            // return redirect('/accountmanager')->with('success', 'User Updated');
+            return response()->json(['message' => 'User Updated', 'status' => 'success']);
+        }
     }
 
     /**
@@ -85,5 +101,12 @@ class UserController extends Controller
     public function show5SForm()
     {
         return Inertia::render('5S-Checklist/index');
+    }
+    //get the user information
+    public function getUserInfo($id)
+    {
+        $user = User::find($id);
+        $user->load('employee.role');
+        return response()->json($user);
     }
 }

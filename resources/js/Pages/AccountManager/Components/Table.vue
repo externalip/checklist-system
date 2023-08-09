@@ -1,22 +1,25 @@
-<script>
+<script setup>
 import { defineProps, ref, onMounted } from 'vue';
-import editModal from './EditModal.vue';
 import { initFlowbite } from 'flowbite';
 import Pagination from './Pagination.vue';
-export default {
-    components: {
-        editModal,
-        Pagination,
-    },
-    props: {
-        users: Object,
-    },
-    setup() {
-        onMounted(() => {
-            initFlowbite();
-        });
-    },
+import EditUserModal from './EditUserModal.vue';
+
+const { users } = defineProps(['users']);
+const showEditModal = ref(false);
+const editedUserId = ref(null);
+
+const editUser = async (id) => {
+    editedUserId.value = id;
+    showEditModal.value = true;
 };
+
+const closeEditModal = () => {
+    showEditModal.value = false;
+};
+onMounted(() => {
+    initFlowbite();
+
+});
 </script>
 
 <template>
@@ -37,10 +40,7 @@ export default {
                     <td class="px-6 py-4">{{ user.employee?.role?.position }}</td>
 
                     <td class="px-6 py-4">
-                        <button class="mr-4">
-                            <img src="./Icons/view.svg" alt="View" class="w-5 h-5 cursor-pointer" />
-                        </button>
-                        <button class="mr-4" data-modal-toggle="defaultModal">
+                        <button class="mr-4" @click.prevent="editUser(user.id)" data-modal>
                             <img src="./Icons/edit.svg" alt="Edit" class="w-5 h-5 cursor-pointer" />
                         </button>
                         <button class="mr-4">
@@ -50,6 +50,9 @@ export default {
                 </tr>
             </tbody>
         </table>
+        <div v-if="showEditModal" class="fixed inset-0 bg-black bg-opacity-50 z-40">
+            <EditUserModal v-if="showEditModal" :id="editedUserId" :closeModalCallback="closeEditModal" />
+        </div>
         <Pagination :data="users" />
     </div>
 </template>

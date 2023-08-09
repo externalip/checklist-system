@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run()
+    public function run(): void
     {
         $employeeIds = DB::table('employees')->pluck('id')->toArray();
 
