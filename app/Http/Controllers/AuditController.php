@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use App\Models\Audit;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -13,7 +15,20 @@ class AuditController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Audit/Index');
+        // SELECT * FROM `audits`
+        $audits = Audit::all();
+
+        // SELECT DISTINCT `event` FROM `audits` ORDER BY `event`
+        $events = Audit::select('event')->distinct()->orderBy('event')->get();
+
+        // SELECT DISTINCT `user_type` FROM `audits` ORDER BY `user_type`
+        $users = Audit::select('user_type')->distinct()->orderBy('user_type')->get();
+
+        return Inertia::render('Audit/Index', [
+            'audits' => $audits,
+            'events' => $events,
+            'users' => $users,
+        ]);
     }
 
     /**
