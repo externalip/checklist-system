@@ -28,7 +28,7 @@ Route::get('/', function () {
 });
 Route::get('/accountmanager', [UserController::class, 'AccountManager']);
 Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
-
+Route::get('/5S-Checklist', [UserController::class, 'show5SForm'])->name('5S-Checklist');
 
 Route::Get('/Test', function () {
     return Inertia::render('Test');

@@ -79,4 +79,8 @@ class UserController extends Controller
             'roles' => $roles,
         ]);
     }
+    public function show5SForm()
+    {
+        return Inertia::render('5S-Checklist/index');
+    }
 }
