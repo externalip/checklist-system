@@ -8,6 +8,21 @@ import { ZiggyVue } from "../../vendor/tightenco/ziggy/dist/vue.m";
 import { plugin as FormKitPlugin, defaultConfig } from "@formkit/vue";
 import config from "../../formkit.config.js";
 
+// Date Range Picker
+import {registerLicense} from '@syncfusion/ej2-base';
+registerLicense("Ngo9BigBOggjHTQxAR8/V1NGaF1cWGhBYVJzWmFZfV1gfV9DYVZRTGY/P1ZhSXxQdk1jUX1fdXVVTmVaUkU=")
+
+$(function() {
+    $('input[name="daterange"]').daterangepicker({
+        timePicker: true,
+        startDate: moment().startOf('hour'),
+        endDate: moment().startOf('hour').add(32, 'hour'),
+        locale: {
+        format: 'M/DD hh:mm A'
+        }
+    });
+});
+
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
 createInertiaApp({
