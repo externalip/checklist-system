@@ -18,6 +18,8 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+    //guarded
+    protected $guarded = [];
     /**
      * The attributes that are mass assignable.
      *
@@ -43,6 +45,4 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Employee::class, 'employee_id');
     }
-
-
 }
