@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Models\Audit;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -15,19 +16,47 @@ class AuditController extends Controller
      */
     public function index()
     {
-        // SELECT * FROM `audits`
-        $audits = Audit::all();
+        /* 
+            SELECT DISTINCT `action_type` 
+            FROM `audits` 
+            ORDER BY `action_type`
+        */
+        $events = Audit::select('action_type')
+                ->distinct()
+                ->orderBy('action_type')
+                ->get();
 
-        // SELECT DISTINCT `event` FROM `audits` ORDER BY `event`
-        $events = Audit::select('action_type')->distinct()->orderBy('action_type')->get();
-
-        // SELECT DISTINCT `user_type` FROM `audits` ORDER BY `user_type`
-        $users = Audit::select('user_id')->distinct()->orderBy('user_id')->get();
+        /*
+            SELECT 
+                audits.user_id, 
+                employees.first_name,
+                employees.last_name,
+                audits.action_date,
+                audits.action_type,
+                audits.action_details,
+            FROM audits
+            JOIN users
+              ON audits.user_id = users.id
+            JOIN employees
+              ON users.employee_id = employees.id;
+        */ 
+        $audits = DB::table('audits')
+                ->join('users', 'audits.user_id', '=', 'users.id')
+                ->join('employees', 'users.employee_id', '=', 'employees.id')
+                ->select(
+                    'audits.user_id', 
+                    'employees.first_name', 
+                    'employees.last_name',
+                    'audits.action_date',
+                    'audits.action_type',
+                    'audits.action_details',
+                )
+                ->orderByDesc('audits.action_date')
+                ->get();
 
         return Inertia::render('Audit/Index', [
             'audits' => $audits,
-            'events' => $events,
-            'users' => $users,
+            'events' => $events
         ]);
     }
 

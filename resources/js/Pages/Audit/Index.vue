@@ -16,7 +16,8 @@
                 <label class="inline-block">User Name</label>
                 <div>
                     <select name="" id="" style="width: 220px;">
-                        <option v-for="user in users" value="{{ user.user_type }}">{{ user.user_type }}</option>
+                        <option value="" disabled selected hidden>Filter by user</option>
+                        <option v-for="audit in audits" value="{{ audit.user_id }}">{{ audit.first_name[0]+ '. ' + audit.last_name }}</option>
                     </select>
                 </div>
             </div>
@@ -26,7 +27,8 @@
                 <label class="inline-block">Action</label>
                 <div>
                     <select name="" id="" style="width: 220px;">
-                        <option v-for="event in events" value="{{ event.event }}">{{ event.event }}</option>
+                        <option value="" disabled selected hidden>Filter by action</option>
+                        <option v-for="event in events" value="{{ event.action_type }}">{{ event.action_type }}</option>
                     </select>
                 </div>
             </div>
@@ -92,16 +94,16 @@
                             {{ audit.user_id }}
                         </th>
                         <td class="px-6 py-4">
-                            {{ audit.user_type }}
+                            {{ audit.first_name[0]+ '. ' + audit.last_name }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ audit.created_at }}
+                            {{ audit.action_date }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ audit.event }}
+                            {{ audit.action_type }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ audit.auditable_type }}
+                            {{ audit.action_details }}
                         </td>
                     </tr>
                 </tbody>
@@ -117,7 +119,6 @@
         props:{
             audits: Array,
             events: Array,
-            users: Array,
         }, 
         components: {
             'ejs-daterangepicker' : DateRangePickerComponent
