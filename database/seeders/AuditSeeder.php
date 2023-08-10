@@ -19,15 +19,16 @@ class AuditSeeder extends Seeder
     {
         $numberOfRecords = 20;
 
-        $possibleActionTypes = ['create', 'update', 'delete', 'login'];
+        $possibleActionTypes = ['Create', 'Update', 'Delete', 'Login'];
 
         $userIds = User::pluck('id')->toArray();
 
         for ($i = 1; $i <= $numberOfRecords; $i++) {
+            $action = Arr::random($possibleActionTypes);
             DB::table('audits')->insert([
                 'user_id' => $userIds[array_rand($userIds)],
-                'action_type' => $possibleActionTypes[array_rand($possibleActionTypes)],
-                'action_details' => $this->generateActionDetails($possibleActionTypes),
+                'action_type' => $action,
+                'action_details' => $this->generateActionDetails($action),
                 'old_values' => json_encode(['field1' => 'old_value']),
                 'new_values' => json_encode(['field1' => 'new_value']),
                 'action_date' => Carbon::now()->subDays(rand(1, 30)),
@@ -35,18 +36,16 @@ class AuditSeeder extends Seeder
         }
     }
 
-    private function generateActionDetails($possibleActionTypes)
+    private function generateActionDetails($actionType)
     {
-        $actionType = $possibleActionTypes[array_rand($possibleActionTypes)];
-
         switch ($actionType) {
-            case 'create':
+            case 'Create':
                 return 'Created a new record';
-            case 'update':
+            case 'Update':
                 return 'Updated an existing record';
-            case 'delete':
+            case 'Delete':
                 return 'Deleted a record';
-            case 'login':
+            case 'Login':
                 return 'Logged in';
                 // Add more cases for other action types if needed
             default:
