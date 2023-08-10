@@ -10,7 +10,7 @@
                     <div>
                         <select v-model="selectedUser" style="width: 220px;">
                             <option value="">Filter by user</option>
-                            <option v-for="audit in audits" :value="audit.user_id" :key="audit.id">
+                            <option v-for="audit in audits.data" :value="audit.user_id" :key="audit.id">
                                 {{ audit.first_name[0] + '. ' + audit.last_name }}
                             </option>
                         </select>
@@ -106,6 +106,9 @@
                 </table>
             </div>
         </div>
+        <div class="mt-4">
+            <Pagination :data="audits" />
+        </div>
     </AppLayout>
 </template>
 
@@ -113,6 +116,7 @@
 import { ref, computed } from 'vue';
 import { DateRangePickerComponent } from '@syncfusion/ej2-vue-calendars';
 import AppLayout from '@/Layouts/AppLayout.vue';
+import Pagination from '@/Pages/AccountManager/Components/Pagination.vue';
 const props = defineProps({
     audits: Array,
     events: Array
@@ -129,7 +133,7 @@ const toggleDropdown = () => {
 };
 
 const filteredAudits = computed(() => {
-    return props.audits.filter(audit => {
+    return props.audits.data.filter(audit => {
         const userFilter = selectedUser.value === '' || audit.user_id === selectedUser.value;
         const actionFilter = selectedAction.value === '' || audit.action_type === selectedAction.value;
 
@@ -143,6 +147,16 @@ const filteredAudits = computed(() => {
         return userFilter && actionFilter && dateFilter;
     });
 });
+
+const currentPage = ref(1);
+
+const pagedAudits = computed(() => {
+    return props.audits.data.slice((currentPage.value - 1) * 10, currentPage.value * 10);
+});
+
+const loadData = (page) => {
+    currentPage.value = page;
+};
 
 </script>
 
