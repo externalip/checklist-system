@@ -122,12 +122,18 @@ const filteredAudits = computed(() => {
         let dateFilter = true;
         if (selectedDateRange.value) {
             const [startDate, endDate] = selectedDateRange.value;
-            dateFilter = audit.action_date >= startDate && audit.action_date <= endDate;
-        }
+            const auditDate = new Date(audit.action_date);
 
+            const formattedStartDate = startDate.toLocaleDateString('en-US');
+            const formattedEndDate = endDate.toLocaleDateString('en-US');
+            const formattedAuditDate = auditDate.toLocaleDateString('en-US');
+
+            dateFilter = formattedAuditDate >= formattedStartDate && formattedAuditDate <= formattedEndDate;
+        }
         return userFilter && actionFilter && dateFilter;
     });
 });
+
 </script>
 
 <style>
