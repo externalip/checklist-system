@@ -2,14 +2,8 @@
 
 namespace App\Listeners;
 
-use App\Models\Audit;
-use App\Models\User;
 use Illuminate\Auth\Events\Login;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 
 class LogSuccessfulLogin
