@@ -38,5 +38,4 @@ class Employee extends Authenticatable
         return $this->belongsTo(Role::class, 'role_id');
     }
 
-
 }
