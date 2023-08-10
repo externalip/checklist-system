@@ -29,25 +29,15 @@ class LogSuccessfulLogin
     {
         // Get User ID
         $userId = $event->user->id;
-        // Get Employee ID
-        $employeeId = $event->user->employee_id;
-        // Get Username
-        $username = $event->user->username;
         // Get Login Datetime
         $login_datetime = Carbon::now();
 
-        // Get Employee first & last name from account
-        $result = DB::table('users')
-                    ->join('employees', 'users.id', '=', 'employees.id')
-                    ->select('employees.first_name', 'employees.last_name')
-                    ->where('users.id', '=', $userId)
-                    ->get();
-
-        // [WIP] Insert log into `audits` table
+        // Insert log into `audits` table
         DB::table('audits')->insert([
             'user_id' => $userId,
             'action_type' => 'Login',
-            'action_date' => Carbon::now()
+            'action_details' => 'Logged in',
+            'action_date' => $login_datetime
         ]);
     }
 }
