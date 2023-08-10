@@ -19,10 +19,10 @@ class AuditController extends Controller
         $audits = Audit::all();
 
         // SELECT DISTINCT `event` FROM `audits` ORDER BY `event`
-        $events = Audit::select('event')->distinct()->orderBy('event')->get();
+        $events = Audit::select('action_type')->distinct()->orderBy('action_type')->get();
 
         // SELECT DISTINCT `user_type` FROM `audits` ORDER BY `user_type`
-        $users = Audit::select('user_type')->distinct()->orderBy('user_type')->get();
+        $users = Audit::select('user_id')->distinct()->orderBy('user_id')->get();
 
         return Inertia::render('Audit/Index', [
             'audits' => $audits,
