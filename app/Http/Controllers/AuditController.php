@@ -16,19 +16,19 @@ class AuditController extends Controller
      */
     public function index()
     {
-        /* 
-            SELECT DISTINCT `action_type` 
-            FROM `audits` 
+        /*
+            SELECT DISTINCT `action_type`
+            FROM `audits`
             ORDER BY `action_type`
         */
         $events = Audit::select('action_type')
-                ->distinct()
-                ->orderBy('action_type')
-                ->get();
+            ->distinct()
+            ->orderBy('action_type')
+            ->get();
 
         /*
-            SELECT 
-                audits.user_id, 
+            SELECT
+                audits.user_id,
                 employees.first_name,
                 employees.last_name,
                 audits.action_date,
@@ -40,20 +40,22 @@ class AuditController extends Controller
             JOIN employees
               ON users.employee_id = employees.id
             ORDER BY audits.action_date DESC;
-        */ 
+              ON users.employee_id = employees.id;
+        */
+
         $audits = DB::table('audits')
-                ->join('users', 'audits.user_id', '=', 'users.id')
-                ->join('employees', 'users.employee_id', '=', 'employees.id')
-                ->select(
-                    'audits.user_id', 
-                    'employees.first_name', 
-                    'employees.last_name',
-                    'audits.action_date',
-                    'audits.action_type',
-                    'audits.action_details',
-                )
-                ->orderByDesc('audits.action_date')
-                ->get();
+            ->join('users', 'audits.user_id', '=', 'users.id')
+            ->join('employees', 'users.employee_id', '=', 'employees.id')
+            ->select(
+                'audits.user_id',
+                'employees.first_name',
+                'employees.last_name',
+                'audits.action_date',
+                'audits.action_type',
+                'audits.action_details',
+            )
+            ->orderByDesc('audits.action_date')
+            ->paginate(10);
 
         return Inertia::render('Audit/Index', [
             'audits' => $audits,
