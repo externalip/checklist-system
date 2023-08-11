@@ -38,7 +38,8 @@ class AuditController extends Controller
             JOIN users
               ON audits.user_id = users.id
             JOIN employees
-              ON users.employee_id = employees.id;
+              ON users.employee_id = employees.id
+            ORDER BY audits.action_date DESC;
         */ 
         $audits = DB::table('audits')
                 ->join('users', 'audits.user_id', '=', 'users.id')
