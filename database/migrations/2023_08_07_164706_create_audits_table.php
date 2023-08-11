@@ -24,7 +24,7 @@ class CreateAuditsTable extends Migration
             $table->json('old_values')->nullable();
             $table->json('new_values')->nullable();
             $table->dateTime('action_date');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

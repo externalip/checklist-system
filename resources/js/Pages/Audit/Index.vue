@@ -116,7 +116,7 @@
 import { ref, computed } from 'vue';
 import { DateRangePickerComponent } from '@syncfusion/ej2-vue-calendars';
 import AppLayout from '@/Layouts/AppLayout.vue';
-import Pagination from '@/Pages/AccountManager/Components/Pagination.vue';
+import Pagination from '@/Shared/Pagination.vue';
 const props = defineProps({
     audits: Array,
     events: Array

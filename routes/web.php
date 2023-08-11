@@ -26,14 +26,33 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
-Route::get('/accountmanager', [UserController::class, 'AccountManager']);
+Route::get('/users', [UserController::class, 'AccountManager']);
 Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
 Route::get('/5S-Checklist', [UserController::class, 'show5SForm'])->name('5S-Checklist');
+
 
 Route::Get('/Test', function () {
     return Inertia::render('AccountManager/Components/EditUserModal');
 });
 
+Route::get('users', [UserController::class, 'index'])
+    ->name('users')
+    ->middleware('auth');
+Route::get('users/create', [UserController::class, 'create'])
+    ->name('users.create')
+    ->middleware('auth');
+Route::post('users', [UserController::class, 'store'])
+    ->name('users.store')
+    ->middleware('auth');
+Route::get('users/{id}/edit', [UserController::class, 'edit'])
+    ->name('users.edit', ['id' => 'id'])
+    ->middleware('auth');
+Route::put('users/{user}', [UserController::class, 'update'])
+    ->name('users.update')
+    ->middleware('auth');
+Route::delete('users/{user}', [UserController::class, 'destroy'])
+    ->name('users.destroy', ['user' => 'user'])
+    ->middleware('auth');
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
