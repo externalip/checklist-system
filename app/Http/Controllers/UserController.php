@@ -7,6 +7,7 @@ use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -100,7 +101,15 @@ class UserController extends Controller
     }
     public function show5SForm()
     {
-        return Inertia::render('5S-Checklist/index');
+        // Get all models
+        $models = DB::table('models')
+                    ->select('model_name')
+                    ->get();
+
+        // Send list of models to url
+        return Inertia::render('5S-Checklist/index', [
+            'models' => $models
+        ]);
     }
     //get the user information
     public function getUserInfo($id)

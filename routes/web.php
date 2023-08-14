@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ResponseController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -29,6 +30,7 @@ Route::get('/', function () {
 Route::get('/accountmanager', [UserController::class, 'AccountManager']);
 Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
 Route::get('/5S-Checklist', [UserController::class, 'show5SForm'])->name('5S-Checklist');
+Route::post('/submit-response', [ResponseController::class, 'store']);
 
 Route::Get('/Test', function () {
     return Inertia::render('AccountManager/Components/EditUserModal');
