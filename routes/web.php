@@ -26,44 +26,27 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
-Route::get('/users', [UserController::class, 'AccountManager']);
 Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
-Route::get('/5S-Checklist', [UserController::class, 'show5SForm'])->name('5S-Checklist');
-
-
-Route::Get('/Test', function () {
-    return Inertia::render('AccountManager/Components/EditUserModal');
-});
-
-Route::get('users', [UserController::class, 'index'])
-    ->name('users')
-    ->middleware('auth');
-Route::get('users/create', [UserController::class, 'create'])
-    ->name('users.create')
-    ->middleware('auth');
-Route::post('users', [UserController::class, 'store'])
-    ->name('users.store')
-    ->middleware('auth');
-Route::get('users/{id}/edit', [UserController::class, 'edit'])
-    ->name('users.edit', ['id' => 'id'])
-    ->middleware('auth');
-Route::put('users/{user}', [UserController::class, 'update'])
-    ->name('users.update')
-    ->middleware('auth');
-Route::delete('users/{user}', [UserController::class, 'destroy'])
-    ->name('users.destroy', ['user' => 'user'])
-    ->middleware('auth');
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+    Route::prefix('users')->group(function () {
+        Route::get('/', [UserController::class, 'index'])->name('users');
+        Route::get('/create', [UserController::class, 'create'])->name('users.create');
+        Route::post('/', [UserController::class, 'store'])->name('users.store');
+        Route::get('/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+        Route::put('/{user}', [UserController::class, 'update'])->name('users.update');
+        Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    });
+
+    Route::get('/5S-Checklist', [UserController::class, 'show5SForm'])->name('5S-Checklist');
+    Route::get('/audit', [\App\Http\Controllers\AuditController::class, 'index'])->name('audit');
+    Route::get('/Pending-Reports', function () {
+        return Inertia::render('Pending-Reports/Index');
+    })->name('Pending-Reports');
+    Route::get('ModelManager', function () {
+        return Inertia::render('ModelManager/Index');
+    })->name('ModelManager');
 });
-
-// Audit Trail
-
-Route::get('/audit', [\App\Http\Controllers\AuditController::class, 'index'])
-    ->name('audit');

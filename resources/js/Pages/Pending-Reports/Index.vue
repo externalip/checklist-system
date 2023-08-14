@@ -5,9 +5,6 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 <template>
     <AppLayout title="Pending Reports">
         <div id="pending-reports">
-            <div id="header" class="lg:mx-20">
-                <h1 class="">Pending Reports</h1>
-            </div>
 
             <h4 class="lg:mx-20">Filter by:</h4>
             <section id="pending-filters" class="lg:mx-20 lg:flex lg:space-x-2 py-3">
