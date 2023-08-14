@@ -14,7 +14,18 @@
                                         class="w-full rounded-lg p-2" />
                                     <InputError class="mt-2" :message="form.errors.username" />
                                 </div>
-                                <!-- Add other account details fields here -->
+                                <div>
+                                    <label for="password" class="block mb-1">Password</label>
+                                    <input v-model="form.password" type="password" id="password"
+                                        class="w-full rounded-lg p-2" />
+                                    <InputError class="mt-2" :message="form.errors.password" />
+                                </div>
+                                <div>
+                                    <label for="password_confirmation" class="block mb-1">Confirm Password</label>
+                                    <input v-model="form.password_confirmation" type="password" id="password_confirmation"
+                                        class="w-full rounded-lg p-2" />
+                                    <InputError class="mt-2" :message="form.errors.password_confirmation" />
+                                </div>
                             </div>
                         </div>
 
@@ -51,8 +62,8 @@
                                 </div>
                                 <div>
                                     <label for="contact" class="block mb-1">Contact</label>
-                                    <input v-model="form.contact" type="number" id="contact"
-                                        class="w-full rounded-lg p-2" />
+                                    <input v-model="form.contact" type="text" id="contact" class="w-full rounded-lg p-2"
+                                        @keypress="onlyNumbers($event)" />
                                     <InputError class="mt-2" :message="form.errors.contact" />
                                 </div>
                                 <div>
@@ -63,7 +74,8 @@
                                 <div>
                                     <label for="role_id" class="block mb-1">Role</label>
                                     <select v-model="form.role_id" type="text" id="role_id" class="w-full rounded-lg p-2">
-                                        <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.position }}
+                                        <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.position
+                                        }}
                                         </option>
                                         <InputError class="mt-2" :message="form.errors.role_id" />
                                     </select>
@@ -98,13 +110,21 @@ const form = useForm({
     shift: user.employee.shift,
     role_id: user.employee.role_id,
     employee_id: user.employee.id,
+    password: '',
+    password_confirmation: '',
 });
-
+const onlyNumbers = (event) => {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        event.preventDefault();
+    }
+};
 
 const updateAccount = () => {
     form.put(route("users.update", user.id), {
+        preserveScroll: true,
+
         onFinish: () => {
-            // Do something after the form has been submitted successfully
 
         },
     });

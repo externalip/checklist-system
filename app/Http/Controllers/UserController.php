@@ -56,7 +56,7 @@ class UserController extends Controller
             'last_name' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'string', 'max:255'],
             'date_of_birth' => ['required', 'date'],
-            'contact' => ['required', 'integer', 'digits:10'],
+            'contact' => ['required', 'regex:/^(09|\+639)\d{9}$/'],
             'shift' => ['required', 'string', 'max:255'],
         ]);
 
@@ -113,13 +113,17 @@ class UserController extends Controller
         $input = $request->all();
         $validator = Validator::make($input, [
             'username' => ['required', 'string', 'max:255'],
+            'password' => ['nullable', 'confirmed', Password::min(8)],
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'string', 'max:255'],
             'date_of_birth' => ['required', 'date'],
-            'contact' => ['required', 'integer', 'digits:10'],
+            'contact' => ['required', 'regex:/^(09|\+639)\d{9}$/', 'size:11'],
             'shift' => ['required', 'string', 'max:255'],
             'role_id' => ['required', 'integer'],
+        ], [
+            'contact.regex' => 'The phone number format is incorrect. Please use a valid Philippine phone number format.',
+            'contact.size' => 'The phone number must be exactly 11 digits long.'
         ]);
 
         if ($validator->fails()) {
@@ -138,6 +142,7 @@ class UserController extends Controller
 
         $user->update([
             'username' => $input['username'],
+            'password' => Hash::make($input['password']),
         ]);
 
         return redirect()->route('users', ['id' => $user->id])->with('success', 'User updated successfully');
@@ -164,8 +169,8 @@ class UserController extends Controller
     {
         // Get all models
         $models = DB::table('models')
-                    ->select('model_name')
-                    ->get();
+            ->select('model_name')
+            ->get();
 
         // Send list of models to url
         return Inertia::render('5S-Checklist/index', [
