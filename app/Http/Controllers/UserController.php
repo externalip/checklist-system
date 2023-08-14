@@ -9,11 +9,11 @@ use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
-
 
 class UserController extends Controller
 {
@@ -162,6 +162,14 @@ class UserController extends Controller
     }
     public function show5SForm()
     {
-        return Inertia::render('5S-Checklist/index');
+        // Get all models
+        $models = DB::table('models')
+                    ->select('model_name')
+                    ->get();
+
+        // Send list of models to url
+        return Inertia::render('5S-Checklist/index', [
+            'models' => $models
+        ]);
     }
 }

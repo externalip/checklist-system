@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('response_fields', function (Blueprint $table) {
             $table->id();
+            $table->string('response_no');
             $table->bigInteger('form_id')->unsigned();
             $table->foreign('form_id')->references('id')->on('forms');
             $table->bigInteger('submitted_by')->unsigned();
             $table->foreign('submitted_by')->references('id')->on('employees');
             $table->text('field_name');
             $table->text('field_value');
-            $table->dateTime('submission_date');
             $table->timestamps();
         });
     }
