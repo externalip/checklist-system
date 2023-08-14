@@ -1,5 +1,11 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
+
+const props = defineProps({
+    forms: Array,
+    data: Array,
+    counts: Array
+});
 </script>
 
 <template>
@@ -17,11 +23,10 @@ import AppLayout from '@/Layouts/AppLayout.vue';
                         checklist</label>
                     <select id="pending-checklists"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option selected>None</option>
-                        <option value="US">5S Checklist</option>
-                        <option value="CA">Checklist#2</option>
-                        <option value="FR">Checklist#3</option>
-                        <option value="DE">Checklist#4</option>
+                        <option 
+                            v-for="form in forms" 
+                            :key="form.id" 
+                            :value="form.form_name">{{ form.form_name }}</option>
                     </select>
 
                 </section>
@@ -94,22 +99,22 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 
             <section id="pending-accordions" class="lg:mx-20">
                 <!-- {{ Number of Pending Reports }} Pending Reports on {{ Checksheet Selected }}-->
-                <h4>{{ }} Pending Reports on {{ }}</h4>
+                <h4>{{ counts }} Pending Reports on {{  }}</h4>
 
 
                 <div class="accordions">
                     <!-- First Accordion -->
-                    <div id="accordion-flush" data-accordion="collapse"
+                    <div v-if="counts > 0" v-for="(row, index) in data" id="accordion-flush" data-accordion="collapse"
                         data-active-classes="bg-white dark:bg-gray-900 text-blue-500 dark:text-white"
                         data-inactive-classes="text-gray-500 dark:text-gray-400" class="border-lg">
-                        <h2 id="accordion-flush-heading-1">
+                        <h2 :id="'accordion-flush-heading-' + index.toString()">
                             <button type="button"
                                 class="flex items-center justify-between w-full py-5 text-2xl text-lg font-regular antialiased text-left border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
-                                data-accordion-target="#accordion-flush-body-1" aria-expanded="false"
-                                aria-controls="accordion-flush-body-1">
+                                :data-accordion-target="'#accordion-flush-body-' + index.toString()" aria-expanded="false"
+                                :aria-controls="'accordion-flush-body-' + index.toString()">
 
                                 <!-- {{ Name of the Submitted Model by the Operator }} -->
-                                <span>M001DASAAFTRY
+                                <span>{{ JSON.parse(row.response).fieldAnswers['Model Name'] }}
                                     <span
                                         class="bg-orange-100 text-orange-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-2">to
                                         be signed
@@ -124,24 +129,24 @@ import AppLayout from '@/Layouts/AppLayout.vue';
                             </button>
                         </h2>
 
-                        <div id="accordion-flush-body-1" class="hidden border-2 border-gray-100"
-                            aria-labelledby="accordion-flush-heading-1">
+                        <div :id="'accordion-flush-body-' + index.toString()" class="hidden border-2 border-gray-100"
+                            :aria-labelledby="'accordion-flush-heading-' + index.toString()">
                             <!-- Record Details Lot Number ||  Operator || Type of Checking || Shift -->
                             <div id="pending-record-details"
                                 class="bg-gray-100 p-3 px-12 lg:flex lg:items-center text-center lg:justify-between">
                                 <div id="lot-number" class="">
                                     <label for="" class="text-sm">Lot Number</label>
-                                    <h5 class="font-bold">{{ }}LT5293952E42424242424</h5>
+                                    <h5 class="font-bold">{{ JSON.parse(row.response).fieldAnswers['Lot Number'] }}</h5>
                                 </div>
 
                                 <div id="check-type" class="">
                                     <label for="" class="text-sm">Type of Checking</label>
-                                    <h5 class="font-bold">{{ }}Startup</h5>
+                                    <h5 class="font-bold">{{ JSON.parse(row.response).fieldAnswers['Type of Checking'] }}</h5>
                                 </div>
 
                                 <div id="performed-by" class="">
                                     <label for="" class="text-sm">Performed by</label>
-                                    <h5 class="font-bold">{{ }}Operator Name</h5>
+                                    <h5 class="font-bold">{{ row.submitted_by }}</h5>
                                 </div>
 
                                 <div id="shift" class="">
@@ -176,51 +181,66 @@ import AppLayout from '@/Layouts/AppLayout.vue';
                                         <tbody>
                                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    Production Checksheet
+                                                    class="w-full px-6 py-4 font-medium whitespace-wrap text-gray-900 dark:text-white">
+                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[3] }}
                                                 </th>
-                                                <td class="px-6 py-4 bg-red-200 text-center">
-                                                    NG
+                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Production Checksheet'] === 'OK') ? 
+                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : 
+                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'" 
+                                                >
+                                                    {{JSON.parse(row.response).fieldAnswers['Production Checksheet']}}
                                                 </td>
                                             </tr>
 
                                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th scope="row"
                                                     class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    Procedures/OPL/Work Instruction
+                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[4] }}
                                                 </th>
-                                                <td class="px-6 py-4 bg-green-200 text-center">
-                                                    OK
+                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Procedures/OPL/Work Instructions'] === 'OK') ? 
+                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : 
+                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'" 
+                                                >
+                                                    {{JSON.parse(row.response).fieldAnswers['Procedures/OPL/Work Instructions']}}
                                                 </td>
                                             </tr>
 
                                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th scope="row"
                                                     class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    Working Area
+                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[5] }}
                                                 </th>
-                                                <td class="px-6 py-4 bg-green-200 text-center">
-                                                    OK
+                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Working Area'] === 'OK') ? 
+                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : 
+                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'" 
+                                                >
+                                                    {{JSON.parse(row.response).fieldAnswers['Working Area']}}
                                                 </td>
                                             </tr>
 
                                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th scope="row"
                                                     class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    Materials
+                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[6] }}
                                                 </th>
-                                                <td class="px-6 py-4 bg-green-200 text-center">
-                                                    OK
+                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Materials'] === 'OK') ? 
+                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : 
+                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'" 
+                                                >
+                                                    {{JSON.parse(row.response).fieldAnswers['Materials']}}
                                                 </td>
                                             </tr>
 
                                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th scope="row"
                                                     class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    Tools/Jig Instrument
+                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[7] }}
                                                 </th>
-                                                <td class="px-6 py-4 bg-green-200 text-center">
-                                                    OK
+                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Tools/Jigs Instrument'] === 'OK') ? 
+                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : 
+                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'" 
+                                                >
+                                                    {{JSON.parse(row.response).fieldAnswers['Tools/Jigs Instrument']}}
                                                 </td>
                                             </tr>
 
@@ -260,7 +280,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
                                                     class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                     Line Leader
                                                 </th>
-                                                <td class="px-6 py-4 bg-green-200 text-center">
+                                                <td class="px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]">
                                                     OK
                                                 </td>
                                             </tr>
@@ -271,7 +291,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
                                                     class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                     QC Confirmation
                                                 </th>
-                                                <td class="px-6 py-4 bg-green-200 text-center">
+                                                <td class="px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]">
                                                     OK
                                                 </td>
                                             </tr>
@@ -283,7 +303,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
                             <div id="pending-record-remarks" class="p-3 lg:flex lg:flex-col">
                                 <!-- Header -->
                                 <div class="pending-section-header px-5">
-                                    <h3 class="font-bold text-2xl">Remarks</h3>
+                                    <h3 class="font-bold text-2xl">{{ Object.keys(JSON.parse(row.response).fieldAnswers)[8] }}</h3>
                                 </div>
 
                                 <!-- Disabled TextArea -->
@@ -305,227 +325,9 @@ import AppLayout from '@/Layouts/AppLayout.vue';
                                     class="focus:outline-none text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Reject</button>
                                 <button type="button"
                                     class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Approve</button>
-
                             </div>
-
                         </div>
                     </div>
-
-                    <!-- Second Accordion -->
-                    <div id="accordion-flush" data-accordion="collapse"
-                        data-active-classes="bg-white dark:bg-gray-900 text-blue-500 dark:text-white"
-                        data-inactive-classes="text-gray-500 dark:text-gray-400" class="border-lg">
-                        <h2 id="accordion-flush-heading-2">
-                            <button type="button"
-                                class="flex items-center justify-between w-full py-5 text-2xl text-lg font-regular antialiased text-left border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
-                                data-accordion-target="#accordion-flush-body-2" aria-expanded="false"
-                                aria-controls="accordion-flush-body-2">
-
-                                <!-- {{ Name of the Submitted Model by the Operator }} -->
-                                <span>M001DASAAFTRY
-                                    <span
-                                        class="bg-orange-100 text-orange-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-2">to
-                                        be signed
-                                    </span>
-                                </span>
-
-                                <svg data-accordion-icon class="w-3 h-3 transition-transform shrink-0" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="M9 5 5 1 1 5" />
-                                </svg>
-                            </button>
-                        </h2>
-
-                        <div id="accordion-flush-body-2" class="hidden border-2 border-gray-100"
-                            aria-labelledby="accordion-flush-heading-2">
-                            <!-- Record Details Lot Number ||  Operator || Type of Checking || Shift -->
-                            <div id="pending-record-details"
-                                class="bg-gray-100 p-3 px-12 lg:flex lg:items-center text-center lg:justify-between">
-                                <div id="lot-number" class="">
-                                    <label for="" class="text-sm">Lot Number</label>
-                                    <h5 class="font-bold">{{ }}LT5293952E42424242424</h5>
-                                </div>
-
-                                <div id="check-type" class="">
-                                    <label for="" class="text-sm">Type of Checking</label>
-                                    <h5 class="font-bold">{{ }}Startup</h5>
-                                </div>
-
-                                <div id="performed-by" class="">
-                                    <label for="" class="text-sm">Performed by</label>
-                                    <h5 class="font-bold">{{ }}Operator Name</h5>
-                                </div>
-
-                                <div id="shift" class="">
-                                    <label for="" class="text-sm">Shift</label>
-                                    <h5 class="font-bold">{{ }}1</h5>
-                                </div>
-                            </div>
-
-                            <!-- Record Section Checksheet -->
-                            <div id="pending-record-section" class="p-3 lg:flex lg:flex-col">
-                                <!-- Header -->
-                                <div class="pending-section-header px-5">
-                                    <h3 class="font-bold text-2xl">Checking Items</h3>
-                                </div>
-
-                                <!-- Table -->
-                                <div class="relative overflow-x-auto p-5">
-                                    <table class="rounded-full w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                        <thead
-                                            class="text-s text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                            <tr>
-                                                <!-- Description coming from the Checklist -->
-                                                <th scope="col" class="px-6 py-3">
-                                                    Description
-                                                </th>
-                                                <!-- Status OK | NG | NA Depends on the RadioButton of the Checklist -->
-                                                <th scope="col" class="px-6 py-3">
-                                                    Status
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    Production Checksheet
-                                                </th>
-                                                <td class="px-6 py-4 bg-red-200 text-center">
-                                                    NG
-                                                </td>
-                                            </tr>
-
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    Procedures/OPL/Work Instruction
-                                                </th>
-                                                <td class="px-6 py-4 bg-green-200 text-center">
-                                                    OK
-                                                </td>
-                                            </tr>
-
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    Working Area
-                                                </th>
-                                                <td class="px-6 py-4 bg-green-200 text-center">
-                                                    OK
-                                                </td>
-                                            </tr>
-
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    Materials
-                                                </th>
-                                                <td class="px-6 py-4 bg-green-200 text-center">
-                                                    OK
-                                                </td>
-                                            </tr>
-
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    Tools/Jig Instrument
-                                                </th>
-                                                <td class="px-6 py-4 bg-green-200 text-center">
-                                                    OK
-                                                </td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-
-                            <!-- Record Section Signatures -->
-                            <div id="pending-record-signature" class="p-3 lg:flex lg:flex-col">
-                                <!-- Header -->
-                                <div class="pending-section-header px-5">
-                                    <h3 class="font-bold text-2xl">Signatures</h3>
-                                </div>
-
-                                <!-- Table -->
-                                <div class="relative overflow-x-auto p-5">
-                                    <table class="rounded-full w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                        <thead
-                                            class="text-s text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                            <tr>
-                                                <!-- Description coming from the Checklist -->
-                                                <th scope="col" class="px-6 py-3">
-                                                    Person to sign
-                                                </th>
-                                                <!-- Status OK | NG | NA Depends on the RadioButton of the Checklist -->
-                                                <th scope="col" class="px-6 py-3">
-                                                    Status
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- Line Leader Signature -->
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    Line Leader
-                                                </th>
-                                                <td class="px-6 py-4 bg-green-200 text-center">
-                                                    OK
-                                                </td>
-                                            </tr>
-
-                                            <!-- QC Confirmation Signature-->
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    QC Confirmation
-                                                </th>
-                                                <td class="px-6 py-4 bg-green-200 text-center">
-                                                    OK
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <!-- Operators Remark -->
-                            <div id="pending-record-remarks" class="p-3 lg:flex lg:flex-col">
-                                <!-- Header -->
-                                <div class="pending-section-header px-5">
-                                    <h3 class="font-bold text-2xl">Remarks</h3>
-                                </div>
-
-                                <!-- Disabled TextArea -->
-                                <div class="pending-record-remark px-5">
-
-                                    <label for="message"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Operator's
-                                        Remark on the Model</label>
-                                    <textarea id="message" rows="4"
-                                        class="resize-none disabled:opacity-90 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="{{operator remarks goes here}}" disabled></textarea>
-
-                                </div>
-                            </div>
-
-                            <!-- Button -->
-                            <div id="pending-sign-btn" class="px-5 p-2 w-full flex justify-end">
-                                <button type="button"
-                                    class="focus:outline-none text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Reject</button>
-                                <button type="button"
-                                    class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Approve</button>
-
-                            </div>
-
-
-                        </div>
-                    </div>
-
                 </div>
 
                 <!-- Pagination -->
