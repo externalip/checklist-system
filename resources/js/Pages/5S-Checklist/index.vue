@@ -11,10 +11,6 @@
     let form = reactive({
         // Form identifier
         form_id : 1,
-        // Questions storage
-        fieldNames: {
-
-        },
         // Answers storage
         fieldAnswers: {
             ans1: null,
@@ -36,11 +32,12 @@
 
         // Get question text
         for (let i = 1; i <= questionCount; i++) {
-            let key = "field".concat(i);
-            let value = document.getElementById('question' + i).textContent;
+            let ansKey = "ans".concat(i);
+            let questionLabel = document.getElementById('question' + i).textContent;
             
             // Store question into object
-            form.fieldNames[key] = value;
+            form.fieldAnswers[questionLabel] = form.fieldAnswers[ansKey];
+            delete form.fieldAnswers[ansKey];
         }
 
         // Send user input to ResponseController
