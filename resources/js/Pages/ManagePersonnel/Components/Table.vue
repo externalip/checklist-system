@@ -1,25 +1,15 @@
 <script setup>
-import { defineProps, ref, onMounted } from 'vue';
+import { defineProps, ref, onMounted, computed } from 'vue';
+import { Head, Link, useForm } from '@inertiajs/vue3';
 import { initFlowbite } from 'flowbite';
-import Pagination from './Pagination.vue';
-import EditUserModal from './EditUserModal.vue';
+import Pagination from '@/Shared/Pagination.vue';
 
 const { users } = defineProps(['users']);
-const showEditModal = ref(false);
-const editedUserId = ref(null);
-
-const editUser = async (id) => {
-    editedUserId.value = id;
-    showEditModal.value = true;
-};
-
-const closeEditModal = () => {
-    showEditModal.value = false;
-};
 onMounted(() => {
     initFlowbite();
 
 });
+// const editRoute
 </script>
 
 <template>
@@ -34,26 +24,26 @@ onMounted(() => {
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="user in users.data" :key="user.id">
+                <tr v-for="user in  users.data " :key="user.id">
                     <td class="px-6 py-4">{{ user.id }}</td>
                     <td class="px-6 py-4">{{ user.username }}</td>
                     <td class="px-6 py-4">{{ user.employee?.role?.position }}</td>
 
                     <td class="px-6 py-4">
-                        <button class="mr-4" @click.prevent="editUser(user.id)" data-modal>
-                            <img src="./Icons/edit.svg" alt="Edit" class="w-5 h-5 cursor-pointer" />
-                        </button>
-                        <button class="mr-4">
-                            <img src="./Icons/delete.svg" alt="Delete" class="w-5 h-5 cursor-pointer" />
-                        </button>
+                        <Link :href="route('users.edit', user.id)" as="button" class="w-5 ">
+                        <img src="@/Shared/Icons/edit.svg" alt="Edit" class="w-5 h-5 cursor-pointer" />
+                        </Link>
+                        <Link :href="route('users.destroy', user.id)" as="button" method="delete" class="w-5">
+                        <img src="@/Shared/Icons/delete.svg" alt="Delete" class="w-5 h-5 cursor-pointer" />
+                        </Link>
+                        <!-- <button @click="deleteUser" class="bg-red-500 text-white px-4 py-2 rounded-lg">
+                            <img src="@/Shared/Icons/delete.svg" alt="Delete" class="w-5 h-5 cursor-pointer" />
+                        </button> -->
+
                     </td>
                 </tr>
             </tbody>
         </table>
-        <div v-if="showEditModal" class="fixed inset-0 bg-black bg-opacity-50 z-40">
-            <EditUserModal v-if="showEditModal" :id="editedUserId" :closeModalCallback="closeEditModal" />
-        </div>
         <Pagination :data="users" />
     </div>
 </template>
-

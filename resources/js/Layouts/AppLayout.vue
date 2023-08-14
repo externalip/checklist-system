@@ -2,28 +2,24 @@
     <div id="mySidebar" class="sidebar" style="z-index: 3;" @click.stop="toggleUserDropdown">
         <div id="e2" class="text-center" style="padding:10px;">
             <p class="text-3xl font-semibold">Hello,</p>
-            <p class="text-xl">Employee ID#{{
-                `${$page.props.auth
-                    .employee
-                    ?.id
-                    }`
-            }}</p>
+            <p class="text-xl">Employee ID#{{ `${$page.props.auth.employee?.id}` }}
+            </p>
             <p class="self-center text-sm" style="padding-top:20px;">Production Checklist</p>
         </div>
         <button class="closebtn x" onclick="closeNav()" @click.stop="closeNav">×</button>
 
         <ul class="space-y-2 font-medium">
             <li class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <a href="/test2" class="inline-flex items-center p-2 text-gray-900 rounded-lg group">
-                    <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
-                        <path
-                            d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
-                        <path
-                            d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
-                    </svg>
-                    <span class="ml-3">Dashboard</span>
-                </a>
+                <Link :href="route('dashboard')" class="inline-flex items-center p-2 text-gray-900 rounded-lg group">
+                <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
+                    <path
+                        d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
+                    <path
+                        d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
+                </svg>
+                <span class="ml-3">Dashboard</span>
+                </Link>
             </li>
             <li class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                 <a href="#" class="inline-flex items-center p-2 text-gray-900 rounded-lg group">
@@ -36,14 +32,14 @@
                 </a>
             </li>
             <li class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <a href="#" class="inline-flex items-center p-2 text-gray-900 rounded-lg group">
-                    <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                        <path
-                            d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z" />
-                    </svg>
-                    <span class="flex-1 ml-3 whitespace-nowrap">Pending Reports</span>
-                </a>
+                <Link :href="route('Pending-Reports')" class="inline-flex items-center p-2 text-gray-900 rounded-lg group">
+                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                    <path
+                        d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z" />
+                </svg>
+                <span class="flex-1 ml-3 whitespace-nowrap">Pending Reports</span>
+                </Link>
             </li>
             <li class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                 <a href="#" class="items-center p-2 text-gray-900 rounded-lg group">
@@ -65,7 +61,7 @@
                 </a>
                 <ul id="dropdown-example" class="hidden py-2 space-y-2">
                     <li>
-                        <a href="#"
+                        <a href="/5S-Checklist"
                             class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">5s
                             Checklist</a>
                     </li>
@@ -93,7 +89,7 @@
                 </a>
             </li>
             <li class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <a href="#" class="inline-flex items-center p-2 text-gray-900 rounded-lg group">
+                <a href="/audit" class="inline-flex items-center p-2 text-gray-900 rounded-lg group">
                     <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z" />
@@ -106,31 +102,31 @@
                 </a>
             </li>
             <li class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <a href="#" class="inline-flex items-center p-2 text-gray-900 rounded-lg group">
-                    <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z" />
-                        <path
-                            d="M6.737 11.061a2.961 2.961 0 0 1 .81-1.515l6.117-6.116A4.839 4.839 0 0 1 16 2.141V2a1.97 1.97 0 0 0-1.933-2H7v5a2 2 0 0 1-2 2H0v11a1.969 1.969 0 0 0 1.933 2h12.134A1.97 1.97 0 0 0 16 18v-3.093l-1.546 1.546c-.413.413-.94.695-1.513.81l-3.4.679a2.947 2.947 0 0 1-1.85-.227 2.96 2.96 0 0 1-1.635-3.257l.681-3.397Z" />
-                        <path
-                            d="M8.961 16a.93.93 0 0 0 .189-.019l3.4-.679a.961.961 0 0 0 .49-.263l6.118-6.117a2.884 2.884 0 0 0-4.079-4.078l-6.117 6.117a.96.96 0 0 0-.263.491l-.679 3.4A.961.961 0 0 0 8.961 16Zm7.477-9.8a.958.958 0 0 1 .68-.281.961.961 0 0 1 .682 1.644l-.315.315-1.36-1.36.313-.318Zm-5.911 5.911 4.236-4.236 1.359 1.359-4.236 4.237-1.7.339.341-1.699Z" />
-                    </svg>
-                    <span class="flex-1 ml-3 whitespace-nowrap">Manage Models</span>
-                </a>
+                <Link :href="route('ModelManager')" class="inline-flex items-center p-2 text-gray-900 rounded-lg group">
+                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z" />
+                    <path
+                        d="M6.737 11.061a2.961 2.961 0 0 1 .81-1.515l6.117-6.116A4.839 4.839 0 0 1 16 2.141V2a1.97 1.97 0 0 0-1.933-2H7v5a2 2 0 0 1-2 2H0v11a1.969 1.969 0 0 0 1.933 2h12.134A1.97 1.97 0 0 0 16 18v-3.093l-1.546 1.546c-.413.413-.94.695-1.513.81l-3.4.679a2.947 2.947 0 0 1-1.85-.227 2.96 2.96 0 0 1-1.635-3.257l.681-3.397Z" />
+                    <path
+                        d="M8.961 16a.93.93 0 0 0 .189-.019l3.4-.679a.961.961 0 0 0 .49-.263l6.118-6.117a2.884 2.884 0 0 0-4.079-4.078l-6.117 6.117a.96.96 0 0 0-.263.491l-.679 3.4A.961.961 0 0 0 8.961 16Zm7.477-9.8a.958.958 0 0 1 .68-.281.961.961 0 0 1 .682 1.644l-.315.315-1.36-1.36.313-.318Zm-5.911 5.911 4.236-4.236 1.359 1.359-4.236 4.237-1.7.339.341-1.699Z" />
+                </svg>
+                <span class="flex-1 ml-3 whitespace-nowrap">Manage Models</span>
+                </Link>
             </li>
             <p class="text-center text-sm" style="padding-top:20px;">User Configuration</p>
             <li class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <a href="#" class="inline-flex items-center p-2 text-gray-900 rounded-lg group">
-                    <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z" />
-                        <path
-                            d="M6.737 11.061a2.961 2.961 0 0 1 .81-1.515l6.117-6.116A4.839 4.839 0 0 1 16 2.141V2a1.97 1.97 0 0 0-1.933-2H7v5a2 2 0 0 1-2 2H0v11a1.969 1.969 0 0 0 1.933 2h12.134A1.97 1.97 0 0 0 16 18v-3.093l-1.546 1.546c-.413.413-.94.695-1.513.81l-3.4.679a2.947 2.947 0 0 1-1.85-.227 2.96 2.96 0 0 1-1.635-3.257l.681-3.397Z" />
-                        <path
-                            d="M8.961 16a.93.93 0 0 0 .189-.019l3.4-.679a.961.961 0 0 0 .49-.263l6.118-6.117a2.884 2.884 0 0 0-4.079-4.078l-6.117 6.117a.96.96 0 0 0-.263.491l-.679 3.4A.961.961 0 0 0 8.961 16Zm7.477-9.8a.958.958 0 0 1 .68-.281.961.961 0 0 1 .682 1.644l-.315.315-1.36-1.36.313-.318Zm-5.911 5.911 4.236-4.236 1.359 1.359-4.236 4.237-1.7.339.341-1.699Z" />
-                    </svg>
-                    <span class="flex-1 ml-3 whitespace-nowrap">Manage Personnel</span>
-                </a>
+                <Link :href="route('users')" class="inline-flex items-center p-2 text-gray-900 rounded-lg group">
+                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z" />
+                    <path
+                        d="M6.737 11.061a2.961 2.961 0 0 1 .81-1.515l6.117-6.116A4.839 4.839 0 0 1 16 2.141V2a1.97 1.97 0 0 0-1.933-2H7v5a2 2 0 0 1-2 2H0v11a1.969 1.969 0 0 0 1.933 2h12.134A1.97 1.97 0 0 0 16 18v-3.093l-1.546 1.546c-.413.413-.94.695-1.513.81l-3.4.679a2.947 2.947 0 0 1-1.85-.227 2.96 2.96 0 0 1-1.635-3.257l.681-3.397Z" />
+                    <path
+                        d="M8.961 16a.93.93 0 0 0 .189-.019l3.4-.679a.961.961 0 0 0 .49-.263l6.118-6.117a2.884 2.884 0 0 0-4.079-4.078l-6.117 6.117a.96.96 0 0 0-.263.491l-.679 3.4A.961.961 0 0 0 8.961 16Zm7.477-9.8a.958.958 0 0 1 .68-.281.961.961 0 0 1 .682 1.644l-.315.315-1.36-1.36.313-.318Zm-5.911 5.911 4.236-4.236 1.359 1.359-4.236 4.237-1.7.339.341-1.699Z" />
+                </svg>
+                <span class="flex-1 ml-3 whitespace-nowrap">Manage Personnel</span>
+                </Link>
             </li>
         </ul>
     </div>
@@ -170,17 +166,7 @@
                         <span v-else class="inline-flex rounded-md">
                             <button type="button"
                                 class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
-                                {{
-                                    `${$page.props.auth.user
-                                        .name ??
-                                        $page.props.auth
-                                            .employee
-                                            ?.first_name
-                                        } ${$page.props.auth
-                                            .employee?.last_name
-                                        }`
-                                }}
-
+                                {{ `${$page.props.auth.employee?.first_name} ${$page.props.auth.employee?.last_name}` }}
                                 <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -219,6 +205,7 @@
         <slot />
     </main>
 </template>
+
 <script setup>
 import { onMounted } from 'vue'
 import {
@@ -312,7 +299,6 @@ body {
     transition: 0.5s;
 }
 
-
 .badge {
     display: inline-block;
     padding: 0.25em 0.4em;
@@ -342,7 +328,6 @@ body {
     position: relative;
     left: 150px;
 }
-
 
 /* SIDEBAR CSS */
 
@@ -375,7 +360,6 @@ p {
     border-radius: 10px;
     margin: 0px 10px 0px 10px;
     background-color: white;
-
 }
 
 .sidebar a:hover {
@@ -383,7 +367,6 @@ p {
     font-weight: bold;
     background-color: #3C5393;
 }
-
 
 .sidebar .closebtn {
     position: absolute;
@@ -412,9 +395,7 @@ p {
 
 #main {
     transition: margin-left .5s;
-
 }
-
 
 @media (min-width: 62em) {
     .featurette-heading {
