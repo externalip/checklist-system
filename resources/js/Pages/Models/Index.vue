@@ -404,13 +404,16 @@ const form = useForm({
     form_id: ''
 });
 onMounted(async () => {
+    TableView();
+});
+const TableView = async () => {
     try {
         const response = await axios.get('/api/TableView');
         models.value = response.data;
     } catch (error) {
         console.error('Error fetching data:', error);
     }
-});
+}
 
 const submitForm = async () => {
     form.model_name = form.model_name.trim();
@@ -418,8 +421,9 @@ const submitForm = async () => {
     console.log(SelectedForms)
     await form.post(route('models.store'));
     form.reset();
-    selectedForms.value = [];
 
+    setTimeout(() => {
+        TableView();
+    }, 1000);
 }
-
 </script>

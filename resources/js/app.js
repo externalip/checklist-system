@@ -7,7 +7,8 @@ import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { ZiggyVue } from "../../vendor/tightenco/ziggy/dist/vue.m";
 import { plugin as FormKitPlugin, defaultConfig } from "@formkit/vue";
 import config from "../../formkit.config.js";
-
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 // Date Range Picker
 import {registerLicense} from '@syncfusion/ej2-base';
 registerLicense("Ngo9BigBOggjHTQxAR8/V1NGaF1cWGhBYVJzWmFZfV1gfV9DYVZRTGY/P1ZhSXxQdk1jUX1fdXVVTmVaUkU=")
@@ -37,6 +38,7 @@ createInertiaApp({
             .use(plugin)
             .use(ZiggyVue, Ziggy)
             .use(FormKitPlugin, defaultConfig(config))
+            .use(VueSweetalert2)
             .mount(el);
     },
     progress: {

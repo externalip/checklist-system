@@ -7,7 +7,6 @@ import Pagination from '@/Shared/Pagination.vue';
 const { users } = defineProps(['users']);
 onMounted(() => {
     initFlowbite();
-
 });
 </script>
 

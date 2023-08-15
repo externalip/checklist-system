@@ -103,7 +103,7 @@
                 </a>
             </li>
             <li class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <Link :href="route('ModelManager')" class="inline-flex items-center p-2 text-gray-900 rounded-lg group">
+                <Link :href="route('models.index')" class="inline-flex items-center p-2 text-gray-900 rounded-lg group">
                 <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                     aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z" />

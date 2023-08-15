@@ -51,6 +51,7 @@
                                         <option value="" disabled>Gender</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
+                                        <option value="Others">Others</option>
                                     </select>
                                     <InputError class="mt-2" :message="form.errors.gender" />
                                 </div>

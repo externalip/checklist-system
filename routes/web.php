@@ -38,7 +38,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::prefix('users')->group(function () {
+    Route::prefix('Users')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('users');
         Route::get('/create', [UserController::class, 'create'])->name('users.create');
         Route::post('/', [UserController::class, 'store'])->name('users.store');
@@ -49,19 +49,19 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     // 5S Checklist Form Page
     Route::get('/5S-Checklist', [UserController::class, 'show5SForm'])->name('5S-Checklist');
-    
+
     // Audit Trail Page
     Route::get('/audit', [\App\Http\Controllers\AuditController::class, 'index'])->name('audit');
-    
+
     // Pending Reports Page
     Route::get('/Pending-Reports', [\App\Http\Controllers\ReportController::class, 'index'])->name('Pending-Reports');
 
     // Model Manager Page
-    Route::get('ModelManager', function () {
-        return Inertia::render('ModelManager/Index', [
+    Route::get('Models', function () {
+        return Inertia::render('Models/Index', [
             'Forms' => \App\Models\Form::all(),
         ]);
-    })->name('ModelManager');
+    })->name('models.index');
 
     // Form Submission Function
     Route::post('/submit-response', [ResponseController::class, 'store']);

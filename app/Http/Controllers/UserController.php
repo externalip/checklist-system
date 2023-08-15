@@ -24,7 +24,7 @@ class UserController extends Controller
     {
         $users = User::with('employee.role')->paginate(10); // Change 10 to your desired number of items per page
 
-        return Inertia::render('ManagePersonnel/Index', [
+        return Inertia::render('Users/Index', [
             'users' => $users,
         ]);
     }
@@ -37,7 +37,7 @@ class UserController extends Controller
 
         $roles = Role::all();
 
-        return Inertia::render('ManagePersonnel/Create', [
+        return Inertia::render('Users/Create', [
             'roles' => $roles,
         ]);
     }
@@ -100,7 +100,7 @@ class UserController extends Controller
         $user->load('employee');
         $roles = Role::all();
 
-        return Inertia::render('ManagePersonnel/Edit', [
+        return Inertia::render('Users/Edit', [
             'user' => $user,
             'roles' => $roles,
         ]);
@@ -113,7 +113,7 @@ class UserController extends Controller
         $input = $request->all();
         $validator = Validator::make($input, [
             'username' => ['required', 'string', 'max:255'],
-            'password' => ['nullable', 'confirmed', Password::min(8)],
+            'password' => ['sometimes', 'confirmed', Password::min(8)],
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'string', 'max:255'],

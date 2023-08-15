@@ -1,5 +1,5 @@
 <script setup>
-import Accounts from '@/Pages/ManagePersonnel/Components/Table.vue';
+import Accounts from '@/Pages/Users/Components/Table.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { defineProps, ref } from 'vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
