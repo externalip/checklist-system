@@ -51,8 +51,8 @@ class ResponseController extends Controller
     {
         // List of required signatures
         $signatory_role = [
-            'QC',
-            'Line Lead'
+            'Quality Control',
+            'Line Leader'
         ];
 
         // Insert n rows of required signatures

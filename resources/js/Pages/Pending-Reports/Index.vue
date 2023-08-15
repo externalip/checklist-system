@@ -1,5 +1,6 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
+import { Link } from '@inertiajs/vue3';
 import { reactive, ref } from 'vue'
 
 const selectedForm = reactive({
@@ -325,12 +326,14 @@ const props = defineProps({
                                 
                                 <!-- Reject Button -->
                                 <button type="button"
-                                    @click="affix++"
                                     class="focus:outline-none text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Reject</button>
                                 
                                 <!-- Approve Button -->
-                                <button type="button"
-                                    class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Approve</button>
+                                <Link :href="route('Pending-Reports.update', row.id)" method="PUT">
+                                    <button type="button"
+                                        class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                                        >Approve</button>
+                                </Link>
                             </div>
                         </div>
                     </div>

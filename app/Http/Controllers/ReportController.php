@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Symfony\Component\Console\Input\Input;
 
 use function Termwind\render;
 
@@ -43,6 +44,7 @@ class ReportController extends Controller
                     ->join('users', 'users.id', '=', 'response_fields.submitted_by')
                     ->join('employees', 'employees.id', '=', 'users.employee_id')
                     ->where('response_fields.form_id', '=', 1)
+                    ->where('response_fields.status', '=', 'Pending')
                     ->get();
 
         // Get signature status per response
@@ -84,9 +86,61 @@ class ReportController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $response_id)
     {
-        //
+        // Get user id
+        $user_id = auth()->user()->id;
+
+        // Get user role
+        $user_role = DB::table('users')
+                ->select('roles.position')
+                ->join('employees', 'employees.id', '=', 'users.employee_id')
+                ->join('roles', 'roles.id', '=', 'employees.role_id')
+                ->where('users.id', '=', $user_id)
+                ->get();
+
+        // Update signature status
+        DB::table('signatures')
+                ->where('response_id', '=', $response_id)
+                ->where('required_sign_role', '=', $user_role->first()->position)
+                ->update(
+                    ['status' => 'OK', 'user_id' => $user_id]
+                );
+
+        if($this->isSigned($response_id)) {
+            $this->markResponseAsComplete($response_id);
+        }
+
+        return redirect()->route('Pending-Reports')->with('success', 'Report signed successfully');
+    }
+
+    private function isSigned($response_id): bool
+    {
+        /*
+            Check if response has been signed by QC & Line Lead
+
+            SELECT COUNT(`status`) AS 'progress'
+            FROM `signatures`
+            WHERE `response_id` = 5
+            AND `status` = 'OK';
+        */
+        $progressCount = DB::table('signatures')
+                ->where('response_id', '=', $response_id)
+                ->where('status', '=', 'OK')
+                ->count();
+
+        // A form requires 2 signatures (QC & Line Leader)
+        return ($progressCount == 2) ? true : false;
+    }
+
+    private function markResponseAsComplete($response_id) 
+    {
+        // Update response status
+        DB::table('response_fields')
+                ->where('id', '=', $response_id)
+                ->update(
+                    ['status' => 'OK']
+                );
     }
 
     /**
