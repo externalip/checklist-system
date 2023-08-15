@@ -38,7 +38,35 @@ class ResponseController extends Controller
             'updated_at' => Carbon::now(),
         ]);
 
+        // Get inserted data's ID for referencing
+        $row_id = DB::getPdo()->lastInsertId();
+        
+        // Assign required signatures for the submitted data
+        $this->requireSign($row_id);
+
         return response()->json(['message' => 'Form submitted successfully']);
+    }
+
+    private function requireSign($row_id)
+    {
+        // List of required signatures
+        $signatory_role = [
+            'QC',
+            'Line Lead'
+        ];
+
+        // Insert n rows of required signatures
+        for ($index = 0; $index < sizeof($signatory_role); $index++) 
+        {
+            DB::table('signatures')->insert([
+                'response_id' => $row_id,
+                'required_sign_role' => $signatory_role[$index],
+                'status' => 'Pending',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+        
     }
 
     private function generateUniqueResponseNo()
