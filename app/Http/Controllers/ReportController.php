@@ -65,14 +65,6 @@ class ReportController extends Controller
         ]);
     }
 
-    public function getSignatureStatus($response_no) {
-        $signature_status = DB::table('signatures')
-                    ->select('response_id', 'required_sign_role', 'status')
-                    ->get();
-        
-        return $signature_status;
-    }
-
     /**
      * Store a newly created resource in storage.
      */
