@@ -18,14 +18,36 @@ class ReportController extends Controller
     {
         // Get existing check sheet forms
         $forms = DB::table('forms')
-                ->select('form_name')
-                ->orderBy('form_name')
-                ->get();
+                    ->select('form_name')
+                    ->orderBy('form_name')
+                    ->get();
 
-        // Get responses for 5S check sheet
+        // Get pending responses for 5S check sheet
+        /*
+            SELECT 
+                forms.form_name, 
+                employees.first_name, 
+                response_fields.*
+            FROM `response_fields`
+            JOIN `forms`
+              ON response_fields.form_id = forms.id
+            JOIN `users`
+              ON users.id = response_fields.submitted_by
+            JOIN `employees`
+              ON employees.id = users.employee_id
+            WHERE response_fields.form_id = 1;
+        */
         $responses = DB::table('response_fields')
-                    ->select()
-                    ->where('form_id', '=', '1')
+                    ->select('forms.form_name', 'employees.first_name', 'response_fields.*')
+                    ->join('forms', 'response_fields.form_id', '=', 'forms.id')
+                    ->join('users', 'users.id', '=', 'response_fields.submitted_by')
+                    ->join('employees', 'employees.id', '=', 'users.employee_id')
+                    ->where('response_fields.form_id', '=', 1)
+                    ->get();
+
+        // Get signature status per response
+        $signature_status = DB::table('signatures')
+                    ->select('response_id', 'required_sign_role', 'status')
                     ->get();
 
         // Get pending reports count for 5s
@@ -35,11 +57,10 @@ class ReportController extends Controller
                     ->where('form_id', '=', '1')
                     ->count();
 
-        // dd($responses);
-
         return Inertia::render('Pending-Reports/Index', [
             'forms' => $forms,
             'data' => $responses,
+            'signatures' => $signature_status,
             'counts' => $counts
         ]);
     }

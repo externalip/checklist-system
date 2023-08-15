@@ -1,9 +1,15 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
+import { reactive } from 'vue'
+
+const selectedForm = reactive({
+    form_name: null
+});
 
 const props = defineProps({
     forms: Array,
     data: Array,
+    signatures: Array,
     counts: Array
 });
 </script>
@@ -21,7 +27,7 @@ const props = defineProps({
                     <label for="pending-checklists"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose a
                         checklist</label>
-                    <select id="pending-checklists"
+                    <select v-model="selectedForm.form_name" id="pending-checklists"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option 
                             v-for="form in forms" 
@@ -61,8 +67,6 @@ const props = defineProps({
                             <span class="sr-only">Search</span>
                         </button>
                     </form>
-
-
                 </section>
 
                 <section id="export-btn" class="lg:w-1/6 rounded-lg">
@@ -99,7 +103,7 @@ const props = defineProps({
 
             <section id="pending-accordions" class="lg:mx-20">
                 <!-- {{ Number of Pending Reports }} Pending Reports on {{ Checksheet Selected }}-->
-                <h4>{{ counts }} Pending Reports on {{  }}</h4>
+                <h4>{{ counts }} Pending Reports on {{ selectedForm.form_name }}</h4>
 
 
                 <div class="accordions">
@@ -146,7 +150,7 @@ const props = defineProps({
 
                                 <div id="performed-by" class="">
                                     <label for="" class="text-sm">Performed by</label>
-                                    <h5 class="font-bold">{{ row.submitted_by }}</h5>
+                                    <h5 class="font-bold">{{ row.first_name }}</h5>
                                 </div>
 
                                 <div id="shift" class="">
@@ -274,25 +278,19 @@ const props = defineProps({
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <!-- Line Leader Signature -->
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
+                                            <!-- Signature -->
+                                            <tr
+                                                v-for="sign in signatures"
+                                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                <th v-if="sign.response_id == row.id" scope="row"
                                                     class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    Line Leader
+                                                    {{ sign.required_sign_role }}
                                                 </th>
-                                                <td class="px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]">
-                                                    OK
-                                                </td>
-                                            </tr>
-
-                                            <!-- QC Confirmation Signature-->
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    QC Confirmation
-                                                </th>
-                                                <td class="px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]">
-                                                    OK
+                                                <td v-if="sign.response_id == row.id"
+                                                    :class="(sign.status == 'OK') ? 
+                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : 
+                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
+                                                    {{ sign.status }}
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -321,8 +319,12 @@ const props = defineProps({
 
                             <!-- Button -->
                             <div id="pending-sign-btn" class="px-5 p-2 w-full flex justify-end">
+                                
+                                <!-- Reject Button -->
                                 <button type="button"
                                     class="focus:outline-none text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Reject</button>
+                                
+                                <!-- Approve Button -->
                                 <button type="button"
                                     class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Approve</button>
                             </div>
