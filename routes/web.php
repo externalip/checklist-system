@@ -54,8 +54,11 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/audit', [\App\Http\Controllers\AuditController::class, 'index'])->name('audit');
     
     // Pending Reports Page
-    Route::get('/Pending-Reports', [\App\Http\Controllers\ReportController::class, 'index'])->name('Pending-Reports');
-
+    Route::prefix('/Pending-Reports')->group(function () {
+        Route::get('/', [\App\Http\Controllers\ReportController::class, 'index'])->name('Pending-Reports');
+        Route::put('/{id}', [\App\Http\Controllers\ReportController::class, 'update'])->name('Pending-Reports.update');
+    });
+    
     // Model Manager Page
     Route::get('ModelManager', function () {
         return Inertia::render('ModelManager/Index');
