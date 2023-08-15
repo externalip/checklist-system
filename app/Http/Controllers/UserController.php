@@ -113,7 +113,6 @@ class UserController extends Controller
         $input = $request->all();
         $validator = Validator::make($input, [
             'username' => ['required', 'string', 'max:255'],
-            'password' => ['sometimes', 'confirmed', Password::min(8)],
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'string', 'max:255'],
@@ -121,6 +120,7 @@ class UserController extends Controller
             'contact' => ['required', 'regex:/^(09|\+639)\d{9}$/', 'size:11'],
             'shift' => ['required', 'string', 'max:255'],
             'role_id' => ['required', 'integer'],
+            'password' => ['nullable', 'confirmed', Password::min(8)],
         ], [
             'contact.regex' => 'The phone number format is incorrect. Please use a valid Philippine phone number format.',
             'contact.size' => 'The phone number must be exactly 11 digits long.'
@@ -129,6 +129,7 @@ class UserController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+
         $employee = Employee::findOrFail($user->employee_id);
         $employee->update([
             'first_name' => $input['first_name'],
@@ -142,11 +143,17 @@ class UserController extends Controller
 
         $user->update([
             'username' => $input['username'],
-            'password' => Hash::make($input['password']),
         ]);
+
+        if (!empty($input['password'])) {
+            $user->update([
+                'password' => Hash::make($input['password']),
+            ]);
+        }
 
         return redirect()->route('users', ['id' => $user->id])->with('success', 'User updated successfully');
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -156,7 +163,7 @@ class UserController extends Controller
         $employee = Employee::findOrFail($user->employee_id);
         $user->delete();
         $employee->delete();
-        return Redirect::back()->with('success', 'User deleted successfully');
+        return response()->json(['message' => 'User Deleted', 'status' => 'success']);
     }
     public function showRegistrationForm()
     {
