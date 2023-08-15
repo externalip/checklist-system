@@ -201,7 +201,7 @@
     </div>
     <main>
         <div class="mt-5">
-            <h1 class=" mx-20 ">{{ title }}</h1>
+            <h1 class=" lg:mx-20 ">{{ title }}</h1>
         </div>
         <slot />
     </main>

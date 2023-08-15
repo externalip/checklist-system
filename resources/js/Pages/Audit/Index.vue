@@ -1,78 +1,94 @@
 
 <template>
     <AppLayout title="Audit Trail">
-        <div class="p-5">
+        <div id="audit-track" class="lg:mx-20">
+            <section id="audit-filter">
+                <div class="audit-filter-header">
+                    <h4>Filter by:</h4>
+                </div>
 
-            <div class="grid grid-rows-4 md:grid-rows-2 lg:grid-rows-1 grid-flow-col gap-0">
-                <!-- User Name Filter -->
-                <div>
-                    <label class="inline-block">User Name</label>
-                    <div>
-                        <select v-model="selectedUser" style="width: 220px;">
-                            <option value="">Filter by user</option>
+                <section id="io-audit-filter" class="mb-5 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-2 gap-3">
+                    <div id="filter-user">
+
+                        <label for="filter-user-select"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Filter by user</label>
+                        <select id="filter-user-select"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            v-model="selectedUser">
+                            <option value="">Choose a User
+                            </option>
                             <option v-for="audit in audits.data" :value="audit.user_id" :key="audit.id">
                                 {{ audit.first_name[0] + '. ' + audit.last_name }}
                             </option>
                         </select>
-                    </div>
-                </div>
 
-                <!-- Action Filter -->
-                <div>
-                    <label class="inline-block">Action</label>
-                    <div>
-                        <select v-model="selectedAction" style="width: 220px;">
-                            <option value="">Filter by action</option>
-                            <option v-for="event in events" :value="event.action_type" :key="event.id">{{ event.action_type
-                            }}
+                    </div>
+
+                    <div id="filter-action">
+
+                        <label for="filter-action-select"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Filter by action</label>
+                        <select id="filter-action-select"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            v-model="selectedAction">
+                            <option value="">Choose a User
                             </option>
+                            <option v-for="event in events" :value="event.action_type" :key="event.id">{{
+                                event.action_type
+                            }}</option>
                         </select>
-                    </div>
-                </div>
 
-                <!-- Date Range Filter -->
-                <div>
-                    <label class="inline-block">Choose Date Range</label>
-                    <div class="wrapper">
-                        <DateRangePickerComponent placeholder="Select a Date Range" v-model="selectedDateRange" />
                     </div>
-                </div>
 
-                <!-- Export Options -->
-                <div>
-                    <button @click="toggleDropdown"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                        type="button">
-                        Dropdown button
-                        <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m1 1 4 4 4-4" />
-                        </svg>
-                    </button>
-                    <!-- Dropdown menu -->
-                    <div v-if="isDropdownOpen" id="dropdown"
-                        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                            <li><a href="#"
-                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-                            </li>
-                            <li><a href="#"
-                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-                            </li>
-                            <li><a href="#"
-                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-                            </li>
-                            <li><a href="#"
-                                    class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign
-                                    out</a></li>
-                        </ul>
+                    <div id="filter-datepicker">
+                        <label for="filter-datepick"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose Date</label>
+
+                        <div
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <div class=" absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+
+                            </div>
+                            <DateRangePickerComponent placeholder="Select a Date Range" v-model="selectedDateRange" />
+                        </div>
+
                     </div>
-                </div>
-            </div>
 
-            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table id="myTable" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <div id="export-button" class="place-items-end">
+                        <label for="export-btn" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Export
+                            to</label>
+
+                        <button id="export-btn" data-dropdown-toggle="dropdown"
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            type="button">Export <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="m1 1 4 4 4-4" />
+                            </svg></button>
+                        <!-- Dropdown menu -->
+                        <div id="dropdown"
+                            class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                aria-labelledby="dropdownDefaultButton">
+                                <li>
+                                    <a href="#"
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">to
+                                        PDF</a>
+                                </li>
+                                <li>
+                                    <a href="#"
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">to
+                                        Excel</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </section>
+
+            </section>
+            <div class="relative overflow-x-auto rounded-lg">
+                <table id="audit-table" class="w-full text-sm text-center text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-6 py-3">
@@ -82,13 +98,13 @@
                                 User Name
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Date & Time
+                                Date and Time
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 Action
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Extra Details
+                                Action Details
                             </th>
                         </tr>
                     </thead>
@@ -106,7 +122,8 @@
                 </table>
             </div>
         </div>
-        <div class="mt-4">
+
+        <div class="p-5 flex flex-col items-center">
             <Pagination :data="audits" />
         </div>
     </AppLayout>
@@ -147,16 +164,6 @@ const filteredAudits = computed(() => {
         return userFilter && actionFilter && dateFilter;
     });
 });
-
-const currentPage = ref(1);
-
-const pagedAudits = computed(() => {
-    return props.audits.data.slice((currentPage.value - 1) * 10, currentPage.value * 10);
-});
-
-const loadData = (page) => {
-    currentPage.value = page;
-};
 
 </script>
 
