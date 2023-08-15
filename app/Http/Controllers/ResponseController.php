@@ -33,6 +33,7 @@ class ResponseController extends Controller
             'form_id' => $formId,
             'submitted_by' => $submittedBy,
             'response' => json_encode($response), // Store answer in field_value column
+            'status' => 'pending',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);

@@ -18,6 +18,7 @@ use Inertia\Inertia;
 |
 */
 
+// Home Page
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -27,7 +28,10 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+// Registration Page
 Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
+
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
 
     Route::get('/dashboard', function () {
@@ -43,16 +47,23 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
     });
 
+    // 5S Checklist Form Page
     Route::get('/5S-Checklist', [UserController::class, 'show5SForm'])->name('5S-Checklist');
+    
+    // Audit Trail Page
     Route::get('/audit', [\App\Http\Controllers\AuditController::class, 'index'])->name('audit');
-    Route::get('/Pending-Reports', function () {
-        return Inertia::render('Pending-Reports/Index');
-    })->name('Pending-Reports');
+    
+    // Pending Reports Page
+    Route::get('/Pending-Reports', [\App\Http\Controllers\ReportController::class, 'index'])->name('Pending-Reports');
+
+    // Model Manager Page
     Route::get('ModelManager', function () {
         return Inertia::render('ModelManager/Index', [
             'Forms' => \App\Models\Form::all(),
         ]);
     })->name('ModelManager');
+
+    // Form Submission Function
     Route::post('/submit-response', [ResponseController::class, 'store']);
     Route::post('/ModelManager/Add', [\App\Http\Controllers\ModelController::class, 'store'])->name('models.store');
 });
