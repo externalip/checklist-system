@@ -1,4 +1,5 @@
 <template>
+    <Head :title="title" />
     <div id="mySidebar" class="sidebar" style="z-index: 3;" @click.stop="toggleUserDropdown">
         <div id="e2" class="text-center" style="padding:10px;">
             <p class="text-3xl font-semibold">Hello,</p>

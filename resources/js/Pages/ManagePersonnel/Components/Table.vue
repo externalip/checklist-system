@@ -9,7 +9,6 @@ onMounted(() => {
     initFlowbite();
 
 });
-// const editRoute
 </script>
 
 <template>
@@ -36,10 +35,6 @@ onMounted(() => {
                         <Link :href="route('users.destroy', user.id)" as="button" method="delete" class="w-5">
                         <img src="@/Shared/Icons/delete.svg" alt="Delete" class="w-5 h-5 cursor-pointer" />
                         </Link>
-                        <!-- <button @click="deleteUser" class="bg-red-500 text-white px-4 py-2 rounded-lg">
-                            <img src="@/Shared/Icons/delete.svg" alt="Delete" class="w-5 h-5 cursor-pointer" />
-                        </button> -->
-
                     </td>
                 </tr>
             </tbody>

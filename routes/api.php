@@ -21,3 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Audit Trail
 Route::get('/audit', [\App\Http\Controllers\AuditController::class, 'index'])
     ->name('audit');
+
+Route::get('/TableView', [\App\Http\Controllers\ModelController::class, 'TableView'])
+    ->name('TableView');

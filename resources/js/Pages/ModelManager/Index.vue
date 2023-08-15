@@ -1,10 +1,6 @@
 <template>
-    <AppLayout>
+    <AppLayout title="Model Manager">
         <div id="model-manager" class="lg:mx-20">
-            <div class="header">
-                <h1>Model Manager</h1>
-            </div>
-
             <section id="model-filter-section">
                 <div class="model-filter-header">
                     <h4>Filter by:</h4>
@@ -80,6 +76,7 @@
 
                         <!-- Add Model Modal  -->
                         <form id="add-model-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
+                            @submit.prevent="submitForm"
                             class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                             <div class="relative w-full max-w-2xl max-h-full">
                                 <!-- Modal content -->
@@ -98,7 +95,7 @@
                                             <label for="model_name"
                                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Model
                                                 Name</label>
-                                            <input type="text" id="model_name"
+                                            <input type="text" v-model="form.model_name" id="model_name"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="Model Name..." required>
                                         </div>
@@ -132,80 +129,16 @@
                                             <!-- Checkboxes -->
                                             <ul class="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200"
                                                 aria-labelledby="dropdownSearchButton">
-                                                <li>
+                                                <li v-for="(formItem, index) in Forms" :key="index">
                                                     <div
                                                         class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                                        <input id="checkbox-item-11" type="checkbox" value=""
+                                                        <input :id="'checkbox-item-' + formItem.id" type="checkbox"
+                                                            :value="formItem.id" v-model="SelectedForms"
                                                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                        <label for="checkbox-item-11"
-                                                            class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Bonnie
-                                                            Green</label>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div
-                                                        class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                                        <input checked id="checkbox-item-12" type="checkbox" value=""
-                                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                        <label for="checkbox-item-12"
-                                                            class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Jese
-                                                            Leos</label>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div
-                                                        class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                                        <input id="checkbox-item-13" type="checkbox" value=""
-                                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                        <label for="checkbox-item-13"
-                                                            class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Michael
-                                                            Gough</label>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div
-                                                        class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                                        <input id="checkbox-item-14" type="checkbox" value=""
-                                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                        <label for="checkbox-item-14"
-                                                            class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Robert
-                                                            Wall</label>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div
-                                                        class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                                        <input id="checkbox-item-15" type="checkbox" value=""
-                                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                        <label for="checkbox-item-15"
-                                                            class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Joseph
-                                                            Mcfall</label>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div
-                                                        class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                                        <input id="checkbox-item-16" type="checkbox" value=""
-                                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                        <label for="checkbox-item-16"
-                                                            class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Leslie
-                                                            Livingston</label>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div
-                                                        class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                                        <input id="checkbox-item-17" type="checkbox" value=""
-                                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                                        <label for="checkbox-item-17"
-                                                            class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">Roberta
-                                                            Casas</label>
+                                                        <label :for="'checkbox-item-' + formItem.id"
+                                                            class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">
+                                                            {{ formItem.form_name }}
+                                                        </label>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -215,7 +148,7 @@
                                     <!-- Modal footer -->
                                     <div
                                         class="flex flex-col sm:flex-row md:justify-end justify-center align-center items-center mt-3 space-x-2 rounded-b gap-2">
-                                        <button data-modal-hide="add-model-modal" type="button"
+                                        <button data-modal-hide="add-model-modal" type="button" @click="submitForm"
                                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create
                                             Model</button>
                                         <button data-modal-hide="add-model-modal" type="button"
@@ -250,18 +183,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr
+                            <tr v-for="model in models" :key="model.model_id"
                                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 transition ease-in-out duration-200">
-                                <th scope="row"
-                                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    Apple MacBook Pro 17"
-                                </th>
-                                <td class="px-6 py-4">
-                                    Silver
-                                </td>
-                                <td class="px-6 py-4">
-                                    Laptop
-                                </td>
+                                <td class="px-6 py-4">{{ model.model_id }}</td>
+                                <td class="px-6 py-4">{{ model.model_name }}</td>
+                                <td class="px-6 py-4">{{ model.checksheet_appearance }}</td>
                                 <td class="px-6 flex justify-center mx-10">
 
                                     <button type="button" class="hover:bg-gray-200 transition duration-200 ease-in-out p-4"
@@ -291,10 +217,8 @@
                         </tbody>
                     </table>
                 </div>
-
             </section>
 
-            <!-- Edit Model MODAL when edit button in the table is clicked -->
             <form id="edit-model-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)]
                 max-h-full">
                 <div class="relative w-full max-w-2xl max-h-full">
@@ -461,7 +385,6 @@
                         </button>
                     </div>
                 </div>
-
             </section>
         </div>
     </AppLayout>
@@ -469,6 +392,34 @@
 
 
 <script setup>
-
 import AppLayout from '@/Layouts/AppLayout.vue';
+import { useForm } from '@inertiajs/vue3';
+import { defineProps, ref, onMounted } from 'vue';
+const { Forms } = defineProps(['Forms']);
+const SelectedForms = ref([]);
+const models = ref([]);
+
+const form = useForm({
+    model_name: '',
+    form_id: ''
+});
+onMounted(async () => {
+    try {
+        const response = await axios.get('/api/TableView');
+        models.value = response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+});
+
+const submitForm = async () => {
+    form.model_name = form.model_name.trim();
+    form.form_id = SelectedForms.value;
+    console.log(SelectedForms)
+    await form.post(route('models.store'));
+    form.reset();
+    selectedForms.value = [];
+
+}
+
 </script>

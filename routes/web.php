@@ -49,7 +49,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         return Inertia::render('Pending-Reports/Index');
     })->name('Pending-Reports');
     Route::get('ModelManager', function () {
-        return Inertia::render('ModelManager/Index');
+        return Inertia::render('ModelManager/Index', [
+            'Forms' => \App\Models\Form::all(),
+        ]);
     })->name('ModelManager');
     Route::post('/submit-response', [ResponseController::class, 'store']);
+    Route::post('/ModelManager/Add', [\App\Http\Controllers\ModelController::class, 'store'])->name('models.store');
 });
