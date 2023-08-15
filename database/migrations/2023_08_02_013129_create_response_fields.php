@@ -19,6 +19,7 @@ return new class extends Migration
             $table->bigInteger('submitted_by')->unsigned();
             $table->foreign('submitted_by')->references('id')->on('employees');
             $table->json('response');
+            $table->string('status');
             $table->timestamps();
         });
     }
