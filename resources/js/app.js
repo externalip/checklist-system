@@ -9,6 +9,8 @@ import { plugin as FormKitPlugin, defaultConfig } from "@formkit/vue";
 import config from "../../formkit.config.js";
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import swal from 'sweetalert2';
+
 // Date Range Picker
 import {registerLicense} from '@syncfusion/ej2-base';
 registerLicense("Ngo9BigBOggjHTQxAR8/V1NGaF1cWGhBYVJzWmFZfV1gfV9DYVZRTGY/P1ZhSXxQdk1jUX1fdXVVTmVaUkU=")
@@ -45,3 +47,5 @@ createInertiaApp({
         color: "#4B5563",
     },
 });
+window.Swal = swal;
+

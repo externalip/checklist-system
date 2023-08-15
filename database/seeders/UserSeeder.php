@@ -32,6 +32,7 @@ class UserSeeder extends Seeder
                     'employee_id' => $randomEmployeeId,
                     'username' => $username,
                     'password' => Hash::make('password'),
+                    'active' => Arr::random([true, false]),
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()
                 ]);

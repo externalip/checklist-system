@@ -16,6 +16,7 @@ return new class extends Migration
             $table->bigInteger('employee_id')->unsigned();
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->string('username')->unique();
+            $table->boolean('active')->defaultTo(true);
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

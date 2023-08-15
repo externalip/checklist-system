@@ -22,7 +22,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('employee.role')->paginate(10); // Change 10 to your desired number of items per page
+
+        $users = User::with('employee.role')
+            ->where('active', 1)
+            ->paginate(10);
 
         return Inertia::render('Users/Index', [
             'users' => $users,
@@ -160,9 +163,9 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $employee = Employee::findOrFail($user->employee_id);
-        $user->delete();
-        $employee->delete();
+        $user->forceFill([
+            'active' => 0,
+        ])->save();
         return response()->json(['message' => 'User Deleted', 'status' => 'success']);
     }
     public function showRegistrationForm()
