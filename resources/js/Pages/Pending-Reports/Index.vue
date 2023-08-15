@@ -1,6 +1,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import { reactive } from 'vue'
+import { Link } from '@inertiajs/vue3';
+import { reactive, ref } from 'vue'
 
 const selectedForm = reactive({
     form_name: null
@@ -12,6 +13,9 @@ const props = defineProps({
     signatures: Array,
     counts: Array
 });
+
+
+
 </script>
 
 <template>
@@ -312,7 +316,7 @@ const props = defineProps({
                                         Remark on the Model</label>
                                     <textarea id="message" rows="4"
                                         class="resize-none disabled:opacity-90 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="{{operator remarks goes here}}" disabled></textarea>
+                                        :placeholder="JSON.parse(row.response).fieldAnswers['Remarks on the Model']" disabled></textarea>
 
                                 </div>
                             </div>
@@ -325,8 +329,11 @@ const props = defineProps({
                                     class="focus:outline-none text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Reject</button>
                                 
                                 <!-- Approve Button -->
-                                <button type="button"
-                                    class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Approve</button>
+                                <Link :href="route('Pending-Reports.update', row.id)" method="PUT">
+                                    <button type="button"
+                                        class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                                        >Approve</button>
+                                </Link>
                             </div>
                         </div>
                     </div>
