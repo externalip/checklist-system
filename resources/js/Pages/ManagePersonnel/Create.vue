@@ -63,13 +63,17 @@
                                 </div>
                                 <div>
                                     <label for="contact" class="block mb-1">Contact</label>
-                                    <input v-model="form.contact" type="number" id="contact"
-                                        class="w-full rounded-lg p-2" />
+                                    <input v-model="form.contact" type="text" id="contact" class="w-full rounded-lg p-2" />
                                     <InputError class="mt-2" :message="form.errors.contact" />
                                 </div>
                                 <div>
                                     <label for="shift" class="block mb-1">Shift</label>
-                                    <input v-model="form.shift" type="text" id="shift" class="w-full rounded-lg p-2" />
+                                    <select v-model="form.shift" type="text" id="shift" class="w-full rounded-lg p-2">
+                                        <option value="0">None</option>
+                                        <option value="1st">1st</option>
+                                        <option value="2nd">2nd</option>
+                                        <option value="3rd">3rd</option>
+                                    </select>
                                     <InputError class="mt-2" :message="form.errors.shift" />
                                 </div>
                                 <div>
