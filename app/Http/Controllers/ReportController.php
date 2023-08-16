@@ -86,42 +86,79 @@ class ReportController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $response_id)
+    public function update(Request $request, string $status, string $response_id)
     {
         // Get user id
-        $user_id = auth()->user()->id;
+        $user_id = $this->getUserId();
 
         // Get user role
-        $user_role = DB::table('users')
-                ->select('roles.position')
-                ->join('employees', 'employees.id', '=', 'users.employee_id')
-                ->join('roles', 'roles.id', '=', 'employees.role_id')
-                ->where('users.id', '=', $user_id)
-                ->get();
+        $user_role = $this->getUserRole($user_id);
+        
+        if ($status == 'Rejected') {
+            // Update signature status as 'Rejected'
+            DB::table('signatures')
+                    ->where('response_id', '=', $response_id)
+                    ->where('required_sign_role', '=', $user_role)
+                    ->update(
+                        [
+                            'status' => 'Rejected', 
+                            'user_id' => $user_id
+                        ]
+                    );
+        } else {
+            // Update signature status as 'OK'
+            DB::table('signatures')
+                    ->where('response_id', '=', $response_id)
+                    ->where('required_sign_role', '=', $user_role)
+                    ->update(
+                        [
+                            'status' => 'OK', 
+                            'user_id' => $user_id
+                        ]
+                    );
+        }
 
-        // Update signature status
-        DB::table('signatures')
-                ->where('response_id', '=', $response_id)
-                ->where('required_sign_role', '=', $user_role->first()->position)
-                ->update(
-                    ['status' => 'OK', 'user_id' => $user_id]
-                );
+        // Check if response is rejected by at least one signee
+        if($this->isRejected($response_id)) {
+            $this->markResponseStatus($response_id, 'Rejected');
+        }
 
-        if($this->isSigned($response_id)) {
-            $this->markResponseAsComplete($response_id);
+        // Check if response got all signatures
+        if($this->isComplete($response_id)) {
+            // Set response status as 'OK'
+            $this->markResponseStatus($response_id, 'OK');
         }
 
         return redirect()->route('Pending-Reports')->with('success', 'Report signed successfully');
     }
 
-    private function isSigned($response_id): bool
+    public function getUserId()
+    {
+        // Return session user id
+        return auth()->user()->id;
+    }
+
+    public function getUserRole($user_id) 
+    {
+        // Return user role
+        return DB::table('users')
+                ->select('roles.position')
+                ->join('employees', 'employees.id', '=', 'users.employee_id')
+                ->join('roles', 'roles.id', '=', 'employees.role_id')
+                ->where('users.id', '=', $user_id)
+                ->get()
+                ->first()
+                ->position;
+    }
+
+    private function isComplete($response_id): bool
     {
         /*
             Check if response has been signed by QC & Line Lead
 
             SELECT COUNT(`status`) AS 'progress'
             FROM `signatures`
-            WHERE `response_id` = 5
+            WHERE `response_id` = id_no
             AND `status` = 'OK';
         */
         $progressCount = DB::table('signatures')
@@ -133,13 +170,32 @@ class ReportController extends Controller
         return ($progressCount == 2) ? true : false;
     }
 
-    private function markResponseAsComplete($response_id) 
+    private function isRejected($response_id): bool
+    {
+        /*
+            Check if response has been rejected by either QC or Line Lead
+
+            SELECT COUNT(`status`) AS 'progress'
+            FROM `signatures`
+            WHERE `response_id` = id_no
+            AND `status` = 'Rejected';
+        */
+        $progressCount = DB::table('signatures')
+                ->where('response_id', '=', $response_id)
+                ->where('status', '=', 'Rejected')
+                ->count();
+
+        // If a response is rejected by either QC or Line Lead
+        return ($progressCount >= 1) ? true : false;
+    }
+
+    private function markResponseStatus($response_id, $status) 
     {
         // Update response status
         DB::table('response_fields')
                 ->where('id', '=', $response_id)
                 ->update(
-                    ['status' => 'OK']
+                    ['status' => $status]
                 );
     }
 
