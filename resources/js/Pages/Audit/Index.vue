@@ -49,7 +49,8 @@
                             <div class=" absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
 
                             </div>
-                            <DateRangePickerComponent placeholder="Select a Date Range" v-model="selectedDateRange" />
+                            <!-- <DateRangePickerComponent placeholder="Select a Date Range" v-model="selectedDateRange" /> -->
+                            <VueDatePicker v-model="selectedDateRange" range @range-start="onRangeStart" @range-end="onRangeEnd"></VueDatePicker>
                         </div>
 
                     </div>
@@ -122,7 +123,6 @@
                 </table>
             </div>
         </div>
-
         <div class="p-5 flex flex-col items-center">
             <Pagination :data="audits" />
         </div>
@@ -131,9 +131,12 @@
 
 <script setup>
 import { ref, computed } from 'vue';
-import { DateRangePickerComponent } from '@syncfusion/ej2-vue-calendars';
+
+const date = ref();
+
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Pagination from '@/Shared/Pagination.vue';
+
 const props = defineProps({
     audits: Array,
     events: Array
@@ -168,12 +171,6 @@ const filteredAudits = computed(() => {
 </script>
 
 <style>
-@import './node_modules/@syncfusion/ej2-base/styles/material.css';
-@import './node_modules/@syncfusion/ej2-buttons/styles/material.css';
-@import './node_modules/@syncfusion/ej2-inputs/styles/material.css';
-@import './node_modules/@syncfusion/ej2-popups/styles/material.css';
-@import './node_modules/@syncfusion/ej2-lists/styles/material.css';
-@import "./node_modules/@syncfusion/ej2-vue-calendars/styles/material.css";
 
 .wrapper {
     max-width: 220px;
