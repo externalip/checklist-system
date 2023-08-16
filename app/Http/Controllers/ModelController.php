@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tags;
+use Inertia\Inertia;
 use App\Models\Models;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -54,7 +55,15 @@ class ModelController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $model = Models::findorFail($id);
+        $tags = Tags::where('model_id', $model->id)->get();
+
+        $form_ids = [];
+        foreach ($tags as $tag) {
+            array_push($form_ids, $tag->form_id);
+        }
+        $forms = DB::table('forms')->whereIn('id', $form_ids)->get();
+        return response()->json(['model' => $model, 'forms' => $forms]);
     }
 
     /**
@@ -75,11 +84,12 @@ class ModelController extends Controller
     public function TableView()
     {
         $results = DB::table('Models')
-            ->join('Tags', 'Tags.model_id', '=', 'Models.id')
-            ->join('forms', 'Tags.form_id', '=', 'forms.id')
-            ->groupBy('Models.id', 'Models.model_name')
-            ->select('Models.id AS model_id', 'Models.model_name', DB::raw("GROUP_CONCAT(forms.form_name SEPARATOR ', ') AS checksheet_appearance"))
+            ->leftJoin('Tags', 'Tags.model_id', '=', 'Models.id')
+            ->leftJoin('forms', 'Tags.form_id', '=', 'forms.id')
+            ->groupBy('models.id', 'Models.model_name')
+            ->select('models.id AS model_id', 'Models.model_name', DB::raw("IFNULL(GROUP_CONCAT(forms.form_name SEPARATOR ', '), '') AS checksheet_appearance"))
             ->get();
+
         return response()->json($results);
     }
 }
