@@ -208,80 +208,55 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
-import {
-    initAccordions,
-    initCarousels,
-    initCollapses,
-    initDials,
-    initDismisses,
-    initDrawers,
-    initDropdowns,
-    initModals,
-    initPopovers,
-    initTabs,
-    initTooltips
-} from 'flowbite'
-import { ref } from "vue";
+import { onMounted, ref } from 'vue'
 import { Head, Link, router } from "@inertiajs/vue3";
 import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
-// initialize components based on data attribute selectors
-onMounted(() => {
-    initAccordions();
-    initCarousels();
-    initCollapses();
-    initDials();
-    initDismisses();
-    initDrawers();
-    initDropdowns();
-    initModals();
-    initPopovers();
-    initTabs();
-    initTooltips();
-})
+import { initFlowbite } from 'flowbite';
 
 defineProps({
     title: String,
+});
+
+onMounted(() => {
+    initFlowbite();
 });
 
 const logout = () => {
     router.post(route("logout"));
 };
 
-// Define the JavaScript functions as Vue methods
 const openNav = () => {
-    var sidebar = document.getElementById("mySidebar");
-    var comp = document.getElementById("myComp");
-    const hamburgerButton = document.querySelector('[data-drawer-target="sidebar"]');
-    if (sidebar.style.width == "250px") {
+    const sidebar = document.getElementById("mySidebar");
+    const comp = document.getElementById("myComp");
+    if (sidebar.style.width === "250px") {
         closeNav();
     } else {
         sidebar.style.width = "250px";
         comp.style.left = "260px";
-        window.addEventListener("click", handleOutsideClick); // Add the event listener to the window
+        window.addEventListener("click", handleOutsideClick);
     }
-}
+};
 
 const closeNav = () => {
-    document.getElementById("mySidebar").style.width = "0";
-    document.getElementById("myComp").style.left = "50px";
-    window.removeEventListener("click", handleOutsideClick); // Remove the event listener from the window
-}
+    const sidebar = document.getElementById("mySidebar");
+    const comp = document.getElementById("myComp");
+    sidebar.style.width = "0";
+    comp.style.left = "50px";
+    window.removeEventListener("click", handleOutsideClick);
+};
 
 const toggleUserDropdown = (event) => {
-    event.stopPropagation(); // Prevent the click event from propagating to the window
+    event.stopPropagation();
     // Toggle your dropdown menu here
 };
 
-document.onclick = function (e) {
-    if (e.target.id != 'mySidebar') {
-        document.getElementById("mySidebar").style.width = "0px";
-        document.getElementById("myComp").style.left = "50px";
+const handleOutsideClick = (event) => {
+    if (event.target.id !== 'mySidebar') {
+        closeNav();
     }
-}
+};
 </script>
-
 <style scoped>
 body {
     margin: 0px;
