@@ -4,7 +4,10 @@ use App\Http\Controllers\ResponseController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\RoleController;
+use App\Http\Controllers\FormGeneratorController;
+use App\Http\Controllers\AuditController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ModelController;
 use Inertia\Inertia;
 
 /*
@@ -18,12 +21,9 @@ use Inertia\Inertia;
 |
 */
 
-// Home Page
+// Login Page
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-
+    return Inertia::render('Auth/Login', [
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
@@ -50,13 +50,16 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     // 5S Checklist Form Page
     Route::get('/5S-Checklist', [UserController::class, 'show5SForm'])->name('5S-Checklist');
 
+    // Create Check Sheet Page
+    Route::get('/generate', [FormGeneratorController::class, 'index'])->name('generate');
+
     // Audit Trail Page
-    Route::get('/audit', [\App\Http\Controllers\AuditController::class, 'index'])->name('audit');
+    Route::get('/audit', [AuditController::class, 'index'])->name('audit');
 
     // Pending Reports Page
     Route::prefix('/Pending-Reports')->group(function () {
-        Route::get('/', [\App\Http\Controllers\ReportController::class, 'index'])->name('Pending-Reports');
-        Route::put('/{status}/{id}', [\App\Http\Controllers\ReportController::class, 'update'])->name('Pending-Reports.update');
+        Route::get('/', [ReportController::class, 'index'])->name('Pending-Reports');
+        Route::put('/{status}/{id}', [ReportController::class, 'update'])->name('Pending-Reports.update');
     });
 
     // Model Manager Page
@@ -65,5 +68,5 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     });
     // Form Submission Function
     Route::post('/submit-response', [ResponseController::class, 'store']);
-    Route::post('/ModelManager/Add', [\App\Http\Controllers\ModelController::class, 'store'])->name('models.store');
+    Route::post('/ModelManager/Add', [ModelController::class, 'store'])->name('models.store');
 });
