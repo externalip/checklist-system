@@ -4,6 +4,7 @@ use App\Http\Controllers\ResponseController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FormGeneratorController;
 use App\Http\Controllers\RoleController;
 use Inertia\Inertia;
 
@@ -18,12 +19,9 @@ use Inertia\Inertia;
 |
 */
 
-// Home Page
+// Login Page
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-
+    return Inertia::render('Auth/Login', [
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
@@ -49,6 +47,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     // 5S Checklist Form Page
     Route::get('/5S-Checklist', [UserController::class, 'show5SForm'])->name('5S-Checklist');
+
+    // Create Check Sheet Page
+    Route::get('/generate', [FormGeneratorController::class, 'index'])->name('generate');
 
     // Audit Trail Page
     Route::get('/audit', [\App\Http\Controllers\AuditController::class, 'index'])->name('audit');
