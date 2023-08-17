@@ -39,7 +39,7 @@ class ReportController extends Controller
             WHERE response_fields.form_id = 1;
         */
         $responses = DB::table('response_fields')
-                    ->select('forms.form_name', 'employees.first_name', 'response_fields.*')
+                    ->select('forms.form_name', 'employees.first_name', 'employees.shift', 'response_fields.*')
                     ->join('forms', 'response_fields.form_id', '=', 'forms.id')
                     ->join('users', 'users.id', '=', 'response_fields.submitted_by')
                     ->join('employees', 'employees.id', '=', 'users.employee_id')

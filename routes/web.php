@@ -51,7 +51,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/5S-Checklist', [UserController::class, 'show5SForm'])->name('5S-Checklist');
 
     // Create Check Sheet Page
-    Route::get('/generate', [FormGeneratorController::class, 'index'])->name('generate');
+    Route::prefix('/generate')->group(function () {
+        Route::get('/', [FormGeneratorController::class, 'index'])->name('generate');
+        Route::post('/', [FormGeneratorController::class, 'store'])->name('generate.store');
+    });
 
     // Audit Trail Page
     Route::get('/audit', [AuditController::class, 'index'])->name('audit');
