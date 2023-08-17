@@ -5,7 +5,9 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FormGeneratorController;
-use App\Http\Controllers\RoleController;
+use App\Http\Controllers\AuditController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ModelController;
 use Inertia\Inertia;
 
 /*
@@ -52,12 +54,12 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/generate', [FormGeneratorController::class, 'index'])->name('generate');
 
     // Audit Trail Page
-    Route::get('/audit', [\App\Http\Controllers\AuditController::class, 'index'])->name('audit');
+    Route::get('/audit', [AuditController::class, 'index'])->name('audit');
 
     // Pending Reports Page
     Route::prefix('/Pending-Reports')->group(function () {
-        Route::get('/', [\App\Http\Controllers\ReportController::class, 'index'])->name('Pending-Reports');
-        Route::put('/{status}/{id}', [\App\Http\Controllers\ReportController::class, 'update'])->name('Pending-Reports.update');
+        Route::get('/', [ReportController::class, 'index'])->name('Pending-Reports');
+        Route::put('/{status}/{id}', [ReportController::class, 'update'])->name('Pending-Reports.update');
     });
     
     // Model Manager Page
@@ -69,5 +71,5 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     // Form Submission Function
     Route::post('/submit-response', [ResponseController::class, 'store']);
-    Route::post('/ModelManager/Add', [\App\Http\Controllers\ModelController::class, 'store'])->name('models.store');
+    Route::post('/ModelManager/Add', [ModelController::class, 'store'])->name('models.store');
 });
