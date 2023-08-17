@@ -64,7 +64,8 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+            // return redirect()->back()->withErrors($validator)->withInput();
+            return response()->json(['status' => 'error', 'errors' => $validator->errors()]);
         }
 
         $employee = Employee::create([
@@ -84,7 +85,7 @@ class UserController extends Controller
             'password' => Hash::make($input['password']),
         ]);
 
-        return response()->json(['message' => 'User Added', 'status' => 'success']);
+        return response()->json(['status' => 'success']);
     }
     /**
      * Display the specified resource.
@@ -130,7 +131,7 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+           return response()->json(['status' => 'error','errors' => $validator->errors()]);
         }
 
         $employee = Employee::findOrFail($user->employee_id);
@@ -154,7 +155,7 @@ class UserController extends Controller
             ]);
         }
 
-        return redirect()->route('users', ['id' => $user->id])->with('success', 'User updated successfully');
+        return response()->json(['message' => 'User Updated', 'status' => 'success']);
     }
 
 
