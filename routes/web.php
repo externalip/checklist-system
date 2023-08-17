@@ -65,14 +65,11 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('/', [ReportController::class, 'index'])->name('Pending-Reports');
         Route::put('/{status}/{id}', [ReportController::class, 'update'])->name('Pending-Reports.update');
     });
-    
-    // Model Manager Page
-    Route::get('Models', function () {
-        return Inertia::render('Models/Index', [
-            'Forms' => \App\Models\Form::all(),
-        ]);
-    })->name('models.index');
 
+    // Model Manager Page
+    Route::prefix('Models')->group(function () {
+        Route::get('/', function () { return Inertia::render('Models/Index', ['Forms' => \App\Models\Form::all(),]);})->name('models.index');
+    });
     // Form Submission Function
     Route::post('/submit-response', [ResponseController::class, 'store']);
     Route::post('/ModelManager/Add', [ModelController::class, 'store'])->name('models.store');

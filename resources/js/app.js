@@ -11,20 +11,9 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import swal from 'sweetalert2';
 
-// Date Range Picker
-import {registerLicense} from '@syncfusion/ej2-base';
-registerLicense("Ngo9BigBOggjHTQxAR8/V1NGaF1cWGhBYVJzWmFZfV1gfV9DYVZRTGY/P1ZhSXxQdk1jUX1fdXVVTmVaUkU=")
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 
-$(function() {
-    $('input[name="daterange"]').daterangepicker({
-        timePicker: true,
-        startDate: moment().startOf('hour'),
-        endDate: moment().startOf('hour').add(32, 'hour'),
-        locale: {
-        format: 'M/DD hh:mm A'
-        }
-    });
-});
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
@@ -41,6 +30,7 @@ createInertiaApp({
             .use(ZiggyVue, Ziggy)
             .use(FormKitPlugin, defaultConfig(config))
             .use(VueSweetalert2)
+            .component('VueDatePicker', VueDatePicker)
             .mount(el);
     },
     progress: {
