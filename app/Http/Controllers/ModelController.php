@@ -62,16 +62,34 @@ class ModelController extends Controller
         foreach ($tags as $tag) {
             array_push($form_ids, $tag->form_id);
         }
-        $forms = DB::table('forms')->whereIn('id', $form_ids)->get();
-        return response()->json(['model' => $model, 'forms' => $forms]);
+        // $forms = DB::table('forms')->whereIn('id', $form_ids)->get();
+        return response()->json(['model' => $model, 'form_ids' => $form_ids]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+
+    public function update(Request $request, $id)
     {
-        //
+        $model = Models::findOrFail($id);
+        $input = $request->all();
+        $submissionIDs = array_map('intval', array_map('trim', $input['form_id']));
+        $model->update([
+            'model_name' => $request->input('model_name')
+        ]);
+        Tags::where('model_id', $model->id)->delete();
+        if ($submissionIDs) {
+            $tags = [];
+            foreach ($submissionIDs as $id) {
+                $tags[] = [
+                    'form_id' => $id,
+                    'model_id' => $model->id
+                ];
+            }
+            Tags::insert($tags);
+        }
+        return response()->json(['message' => 'Model Updated']);
     }
 
     /**
@@ -79,7 +97,10 @@ class ModelController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $models = Models::findOrFail($id);
+        Tags::where('model_id', $models->id)->delete();
+        $models->delete();
+        return response()->json(['message' => 'Model Deleted']);
     }
     public function TableView()
     {

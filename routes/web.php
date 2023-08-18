@@ -68,8 +68,11 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     // Model Manager Page
     Route::prefix('Models')->group(function () {
         Route::get('/', function () { return Inertia::render('Models/Index', ['Forms' => \App\Models\Form::all(),]);})->name('models.index');
+        Route::get('/{id}/edit', [ModelController::class, 'edit'])->name('models.edit');
+        Route::post('/', [ModelController::class, 'store'])->name('models.store');
+        Route::put('/{id}', [ModelController::class, 'update'])->name('models.update');
+        Route::delete('/{id}', [ModelController::class, 'destroy'])->name('models.destroy');
     });
     // Form Submission Function
     Route::post('/submit-response', [ResponseController::class, 'store']);
-    Route::post('/ModelManager/Add', [ModelController::class, 'store'])->name('models.store');
 });
