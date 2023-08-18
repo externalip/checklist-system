@@ -140,6 +140,12 @@
                     <table class="rounded-lg w-full text-sm text-center text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
+                                <th scope="col" class="px-6 py-3" >
+                                    <input type="checkbox" v-model="selectAll">
+                                     <button v-if="selectedModels?.length > 0" @click="deleteSelected" class="hover:bg-gray-200 transition duration-200 ease-in-out p-4 flex-none">
+                                                    <img src="@/Shared/Icons/delete.svg" alt="Delete" class="w-5 h-5 cursor-pointer " />
+                                    </button>
+                                </th>
                                 <th scope="col" class="px-6 py-3">
                                     Model ID
                                 </th>
@@ -161,24 +167,26 @@
                                         No models available.
                                     </td>
                                 </tr>
-</template>
-
-<template v-else>
-    <tr v-for="model in models" :key="model.model_id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 transition ease-in-out duration-200">
-        <td class="px-6 py-4">{{ model.model_id }}</td>
-        <td class="px-6 py-4">{{ model.model_name }}</td>
-        <td class="px-6 py-4">{{ model.checksheet_appearance ? model.checksheet_appearance : 'No Checksheet Appearance' }}</td>
-        <td class="px-6 py-4 flex justify-center items-center space-x-4 mx-10">
-            <button href="#" @click.prevent="editModel(model.model_id)" type="button" class="hover:bg-gray-200 transition duration-200 ease-in-out p-4 flex-none">
-                                                    <img src="@/Shared/Icons/edit.svg" alt="edit icon"
-                                                        class="w-5 h-5 cursor-pointer flex-none">
-                                                </button>
-            <button href="#" @click.prevent="deleteModel(model.model_id)" type="button" class="hover:bg-gray-200 transition duration-200 ease-in-out p-4 flex-none">
-                                                    <img src="@/Shared/Icons/delete.svg" alt="Delete" class="w-5 h-5 cursor-pointer " />
-                                                </button>
-        </td>
-    </tr>
-</template>
+                            </template>
+                            <template v-else>
+                                <tr v-for="model in models" :key="model.model_id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 transition ease-in-out duration-200">
+                                    <td>
+                                    <input type="checkbox" v-model="selectedModels" :value="model.model_id">
+                                    </td>
+                                    <td class="px-6 py-4">{{ model.model_id }}</td>
+                                    <td class="px-6 py-4">{{ model.model_name }}</td>
+                                    <td class="px-6 py-4">{{ model.checksheet_appearance ? model.checksheet_appearance : 'No Checksheet Appearance' }}</td>
+                                    <td class="px-6 py-4 flex justify-center items-center space-x-4 mx-10">
+                                        <button href="#" @click.prevent="editModel(model.model_id)" type="button" class="hover:bg-gray-200 transition duration-200 ease-in-out p-4 flex-none">
+                                                                                <img src="@/Shared/Icons/edit.svg" alt="edit icon"
+                                                                                    class="w-5 h-5 cursor-pointer flex-none">
+                                                                            </button>
+                                        <button href="#" @click.prevent="deleteModel(model.model_id)" type="button" class="hover:bg-gray-200 transition duration-200 ease-in-out p-4 flex-none">
+                                                                                <img src="@/Shared/Icons/delete.svg" alt="Delete" class="w-5 h-5 cursor-pointer " />
+                                                                            </button>
+                                    </td>
+                                </tr>
+                            </template>
                         </tbody>
                     </table>
                 </div>
@@ -225,7 +233,7 @@
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { useForm } from '@inertiajs/vue3';
 import axios from 'axios';
-import { defineProps, ref, onMounted, provide } from 'vue';
+import { defineProps, ref, onMounted, provide, computed, watch  } from 'vue';
 import Modal from './EditModal.vue';
 
 const { Forms } = defineProps(['Forms']);
@@ -233,7 +241,7 @@ const SelectedForms = ref([]);
 const models = ref([]);
 const showEditModal = ref(false);
 const editedModelId = ref(null);
-
+const selectedModels = ref([]);
 const form = useForm({
     model_name: '',
     form_id: ''
@@ -291,7 +299,11 @@ const deleteModel = async (id) => {
     });
     if (confirmed.isConfirmed) {
         try {
-            await axios.delete(`/Models/${id}`);
+            await axios.delete(route('models.destroy'), {
+                data: {
+                    id: id
+                }
+            });
             TableView();
             Swal.fire({
                 title: 'Deleted!',
@@ -306,5 +318,49 @@ const deleteModel = async (id) => {
     }
 }
 provide("TableView", TableView);
+const selectAll = computed({
+    get: () => selectedModels.value.length === models.value.length,
+    set: (value) => {
+        selectedModels.value = value ? models.value.map(model => model.model_id) : [];
+    }
+});
 
+const deleteSelected = async () => {
+    if (selectedModels.value.length === 0) {
+        return;
+    }
+    const sure = Swal.fire({
+        icon: 'warning',
+        title: 'Are you sure?',
+        text: 'You will not be able to recover these models!',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete them!'
+
+    });
+    sure.then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+                 await axios.delete(route('models.destroy'), {
+                    data: {
+                        ids: selectedModels.value
+                    }
+                    });
+
+                TableView();
+                selectedModels.value = [];
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Selected models deleted successfully!',
+                    confirmButtonText: 'OK'
+                });
+            } catch (error) {
+                console.error('Error deleting selected models:', error);
+            }
+        }
+    });
+
+}
 </script>

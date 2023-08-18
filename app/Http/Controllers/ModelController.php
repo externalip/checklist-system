@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Form;
 use App\Models\Tags;
 use Inertia\Inertia;
 use App\Models\Models;
@@ -15,6 +16,12 @@ class ModelController extends Controller
      */
     public function index()
     {
+        $models = Models::all();
+
+        return Inertia::render('Models/Index' , [
+            'models' => $models,
+            'Forms' => Form::all(),
+        ]);
     }
 
     /**
@@ -95,12 +102,12 @@ class ModelController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        $models = Models::findOrFail($id);
-        Tags::where('model_id', $models->id)->delete();
-        $models->delete();
-        return response()->json(['message' => 'Model Deleted']);
+        $ids = $request->input('id') ? [$request->input('id')] : $request->input('ids');
+        Tags::whereIn('model_id', $ids)->delete();
+        Models::whereIn('id', $ids)->delete();
+        return response()->json(['message' => 'Models Deleted']);
     }
     public function TableView()
     {
