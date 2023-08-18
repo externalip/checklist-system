@@ -11,11 +11,6 @@
   import NavBarLayout from '@/Layouts/AppLayout.vue';
   import { Link, useForm } from '@inertiajs/vue3';
   import { reactive } from 'vue'
-
-  function createForm() {
-    // Send user input to ResponseController
-    router.post('/generate', form_config);
-  }
  
 </script>
 
@@ -24,10 +19,7 @@
       <div>
           <div class="container mx-auto p-4 px-20">
 
-              
-              
               <!-- Form Start -->
-              <form id="forms" method="post">
                 <!-- Page Label -->
                 <p class="text-4xl font-bold">Create Check Sheet</p>
 
@@ -36,6 +28,7 @@
                     <p class="text-xl pt-1 pr-4">Check Sheet Name</p>
                     <input v-model="form_config.form_name" class="w-1/2 rounded-lg" type="text">
                 </div>
+
                 <!-- Section Looper -->
                 <div v-for="key in count" :key="key">
                   <div class="p-4">
@@ -66,10 +59,17 @@
                           </select>
                         </div>  
 
+                        <!-- Add Question -->
+                        <div>
+                          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-full"
+                            @click="addQuestion('section' + key.toString())">Add Question</button>
+                        </div>
+
                       </div>
                       
                       <!-- Question-Type Section -->
-                      <div v-if="form_config.form_content['section' + key.toString()].section_type === 'question_'+key">
+                      <div v-for="qIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content).length" :key="qIndex">
+                        <div v-if="form_config.form_content['section' + key.toString()].section_type === 'question_'+key">
                         <div style="padding-top:16px;">
                           <div class="grid grid-cols-5 p-4 rounded-lg bg-slate-300">
                             
@@ -106,7 +106,7 @@
                               </div>
                               
                               <!-- Radio Input Label -->
-                              <input v-model="form_config.form_content['section' + key.toString()].section_content.answers['ans' + key.toString()]" class="w-11/12 rounded-lg" type="text">                              
+                              <input v-model="form_config.form_content['section' + key.toString()].section_content['question' + key.toString()].answers['ans' + key.toString()]" class="w-11/12 rounded-lg" type="text">                              
                             </div>
                                   
                             <!-- If Question Type is Checkbox -->
@@ -139,6 +139,9 @@
                           </div>
                         </div>
                       </div>
+                      </div>
+
+                      
                       
                       <!-- Instruction-Type Section -->
                       <div v-if="form_config.form_content['section' + key.toString()].section_type === 'instruction_'+key">
@@ -173,8 +176,7 @@
                       </div>
                     </div>
                   </div> 
-                </div>     
-              </form>
+                </div> 
                 
           </div>
       </div> 
@@ -192,17 +194,17 @@
                 </button>
 
                 <!-- Insert New Section -->
-                <a href="#" id="add_more_fields" @click="add" >
+                <a href="#" id="add_more_fields" @click="addSection" >
                   <button class="bg-blue-500 mx-20 hover:bg-blue-400 text-black font-bold py-2 px-4 border border-b-4 border-blue-700 hover:border-blue-500 flex rounded-full"
                     >Add Section
                   </button>
                 </a>
 
+                <!-- Generate Form -->
                 <Link :href="route('generate.store', form_config)" as="button" method="POST" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border border-b-4 border-blue-700 hover:border-blue-500 rounded">
                     Create
                 </Link>
                 
-                <!-- <a href="#" id="remove_fields" @click="remove"> <i class="fa fa-minus"></i> Remove Fields</a> -->
               </div>
             </div>
           </div>
@@ -213,6 +215,23 @@
 
 <script>
 
+  // let form_config = reactive({
+  //   form_name : null,
+  //   form_content : {
+  //     section1 : {
+  //       section_name : null,
+  //       section_type : null,
+  //       section_content : {
+  //         question : null,
+  //         type : null,
+  //         answers : {
+
+  //         }
+  //       }
+  //     }
+  //   }
+  // });
+
   let form_config = reactive({
     form_name : null,
     form_content : {
@@ -220,32 +239,42 @@
         section_name : null,
         section_type : null,
         section_content : {
-          question : null,
-          type : null,
-          answers : {
+          question1 : {
+            question: null,
+            type: null,
+            answers: {
 
+            }
           }
         }
       }
     }
   });
 
+  function showJSON() {
+    console.log(JSON.stringify(form_config));
+  }
+
   function appendSection(num) {
     form_config.form_content['section' + num.toString()] = {
       section_name : null,
       section_type: null,
       section_content : {
-        question : null,
-        type : null,
-        answers : {
-          
-        }
+
       }
     };
+    showJSON();
   }
 
-  function appendQuestion() {
+  function appendQuestion(section_name, question_number) {
+    form_config.form_content[section_name].section_content['question' + question_number.toString()] = {
+      question: null,
+      type: null,
+      answers: {
 
+      }
+    };
+    showJSON();
   }
 
   export default {
@@ -255,19 +284,26 @@
     data() {
       return {
         count: 1,
+        qCount: {
+
+        },
       };
     },
     methods:{
-      add(){
+      addSection(){
         this.count++;
         appendSection(this.count);
       },
-      remove(){
-        if (this.count > 1) {
-          delete this.values[this.count];
-          this.count--;
+      addQuestion(section_name) {
+        // Check if object exists in JSON
+        if (this.qCount.hasOwnProperty(section_name)){
+          this.qCount[section_name] = this.qCount[section_name] + 1;
+        } else {
+          this.qCount[section_name] = 1;
         }
-      }
+        appendQuestion(section_name, this.qCount[section_name]);
+        // console.log(section_name + '; Question #' + this.qCount[section_name]);
+      },
     }
   };
 
