@@ -90,7 +90,6 @@
                                   
                             <!-- Question Type Options -->
                             <div class="">
-                              <p>{{ form_config.form_content['section' + key.toString()].section_content.type }}</p>
                               <select id="selectBox" v-model="form_config.form_content['section' + key.toString()].section_content.type" :name="'v' + key" class="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-m rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" style="border:1px solid gray">
                                 <option selected>Choose a type</option>
                                 <option :value="'radio'">Radio</option>
@@ -125,7 +124,7 @@
                                 <p class="text-xl">Textbox</p>
                               </div>
 
-                              <input v-model="form_config.form_content['section' + key.toString()].section_content.answers['ans' + key.toString()]" class="w-11/12 rounded-lg" type="text">                              
+                              <input class="w-11/12 rounded-lg" style="background-color: #E5E5E5; border: 1px solid #B2B2B2;" type="text" placeholder="answer text" disabled>
                             </div>
                             
                             <!-- If Question Type is Dropdown -->
@@ -193,24 +192,12 @@
                 </button>
 
                 <!-- Insert New Section -->
-                <a href="#" id="add_more_fields" @click="add">
+                <a href="#" id="add_more_fields" @click="add" >
                   <button class="bg-blue-500 mx-20 hover:bg-blue-400 text-black font-bold py-2 px-4 border border-b-4 border-blue-700 hover:border-blue-500 flex rounded-full"
                     >Add Section
                   </button>
                 </a>
-                <!-- 
 
-                  <Link :href="route('Pending-Reports.update', {
-                                    status: 'Rejected',
-                                    id: row.id
-                                })" as="button" method="PUT">
-                                    <button type="button"
-                                        class="focus:outline-none text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                                        >Reject
-                                    </button>
-                                </Link>
-                 -->
-                
                 <Link :href="route('generate.store', form_config)" as="button" method="POST" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border border-b-4 border-blue-700 hover:border-blue-500 rounded">
                     Create
                 </Link>
