@@ -131,7 +131,7 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) {
-           return response()->json(['status' => 'error','errors' => $validator->errors()]);
+            return response()->json(['status' => 'error', 'errors' => $validator->errors()]);
         }
 
         $employee = Employee::findOrFail($user->employee_id);
@@ -184,7 +184,33 @@ class UserController extends Controller
             ->get();
 
         // Send list of models to url
-        return Inertia::render('5S-Checklist/index', [
+        return Inertia::render('5S-Checklist/Index', [
+            'models' => $models
+        ]);
+    }
+
+    public function showPTouchForm()
+    {
+        // Get all models
+        $models = DB::table('models')
+            ->select('model_name')
+            ->get();
+
+        // Send list of models to url
+        return Inertia::render('PTouch-Solder/Index', [
+            'models' => $models
+        ]);
+    }
+
+    public function showICTForm()
+    {
+        // Get all models
+        $models = DB::table('models')
+            ->select('model_name')
+            ->get();
+
+        // Send list of models to url
+        return Inertia::render('PTouch-ICT/Index', [
             'models' => $models
         ]);
     }

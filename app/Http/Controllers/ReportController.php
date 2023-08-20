@@ -19,15 +19,15 @@ class ReportController extends Controller
     {
         // Get existing check sheet forms
         $forms = DB::table('forms')
-                    ->select('form_name')
-                    ->orderBy('form_name')
-                    ->get();
+            ->select('form_name')
+            ->orderBy('form_name')
+            ->get();
 
         // Get pending responses for 5S check sheet
         /*
-            SELECT 
-                forms.form_name, 
-                employees.first_name, 
+            SELECT
+                forms.form_name,
+                employees.first_name,
                 response_fields.*
             FROM `response_fields`
             JOIN `forms`
@@ -39,31 +39,64 @@ class ReportController extends Controller
             WHERE response_fields.form_id = 1;
         */
         $responses = DB::table('response_fields')
-                    ->select('forms.form_name', 'employees.first_name', 'employees.shift', 'response_fields.*')
-                    ->join('forms', 'response_fields.form_id', '=', 'forms.id')
-                    ->join('users', 'users.id', '=', 'response_fields.submitted_by')
-                    ->join('employees', 'employees.id', '=', 'users.employee_id')
-                    ->where('response_fields.form_id', '=', 1)
-                    ->where('response_fields.status', '=', 'Pending')
-                    ->get();
+            ->select('forms.form_name', 'employees.first_name', 'response_fields.*')
+            ->join('forms', 'response_fields.form_id', '=', 'forms.id')
+            ->join('users', 'users.id', '=', 'response_fields.submitted_by')
+            ->join('employees', 'employees.id', '=', 'users.employee_id')
+            ->where('response_fields.form_id', '=', 1)
+            ->where('response_fields.status', '=', 'Pending')
+            ->get();
+
+        $responses2 = DB::table('response_fields')
+            ->select('forms.form_name', 'employees.first_name', 'response_fields.*')
+            ->join('forms', 'response_fields.form_id', '=', 'forms.id')
+            ->join('users', 'users.id', '=', 'response_fields.submitted_by')
+            ->join('employees', 'employees.id', '=', 'users.employee_id')
+            ->where('response_fields.form_id', '=', 2)
+            ->where('response_fields.status', '=', 'Pending')
+            ->get();
+
+        $responses3 = DB::table('response_fields')
+            ->select('forms.form_name', 'employees.first_name', 'response_fields.*')
+            ->join('forms', 'response_fields.form_id', '=', 'forms.id')
+            ->join('users', 'users.id', '=', 'response_fields.submitted_by')
+            ->join('employees', 'employees.id', '=', 'users.employee_id')
+            ->where('response_fields.form_id', '=', 3)
+            ->where('response_fields.status', '=', 'Pending')
+            ->get();
 
         // Get signature status per response
         $signature_status = DB::table('signatures')
-                    ->select('response_id', 'required_sign_role', 'status')
-                    ->get();
+            ->select('response_id', 'required_sign_role', 'status')
+            ->get();
 
         // Get pending reports count for 5s
         $counts = DB::table('response_fields')
-                    ->select()
-                    ->where('status', '=', 'pending')
-                    ->where('form_id', '=', '1')
-                    ->count();
+            ->select()
+            ->where('status', '=', 'pending')
+            ->where('form_id', '=', '1')
+            ->count();
+
+        $counts2 = DB::table('response_fields')
+            ->select()
+            ->where('status', '=', 'pending')
+            ->where('form_id', '=', '2')
+            ->count();
+        $counts3 = DB::table('response_fields')
+            ->select()
+            ->where('status', '=', 'pending')
+            ->where('form_id', '=', '3')
+            ->count();
 
         return Inertia::render('Pending-Reports/Index', [
             'forms' => $forms,
             'data' => $responses,
+            'data2' => $responses2,
+            'data3' => $responses3,
             'signatures' => $signature_status,
-            'counts' => $counts
+            'counts' => $counts,
+            'counts2' => $counts2,
+            'counts3' => $counts3
         ]);
     }
 
@@ -93,38 +126,38 @@ class ReportController extends Controller
 
         // Get user role
         $user_role = $this->getUserRole($user_id);
-        
+
         if ($status == 'Rejected') {
             // Update signature status as 'Rejected'
             DB::table('signatures')
-                    ->where('response_id', '=', $response_id)
-                    ->where('required_sign_role', '=', $user_role)
-                    ->update(
-                        [
-                            'status' => 'Rejected', 
-                            'user_id' => $user_id
-                        ]
-                    );
+                ->where('response_id', '=', $response_id)
+                ->where('required_sign_role', '=', $user_role)
+                ->update(
+                    [
+                        'status' => 'Rejected',
+                        'user_id' => $user_id
+                    ]
+                );
         } else {
             // Update signature status as 'OK'
             DB::table('signatures')
-                    ->where('response_id', '=', $response_id)
-                    ->where('required_sign_role', '=', $user_role)
-                    ->update(
-                        [
-                            'status' => 'OK', 
-                            'user_id' => $user_id
-                        ]
-                    );
+                ->where('response_id', '=', $response_id)
+                ->where('required_sign_role', '=', $user_role)
+                ->update(
+                    [
+                        'status' => 'OK',
+                        'user_id' => $user_id
+                    ]
+                );
         }
 
         // Check if response is rejected by at least one signee
-        if($this->isRejected($response_id)) {
+        if ($this->isRejected($response_id)) {
             $this->markResponseStatus($response_id, 'Rejected');
         }
 
         // Check if response got all signatures
-        if($this->isComplete($response_id)) {
+        if ($this->isComplete($response_id)) {
             // Set response status as 'OK'
             $this->markResponseStatus($response_id, 'OK');
         }
@@ -138,17 +171,17 @@ class ReportController extends Controller
         return auth()->user()->id;
     }
 
-    public function getUserRole($user_id) 
+    public function getUserRole($user_id)
     {
         // Return user role
         return DB::table('users')
-                ->select('roles.position')
-                ->join('employees', 'employees.id', '=', 'users.employee_id')
-                ->join('roles', 'roles.id', '=', 'employees.role_id')
-                ->where('users.id', '=', $user_id)
-                ->get()
-                ->first()
-                ->position;
+            ->select('roles.position')
+            ->join('employees', 'employees.id', '=', 'users.employee_id')
+            ->join('roles', 'roles.id', '=', 'employees.role_id')
+            ->where('users.id', '=', $user_id)
+            ->get()
+            ->first()
+            ->position;
     }
 
     private function isComplete($response_id): bool
@@ -162,9 +195,9 @@ class ReportController extends Controller
             AND `status` = 'OK';
         */
         $progressCount = DB::table('signatures')
-                ->where('response_id', '=', $response_id)
-                ->where('status', '=', 'OK')
-                ->count();
+            ->where('response_id', '=', $response_id)
+            ->where('status', '=', 'OK')
+            ->count();
 
         // A form requires 2 signatures (QC & Line Leader)
         return ($progressCount == 2) ? true : false;
@@ -181,22 +214,22 @@ class ReportController extends Controller
             AND `status` = 'Rejected';
         */
         $progressCount = DB::table('signatures')
-                ->where('response_id', '=', $response_id)
-                ->where('status', '=', 'Rejected')
-                ->count();
+            ->where('response_id', '=', $response_id)
+            ->where('status', '=', 'Rejected')
+            ->count();
 
         // If a response is rejected by either QC or Line Lead
         return ($progressCount >= 1) ? true : false;
     }
 
-    private function markResponseStatus($response_id, $status) 
+    private function markResponseStatus($response_id, $status)
     {
         // Update response status
         DB::table('response_fields')
-                ->where('id', '=', $response_id)
-                ->update(
-                    ['status' => $status]
-                );
+            ->where('id', '=', $response_id)
+            ->update(
+                ['status' => $status]
+            );
     }
 
     /**
