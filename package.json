@@ -22,7 +22,6 @@
     "dependencies": {
         "@formkit/icons": "^0.17.5",
         "@formkit/themes": "^0.17.5",
-        "@formkit/vue": "^0.17.5",
         "@inertiajs/inertia-vue3": "^0.6.0",
         "@vuepic/vue-datepicker": "^6.0.0",
         "datatables.net-dt": "^1.13.6",

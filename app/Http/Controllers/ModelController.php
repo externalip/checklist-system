@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Form;
 use App\Models\Tags;
 use Inertia\Inertia;
 use App\Models\Models;
@@ -15,6 +16,12 @@ class ModelController extends Controller
      */
     public function index()
     {
+        $models = Models::all();
+
+        return Inertia::render('Models/Index' , [
+            'models' => $models,
+            'Forms' => Form::all(),
+        ]);
     }
 
     /**
@@ -62,24 +69,45 @@ class ModelController extends Controller
         foreach ($tags as $tag) {
             array_push($form_ids, $tag->form_id);
         }
-        $forms = DB::table('forms')->whereIn('id', $form_ids)->get();
-        return response()->json(['model' => $model, 'forms' => $forms]);
+        // $forms = DB::table('forms')->whereIn('id', $form_ids)->get();
+        return response()->json(['model' => $model, 'form_ids' => $form_ids]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+
+    public function update(Request $request, $id)
     {
-        //
+        $model = Models::findOrFail($id);
+        $input = $request->all();
+        $submissionIDs = array_map('intval', array_map('trim', $input['form_id']));
+        $model->update([
+            'model_name' => $request->input('model_name')
+        ]);
+        Tags::where('model_id', $model->id)->delete();
+        if ($submissionIDs) {
+            $tags = [];
+            foreach ($submissionIDs as $id) {
+                $tags[] = [
+                    'form_id' => $id,
+                    'model_id' => $model->id
+                ];
+            }
+            Tags::insert($tags);
+        }
+        return response()->json(['message' => 'Model Updated']);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $ids = $request->input('id') ? [$request->input('id')] : $request->input('ids');
+        Tags::whereIn('model_id', $ids)->delete();
+        Models::whereIn('id', $ids)->delete();
+        return response()->json(['message' => 'Models Deleted']);
     }
     public function TableView()
     {

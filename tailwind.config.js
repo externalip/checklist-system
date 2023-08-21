@@ -1,7 +1,6 @@
 import defaultTheme from "tailwindcss/defaultTheme";
 import forms from "@tailwindcss/forms";
 import typography from "@tailwindcss/typography";
-const FormKitVariants = require("@formkit/themes/tailwindcss");
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -11,7 +10,6 @@ export default {
         "./storage/framework/views/*.php",
         "./resources/views/**/*.blade.php",
         "./resources/js/**/*.vue",
-        "./tailwind-theme.js",
         "./node_modules/flowbite/**/*.js",
     ],
 
@@ -23,5 +21,5 @@ export default {
         },
     },
 
-    plugins: [forms, typography, FormKitVariants, require("flowbite/plugin")],
+    plugins: [forms, typography, require("flowbite/plugin")],
 };
