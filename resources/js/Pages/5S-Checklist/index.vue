@@ -64,7 +64,7 @@ function submit() {
                             <h5 id="question1">Model Name</h5>
 
                             <label for="models" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                > Select a model 
+                                > Select a model
                             </label>
 
                             <select id="models" v-model="form.fieldAnswers.ans1"

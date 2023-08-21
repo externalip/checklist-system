@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuditController;
 use App\Http\Controllers\ModelController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\FormGeneratorController;
 
@@ -81,4 +82,13 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     });
     // Form Submission Function
     Route::post('/submit-response', [ResponseController::class, 'store']);
+
+    //Archives
+    Route::get('/Archives', [ArchiveController::class, 'index'])->name('archives');
+
+    // P-Touch Solder Form Page
+    Route::get('/PTouch-Solder', [UserController::class, 'showPTouchForm'])->name('PTouch-Solder');
+
+    //P-Touch-ICT Form Page
+    Route::get('/PTouch-ICT', [UserController::class, 'showICTForm'])->name('PTouch-ICT');
 });

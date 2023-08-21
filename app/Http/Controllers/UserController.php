@@ -17,16 +17,41 @@ use Illuminate\Validation\Rules\Password;
 
 class UserController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $query = User::with('employee.role');
+        if ($request->filled('accountStatus')) {
+            $accountStatusArray = explode(',', $request->input('accountStatus'));
 
-        $users = User::with('employee.role')
-            ->where('active', 1)
-            ->paginate(10);
+            $query->where(function ($query) use ($accountStatusArray) {
+                if (in_array('1', $accountStatusArray)) {
+                    $query->orWhere('active', true);
+                }
+                if (in_array('0', $accountStatusArray)) {
+                    $query->orWhere('active', false);
+                }
+            });
+        }
 
+        if ($request->filled('searchUsername')) {
+            $searchUsername = $request->input('searchUsername');
+            $query->where('username', 'like', '%' . $searchUsername . '%');
+        }
+
+        // searchName (First Name, Last Name) filter
+        if ($request->filled('searchName')) {
+            $searchName = $request->input('searchName');
+            $query->whereHas('employee', function ($q) use ($searchName) {
+                $q->where(DB::raw('CONCAT(first_name, " ", last_name)'), 'like', '%' . $searchName . '%');
+            });
+        }
+
+        $users = $query->orderBy('created_at', 'ASC')->paginate(10)->withQueryString();
+        $users->appends(request()->query());
         return Inertia::render('Users/Index', [
             'users' => $users,
         ]);
@@ -131,7 +156,7 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) {
-           return response()->json(['status' => 'error','errors' => $validator->errors()]);
+            return response()->json(['status' => 'error', 'errors' => $validator->errors()]);
         }
 
         $employee = Employee::findOrFail($user->employee_id);
@@ -184,7 +209,33 @@ class UserController extends Controller
             ->get();
 
         // Send list of models to url
-        return Inertia::render('5S-Checklist/index', [
+        return Inertia::render('5S-Checklist/Index', [
+            'models' => $models
+        ]);
+    }
+
+    public function showPTouchForm()
+    {
+        // Get all models
+        $models = DB::table('models')
+            ->select('model_name')
+            ->get();
+
+        // Send list of models to url
+        return Inertia::render('PTouch-Solder/Index', [
+            'models' => $models
+        ]);
+    }
+
+    public function showICTForm()
+    {
+        // Get all models
+        $models = DB::table('models')
+            ->select('model_name')
+            ->get();
+
+        // Send list of models to url
+        return Inertia::render('PTouch-ICT/Index', [
             'models' => $models
         ]);
     }
