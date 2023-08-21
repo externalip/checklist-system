@@ -27,7 +27,7 @@ class FormGeneratorController extends Controller
         $userId = $this->getUserId();
         $config = $request->only('form_name', 'form_content');
         $form_name = $request->input('form_name');
- 
+
         DB::table('forms')
             ->insert([
                 'created_by' => $userId,
@@ -37,7 +37,7 @@ class FormGeneratorController extends Controller
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);
-        
+
         // Get new form ID
         $row_id = DB::getPdo()->lastInsertId();
 
@@ -50,20 +50,26 @@ class FormGeneratorController extends Controller
     private function checkIfFormExists($form_name)
     {
         $count = DB::table('forms')
-                ->where('form_name', '=', $form_name)
-                ->get()
-                ->count();
+            ->where('form_name', '=', $form_name)
+            ->get()
+            ->count();
         return $count > 0;
     }
 
-    private function generateForm($form_id, $form_title, $config) 
+    private function generateForm($form_id, $form_title, $config)
     {
         // Set directory, file name, and file extension type
-        $file_name = 'form'.$form_id.'.vue';
-        $file_directory = 'Forms/'.$file_name;
+        $file_name = 'form' . $form_id . '.vue';
+        $file_directory = 'Forms/' . $file_name;
 
-        // Add response submission script to form
-        $form_script = $this->generateStartingTags($form_title);
+        // Count number of questions in the form
+        $fieldCount = 0;
+        foreach ($config['form_content'] as $key => $value) {
+            $fieldCount += count($value['section_content']);
+        }
+
+        // Add response submission script to form 
+        $form_script = $this->generateStartingTags($form_title, $fieldCount);
 
         // Create initial file in /storage/app/Forms directory
         Storage::put($file_directory, $form_script);
@@ -71,52 +77,76 @@ class FormGeneratorController extends Controller
         // Read Form JSON Config
         $questionIndex = 1;
         $answerIndex = 1;
+        $radioTarget = 1;
+
+        // Section Looper
         foreach ($config['form_content'] as $key => $value) {
-            // dd(sizeof($value['section_content']));
+
             // Append Section Opening Tag
             Storage::append($file_directory, '<section id="form-section" class="p-10 mt-5 mb-5 border-2 rounded-lg">');
 
             // Append Section Title
-            Storage::append($file_directory, '<h2 id="section-name" class="mb-2">'.$value['section_name'].'</h2>');
+            Storage::append($file_directory, '<h2 id="section-name" class="mb-2">' . $value['section_name'] . '</h2>');
 
             // Check Section Type
             if (str_contains($value['section_type'], "question")) {
-                /*
-                    Initialize id name for question and answer.
-                    This is used for v-model for loop 
-                */
-                $questionId = 'question'.$questionIndex;
-                $answerId = 'ans'.$answerIndex;
 
-                // Append Opening Question Div
-                Storage::append($file_directory, '
-                    <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
-                ');
+                // Question Looper
+                foreach ($value['section_content'] as $qKey => $qValue) {
 
-                // Append Question Label
-                Storage::append($file_directory, '
-                    <h5 id="'.$questionId.'">'.$value['section_content']['question'].'</h5>
-                ');
-
-                // Check Question Type
-                if (str_contains($value['section_content']['type'], 'text')) {
-
-                    // Append Text Field
+                    // Append Opening Question Div
                     Storage::append($file_directory, '
-                        <div class="">
-                            <input v-model="form.fieldAnswers.'.$answerId.'" type="text" id="ltnum"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        </div>
+                        <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
                     ');
-                } else if (str_contains($value['section_content']['type'], 'radio')) {
 
+                    // Append Question Label
+                    Storage::append($file_directory, '
+                        <h5 id="' . 'question' . $questionIndex++ . '">' . $value['section_content'][$qKey]['label'] . '</h5>
+                    ');
+
+                    // Check Question Type
+                    if (str_contains($value['section_content'][$qKey]['type'], 'text')) {
+
+                        // Append Text Answer Field
+                        Storage::append($file_directory, '
+                            <div class="">
+                                <input v-model="form.fieldAnswers.' . 'ans' . $answerIndex++ . '" type="text" id="ltnum"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            </div>
+                        ');
+                    } else if (str_contains($value['section_content'][$qKey]['type'], 'radio')) {
+
+                        // Append Opening Radio Group
+                        Storage::append($file_directory, '
+                            <ul class="bottom-0 items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        ');
+
+                        // Append Radio Options
+                        foreach ($value['section_content'][$qKey]['options'] as $ansKey => $ansLabel) {
+                            Storage::append($file_directory, '
+                                <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                    <div class="flex items-center pl-3">
+                                        <input v-model="form.fieldAnswers.' . 'ans' . $answerIndex . '" id="production-checksheet-radio-' . $radioTarget . '" type="radio"
+                                            value="' . $ansLabel . '" name="production-checksheet-radio-' . $value['section_name'] . $qKey . '"
+                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                        <label for="production-checksheet-radio-' . $radioTarget++ . '"
+                                            class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">' . $ansLabel . '
+                                        </label>
+                                    </div>
+                                </li>
+                            ');
+                        }
+                        // Increment answerIndex after iterating through answer options that shares the same v-model (i.e: ans1)
+                        $answerIndex++;
+
+                        // Append Closing Radio Group
+                        Storage::append($file_directory, '</ul>');
+                    }
+
+                    // Append Closing Question Label
+                    Storage::append($file_directory, '</div>');
                 }
-
-                // Append Closing Question Label
-                Storage::append($file_directory, '</div>');
-
             } else {
-
             }
 
             // Append Section Closing Tag
@@ -125,6 +155,17 @@ class FormGeneratorController extends Controller
 
         // Append Final Closing Tags
         Storage::append($file_directory, '
+                            <section id="button-group"
+                                class="place-content-end mt-5 mb-5 align-right justify-center lg:justify-end flex">
+                                <!-- Back Button -->
+                                <button type="button"
+                                    class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Back</button>
+
+                                <!-- Submit Button -->
+                                <button type="btnSubmit"
+                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Submit
+                                </button>
+                            </section>
                         </form>
                     </div>
                 </AppLayout>
@@ -132,15 +173,14 @@ class FormGeneratorController extends Controller
         ');
     }
 
-    private function countQuestions($config)
+    private function generateStartingTags($form_title, $fieldCount)
     {
-        foreach ($config['form_content'] as $key => $value) {
-
+        // Populate reactive answer field objects
+        $fieldAnswersData = '';
+        for ($index = 1; $index <= $fieldCount; $index++) {
+            $fieldAnswersData .= ('ans' . $index . ': null,');
         }
-    }
 
-    private function generateStartingTags($form_title)
-    {
         return '
         <script setup>
         import AppLayout from \'@/Layouts/AppLayout.vue\';
@@ -157,15 +197,7 @@ class FormGeneratorController extends Controller
             form_id: 1,
             // Answers storage
             fieldAnswers: {
-                ans1: null,
-                ans2: null,
-                ans3: null,
-                ans4: null,
-                ans5: null,
-                ans6: null,
-                ans7: null,
-                ans8: null,
-                ans9: null,
+                ' . $fieldAnswersData . '
             }
         })
         
@@ -192,7 +224,7 @@ class FormGeneratorController extends Controller
         <style scoped></style>
         
         <template>
-            <AppLayout title="'.$form_title.'">
+            <AppLayout title="' . $form_title . '">
                 <div class="5s lg:mx-20">
                     <form @submit.prevent="submit()" method="post" id="1">
 
