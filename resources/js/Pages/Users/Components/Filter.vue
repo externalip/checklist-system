@@ -2,8 +2,7 @@
 <script setup >
 import { ref, watch } from 'vue';
  import {  Link, router } from '@inertiajs/vue3';
-//import {Inertia}
-import {Inertia as balls} from '@inertiajs/inertia';
+import {Inertia} from '@inertiajs/inertia';
 let searchUsername = ref('');
 const selectedAccountStatus = ref([]);
 let searchName = ref('');
@@ -27,10 +26,14 @@ watch([searchUsername, selectedAccountStatus, searchName], ([username, accountSt
         filters.searchName = searchName;
     }
 
-    router.get('/Users', filters, {
+    router.get(route('users'), filters, {
         preserveState: true,
         preserveScroll: true,
+        replace: true,
+        append: true,
     });
+
+
 });
 </script>
 <template>
