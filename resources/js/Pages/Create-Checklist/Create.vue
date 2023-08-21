@@ -72,7 +72,11 @@ function createForm() {
                 </div>
               </div>
 
+              <div>
 
+            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full w-full"
+                    @click="removeSection('section' + key)">Remove Section</button>
+          </div>
               <!-- Question-Type Section -->
               <div v-if="form_config.form_content['section' + key.toString()].section_type === 'question_' + key">
                 <!-- Section Content Looper -->
@@ -185,7 +189,11 @@ function createForm() {
                           @click="addAnswer('section' + key.toString(), 'question' + qIndex.toString())">Add
                           Choice</button>
                       </div>
-
+                      <!-- Remove Question Button -->
+        <div>
+          <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full w-full"
+                  @click="removeQuestion('section' + key.toString(), 'question' + qIndex.toString())">Remove Question</button>
+        </div>
                     </div>
                   </div>
                 </div>
@@ -293,6 +301,31 @@ export default {
     };
   },
   methods: {
+    removeSection(sectionName) {
+      // Delete the section from the form configuration
+      delete form_config.form_content[sectionName];
+
+      // If you want to maintain the consecutive numbering of sections,
+      // you can re-index the sections.
+      // Here is an example of how you can do that.
+      // 1. Get all the keys from the form content object
+      let sectionKeys = Object.keys(form_config.form_content);
+
+      // 2. Loop through the keys
+      for (let i = 0; i < sectionKeys.length; i++) {
+        // 3. Re-index the section names
+        form_config.form_content['section' + (i + 1)] = form_config.form_content[sectionKeys[i]];
+
+        // 4. Delete the original section names
+        delete form_config.form_content[sectionKeys[i]];
+      }
+
+      // 5. Decrement section count
+      this.sectionCount--;
+    },
+    removeQuestion(sectionName, questionName) {
+        delete form_config.form_content[sectionName].section_content[questionName];
+    },
     addSection() {
       // Increment section count
       this.sectionCount++;
