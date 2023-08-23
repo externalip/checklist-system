@@ -43,7 +43,6 @@ import axios from 'axios';
 
 const { id: id, closeModalCallback, Forms, form_ids } = defineProps(['id', 'closeModalCallback', 'Forms', 'form_ids']);
 const SelectedForms = ref([form_ids]);
-const TableView = inject("TableView");
 
 const editedModels = ref({
     id: 0,
@@ -87,7 +86,7 @@ const updateUser = () => {
             yes.then((result) => {
                 if (result.isConfirmed) {
                     closeModal();
-                    TableView();
+                    window.location.reload(true);
                 }
             });
         })
