@@ -58,13 +58,13 @@ return [
 
         'form_path' => [
             'driver' => 'local',
-            'root' => base_path() . '\\resources\\js\Pages\Forms',
+            'root' => base_path().'\\resources\\js\Pages\Forms',
             'throw' => false,
         ],
 
         'route_path' => [
             'driver' => 'local',
-            'root' => base_path() . '\\routes',
+            'root' => base_path().'\\routes',
             'throw' => false,
         ],
 
