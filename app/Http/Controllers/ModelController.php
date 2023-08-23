@@ -14,15 +14,40 @@ class ModelController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $models = Models::all();
+        $query = DB::table('Models')
+        ->leftJoin('Tags', 'Tags.model_id', '=', 'Models.id')
+        ->leftJoin('forms', 'Tags.form_id', '=', 'forms.id')
+        ->groupBy('models.id', 'Models.model_name')
+        ->select('models.id AS model_id', 'Models.model_name', DB::raw("IFNULL(GROUP_CONCAT(forms.form_name SEPARATOR ', '), '') AS checksheet_appearance"));
 
-        return Inertia::render('Models/Index' , [
+
+        $modelNameFilter = $request->input('modelName');
+        if ($modelNameFilter) {
+            $query->where('Models.model_name', 'LIKE', '%' . $modelNameFilter . '%');
+        }
+        $selectedCheckSheets = $request->input('SelectedCheckSheet');
+        if ($selectedCheckSheets) {
+            $selectedCheckSheetsArray = explode(',', $selectedCheckSheets);
+            $query->whereExists(function ($subquery) use ($selectedCheckSheetsArray) {
+                $subquery->select(DB::raw(1))
+                    ->from('Tags AS t')
+                    ->whereRaw('t.model_id = Models.id')
+                    ->whereIn('t.form_id', $selectedCheckSheetsArray)
+                    ->groupBy('t.model_id')
+                    ->havingRaw('COUNT(DISTINCT t.form_id) = ?', [count($selectedCheckSheetsArray)]);
+            });
+        }
+
+        $models = $query->paginate(10);
+
+        return Inertia::render('Models/Index', [
             'models' => $models,
             'Forms' => Form::all(),
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.

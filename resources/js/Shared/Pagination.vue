@@ -60,7 +60,7 @@ export default {
             const url = new URL(window.location.href);
 
             url.searchParams.set('page', page);
-            this.$inertia.get(url.toString(), '', {
+            this.$inertia.visit(url.toString(), {
                 preserveState: true,
                 preserveScroll: true,
             });

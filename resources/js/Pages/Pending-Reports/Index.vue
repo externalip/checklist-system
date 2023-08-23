@@ -363,7 +363,7 @@ const props = defineProps({
                 <div id="P-Touch Soldering" class="hidden_div accordions">
                     <h4>{{ counts2 }} Pending Reports on {{ selectedForm.form_name }}</h4>
 
-                    <div v-if="counts > 0" v-for="(row, index) in data2" id="accordion-flush" data-accordion="collapse"
+                    <div v-if="counts2 > 0" v-for="(row, index) in data2" id="accordion-flush" data-accordion="collapse"
                         data-active-classes="bg-white dark:bg-gray-900 text-blue-500 dark:text-white"
                         data-inactive-classes="text-gray-500 dark:text-gray-400" class="border-lg">
                         <h2 :id="'accordion-flush-heading-2' + index.toString()">
