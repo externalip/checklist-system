@@ -31,6 +31,10 @@ function createForm() {
           <p class="text-xl pt-1 pr-4">Check Sheet Name</p>
           <input v-model="form_config.form_name" class="w-1/2 rounded-lg" type="text">
         </div>
+        <!-- Debugger -->
+        <div>
+          {{ form_config.form_content }}
+        </div>
         <!-- Section Looper -->
         <div v-for="key in Object.keys(form_config.form_content).length" :key="key">
           <div class="p-4">
@@ -59,26 +63,26 @@ function createForm() {
                     :name="'values' + key"
                     class="bg-gray-50 border border-gray-300 text-gray-900 mb-6 text-m rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     style="border:1px solid gray">
-                    <option selected>Choose a type</option>
-                    <option :value="'question_' + key">Question</option>
+                    <option :value="'question'">Question</option>
                     <option :value="'instruction_' + key">Instruction</option>
                   </select>
                 </div>
 
-                <!-- Add Question -->
-                <div v-if="form_config.form_content['section' + key.toString()].section_type == 'question_' + key">
+                <!-- Add Question Button -->
+                <div v-if="form_config.form_content['section' + key.toString()].section_type == 'question'">
                   <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-full"
                     @click="addQuestion('section' + key.toString())">Add Question</button>
                 </div>
+                <!-- Remove Section Button -->
+                <div>
+                  <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full w-full"
+                    @click="removeSection('section' + key)">Remove Section</button>
+                </div>
               </div>
 
-              <div>
 
-            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full w-full"
-                    @click="removeSection('section' + key)">Remove Section</button>
-          </div>
               <!-- Question-Type Section -->
-              <div v-if="form_config.form_content['section' + key.toString()].section_type === 'question_' + key">
+              <div v-if="form_config.form_content['section' + key.toString()].section_type === 'question'">
                 <!-- Section Content Looper -->
                 <div
                   v-for="qIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content).length"
@@ -137,11 +141,6 @@ function createForm() {
                             .options['ans' + ansIndex.toString()]
                             ">
                         </div>
-
-                        <div>
-                          {{ form_config.form_content['section' + key.toString()].section_content['question' +
-                            qIndex.toString()].options }}
-                        </div>
                       </div>
 
                       <!-- If Question Type is Checkbox -->
@@ -189,11 +188,13 @@ function createForm() {
                           @click="addAnswer('section' + key.toString(), 'question' + qIndex.toString())">Add
                           Choice</button>
                       </div>
+
                       <!-- Remove Question Button -->
-        <div>
-          <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full w-full"
-                  @click="removeQuestion('section' + key.toString(), 'question' + qIndex.toString())">Remove Question</button>
-        </div>
+                      <div>
+                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full w-full"
+                          @click="removeQuestion('section' + key.toString(), 'question' + qIndex.toString())">Remove
+                          Question</button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -283,7 +284,7 @@ let form_config = reactive({
   form_content: {
     section1: {
       section_name: null,
-      section_type: null,
+      section_type: 'question',
       section_content: {
 
       }
@@ -293,48 +294,42 @@ let form_config = reactive({
 
 export default {
   name: 'App',
-
-  // Define data
-  data() {
-    return {
-      sectionCount: 1,
-    };
-  },
   methods: {
     removeSection(sectionName) {
+      // Get index of section from form config
+      let config = form_config.form_content;
+      let removedSectionIndex = Object.keys(config).indexOf(sectionName);
+
       // Delete the section from the form configuration
-      delete form_config.form_content[sectionName];
+      delete config[sectionName];
 
-      // If you want to maintain the consecutive numbering of sections,
-      // you can re-index the sections.
-      // Here is an example of how you can do that.
+      // To maintain the consecutive numbering of sections,
+      // We re-index the sections.
       // 1. Get all the keys from the form content object
-      let sectionKeys = Object.keys(form_config.form_content);
+      let sectionKeys = Object.keys(config);
 
-      // 2. Loop through the keys
-      for (let i = 0; i < sectionKeys.length; i++) {
+      // 2. Loop through the keys from removed section `i` to `n`
+      for (let i = removedSectionIndex; i < sectionKeys.length; i++) {
         // 3. Re-index the section names
-        form_config.form_content['section' + (i + 1)] = form_config.form_content[sectionKeys[i]];
+        config['section' + (i + 1)] = config[sectionKeys[i]];
 
         // 4. Delete the original section names
-        delete form_config.form_content[sectionKeys[i]];
+        delete config[sectionKeys[i]];
       }
 
-      // 5. Decrement section count
-      this.sectionCount--;
     },
     removeQuestion(sectionName, questionName) {
-        delete form_config.form_content[sectionName].section_content[questionName];
+      delete form_config.form_content[sectionName].section_content[questionName];
     },
     addSection() {
-      // Increment section count
-      this.sectionCount++;
+      // Get number of sections
+      let formContentSize = Object.keys(form_config.form_content).length;
 
       // Append new section to form content
       form_config
-        .form_content['section' + this.sectionCount] = {
+        .form_content['section' + (formContentSize + 1)] = {
         section_name: null,
-        section_type: null,
+        section_type: 'question',
         section_content: {
 
         }
@@ -354,13 +349,16 @@ export default {
           ans1: null
         }
       };
-      // Increment question and answer count
-      this.answerCount++;
 
     },
     addAnswer(sectionName, questionName) {
       // Get number of questions
-      let questionContentSize = Object.keys(form_config.form_content[sectionName].section_content[questionName].options).length;
+      let questionContentSize = Object.keys(
+          form_config
+            .form_content[sectionName]
+            .section_content[questionName]
+            .options
+        ).length;
 
       // Append new answer with unique key identifier
       form_config
