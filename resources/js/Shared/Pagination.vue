@@ -57,9 +57,13 @@ export default {
     },
     methods: {
         gotoPage(page) {
-            if (page !== this.data.current_page) {
-                this.$inertia.visit(this.data.path + '?page=' + page);
-            }
+            const url = new URL(window.location.href);
+
+            url.searchParams.set('page', page);
+            this.$inertia.visit(url.toString(), {
+                preserveState: true,
+                preserveScroll: true,
+            });
         },
     },
 };
