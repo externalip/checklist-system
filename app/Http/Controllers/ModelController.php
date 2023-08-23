@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Form;
-use App\Models\Tags;
-use Inertia\Inertia;
 use App\Models\Models;
+use App\Models\Tags;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class ModelController extends Controller
 {
@@ -18,7 +18,7 @@ class ModelController extends Controller
     {
         $models = Models::all();
 
-        return Inertia::render('Models/Index' , [
+        return Inertia::render('Models/Index', [
             'models' => $models,
             'Forms' => Form::all(),
         ]);
@@ -40,15 +40,16 @@ class ModelController extends Controller
         $input = $request->all();
         $submissionIDs = array_map('intval', array_map('trim', $input['form_id']));
         $model = Models::create([
-            'model_name' => $request->input('model_name')
+            'model_name' => $request->input('model_name'),
         ]);
         foreach ($submissionIDs as $id) {
             Tags::create([
                 'form_id' => $id,
-                'model_id' => $model->id
+                'model_id' => $model->id,
             ]);
         }
     }
+
     /**
      * Display the specified resource.
      */
@@ -76,14 +77,13 @@ class ModelController extends Controller
     /**
      * Update the specified resource in storage.
      */
-
     public function update(Request $request, $id)
     {
         $model = Models::findOrFail($id);
         $input = $request->all();
         $submissionIDs = array_map('intval', array_map('trim', $input['form_id']));
         $model->update([
-            'model_name' => $request->input('model_name')
+            'model_name' => $request->input('model_name'),
         ]);
         Tags::where('model_id', $model->id)->delete();
         if ($submissionIDs) {
@@ -91,11 +91,12 @@ class ModelController extends Controller
             foreach ($submissionIDs as $id) {
                 $tags[] = [
                     'form_id' => $id,
-                    'model_id' => $model->id
+                    'model_id' => $model->id,
                 ];
             }
             Tags::insert($tags);
         }
+
         return response()->json(['message' => 'Model Updated']);
     }
 
@@ -107,8 +108,10 @@ class ModelController extends Controller
         $ids = $request->input('id') ? [$request->input('id')] : $request->input('ids');
         Tags::whereIn('model_id', $ids)->delete();
         Models::whereIn('id', $ids)->delete();
+
         return response()->json(['message' => 'Models Deleted']);
     }
+
     public function TableView()
     {
         $results = DB::table('Models')

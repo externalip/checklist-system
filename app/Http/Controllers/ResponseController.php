@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class ResponseController extends Controller
 {
@@ -40,7 +39,7 @@ class ResponseController extends Controller
 
         // Get inserted data's ID for referencing
         $row_id = DB::getPdo()->lastInsertId();
-        
+
         // Assign required signatures for the submitted data
         $this->requireSign($row_id);
 
@@ -52,12 +51,11 @@ class ResponseController extends Controller
         // List of required signatures
         $signatory_role = [
             'Quality Control',
-            'Line Leader'
+            'Line Leader',
         ];
 
         // Insert n rows of required signatures
-        for ($index = 0; $index < sizeof($signatory_role); $index++) 
-        {
+        for ($index = 0; $index < count($signatory_role); $index++) {
             DB::table('signatures')->insert([
                 'response_id' => $row_id,
                 'required_sign_role' => $signatory_role[$index],
@@ -66,18 +64,18 @@ class ResponseController extends Controller
                 'updated_at' => Carbon::now(),
             ]);
         }
-        
+
     }
 
     private function generateUniqueResponseNo()
     {
         // Implement your logic to generate a unique response number here
         // This can be based on timestamps, UUIDs, or any other method you prefer
-        
+
         $timestamp = now()->format('ymdHis');
         $userId = auth()->user()->id;
 
-        $responseNo = $timestamp . '-' . $userId;
+        $responseNo = $timestamp.'-'.$userId;
 
         return $responseNo;
     }

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Inertia\Inertia;
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class EmployeeController extends Controller
 {
@@ -63,6 +63,7 @@ class EmployeeController extends Controller
     {
         //
     }
+
     public function showEmployeeDetails($employeeId)
     {
         $employee = Employee::findOrFail($employeeId); // Fetch the employee details

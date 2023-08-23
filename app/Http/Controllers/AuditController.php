@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
 use App\Models\Audit;
-use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class AuditController extends Controller
@@ -56,7 +54,7 @@ class AuditController extends Controller
 
         return Inertia::render('Audit/Index', [
             'audits' => $audits,
-            'events' => $events
+            'events' => $events,
         ]);
     }
 
