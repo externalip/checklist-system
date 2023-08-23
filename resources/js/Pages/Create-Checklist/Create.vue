@@ -8,13 +8,8 @@
 
 <script setup>
 import NavBarLayout from '@/Layouts/AppLayout.vue';
-import { Link, useForm } from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
 import { reactive } from 'vue'
-
-function createForm() {
-  // Send user input to ResponseController
-  router.post('/generate', form_config);
-}
 
 </script>
 
@@ -31,10 +26,7 @@ function createForm() {
           <p class="text-xl pt-1 pr-4">Check Sheet Name</p>
           <input v-model="form_config.form_name" class="w-1/2 rounded-lg" type="text">
         </div>
-        <!-- Debugger -->
-        <div>
-          {{ form_config.form_content }}
-        </div>
+
         <!-- Section Looper -->
         <div v-for="key in Object.keys(form_config.form_content).length" :key="key">
           <div class="p-4">
@@ -87,9 +79,6 @@ function createForm() {
                 <div
                   v-for="qIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content).length"
                   :key="qIndex">
-                  {{ ('section' + key.toString()) + form_config
-                          .form_content['section' + key.toString()]
-                          .section_content['question' + qIndex.toString()].label }}
                   <div style="padding-top:16px;">
                     <div class="grid grid-cols-5 p-4 rounded-lg bg-slate-300">
 
