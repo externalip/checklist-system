@@ -56,11 +56,38 @@ class FormGeneratorController extends Controller
         return $count > 0;
     }
 
+    private function generateFormRoute($form_id) 
+    {
+        // Access route file
+        $file = Storage::disk('route_path')->get('web.php');
+        // Remove `});` closing line at web.php to prepare new route appending
+        Storage::disk('route_path')->put('web.php', substr($file, 0, strlen($file) - 3));
+
+        /* 
+            [IMPORTANT]
+            This ugly code spacing is necessary when appending 
+            strings to a text file. Code logic can be improved to make
+            this code a lot more readable.
+        */
+        Storage::disk('route_path')->append('web.php', '
+    // TEST ROUTE
+    Route::get(\'form' . $form_id . '\', function () {
+        // Get all models
+        $models = DB::table(\'models\')
+            ->select(\'model_name\')
+            ->get();
+
+        return Inertia::render(\'Forms/form' . $form_id . '\', [
+            \'models\' => $models,
+        ]);
+    });
+});');
+    }
+
     private function generateForm($form_id, $form_title, $config)
     {
         // Set directory, file name, and file extension type
         $file_name = 'form'.$form_id.'.vue';
-        $file_directory = 'Forms/'.$file_name;
 
         // Count number of questions in the form
         $fieldCount = 0;
@@ -72,7 +99,7 @@ class FormGeneratorController extends Controller
         $form_script = $this->generateStartingTags($form_title, $fieldCount);
 
         // Create initial file in /storage/app/Forms directory
-        Storage::put($file_directory, $form_script);
+        Storage::disk('form_path')->put($file_name, $form_script);
 
         // Read Form JSON Config
         $questionIndex = 1;
@@ -83,10 +110,10 @@ class FormGeneratorController extends Controller
         foreach ($config['form_content'] as $key => $value) {
 
             // Append Section Opening Tag
-            Storage::append($file_directory, '<section id="form-section" class="p-10 mt-5 mb-5 border-2 rounded-lg">');
+            Storage::disk('form_path')->append($file_name, '<section id="form-section" class="p-10 mt-5 mb-5 border-2 rounded-lg">');
 
             // Append Section Title
-            Storage::append($file_directory, '<h2 id="section-name" class="mb-2">'.$value['section_name'].'</h2>');
+            Storage::disk('form_path')->append($file_name, '<h2 id="section-name" class="mb-2">'.$value['section_name'].'</h2>');
 
             // Check Section Type
             if (str_contains($value['section_type'], 'question')) {
@@ -95,12 +122,12 @@ class FormGeneratorController extends Controller
                 foreach ($value['section_content'] as $qKey => $qValue) {
 
                     // Append Opening Question Div
-                    Storage::append($file_directory, '
+                    Storage::disk('form_path')->append($file_name, '
                         <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
                     ');
 
                     // Append Question Label
-                    Storage::append($file_directory, '
+                    Storage::disk('form_path')->append($file_name, '
                         <h5 id="'.'question'.$questionIndex++.'">'.$value['section_content'][$qKey]['label'].'</h5>
                     ');
 
@@ -108,7 +135,7 @@ class FormGeneratorController extends Controller
                     if (str_contains($value['section_content'][$qKey]['type'], 'text')) {
 
                         // Append Text Answer Field
-                        Storage::append($file_directory, '
+                        Storage::disk('form_path')->append($file_name, '
                             <div class="">
                                 <input v-model="form.fieldAnswers.'.'ans'.$answerIndex++.'" type="text" id="ltnum"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -117,13 +144,13 @@ class FormGeneratorController extends Controller
                     } elseif (str_contains($value['section_content'][$qKey]['type'], 'radio')) {
 
                         // Append Opening Radio Group
-                        Storage::append($file_directory, '
+                        Storage::disk('form_path')->append($file_name, '
                             <ul class="bottom-0 items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                         ');
 
                         // Append Radio Options
                         foreach ($value['section_content'][$qKey]['options'] as $ansKey => $ansLabel) {
-                            Storage::append($file_directory, '
+                            Storage::disk('form_path')->append($file_name, '
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                     <div class="flex items-center pl-3">
                                         <input v-model="form.fieldAnswers.'.'ans'.$answerIndex.'" id="production-checksheet-radio-'.$radioTarget.'" type="radio"
@@ -140,21 +167,21 @@ class FormGeneratorController extends Controller
                         $answerIndex++;
 
                         // Append Closing Radio Group
-                        Storage::append($file_directory, '</ul>');
+                        Storage::disk('form_path')->append($file_name, '</ul>');
                     }
 
                     // Append Closing Question Label
-                    Storage::append($file_directory, '</div>');
+                    Storage::disk('form_path')->append($file_name, '</div>');
                 }
             } else {
             }
 
             // Append Section Closing Tag
-            Storage::append($file_directory, '</section>');
+            Storage::disk('form_path')->append($file_name, '</section>');
         }
 
         // Append Final Closing Tags
-        Storage::append($file_directory, '
+        Storage::disk('form_path')->append($file_name, '
                             <section id="button-group"
                                 class="place-content-end mt-5 mb-5 align-right justify-center lg:justify-end flex">
                                 <!-- Back Button -->
@@ -171,6 +198,9 @@ class FormGeneratorController extends Controller
                 </AppLayout>
             </template>
         ');
+
+        // Generate route to the created form
+        $this->generateFormRoute($form_id);
     }
 
     private function generateStartingTags($form_title, $fieldCount)
