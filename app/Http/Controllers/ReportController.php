@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
-use Symfony\Component\Console\Input\Input;
-
-use function Termwind\render;
 
 class ReportController extends Controller
 {
@@ -96,7 +92,7 @@ class ReportController extends Controller
             'signatures' => $signature_status,
             'counts' => $counts,
             'counts2' => $counts2,
-            'counts3' => $counts3
+            'counts3' => $counts3,
         ]);
     }
 
@@ -135,7 +131,7 @@ class ReportController extends Controller
                 ->update(
                     [
                         'status' => 'Rejected',
-                        'user_id' => $user_id
+                        'user_id' => $user_id,
                     ]
                 );
         } else {
@@ -146,7 +142,7 @@ class ReportController extends Controller
                 ->update(
                     [
                         'status' => 'OK',
-                        'user_id' => $user_id
+                        'user_id' => $user_id,
                     ]
                 );
         }

@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -35,7 +34,7 @@ class FormGeneratorController extends Controller
                 'completed' => 1,
                 'form_data' => json_encode($config),
                 'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
+                'updated_at' => Carbon::now(),
             ]);
 
         // Get new form ID
@@ -53,14 +52,15 @@ class FormGeneratorController extends Controller
             ->where('form_name', '=', $form_name)
             ->get()
             ->count();
+
         return $count > 0;
     }
 
     private function generateForm($form_id, $form_title, $config)
     {
         // Set directory, file name, and file extension type
-        $file_name = 'form' . $form_id . '.vue';
-        $file_directory = 'Forms/' . $file_name;
+        $file_name = 'form'.$form_id.'.vue';
+        $file_directory = 'Forms/'.$file_name;
 
         // Count number of questions in the form
         $fieldCount = 0;
@@ -68,7 +68,7 @@ class FormGeneratorController extends Controller
             $fieldCount += count($value['section_content']);
         }
 
-        // Add response submission script to form 
+        // Add response submission script to form
         $form_script = $this->generateStartingTags($form_title, $fieldCount);
 
         // Create initial file in /storage/app/Forms directory
@@ -86,10 +86,10 @@ class FormGeneratorController extends Controller
             Storage::append($file_directory, '<section id="form-section" class="p-10 mt-5 mb-5 border-2 rounded-lg">');
 
             // Append Section Title
-            Storage::append($file_directory, '<h2 id="section-name" class="mb-2">' . $value['section_name'] . '</h2>');
+            Storage::append($file_directory, '<h2 id="section-name" class="mb-2">'.$value['section_name'].'</h2>');
 
             // Check Section Type
-            if (str_contains($value['section_type'], "question")) {
+            if (str_contains($value['section_type'], 'question')) {
 
                 // Question Looper
                 foreach ($value['section_content'] as $qKey => $qValue) {
@@ -101,7 +101,7 @@ class FormGeneratorController extends Controller
 
                     // Append Question Label
                     Storage::append($file_directory, '
-                        <h5 id="' . 'question' . $questionIndex++ . '">' . $value['section_content'][$qKey]['label'] . '</h5>
+                        <h5 id="'.'question'.$questionIndex++.'">'.$value['section_content'][$qKey]['label'].'</h5>
                     ');
 
                     // Check Question Type
@@ -110,11 +110,11 @@ class FormGeneratorController extends Controller
                         // Append Text Answer Field
                         Storage::append($file_directory, '
                             <div class="">
-                                <input v-model="form.fieldAnswers.' . 'ans' . $answerIndex++ . '" type="text" id="ltnum"
+                                <input v-model="form.fieldAnswers.'.'ans'.$answerIndex++.'" type="text" id="ltnum"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             </div>
                         ');
-                    } else if (str_contains($value['section_content'][$qKey]['type'], 'radio')) {
+                    } elseif (str_contains($value['section_content'][$qKey]['type'], 'radio')) {
 
                         // Append Opening Radio Group
                         Storage::append($file_directory, '
@@ -126,11 +126,11 @@ class FormGeneratorController extends Controller
                             Storage::append($file_directory, '
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                     <div class="flex items-center pl-3">
-                                        <input v-model="form.fieldAnswers.' . 'ans' . $answerIndex . '" id="production-checksheet-radio-' . $radioTarget . '" type="radio"
-                                            value="' . $ansLabel . '" name="production-checksheet-radio-' . $value['section_name'] . $qKey . '"
+                                        <input v-model="form.fieldAnswers.'.'ans'.$answerIndex.'" id="production-checksheet-radio-'.$radioTarget.'" type="radio"
+                                            value="'.$ansLabel.'" name="production-checksheet-radio-'.$value['section_name'].$qKey.'"
                                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="production-checksheet-radio-' . $radioTarget++ . '"
-                                            class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">' . $ansLabel . '
+                                        <label for="production-checksheet-radio-'.$radioTarget++.'"
+                                            class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">'.$ansLabel.'
                                         </label>
                                     </div>
                                 </li>
@@ -178,7 +178,7 @@ class FormGeneratorController extends Controller
         // Populate reactive answer field objects
         $fieldAnswersData = '';
         for ($index = 1; $index <= $fieldCount; $index++) {
-            $fieldAnswersData .= ('ans' . $index . ': null,');
+            $fieldAnswersData .= ('ans'.$index.': null,');
         }
 
         return '
@@ -197,7 +197,7 @@ class FormGeneratorController extends Controller
             form_id: 1,
             // Answers storage
             fieldAnswers: {
-                ' . $fieldAnswersData . '
+                '.$fieldAnswersData.'
             }
         })
         
@@ -224,7 +224,7 @@ class FormGeneratorController extends Controller
         <style scoped></style>
         
         <template>
-            <AppLayout title="' . $form_title . '">
+            <AppLayout title="'.$form_title.'">
                 <div class="5s lg:mx-20">
                     <form @submit.prevent="submit()" method="post" id="1">
 
@@ -233,12 +233,12 @@ class FormGeneratorController extends Controller
 
         ';
     }
+
     public function getUserId()
     {
         // Return session user id
         return auth()->user()->id;
     }
-
 
     /**
      * Display the specified resource.

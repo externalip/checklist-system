@@ -2,22 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use App\Models\Role;
 use App\Models\User;
-use Inertia\Inertia;
-use App\Models\Employee;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
+use Inertia\Inertia;
 
 class UserController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      */
@@ -39,19 +36,20 @@ class UserController extends Controller
 
         if ($request->filled('searchUsername')) {
             $searchUsername = $request->input('searchUsername');
-            $query->where('username', 'like', '%' . $searchUsername . '%');
+            $query->where('username', 'like', '%'.$searchUsername.'%');
         }
 
         // searchName (First Name, Last Name) filter
         if ($request->filled('searchName')) {
             $searchName = $request->input('searchName');
             $query->whereHas('employee', function ($q) use ($searchName) {
-                $q->where(DB::raw('CONCAT(first_name, " ", last_name)'), 'like', '%' . $searchName . '%');
+                $q->where(DB::raw('CONCAT(first_name, " ", last_name)'), 'like', '%'.$searchName.'%');
             });
         }
 
         $users = $query->orderBy('created_at', 'ASC')->paginate(10)->withQueryString();
         $users->appends(request()->query());
+
         return Inertia::render('Users/Index', [
             'users' => $users,
         ]);
@@ -112,6 +110,7 @@ class UserController extends Controller
 
         return response()->json(['status' => 'success']);
     }
+
     /**
      * Display the specified resource.
      */
@@ -134,6 +133,7 @@ class UserController extends Controller
             'roles' => $roles,
         ]);
     }
+
     /**
      * Update the specified resource in storage.
      */
@@ -152,7 +152,7 @@ class UserController extends Controller
             'password' => ['nullable', 'confirmed', Password::min(8)],
         ], [
             'contact.regex' => 'The phone number format is incorrect. Please use a valid Philippine phone number format.',
-            'contact.size' => 'The phone number must be exactly 11 digits long.'
+            'contact.size' => 'The phone number must be exactly 11 digits long.',
         ]);
 
         if ($validator->fails()) {
@@ -174,7 +174,7 @@ class UserController extends Controller
             'username' => $input['username'],
         ]);
 
-        if (!empty($input['password'])) {
+        if (! empty($input['password'])) {
             $user->update([
                 'password' => Hash::make($input['password']),
             ]);
@@ -182,7 +182,6 @@ class UserController extends Controller
 
         return response()->json(['message' => 'User Updated', 'status' => 'success']);
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -192,15 +191,19 @@ class UserController extends Controller
         $user->forceFill([
             'active' => 0,
         ])->save();
+
         return response()->json(['message' => 'User Deleted', 'status' => 'success']);
     }
+
     public function showRegistrationForm()
     {
         $roles = Role::all();
+
         return Inertia::render('Auth/Register', [
             'roles' => $roles,
         ]);
     }
+
     public function show5SForm()
     {
         // Get all models
@@ -210,7 +213,7 @@ class UserController extends Controller
 
         // Send list of models to url
         return Inertia::render('5S-Checklist/Index', [
-            'models' => $models
+            'models' => $models,
         ]);
     }
 
@@ -223,7 +226,7 @@ class UserController extends Controller
 
         // Send list of models to url
         return Inertia::render('PTouch-Solder/Index', [
-            'models' => $models
+            'models' => $models,
         ]);
     }
 
@@ -236,7 +239,7 @@ class UserController extends Controller
 
         // Send list of models to url
         return Inertia::render('PTouch-ICT/Index', [
-            'models' => $models
+            'models' => $models,
         ]);
     }
 }
