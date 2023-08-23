@@ -3,12 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class AuditSeeder extends Seeder
 {

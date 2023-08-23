@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ModelSeeder extends Seeder
 {
@@ -20,9 +20,9 @@ class ModelSeeder extends Seeder
         ];
 
         // Generate sample data
-        for ($i = 0; $i < sizeof($modelNames); $i++) {
+        for ($i = 0; $i < count($modelNames); $i++) {
             DB::table('models')->insert([
-                'model_name' => $modelNames[$i]
+                'model_name' => $modelNames[$i],
             ]);
         }
     }

@@ -17,14 +17,14 @@ class ModelController extends Controller
     public function index(Request $request)
     {
         $query = DB::table('Models')
-        ->leftJoin('Tags', 'Tags.model_id', '=', 'Models.id')
-        ->leftJoin('forms', 'Tags.form_id', '=', 'forms.id')
-        ->groupBy('models.id', 'Models.model_name')
-        ->select('models.id AS model_id', 'Models.model_name', DB::raw("IFNULL(GROUP_CONCAT(forms.form_name SEPARATOR ', '), '') AS checksheet_appearance"));
+            ->leftJoin('Tags', 'Tags.model_id', '=', 'Models.id')
+            ->leftJoin('forms', 'Tags.form_id', '=', 'forms.id')
+            ->groupBy('models.id', 'Models.model_name')
+            ->select('models.id AS model_id', 'Models.model_name', DB::raw("IFNULL(GROUP_CONCAT(forms.form_name SEPARATOR ', '), '') AS checksheet_appearance"));
 
         $modelNameFilter = $request->input('modelName');
         if ($modelNameFilter) {
-            $query->where('Models.model_name', 'LIKE', '%' . $modelNameFilter . '%');
+            $query->where('Models.model_name', 'LIKE', '%'.$modelNameFilter.'%');
         }
         $selectedCheckSheets = $request->input('SelectedCheckSheet');
         if ($selectedCheckSheets) {
@@ -46,7 +46,6 @@ class ModelController extends Controller
             'Forms' => Form::all(),
         ]);
     }
-
 
     /**
      * Show the form for creating a new resource.

@@ -3,8 +3,8 @@
 namespace App\Listeners;
 
 use Illuminate\Auth\Events\Login;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class LogSuccessfulLogin
 {
@@ -31,7 +31,7 @@ class LogSuccessfulLogin
             'user_id' => $userId,
             'action_type' => 'Login',
             'action_details' => 'Logged in',
-            'action_date' => $login_datetime
+            'action_date' => $login_datetime,
         ]);
     }
 }

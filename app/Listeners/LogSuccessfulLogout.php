@@ -31,7 +31,7 @@ class LogSuccessfulLogout
             'user_id' => $userId,
             'action_type' => 'Logout',
             'action_details' => 'Logged out',
-            'action_date' => $logout_datetime
+            'action_date' => $logout_datetime,
         ]);
     }
 }

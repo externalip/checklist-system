@@ -11,7 +11,9 @@ class Response_field extends Model implements Auditable
 {
     use HasFactory;
     use AuditingAuditable;
+
     protected $table = 'response_fields';
+
     /**
      * The attributes that are mass assignable.
      *
