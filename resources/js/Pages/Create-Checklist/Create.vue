@@ -87,7 +87,9 @@ function createForm() {
                 <div
                   v-for="qIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content).length"
                   :key="qIndex">
-
+                  {{ ('section' + key.toString()) + form_config
+                          .form_content['section' + key.toString()]
+                          .section_content['question' + qIndex.toString()].label }}
                   <div style="padding-top:16px;">
                     <div class="grid grid-cols-5 p-4 rounded-lg bg-slate-300">
 
@@ -319,7 +321,26 @@ export default {
 
     },
     removeQuestion(sectionName, questionName) {
-      delete form_config.form_content[sectionName].section_content[questionName];
+      // Get question index in section content
+      let config = form_config.form_content[sectionName].section_content;
+      let removedSectionIndex = Object.keys(config).indexOf(questionName);
+
+      // Delete the question
+      delete config[questionName];
+
+      // To maintain the consecutive numbering of questions,
+      // We re-index the questions.
+      // 1. Get all the keys from the form content object
+      let questionKeys = Object.keys(config);
+
+      // 2. Loop through the keys from removed question `i` to `n`
+      for (let i = removedSectionIndex; i < questionKeys.length; i++) {
+        // 3. Re-index the question names
+        config['question' + (i + 1)] = config[questionKeys[i]];
+
+        // 4. Delete the original question names
+        delete config[questionKeys[i]];
+      }
     },
     addSection() {
       // Get number of sections
