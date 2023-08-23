@@ -8,13 +8,8 @@
 
 <script setup>
 import NavBarLayout from '@/Layouts/AppLayout.vue';
-import { Link, useForm } from '@inertiajs/vue3';
+import { Link } from '@inertiajs/vue3';
 import { reactive } from 'vue'
-
-function createForm() {
-  // Send user input to ResponseController
-  router.post('/generate', form_config);
-}
 
 </script>
 
@@ -31,10 +26,7 @@ function createForm() {
           <p class="text-xl pt-1 pr-4">Check Sheet Name</p>
           <input v-model="form_config.form_name" class="w-1/2 rounded-lg" type="text">
         </div>
-        <!-- Debugger -->
-        <div>
-          {{ form_config.form_content }}
-        </div>
+
         <!-- Section Looper -->
         <div v-for="key in Object.keys(form_config.form_content).length" :key="key">
           <div class="p-4">
@@ -87,7 +79,6 @@ function createForm() {
                 <div
                   v-for="qIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content).length"
                   :key="qIndex">
-
                   <div style="padding-top:16px;">
                     <div class="grid grid-cols-5 p-4 rounded-lg bg-slate-300">
 
@@ -319,7 +310,26 @@ export default {
 
     },
     removeQuestion(sectionName, questionName) {
-      delete form_config.form_content[sectionName].section_content[questionName];
+      // Get question index in section content
+      let config = form_config.form_content[sectionName].section_content;
+      let removedSectionIndex = Object.keys(config).indexOf(questionName);
+
+      // Delete the question
+      delete config[questionName];
+
+      // To maintain the consecutive numbering of questions,
+      // We re-index the questions.
+      // 1. Get all the keys from the form content object
+      let questionKeys = Object.keys(config);
+
+      // 2. Loop through the keys from removed question `i` to `n`
+      for (let i = removedSectionIndex; i < questionKeys.length; i++) {
+        // 3. Re-index the question names
+        config['question' + (i + 1)] = config[questionKeys[i]];
+
+        // 4. Delete the original question names
+        delete config[questionKeys[i]];
+      }
     },
     addSection() {
       // Get number of sections
