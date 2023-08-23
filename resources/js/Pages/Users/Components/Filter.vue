@@ -2,37 +2,39 @@
 <script setup >
 import { ref, watch } from 'vue';
 import {  Link, router } from '@inertiajs/vue3';
-import {Inertia} from '@inertiajs/inertia';
 let searchUsername = ref('');
 const selectedAccountStatus = ref([]);
 let searchName = ref('');
+const FilterRole = ref('');
 
 let props = defineProps({
     filters: Object,
     searchName: String,
     searchUsername: String,
     selectedAccountStatus: Array,
-})
-watch([searchUsername, selectedAccountStatus, searchName], ([username, accountStatus, searchName]) => {
-    const filters = { ...props.filters };
-
+    roles: Array,
+});
+watch([searchUsername, selectedAccountStatus, searchName, FilterRole], ([username, accountStatus, searchName, FilterRole ]) => {
+   const filter = { ...props.filters};
     if (username) {
-        filters.searchUsername = username;
+         filter.username = username;
     }
     if (accountStatus.length > 0) {
-        filters.accountStatus = accountStatus.join(',');
+        filter.accountStatus = accountStatus.join(',');
     }
     if (searchName) {
-        filters.searchName = searchName;
+        filter.searchName = searchName;
+    }
+    if (FilterRole) {
+        filter.FilterRole = FilterRole;
     }
 
-    router.get(route('users'), filters, {
+    router.get(route('users'), filter, {
         preserveState: true,
         preserveScroll: true,
         replace: true,
         append: true,
     });
-
 
 });
 </script>
@@ -103,11 +105,24 @@ watch([searchUsername, selectedAccountStatus, searchName], ([username, accountSt
                     <input v-model="searchName" type="search" id="default-search-name" class="block w-full p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Search Name" required>
                 </div>
+
             </div>
 
+                <div id="user-filter-role-">
+                    <label for="filter-user-role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Filter by Role</label>
+                    <div class="relative">
+                        <select v-model="FilterRole" id="filter-user-role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option value="">Select Role</option>
+                            <option v-for="role in roles" :key="role.id" :value="role.id">
+                                {{ role.position }}
+                            </option>
+                        </select>
+                    </div>
+
+                </div>
             <div id="user-add-btn">
-                <label for="filter-user-select" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Click to add models</label>
-                <Link :href="route('users.create')" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-12 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add User
+                <label for="filter-user-select" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Click to Add User</label>
+                <Link :href="route('users.create')" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-12 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">+
                 </Link>
             </div>
         </section>

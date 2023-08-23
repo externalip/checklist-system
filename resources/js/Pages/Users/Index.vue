@@ -1,10 +1,8 @@
 <script setup>
 import Accounts from '@/Pages/Users/Components/Table.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
-import { defineProps} from 'vue';
 import Filter from '@/Pages/Users/Components/Filter.vue';
-const { users, roles } = defineProps(['users', 'roles']);
-
+defineProps(['users', 'roles']);
 
 </script>
 
@@ -12,9 +10,9 @@ const { users, roles } = defineProps(['users', 'roles']);
     <AppLayout title="Account Manager">
         <div class="py-5">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <Filter/>
+                <Filter :roles="roles"/>
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <Accounts :users="users" :roles="roles" />
+                    <Accounts :users="users" />
                 </div>
             </div>
         </div>

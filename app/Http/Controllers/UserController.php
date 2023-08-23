@@ -46,12 +46,22 @@ class UserController extends Controller
                 $q->where(DB::raw('CONCAT(first_name, " ", last_name)'), 'like', '%'.$searchName.'%');
             });
         }
+        if ($request->filled('FilterRole')) {
+            $selectedRoles = $request->input('FilterRole');
+            if (is_string($selectedRoles)) {
+                $selectedRoles = explode(',', $selectedRoles);
+            }
 
+            $query->whereHas('employee.role', function ($q) use ($selectedRoles) {
+                $q->whereIn('role_id', $selectedRoles);
+            });
+        }
         $users = $query->orderBy('created_at', 'ASC')->paginate(10)->withQueryString();
         $users->appends(request()->query());
 
         return Inertia::render('Users/Index', [
             'users' => $users,
+            'roles' => Role::all(),
         ]);
     }
 
