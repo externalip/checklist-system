@@ -56,34 +56,6 @@ class FormGeneratorController extends Controller
         return $count > 0;
     }
 
-    private function generateFormRoute($form_id)
-    {
-        // Access route file
-        $file = Storage::disk('route_path')->get('web.php');
-        // Remove `});` closing line at web.php to prepare new route appending
-        Storage::disk('route_path')->put('web.php', substr($file, 0, strlen($file) - 3));
-
-        /*
-            [IMPORTANT]
-            This ugly code spacing is necessary when appending
-            strings to a text file. Code logic can be improved to make
-            this code a lot more readable.
-        */
-        Storage::disk('route_path')->append('web.php', '
-    // TEST ROUTE
-    Route::get(\'form'.$form_id.'\', function () {
-        // Get all models
-        $models = DB::table(\'models\')
-            ->select(\'model_name\')
-            ->get();
-
-        return Inertia::render(\'Forms/form'.$form_id.'\', [
-            \'models\' => $models,
-        ]);
-    });
-});');
-    }
-
     private function generateForm($form_id, $form_title, $config)
     {
         // Set directory, file name, and file extension type
@@ -199,8 +171,6 @@ class FormGeneratorController extends Controller
             </template>
         ');
 
-        // Generate route to the created form
-        $this->generateFormRoute($form_id);
     }
 
     private function generateStartingTags($form_title, $fieldCount)
