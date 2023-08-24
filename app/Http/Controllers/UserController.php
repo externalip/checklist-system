@@ -252,4 +252,8 @@ class UserController extends Controller
             'models' => $models,
         ]);
     }
+    public function showForm($id){
+        $path = "Forms/form" . $id;
+        return Inertia::render($path);
+    }
 }
