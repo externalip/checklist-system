@@ -151,7 +151,7 @@ class UserController extends Controller
     {
         $input = $request->all();
         $validator = Validator::make($input, [
-            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user)],
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'string', 'max:255'],

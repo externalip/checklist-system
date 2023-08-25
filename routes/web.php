@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\AuditController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FormGeneratorController;
 use App\Http\Controllers\ModelController;
 use App\Http\Controllers\ReportController;
@@ -35,9 +36,7 @@ Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
 
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::prefix('Users')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('users');

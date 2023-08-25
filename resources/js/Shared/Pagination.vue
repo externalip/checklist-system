@@ -58,11 +58,14 @@ export default {
     methods: {
         gotoPage(page) {
             const url = new URL(window.location.href);
-
             url.searchParams.set('page', page);
             this.$inertia.visit(url.toString(), {
                 preserveState: true,
                 preserveScroll: true,
+                replace: true,
+                onSuccess: (page) => {
+                    this.$inertia.remember(page);
+                },
             });
         },
     },

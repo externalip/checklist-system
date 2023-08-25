@@ -35,29 +35,10 @@ class ReportController extends Controller
             WHERE response_fields.form_id = 1;
         */
         $responses = DB::table('response_fields')
-            ->select('forms.form_name', 'employees.first_name', 'response_fields.*')
+            ->select('forms.form_name', 'employees.first_name', 'employees.shift', 'response_fields.*')
             ->join('forms', 'response_fields.form_id', '=', 'forms.id')
             ->join('users', 'users.id', '=', 'response_fields.submitted_by')
             ->join('employees', 'employees.id', '=', 'users.employee_id')
-            ->where('response_fields.form_id', '=', 1)
-            ->where('response_fields.status', '=', 'Pending')
-            ->get();
-
-        $responses2 = DB::table('response_fields')
-            ->select('forms.form_name', 'employees.first_name', 'response_fields.*')
-            ->join('forms', 'response_fields.form_id', '=', 'forms.id')
-            ->join('users', 'users.id', '=', 'response_fields.submitted_by')
-            ->join('employees', 'employees.id', '=', 'users.employee_id')
-            ->where('response_fields.form_id', '=', 2)
-            ->where('response_fields.status', '=', 'Pending')
-            ->get();
-
-        $responses3 = DB::table('response_fields')
-            ->select('forms.form_name', 'employees.first_name', 'response_fields.*')
-            ->join('forms', 'response_fields.form_id', '=', 'forms.id')
-            ->join('users', 'users.id', '=', 'response_fields.submitted_by')
-            ->join('employees', 'employees.id', '=', 'users.employee_id')
-            ->where('response_fields.form_id', '=', 3)
             ->where('response_fields.status', '=', 'Pending')
             ->get();
 
@@ -87,8 +68,6 @@ class ReportController extends Controller
         return Inertia::render('Pending-Reports/Index', [
             'forms' => $forms,
             'data' => $responses,
-            'data2' => $responses2,
-            'data3' => $responses3,
             'signatures' => $signature_status,
             'counts' => $counts,
             'counts2' => $counts2,

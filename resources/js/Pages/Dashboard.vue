@@ -1,5 +1,18 @@
 <script setup>
-import AppLayout from '@/Layouts/AppLayout.vue';
+    import AppLayout from '@/Layouts/AppLayout.vue';
+    import { defineProps } from 'vue';
+
+const props = defineProps({
+    forms: Array,
+    filteredAudits: Array,
+    audits: Array,
+    users: Number,
+    models: Number,
+    checksheets: Number,
+    archives: Number,
+});
+
+
 </script>
 
 <template>
@@ -9,6 +22,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
             <div id="header">
                 <h5>Hello, {{ `${$page.props.auth.employee?.first_name} ${$page.props.auth.employee?.last_name}` }}
                 </h5>
+
             </div>
 
             <section id="pending-review-checklist" class="my-3">
@@ -17,158 +31,22 @@ import AppLayout from '@/Layouts/AppLayout.vue';
                     <h2>Pending Reviews</h2>
                 </div>
 
-                <div id="pending-review-cards" class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-2 gap-4">
-                    <!-- Card 1 -->
+                <div id="pending-review-cards" class="grid 2xl:grid-col-6 lg:grid-cols-3 md:grid-cols-2 grid-cols-2 gap-4">
 
-                    <div
-                        class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        <span
-                            class="text-transparent font-bold bg-clip-text bg-sky-400 text-4xl flex md:justify-end justify-center">{{}}6</span>
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">5s Checksheet
-                            </h5>
-                        </a>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">You have {{ }}6 pending reviews on this
-                            check sheet.</p>
-                        <a href="#"
-                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Read more
-                            <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 14 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M1 5h12m0 0L9 1m4 4L9 9" />
-                            </svg>
-                        </a>
+                    <!-- Dynamic Card -->
+                    <div v-for="form in forms" :key="form.id">
+                        <div
+                            class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                            <span
+                                class="text-transparent font-bold bg-clip-text bg-sky-400 text-4xl flex md:justify-end justify-center">{{form.pending_count}}</span>
+                            <a href="#">
+                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{form.form_name}}
+                                </h5>
+                            </a>
+                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">You have {{form.pending_count}} pending reviews on this
+                                check sheet.</p>
+                        </div>
                     </div>
-
-                    <div
-                        class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        <span
-                            class="text-transparent font-bold bg-clip-text bg-sky-400 text-4xl flex md:justify-end justify-center">{{}}24</span>
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">FFC Startup
-                            </h5>
-                        </a>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">You have {{ }}6 pending reviews on this
-                            check sheet.</p>
-                        <a href="#"
-                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Read more
-                            <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 14 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M1 5h12m0 0L9 1m4 4L9 9" />
-                            </svg>
-                        </a>
-                    </div>
-
-                    <div
-                        class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        <span
-                            class="text-transparent font-bold bg-clip-text bg-sky-400 text-4xl flex md:justify-end justify-center">{{}}32</span>
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">P-Touch
-                                Soldering
-                            </h5>
-                        </a>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">You have {{ }}6 pending reviews on this
-                            check sheet.</p>
-                        <a href="#"
-                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Read more
-                            <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 14 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M1 5h12m0 0L9 1m4 4L9 9" />
-                            </svg>
-                        </a>
-                    </div>
-
-                    <div
-                        class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        <span
-                            class="text-transparent font-bold bg-clip-text bg-sky-400 text-4xl flex md:justify-end justify-center">{{}}6</span>
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">P-Touch ICT
-                            </h5>
-                        </a>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">You have {{ }}6 pending reviews on this
-                            check sheet.</p>
-                        <a href="#"
-                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Read more
-                            <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 14 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M1 5h12m0 0L9 1m4 4L9 9" />
-                            </svg>
-                        </a>
-                    </div>
-
-                    <div
-                        class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        <span
-                            class="text-transparent font-bold bg-clip-text bg-sky-400 text-4xl flex md:justify-end justify-center">{{}}6</span>
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">5s Checksheet
-                            </h5>
-                        </a>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">You have {{ }}6 pending reviews on this
-                            check sheet.</p>
-                        <a href="#"
-                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Read more
-                            <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 14 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M1 5h12m0 0L9 1m4 4L9 9" />
-                            </svg>
-                        </a>
-                    </div>
-
-                    <div
-                        class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        <span
-                            class="text-transparent font-bold bg-clip-text bg-sky-400 text-4xl flex md:justify-end justify-center">{{}}6</span>
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">5s Checksheet
-                            </h5>
-                        </a>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">You have {{ }}6 pending reviews on this
-                            check sheet.</p>
-                        <a href="#"
-                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Read more
-                            <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 14 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M1 5h12m0 0L9 1m4 4L9 9" />
-                            </svg>
-                        </a>
-                    </div>
-
-                    <div
-                        class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        <span
-                            class="text-transparent font-bold bg-clip-text bg-sky-400 text-4xl flex md:justify-end justify-center">{{}}423</span>
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">5s Checksheet
-                            </h5>
-                        </a>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">You have {{ }}6 pending reviews on this
-                            check sheet.</p>
-                        <a href="#"
-                            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            Read more
-                            <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 14 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M1 5h12m0 0L9 1m4 4L9 9" />
-                            </svg>
-                        </a>
-                    </div>
-
-
                 </div>
 
             </section>
@@ -193,7 +71,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
                             </svg>
                             <h5 class="text-center text-2xl tracking-tight text-gray-900 dark:text-white">
                                 Personnel
-                                <span class="block text-4xl font-bold">{{}}53</span>
+                                <span class="block text-4xl font-bold">{{ users }}</span>
                             </h5>
                         </a>
 
@@ -211,7 +89,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
                             </svg>
                             <h5 class="text-center text-2xl tracking-tight text-gray-900 dark:text-white">
                                 Models
-                                <span class="block text-4xl font-bold">{{}}6</span>
+                                <span class="block text-4xl font-bold">{{ models }}</span>
                             </h5>
                         </a>
 
@@ -228,7 +106,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
                             </svg>
                             <h5 class="text-center text-2xl tracking-tight text-gray-900 dark:text-white">
                                 Check Sheets
-                                <span class="block text-4xl font-bold">{{}}5</span>
+                                <span class="block text-4xl font-bold">{{ checksheets }}</span>
                             </h5>
                         </a>
 
@@ -245,7 +123,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
                             </svg>
                             <h5 class="text-center text-2xl tracking-tight text-gray-900 dark:text-white">
                                 Archives
-                                <span class="block text-4xl font-bold">{{}}5678</span>
+                                <span class="block text-4xl font-bold">{{ archives }}</span>
                             </h5>
                         </a>
 
@@ -257,15 +135,15 @@ import AppLayout from '@/Layouts/AppLayout.vue';
             </section>
 
             <section id="recent-actions" class="my-3">
-                <!-- Recent Actions Header -->
+                <!-- Recent Actions Header  -->
                 <div>
                     <h2>Recent Actions</h2>
                 </div>
 
-                <!-- Recent Actions Table -->
+                 <!-- Recent Actions Table -->
 
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                    <table id="myTable" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <table id="myTable" class="w-full text-sm text-left text-gray-500 dark:text-gray-400 text-center">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
@@ -286,7 +164,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="audit in filteredAudits" :key="audit.id"
+                            <tr v-for="audit in audits" :key="audit.id"
                                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <th scope="row"
                                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{
