@@ -85,6 +85,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     //P-Touch-ICT Form Page
     Route::get('/PTouch-ICT', [UserController::class, 'showICTForm'])->name('PTouch-ICT');
+
     //Forms
     Route::get('Forms/{id}', [UserController::class, 'showForm'])->name('showForm');
+
+    // User Manual
+    Route::get('/UserManual', [UserController::class, 'showUserManual'])->name('UserManual');
 });
