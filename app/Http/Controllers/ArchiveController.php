@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
 use App\Models\User;
-use App\Models\Response_field;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class ArchiveController extends Controller
@@ -74,8 +71,6 @@ class ArchiveController extends Controller
             ->select()
             ->where('role_id', '=', '1')
             ->get();
-
-
 
         return Inertia::render('Archives/Index', [
             'response_fields' => $response_fields,
