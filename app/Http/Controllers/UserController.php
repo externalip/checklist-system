@@ -259,4 +259,7 @@ class UserController extends Controller
 
         return Inertia::render($path);
     }
+    public function showUserManual(){
+        return Inertia::render("UserManual/Index");
+    }
 }

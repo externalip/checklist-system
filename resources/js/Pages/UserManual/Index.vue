@@ -10,7 +10,9 @@ import AppLayout from "@/Layouts/AppLayout.vue";
             architecto, sit quos doloremque accusantium velit porro.
             Voluptatibus animi culpa nesciunt cupiditate.
         </p>
-        <section class="grid lg:grid-cols-2 xl:grid-cols-3 gap-5">
+        <section
+            class="grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5"
+        >
             <div
                 class="border-2 border-gray-100 rounded-2xl p-5 hover:bg-gray-100 duration-200"
             >

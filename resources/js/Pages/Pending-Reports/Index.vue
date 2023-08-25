@@ -1,4 +1,4 @@
-<style>
+div<style>
     .hidden_div{
         display: none;
     }
@@ -16,8 +16,7 @@ const selectedForm = reactive({
 const props = defineProps({
     forms: Array,
     data: Array,
-    data2: Array,
-    data3: Array,
+  
     signatures: Array,
     counts: Array,
     counts2: Array,
@@ -121,9 +120,11 @@ const props = defineProps({
                 <div id="5S Start-Up Check Sheet" class="hidden_div accordions">
                      <h4>{{ counts }} Pending Reports on {{ selectedForm.form_name }}</h4>
 
-                    <div v-if="counts > 0" v-for="(row, index) in data" id="accordion-flush" data-accordion="collapse"
+                    <div v-for="(row, index) in data" id="accordion-flush" data-accordion="collapse"
                         data-active-classes="bg-white dark:bg-gray-900 text-blue-500 dark:text-white"
                         data-inactive-classes="text-gray-500 dark:text-gray-400" class="border-lg">
+                        <div>
+                            <ul v-if="row.form_id ===1">
                         <h2 :id="'accordion-flush-heading-' + index.toString()">
                             <button type="button"
                                 class="flex items-center justify-between w-full py-5 text-lg font-regular antialiased text-left border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
@@ -145,7 +146,6 @@ const props = defineProps({
                                 </svg>
                             </button>
                         </h2>
-
                         <div :id="'accordion-flush-body-' + index.toString()" class="hidden border-2 border-gray-100"
                             :aria-labelledby="'accordion-flush-heading-' + index.toString()">
                             <!-- Record Details Lot Number ||  Operator || Type of Checking || Shift -->
@@ -168,7 +168,7 @@ const props = defineProps({
 
                                 <div id="shift" class="">
                                     <label for="" class="text-sm">Shift</label>
-                                    <h5 class="font-bold">{{ }}1</h5>
+                                    <h5 class="font-bold">{{ row.shift }}</h5>
                                 </div>
                             </div>
 
@@ -263,8 +263,7 @@ const props = defineProps({
 
                                         </tbody>
                                     </table>
-                                </div>
-
+                                </div>        
                             </div>
 
                             <!-- Record Section Signatures -->
@@ -356,16 +355,18 @@ const props = defineProps({
                                     </button>
                                 </Link>
                             </div>
+                        </div></ul>
                         </div>
                     </div>
                 </div>
                 <!-- Second Accordion -->
-                <div id="P-Touch Soldering" class="hidden_div accordions">
-                    <h4>{{ counts2 }} Pending Reports on {{ selectedForm.form_name }}</h4>
-
-                    <div v-if="counts2 > 0" v-for="(row, index) in data2" id="accordion-flush" data-accordion="collapse"
+                <div id="P-Touch Soldering" class="hidden_div accordions">    
+                         <h4>{{ counts2 }} Pending Reports on {{ selectedForm.form_name }} </h4>         
+                    <div v-for="(row, index) in data" id="accordion-flush" data-accordion="collapse"
                         data-active-classes="bg-white dark:bg-gray-900 text-blue-500 dark:text-white"
                         data-inactive-classes="text-gray-500 dark:text-gray-400" class="border-lg">
+                        <div>
+                            <ul v-if="row.form_id ===2">                
                         <h2 :id="'accordion-flush-heading-2' + index.toString()">
                             <button type="button"
                                 class="flex items-center justify-between w-full py-5 text-lg font-regular antialiased text-left border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
@@ -410,7 +411,7 @@ const props = defineProps({
 
                                 <div id="shift" class="">
                                     <label for="" class="text-sm">Shift</label>
-                                    <h5 class="font-bold">{{ }}1</h5>
+                                    <h5 class="font-bold">{{ row.shift }}</h5>
                                 </div>
                             </div>
 
@@ -580,11 +581,11 @@ const props = defineProps({
                                                     class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                     {{ Object.keys(JSON.parse(row.response).fieldAnswers)[15] }}
                                                 </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers[15] === '✔') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers[15] === 'X') ?
+                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Components Reference on Soldering Jig (if Applicable)'] === '✔') ?
+                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Components Reference on Soldering Jig (if Applicable)'] === 'X') ?
                                                 'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
                                                 'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'" >
-                                                    {{JSON.parse(row.response).fieldAnswers[15]}}
+                                                    {{JSON.parse(row.response).fieldAnswers['Components Reference on Soldering Jig (if Applicable)']}}
                                                 </td>
                                             </tr>
                                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -684,7 +685,7 @@ const props = defineProps({
                                                     :class="(sign.status == 'OK') ?
                                                         'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
                                                         'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
-                                                    {{ sign.status }}
+                                                    {{ sign.user_id }}
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -738,6 +739,9 @@ const props = defineProps({
                                 </Link>
                             </div>
                         </div>
+                         </ul>  
+                    </div>
+             
                     </div>
                 </div>
 
@@ -746,9 +750,11 @@ const props = defineProps({
                 <div id="P-Touch ICT" class="hidden_div accordions">
                     <h4>{{ counts3 }} Pending Reports on {{ selectedForm.form_name }}</h4>
 
-                    <div v-if="counts > 0" v-for="(row, index) in data3" id="accordion-flush" data-accordion="collapse"
+                    <div v-for="(row, index) in data" id="accordion-flush" data-accordion="collapse"
                         data-active-classes="bg-white dark:bg-gray-900 text-blue-500 dark:text-white"
                         data-inactive-classes="text-gray-500 dark:text-gray-400" class="border-lg">
+                        <div>
+                            <ul v-if="row.form_id ===3">
                         <h2 :id="'accordion-flush-heading-3' + index.toString()">
                             <button type="button"
                                 class="flex items-center justify-between w-full py-5 text-lg font-regular antialiased text-left border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
@@ -793,7 +799,7 @@ const props = defineProps({
 
                                 <div id="shift" class="">
                                     <label for="" class="text-sm">Shift</label>
-                                    <h5 class="font-bold">{{ }}1</h5>
+                                    <h5 class="font-bold">{{ row.shift }}</h5>
                                 </div>
                             </div>
 
@@ -1171,6 +1177,9 @@ const props = defineProps({
                                     </button>
                                 </Link>
                             </div>
+                        </div>
+
+                        </ul>
                         </div>
                     </div>
                 </div>
