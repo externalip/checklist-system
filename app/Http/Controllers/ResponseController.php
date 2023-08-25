@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class ResponseController extends Controller
 {
@@ -22,6 +23,38 @@ class ResponseController extends Controller
     public function store(Request $request)
     {
         $submittedBy = auth()->user()->id;
+        $attributeLabels = [
+            'fieldAnswers.Materials' => 'Materials',
+            'fieldAnswers.Lot Number' => 'Lot Number',
+            'fieldAnswers.Model Name' => 'Model Name',
+            'fieldAnswers.Working Area' => 'Working Area',
+            'fieldAnswers.Type of Checking' => 'Type of Checking',
+            'fieldAnswers.Remarks on the Model' => 'Remarks on the Model',
+            'fieldAnswers.Production Checksheet' => 'Production Checksheet',
+            'fieldAnswers.Tools/Jigs Instrument' => 'Tools/Jigs Instrument',
+            'fieldAnswers.Procedures/OPL/Work Instructions' => 'Procedures/OPL/Work Instructions',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'fieldAnswers.Materials' => 'required',
+            'fieldAnswers.Lot Number' => 'required',
+            'fieldAnswers.Model Name' => 'required',
+            'fieldAnswers.Working Area' => 'required',
+            'fieldAnswers.Type of Checking' => 'required',
+            'fieldAnswers.Remarks on the Model' => 'required',
+            'fieldAnswers.Production Checksheet' => 'required',
+            'fieldAnswers.Tools/Jigs Instrument' => 'required',
+            'fieldAnswers.Procedures/OPL/Work Instructions' => 'required',
+        ]);
+
+        $validator->setAttributeNames($attributeLabels);
+
+        $validator->setCustomMessages([
+            'required' => ':attribute field is required.',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['status' => 'error',  'errors' => $validator->errors()]);
+        }
         $formId = $request->input('form_id');
         $response = $request->only('fieldAnswers');
         $responseNo = $this->generateUniqueResponseNo();
@@ -43,7 +76,7 @@ class ResponseController extends Controller
         // Assign required signatures for the submitted data
         $this->requireSign($row_id);
 
-        return response()->json(['message' => 'Form submitted successfully']);
+        return response()->json(['status'=>'success' ,'message' => 'Form submitted successfully']);
     }
 
     private function requireSign($row_id)
