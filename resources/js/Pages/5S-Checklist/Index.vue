@@ -1,12 +1,15 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import { reactive, ref } from 'vue'
-import { router, useForm } from '@inertiajs/vue3'
+import { ref } from 'vue'
+import { useForm } from '@inertiajs/vue3'
 import InputError from '@/Components/InputError.vue'
+
 const props = defineProps({
     models: Array,
 });
+
 let errorDisplay = ref({});
+
 let form = useForm({
     // Form identifier
     form_id: 1,
@@ -23,6 +26,7 @@ let form = useForm({
         ans9: null,
     }
 })
+
 const submit = async () => {
     // Show a confirmation dialog before submitting
     const confirmResult = await Swal.fire({
@@ -80,6 +84,7 @@ const submit = async () => {
         }
     }
 };
+
 const getErrorString= (errorArray) => {
         return errorArray ? errorArray.join(' ') : '';
 }
@@ -123,13 +128,13 @@ const getErrorString= (errorArray) => {
                         <!-- Lot Number -->
                         <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
                             <h5 id="question2">Lot Number</h5>
+                            <label for="models" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Input
+                                        the
+                                        Lot Number</label>
                             <div class="">
-                                <label for="models" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Input
-                                            the
-                                            Lot Number</label>
                                 <input v-model="form.fieldAnswers.ans2" type="text" id="ltnum" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             </div>
-                             <InputError :message="getErrorString(errorDisplay['fieldAnswers.Lot Number'])" class="mt-2" />
+                            <InputError :message="getErrorString(errorDisplay['fieldAnswers.Lot Number'])" class="mt-2" />
                         </div>
                     </div>
 

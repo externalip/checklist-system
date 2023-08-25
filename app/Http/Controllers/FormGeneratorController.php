@@ -68,7 +68,7 @@ class FormGeneratorController extends Controller
         }
 
         // Add response submission script to form
-        $form_script = $this->generateStartingTags($form_title, $fieldCount);
+        $form_script = $this->generateStartingTags($form_id, $form_title, $fieldCount);
 
         // Create initial file in /storage/app/Forms directory
         Storage::disk('form_path')->put($file_name, $form_script);
@@ -173,9 +173,14 @@ class FormGeneratorController extends Controller
 
     }
 
-    private function generateStartingTags($form_title, $fieldCount)
+    private function generateStartingTags($form_id, $form_title, $fieldCount)
     {
-        // Populate reactive answer field objects
+        /* 
+            Populate reactive answer field objects.
+
+            Since there are 2 questions included in the initial tags
+            (Model Name and Lot no.), we start indexing at 3.
+        */
         $fieldAnswersData = '';
         for ($index = 1; $index <= $fieldCount; $index++) {
             $fieldAnswersData .= ('ans'.$index.': null,');
@@ -194,9 +199,11 @@ class FormGeneratorController extends Controller
         
         let form = reactive({
             // Form identifier
-            form_id: 1,
+            form_id: ' . $form_id . ',
             // Answers storage
             fieldAnswers: {
+                ans1: null,
+                ans2: null,
                 '.$fieldAnswersData.'
             }
         })
