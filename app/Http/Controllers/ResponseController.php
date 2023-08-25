@@ -76,7 +76,7 @@ class ResponseController extends Controller
         // Assign required signatures for the submitted data
         $this->requireSign($row_id);
 
-        return response()->json(['status'=>'success' ,'message' => 'Form submitted successfully']);
+        return response()->json(['status' => 'success', 'message' => 'Form submitted successfully']);
     }
 
     private function requireSign($row_id)
