@@ -48,11 +48,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
     });
 
-    // TEST ROUTE
-    Route::get('test', function () {
-        return Inertia::render('form41');
-    });
-
     // 5S Checklist Form Page
     Route::get('/5S-Checklist', [UserController::class, 'show5SForm'])->name('5S-Checklist');
 
@@ -90,6 +85,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     //P-Touch-ICT Form Page
     Route::get('/PTouch-ICT', [UserController::class, 'showICTForm'])->name('PTouch-ICT');
-
+    //Forms
     Route::get('Forms/{id}', [UserController::class, 'showForm'])->name('showForm');
 });

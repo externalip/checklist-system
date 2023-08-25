@@ -63,13 +63,4 @@ class EmployeeController extends Controller
     {
         //
     }
-
-    public function showEmployeeDetails($employeeId)
-    {
-        $employee = Employee::findOrFail($employeeId); // Fetch the employee details
-
-        return Inertia::render('Profile/Partials/UpdateProfileInformationForm', [
-            'employee' => $employee,
-        ]);
-    }
 }
