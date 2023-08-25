@@ -44,9 +44,8 @@ export default {
                     <div>
                         <select v-model="selectedUser" class="w-5/6 rounded-lg">
                                 <option value="default">Default</option>
-                                <option v-for="employee in employees"
-                                :employee="employee.id"
-                                :value="employee.id">{{ employee.last_name }}, {{ employee.first_name }}
+                                <option v-for="employee in employees" :key="employee.id" :value="employee.id">
+                                {{ employee.last_name }}, {{ employee.first_name }}
                                 </option>
                             </select>
                     </div>
@@ -98,7 +97,7 @@ export default {
                             <th class="border-solid border-2 border-black px-1 py-1">Lineleader/Technician /Supervisor/Engineer</th>
                         </tr>
                     </thead>
-                    <tbody v-for="response_field in response_fields.data">
+                   <tbody v-for="response_field in response_fields.data" :key="response_field.id">
                         <tr v-if="response_field.form_id === 1 && selectedUser === 'default' ||( response_field.form_id === 1 && response_field.submitted_by === selectedUser)" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <!-- Date -->
                             <th scope="row" class="border-solid border-2 border-black px-1 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{response_field.created_at}}</th>
@@ -251,7 +250,7 @@ export default {
 
                         </tr>
                     </thead>
-                    <tbody v-for="response_field in response_fields.data">
+                    <tbody v-for="response_field in response_fields.data" :key="response_field.id" >
                         <tr v-if="response_field.form_id === 2 && selectedUser === 'default' ||( response_field.form_id === 2 && response_field.submitted_by === selectedUser)" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <!-- Date -->
                             <th scope="row" class="border-solid border-2 border-black px-1 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{response_field.created_at}}</th>
@@ -434,7 +433,7 @@ export default {
 
                         </tr>
                     </thead>
-                    <tbody v-for="response_field in response_fields.data">
+                    <tbody v-for="response_field in response_fields.data" :key="response_field.id">
                         <tr v-if="response_field.form_id === 3 && selectedUser === 'default' ||( response_field.form_id === 3 && response_field.submitted_by === selectedUser)" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <!-- Date -->
                             <th scope="row" class="border-solid border-2 border-black px-1 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{response_field.created_at}}</th>
