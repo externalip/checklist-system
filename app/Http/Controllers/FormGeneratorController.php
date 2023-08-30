@@ -61,22 +61,17 @@ class FormGeneratorController extends Controller
         // Set directory, file name, and file extension type
         $file_name = 'form'.$form_id.'.vue';
 
-        // Count number of questions in the form
-        $fieldCount = 0;
-        foreach ($config['form_content'] as $key => $value) {
-            $fieldCount += count($value['section_content']);
-        }
-
         // Add response submission script to form
-        $form_script = $this->generateStartingTags($form_title, $fieldCount);
+        $form_script = $this->generateStartingTags($form_id, $form_title, $config);
 
         // Create initial file in /storage/app/Forms directory
         Storage::disk('form_path')->put($file_name, $form_script);
 
         // Read Form JSON Config
-        $questionIndex = 1;
-        $answerIndex = 1;
+        $questionIndex = 3;
+        $answerIndex = 3;
         $radioTarget = 1;
+        $checkboxTarget = 1;
 
         // Section Looper
         foreach ($config['form_content'] as $key => $value) {
@@ -93,6 +88,9 @@ class FormGeneratorController extends Controller
                 // Question Looper
                 foreach ($value['section_content'] as $qKey => $qValue) {
 
+                    // Check if question is required
+                    $isRequired = $qValue['required'];
+
                     // Append Opening Question Div
                     Storage::disk('form_path')->append($file_name, '
                         <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
@@ -103,16 +101,36 @@ class FormGeneratorController extends Controller
                         <h5 id="'.'question'.$questionIndex++.'">'.$value['section_content'][$qKey]['label'].'</h5>
                     ');
 
+                    // Append Question Instruction (if any)
+                    Storage::disk('form_path')->append($file_name, '
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            '. $value['section_content'][$qKey]['instruction'] .'
+                        </label>
+                    ');
+
                     // Check Question Type
                     if (str_contains($value['section_content'][$qKey]['type'], 'text')) {
+                        if ($isRequired) {
+                            
+                            // Append Text Answer Field
+                            Storage::disk('form_path')->append($file_name, '
+                                <div class="">
+                                    <input v-model="form.fieldAnswers.ans'.$answerIndex++.'" type="text" id="ltnum"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                </div>
+                            ');
 
-                        // Append Text Answer Field
-                        Storage::disk('form_path')->append($file_name, '
-                            <div class="">
-                                <input v-model="form.fieldAnswers.'.'ans'.$answerIndex++.'" type="text" id="ltnum"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            </div>
-                        ');
+                        } else {
+
+                            // Append Text Answer Field
+                            Storage::disk('form_path')->append($file_name, '
+                                <div class="">
+                                    <input v-model="form.fieldAnswers.ans'.$answerIndex++.'" type="text" id="ltnum"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                </div>
+                            ');
+                            
+                        }
                     } elseif (str_contains($value['section_content'][$qKey]['type'], 'radio')) {
 
                         // Append Opening Radio Group
@@ -122,30 +140,93 @@ class FormGeneratorController extends Controller
 
                         // Append Radio Options
                         foreach ($value['section_content'][$qKey]['options'] as $ansKey => $ansLabel) {
-                            Storage::disk('form_path')->append($file_name, '
-                                <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                                    <div class="flex items-center pl-3">
-                                        <input v-model="form.fieldAnswers.'.'ans'.$answerIndex.'" id="production-checksheet-radio-'.$radioTarget.'" type="radio"
-                                            value="'.$ansLabel.'" name="production-checksheet-radio-'.$value['section_name'].$qKey.'"
-                                            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="production-checksheet-radio-'.$radioTarget++.'"
-                                            class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">'.$ansLabel.'
-                                        </label>
-                                    </div>
-                                </li>
-                            ');
+                            if ($isRequired) {
+                                Storage::disk('form_path')->append($file_name, '
+                                    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                        <div class="flex items-center pl-3">
+                                            <input v-model="form.fieldAnswers.ans'.$answerIndex.'" id="production-checksheet-radio-'.$radioTarget.'" type="radio"
+                                                value="'.$ansLabel.'" name="production-checksheet-radio-'.$value['section_name'].$qKey.'"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
+                                            <label for="production-checksheet-radio-'.$radioTarget++.'"
+                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">'.$ansLabel.'
+                                            </label>
+                                        </div>
+                                    </li>
+                                ');
+                            } else {
+                                Storage::disk('form_path')->append($file_name, '
+                                    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                        <div class="flex items-center pl-3">
+                                            <input v-model="form.fieldAnswers.'.'ans'.$answerIndex.'" id="production-checksheet-radio-'.$radioTarget.'" type="radio"
+                                                value="'.$ansLabel.'" name="production-checksheet-radio-'.$value['section_name'].$qKey.'"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                            <label for="production-checksheet-radio-'.$radioTarget++.'"
+                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">'.$ansLabel.'
+                                            </label>
+                                        </div>
+                                    </li>
+                                ');
+                            }
                         }
                         // Increment answerIndex after iterating through answer options that shares the same v-model (i.e: ans1)
                         $answerIndex++;
 
                         // Append Closing Radio Group
                         Storage::disk('form_path')->append($file_name, '</ul>');
+                    } elseif (str_contains($value['section_content'][$qKey]['type'], 'dropdown')) {
+
+                        // Check if field is required
+                        if ($isRequired) {
+
+                            // Append Opening Dropdown Group
+                            Storage::disk('form_path')->append($file_name, '
+                                <select id="models" v-model="form.fieldAnswers.ans'.$answerIndex.'" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                            ');
+
+                        } else {
+
+                            // Append Opening Dropdown Group
+                            Storage::disk('form_path')->append($file_name, '
+                                <select id="models" v-model="form.fieldAnswers.ans'.$answerIndex.'" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            ');
+
+                        }
+
+                        // Append Dropdown Options
+                        foreach ($value['section_content'][$qKey]['options'] as $ansKey => $ansLabel) {
+                            Storage::disk('form_path')->append($file_name, '
+                                <option value="'. $ansLabel .'">
+                                    '. $ansLabel .'
+                                </option>
+                            ');
+                        }
+
+                        // Append Closing Dropdown Group
+                        Storage::disk('form_path')->append($file_name, '</select>');
+                        
+                    } else {
+
+                        // Append Checkbox Options
+                        foreach ($value['section_content'][$qKey]['options'] as $ansKey => $ansLabel) {
+                            Storage::disk('form_path')->append($file_name, '
+                                <div class="flex items-center mb-1">
+                                    <input v-model="form.fieldAnswers.ans' . $answerIndex . '"
+                                        id="checkbox' . $checkboxTarget . '" type="checkbox" value="' . $ansLabel . '"
+                                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox' . $checkboxTarget++ . '"
+                                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                            >' . $ansLabel . '
+                                    </label>
+                                </div>
+                                ');
+                        }
                     }
 
                     // Append Closing Question Label
                     Storage::disk('form_path')->append($file_name, '</div>');
                 }
             } else {
+                // For other section types, add code here...
             }
 
             // Append Section Closing Tag
@@ -173,12 +254,49 @@ class FormGeneratorController extends Controller
 
     }
 
-    private function generateStartingTags($form_title, $fieldCount)
+    private function generateStartingTags($form_id, $form_title, $config)
     {
-        // Populate reactive answer field objects
+        /*
+            FORM CONFIGURATION REFERENCE:
+
+            form_name: null,
+            form_content: {
+                section1: {
+                section_name: null,
+                section_type: 'question',
+                section_content: {
+                    question1: {
+                        label: null,
+                        instruction: null,
+                        type: null,
+                        required: false,
+                        options: {
+                            ans1: null
+                        }
+                    }
+                }
+                }
+            }
+        */
+
+        // Count number of questions in the form
+        $fieldCount = 3;
         $fieldAnswersData = '';
-        for ($index = 1; $index <= $fieldCount; $index++) {
-            $fieldAnswersData .= ('ans'.$index.': null,');
+
+        // section1 : {}
+        foreach ($config['form_content'] as $sKey => $sValue) {
+
+            // question1 : {}
+            foreach ($sValue['section_content'] as $key => $value) {
+                
+                // Check if question type is checkbox
+                if ($value['type'] == 'checkbox'){
+                    $fieldAnswersData .= ('ans' . $fieldCount++ . ': [],');
+                }
+                else {
+                    $fieldAnswersData .= ('ans' . $fieldCount++ . ': null,');
+                }
+            }
         }
 
         return '
@@ -194,9 +312,11 @@ class FormGeneratorController extends Controller
         
         let form = reactive({
             // Form identifier
-            form_id: 1,
+            form_id: ' . $form_id . ',
             // Answers storage
             fieldAnswers: {
+                ans1: null,
+                ans2: null,
                 '.$fieldAnswersData.'
             }
         })
@@ -217,20 +337,55 @@ class FormGeneratorController extends Controller
             }
         
             // Send user input to ResponseController
-            router.post(\'/submit-response\', form)
+            router.post(\'/submit\', form)
         }
         </script>
         
         <style scoped></style>
         
         <template>
-            <AppLayout title="'.$form_title.'">
-                <div class="5s lg:mx-20">
+            <AppLayout title="' . $form_title . '">
+                <div class="5s lg:mx-[25%]">
                     <form @submit.prevent="submit()" method="post" id="1">
 
                         <!-- Hidden CSRF Token -->
                         <input type="hidden" name="_token" :value="csrf">
 
+                        <!-- MODEL IDENTIFICATION -->
+                        <section id="form-section" class="p-10 mt-5 mb-5 border-2 rounded-lg">
+                            <h2 id="section-name" class="mb-2">Model Identification</h2>
+        
+                            <div id="model-identification" class="grid lg:grid-cols-2 lg:gap-3">
+                                <!-- Model Name -->
+                                <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
+                                    <h5 id="question1">Model Name</h5>
+        
+                                    <label for="models" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                        Select a model
+                                    </label>
+        
+                                    <select id="models" v-model="form.fieldAnswers.ans1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                        <option v-for="model in models" :value="model.model_name" :key="model.id">
+                                            {{ model.model_name }}
+                                        </option>
+                                    </select>
+                                  
+                                </div>
+        
+        
+                                <!-- Lot Number -->
+                                <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
+                                    <h5 id="question2">Lot Number</h5>
+                                    <div class="">
+                                        <label for="models" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" required>
+                                            Input the Lot Number
+                                        </label>
+                                        <input v-model="form.fieldAnswers.ans2" type="text" id="ltnum" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </section>
         ';
     }
 

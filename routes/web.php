@@ -9,6 +9,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -50,7 +51,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     // 5S Checklist Form Page
     Route::get('/5S-Checklist', [UserController::class, 'show5SForm'])->name('5S-Checklist');
 
-    // Create Check Sheet Page
+    // Form Creator/Generator
     Route::prefix('/generate')->group(function () {
         Route::get('/', [FormGeneratorController::class, 'index'])->name('generate');
         Route::post('/', [FormGeneratorController::class, 'store'])->name('generate.store');
@@ -75,6 +76,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     });
     // Form Submission Function
     Route::post('/submit-response', [ResponseController::class, 'store']);
+    Route::post('/submit', [ResponseController::class, 'storeResponse']);
 
     //Archives
     Route::get('/Archives', [ArchiveController::class, 'index'])->name('archives');
@@ -86,8 +88,22 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/PTouch-ICT', [UserController::class, 'showICTForm'])->name('PTouch-ICT');
 
     //Forms
-    Route::get('Forms/{id}', [UserController::class, 'showForm'])->name('showForm');
+    Route::get('Forms/{id}', function($form_id) {
+        // Get form path
+        $path = 'Forms/form'.$form_id;
+
+        // Get all models
+        $models = DB::table('models')
+            ->select('model_name')
+            ->get();
+
+        // Send list of models to url
+        return Inertia::render($path, [
+            'models' => $models,
+        ]);
+    })->name('showForm');
 
     // User Manual
     Route::get('/UserManual', [UserController::class, 'showUserManual'])->name('UserManual');
+
 });

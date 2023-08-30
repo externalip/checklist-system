@@ -24,7 +24,7 @@ import { reactive } from 'vue'
                         <!-- FORM NAME INPUT FIELD -->
                         <input v-model="form_config.form_name" type="text" id="checksheet-id" name="checksheet-name"
                             class="block px-2.5 pb-2.5 pt-4 w-5/6 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" "
+                            placeholder=" " required
                         />
                         <label for="checksheet-id"
                             class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Type
@@ -66,7 +66,7 @@ import { reactive } from 'vue'
                                     <div class="relative">
                                         <input v-model="form_config.form_content['section' + key.toString()].section_name" type="text" :name="'section_name' + key" :id="'section_name' + key"
                                             class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                            placeholder=" " />
+                                            placeholder=" " required/>
                                         <label :for="'section_name' + key"
                                             class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Type
                                             here the section name...</label>
@@ -105,7 +105,7 @@ import { reactive } from 'vue'
                                                     :id="'question' + key" class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent
                                                 rounded-lg border-1 border-gray-300 appearance-none dark:text-white
                                                 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none
-                                                focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                                                focus:ring-0 focus:border-blue-600 peer" placeholder=" " required/>
 
                                                 <label :for="'question' + key"
                                                     class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Type
@@ -141,7 +141,7 @@ import { reactive } from 'vue'
                                             </p>
                                             <select @change="resetQuestionContent('section' + key.toString(), 'question' + qIndex.toString())"
                                                 v-model="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type" :name="'v'"
-                                                class="border-1 border-gray-300 text-gray-900 text-m rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                class="border-1 border-gray-300 text-gray-900 text-m rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                                                 <option selected>
                                                     Choose a type
                                                 </option>
@@ -154,8 +154,8 @@ import { reactive } from 'vue'
                                                 <option :value="'text'">
                                                     Text
                                                 </option>
-                                                <option :value="'dropbox'">
-                                                    Dropbox
+                                                <option :value="'dropdown'">
+                                                    Dropdown
                                                 </option>
                                             </select>
                                         </div>
@@ -182,8 +182,8 @@ import { reactive } from 'vue'
                                                         :name="'radio' + key"
                                                         :id="'radio' + key"
                                                         class="mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                        placeholder="Enter answer option here" />
-
+                                                        placeholder="Enter answer option here" 
+                                                        required/>
                                                     <label :for="'radio' + key"
                                                         class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Radio
                                                         Option
@@ -237,6 +237,7 @@ import { reactive } from 'vue'
                                                                 .section_content['question' + qIndex.toString()]
                                                                 .options['ans' + ansIndex.toString()]
                                                             "
+                                                            required
                                                         />
                                                         <label :for="'check' + key"
                                                             class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Checkbox
@@ -305,7 +306,7 @@ import { reactive } from 'vue'
                                                         type="text" :name="'drop' + key"
                                                         :id="'drop' + key"
                                                         class="mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                        placeholder=" " />
+                                                        placeholder=" " required/>
                                                     <label :for="'drop' + key"
                                                         class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Dropbox
                                                         Option</label>
@@ -408,7 +409,7 @@ import { reactive } from 'vue'
 
                 <!-- Confirm and Save -->
                 <div class="flex items-center justify-center">
-                    <button data-tooltip-target="tooltip-save" type="button"
+                    <Link :href="route('generate.store', form_config)" as="button" method="POST" data-tooltip-target="tooltip-save" type="button"
                         class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
                         <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 16 12">
@@ -416,7 +417,7 @@ import { reactive } from 'vue'
                                 d="M1 5.917 5.724 10.5 15 1.5" />
                         </svg>
                         <span class="sr-only">New item</span>
-                    </button>
+                    </Link>
                 </div>
 
             </div>

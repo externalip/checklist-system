@@ -22,7 +22,6 @@ class ResponseController extends Controller
      */
     public function store(Request $request)
     {
-        $submittedBy = auth()->user()->id;
         $attributeLabels = [
             'fieldAnswers.Materials' => 'Materials',
             'fieldAnswers.Lot Number' => 'Lot Number',
@@ -55,6 +54,15 @@ class ResponseController extends Controller
         if ($validator->fails()) {
             return response()->json(['status' => 'error',  'errors' => $validator->errors()]);
         }
+
+        // Save response to database
+        $this->storeResponse($request);
+
+        return response()->json(['status' => 'success', 'message' => 'Form submitted successfully']);
+    }
+
+    public function storeResponse(Request $request) {
+        $submittedBy = auth()->user()->id;
         $formId = $request->input('form_id');
         $response = $request->only('fieldAnswers');
         $responseNo = $this->generateUniqueResponseNo();
@@ -75,8 +83,6 @@ class ResponseController extends Controller
 
         // Assign required signatures for the submitted data
         $this->requireSign($row_id);
-
-        return response()->json(['status' => 'success', 'message' => 'Form submitted successfully']);
     }
 
     private function requireSign($row_id)
