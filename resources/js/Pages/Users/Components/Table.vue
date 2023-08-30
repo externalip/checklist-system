@@ -64,7 +64,7 @@ const confirmDelete = async (userId) => {
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="user in  users.data " :key="user.id">
+                <tr v-for="user in  users.data " :key="user.id" :class="{ 'text-gray-400': user.active === 0 }">
                     <td class="px-6 py-4">{{ user.id }}</td>
                     <td class="px-6 py-4">{{ user.username }}</td>
                     <td class="px-6 py-4">{{ `${user.employee?.first_name} ${user.employee?.last_name}` }} </td>
