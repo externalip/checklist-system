@@ -61,7 +61,8 @@ class ResponseController extends Controller
         return response()->json(['status' => 'success', 'message' => 'Form submitted successfully']);
     }
 
-    public function storeResponse(Request $request) {
+    public function storeResponse(Request $request)
+    {
         $submittedBy = auth()->user()->id;
         $formId = $request->input('form_id');
         $response = $request->only('fieldAnswers');

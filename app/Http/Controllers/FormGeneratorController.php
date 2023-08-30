@@ -104,14 +104,14 @@ class FormGeneratorController extends Controller
                     // Append Question Instruction (if any)
                     Storage::disk('form_path')->append($file_name, '
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                            '. $value['section_content'][$qKey]['instruction'] .'
+                            '.$value['section_content'][$qKey]['instruction'].'
                         </label>
                     ');
 
                     // Check Question Type
                     if (str_contains($value['section_content'][$qKey]['type'], 'text')) {
                         if ($isRequired) {
-                            
+
                             // Append Text Answer Field
                             Storage::disk('form_path')->append($file_name, '
                                 <div class="">
@@ -129,7 +129,7 @@ class FormGeneratorController extends Controller
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 </div>
                             ');
-                            
+
                         }
                     } elseif (str_contains($value['section_content'][$qKey]['type'], 'radio')) {
 
@@ -195,27 +195,27 @@ class FormGeneratorController extends Controller
                         // Append Dropdown Options
                         foreach ($value['section_content'][$qKey]['options'] as $ansKey => $ansLabel) {
                             Storage::disk('form_path')->append($file_name, '
-                                <option value="'. $ansLabel .'">
-                                    '. $ansLabel .'
+                                <option value="'.$ansLabel.'">
+                                    '.$ansLabel.'
                                 </option>
                             ');
                         }
 
                         // Append Closing Dropdown Group
                         Storage::disk('form_path')->append($file_name, '</select>');
-                        
+
                     } else {
 
                         // Append Checkbox Options
                         foreach ($value['section_content'][$qKey]['options'] as $ansKey => $ansLabel) {
                             Storage::disk('form_path')->append($file_name, '
                                 <div class="flex items-center mb-1">
-                                    <input v-model="form.fieldAnswers.ans' . $answerIndex . '"
-                                        id="checkbox' . $checkboxTarget . '" type="checkbox" value="' . $ansLabel . '"
+                                    <input v-model="form.fieldAnswers.ans'.$answerIndex.'"
+                                        id="checkbox'.$checkboxTarget.'" type="checkbox" value="'.$ansLabel.'"
                                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="checkbox' . $checkboxTarget++ . '"
+                                    <label for="checkbox'.$checkboxTarget++.'"
                                         class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                            >' . $ansLabel . '
+                                            >'.$ansLabel.'
                                     </label>
                                 </div>
                                 ');
@@ -288,13 +288,12 @@ class FormGeneratorController extends Controller
 
             // question1 : {}
             foreach ($sValue['section_content'] as $key => $value) {
-                
+
                 // Check if question type is checkbox
-                if ($value['type'] == 'checkbox'){
-                    $fieldAnswersData .= ('ans' . $fieldCount++ . ': [],');
-                }
-                else {
-                    $fieldAnswersData .= ('ans' . $fieldCount++ . ': null,');
+                if ($value['type'] == 'checkbox') {
+                    $fieldAnswersData .= ('ans'.$fieldCount++.': [],');
+                } else {
+                    $fieldAnswersData .= ('ans'.$fieldCount++.': null,');
                 }
             }
         }
@@ -312,7 +311,7 @@ class FormGeneratorController extends Controller
         
         let form = reactive({
             // Form identifier
-            form_id: ' . $form_id . ',
+            form_id: '.$form_id.',
             // Answers storage
             fieldAnswers: {
                 ans1: null,
@@ -344,7 +343,7 @@ class FormGeneratorController extends Controller
         <style scoped></style>
         
         <template>
-            <AppLayout title="' . $form_title . '">
+            <AppLayout title="'.$form_title.'">
                 <div class="5s lg:mx-[25%]">
                     <form @submit.prevent="submit()" method="post" id="1">
 
