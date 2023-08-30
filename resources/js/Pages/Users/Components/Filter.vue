@@ -23,10 +23,10 @@ watch([searchUsername, selectedAccountStatus, searchName, FilterRole], ([usernam
         filter.accountStatus = accountStatus.join(',');
     }
     if (searchName) {
-        filter.searchName = searchName;
+        filter.name = searchName;
     }
     if (FilterRole) {
-        filter.FilterRole = FilterRole;
+        filter.role = FilterRole;
     }
 
     router.get(route('users'), filter, {

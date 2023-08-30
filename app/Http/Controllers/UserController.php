@@ -34,20 +34,20 @@ class UserController extends Controller
             });
         }
 
-        if ($request->filled('searchUsername')) {
-            $searchUsername = $request->input('searchUsername');
+        if ($request->filled('username')) {
+            $searchUsername = $request->input('username');
             $query->where('username', 'like', '%'.$searchUsername.'%');
         }
 
         // searchName (First Name, Last Name) filter
-        if ($request->filled('searchName')) {
-            $searchName = $request->input('searchName');
+        if ($request->filled('name')) {
+            $searchName = $request->input('name');
             $query->whereHas('employee', function ($q) use ($searchName) {
                 $q->where(DB::raw('CONCAT(first_name, " ", last_name)'), 'like', '%'.$searchName.'%');
             });
         }
-        if ($request->filled('FilterRole')) {
-            $selectedRoles = $request->input('FilterRole');
+        if ($request->filled('role')) {
+            $selectedRoles = $request->input('role');
             if (is_string($selectedRoles)) {
                 $selectedRoles = explode(',', $selectedRoles);
             }
