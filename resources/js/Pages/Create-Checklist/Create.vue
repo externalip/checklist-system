@@ -20,7 +20,7 @@ import { reactive } from 'vue'
                 <div class="mb-5">
                     <p class="text-xl mb-3">Check Sheet Name</p>
                     <div class="relative">
-                        
+
                         <!-- FORM NAME INPUT FIELD -->
                         <input v-model="form_config.form_name" type="text" id="checksheet-id" name="checksheet-name"
                             class="block px-2.5 pb-2.5 pt-4 w-5/6 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
@@ -91,7 +91,7 @@ import { reactive } from 'vue'
                                 <div v-for="qIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content).length"
                                     :key="qIndex" class="pt-5">
                                     <div class="border-gray-200 border-2 p-4 flex flex-col rounded-lg">
-                                        
+
                                         <!-- Question -->
                                         <div>
                                             <p class="text-md mb-2">Question</p>
@@ -106,7 +106,7 @@ import { reactive } from 'vue'
                                                 rounded-lg border-1 border-gray-300 appearance-none dark:text-white
                                                 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none
                                                 focus:ring-0 focus:border-blue-600 peer" placeholder=" " required/>
-                                                
+
                                                 <label :for="'question' + key"
                                                     class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Type
                                                     here the question...</label>
@@ -177,14 +177,13 @@ import { reactive } from 'vue'
                                                     <input v-model="form_config
                                                         .form_content['section' + key.toString()]
                                                         .section_content['question' + qIndex.toString()]
-                                                        .options['ans' + ansIndex.toString()]" 
-                                                        type="text" 
+                                                        .options['ans' + ansIndex.toString()]"
+                                                        type="text"
                                                         :name="'radio' + key"
                                                         :id="'radio' + key"
                                                         class="mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                         placeholder="Enter answer option here" 
                                                         required/>
-                                                    
                                                     <label :for="'radio' + key"
                                                         class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Radio
                                                         Option
@@ -232,7 +231,7 @@ import { reactive } from 'vue'
                                                         <input type="text" :name="'check' + key"
                                                             :id="'check' + key"
                                                             class="mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                            placeholder="Enter answer option here" 
+                                                            placeholder="Enter answer option here"
                                                             v-model="form_config
                                                                 .form_content['section' + key.toString()]
                                                                 .section_content['question' + qIndex.toString()]
@@ -253,7 +252,7 @@ import { reactive } from 'vue'
                                                             <path
                                                                 d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
                                                         </svg>
-    
+
                                                     </button>
                                                 </div>
 
@@ -322,7 +321,7 @@ import { reactive } from 'vue'
 
                                                 </button>
                                             </div>
-                                            
+
                                             <button @click="addAnswer('section' + key.toString(), 'question' + qIndex.toString())"
                                                 class="hover:bg-blue-500 bg-[#3c5393] text-white duration-200 p-2 rounded-md text-sm flex items-center align-center">
                                                 <svg class="w-4 h-4 mr-2 text-white-800 dark:text-white" aria-hidden="true"
@@ -360,7 +359,7 @@ import { reactive } from 'vue'
                                                         .form_content['section' + key.toString()]
                                                         .section_content['question' + qIndex.toString()]
                                                         .required"
-                                                         type="checkbox" value="" class="sr-only peer" 
+                                                         type="checkbox" value="" class="sr-only peer"
                                                     />
                                                     <div
                                                         class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
@@ -397,7 +396,7 @@ import { reactive } from 'vue'
                 </button>
 
                 <div class="flex items-center justify-center">
-                    <button @click="addSection" data-tooltip-target="tooltip-new" type="button" href="#"
+                    <button data-tooltip-target="tooltip-new" type="button" href="#" @click="addSection"
                         class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
                         <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 18 18">
@@ -461,15 +460,16 @@ import { reactive } from 'vue'
 
                 <!-- Confirm and Save -->
                 <div class="flex items-center justify-center">
-                    <Link :href="route('generate.store', form_config)" as="button" method="POST" data-tooltip-target="tooltip-save" type="button"
-                        class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
-                        <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 16 12">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M1 5.917 5.724 10.5 15 1.5" />
-                        </svg>
-                        <span class="sr-only">New item</span>
-                    </Link>
+                    <button @click.prevent="submit" type="button"
+                            class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800"
+                            data-tooltip-target="tooltip-save">
+                    <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 16 12">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M1 5.917 5.724 10.5 15 1.5" />
+                    </svg>
+                    <span class="sr-only">New item</span>
+                    </button>
                 </div>
 
                 <div id="tooltip-save" role="tooltip"
@@ -485,7 +485,7 @@ import { reactive } from 'vue'
 </template>
 
 <script>
-
+import { router } from "@inertiajs/vue3";
 const answerType = ['radio', 'checkbox', 'dropdown'];
 
 // Form JSON Structure
@@ -636,6 +636,9 @@ export default {
         ans1: null
       };
     },
+    submit(){
+        router.post('/generate', form_config);
+    }
   }
 };
 

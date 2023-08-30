@@ -9,8 +9,8 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class Response_field extends Model implements Auditable
 {
-    use HasFactory;
     use AuditingAuditable;
+    use HasFactory;
 
     protected $table = 'response_fields';
 

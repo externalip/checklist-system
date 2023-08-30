@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
@@ -28,32 +29,31 @@ class ArchiveController extends Controller
         // ]);
 
         $response_fields = DB::table('response_fields')
-            ->select('forms.form_name', 'employees.*', 'response_fields.*')
+            ->select(
+                'forms.form_name',
+                'employees.*',
+                'response_fields.*',
+                'line_leader_signature.user_id AS line_leader_user_id',
+                'qc_signature.user_id AS qc_user_id',
+                'line_leader_employee.first_name AS line_leader_first_name',
+                'qc_employee.first_name AS qc_first_name'
+            )
             ->join('forms', 'response_fields.form_id', '=', 'forms.id')
             ->join('users', 'users.id', '=', 'response_fields.submitted_by')
             ->join('employees', 'employees.id', '=', 'users.employee_id')
+            ->leftJoin('signatures AS line_leader_signature', function ($join) {
+                $join->on('line_leader_signature.response_id', '=', 'response_fields.id')
+                    ->where('line_leader_signature.required_sign_role', '=', 'Line Leader');
+            })
+            ->leftJoin('signatures AS qc_signature', function ($join) {
+                $join->on('qc_signature.response_id', '=', 'response_fields.id')
+                    ->where('qc_signature.required_sign_role', '=', 'Quality Control');
+            })
+            ->leftJoin('users AS line_leader_user', 'line_leader_user.id', '=', 'line_leader_signature.user_id')
+            ->leftJoin('users AS qc_user', 'qc_user.id', '=', 'qc_signature.user_id')
+            ->leftJoin('employees AS line_leader_employee', 'line_leader_employee.id', '=', 'line_leader_user.employee_id')
+            ->leftJoin('employees AS qc_employee', 'qc_employee.id', '=', 'qc_user.employee_id')
             ->where('response_fields.status', '=', 'OK')
-            ->where('response_fields.form_id', '=', '1')
-            ->orderByDesc('response_fields.created_at')
-            ->paginate(10);
-
-        $response_fields2 = DB::table('response_fields')
-            ->select('forms.form_name', 'employees.*', 'response_fields.*')
-            ->join('forms', 'response_fields.form_id', '=', 'forms.id')
-            ->join('users', 'users.id', '=', 'response_fields.submitted_by')
-            ->join('employees', 'employees.id', '=', 'users.employee_id')
-            ->where('response_fields.status', '=', 'OK')
-            ->where('response_fields.form_id', '=', '2')
-            ->orderByDesc('response_fields.created_at')
-            ->paginate(10);
-
-        $response_fields3 = DB::table('response_fields')
-            ->select('forms.form_name', 'employees.*', 'response_fields.*')
-            ->join('forms', 'response_fields.form_id', '=', 'forms.id')
-            ->join('users', 'users.id', '=', 'response_fields.submitted_by')
-            ->join('employees', 'employees.id', '=', 'users.employee_id')
-            ->where('response_fields.status', '=', 'OK')
-            ->where('response_fields.form_id', '=', '3')
             ->orderByDesc('response_fields.created_at')
             ->paginate(10);
 
@@ -77,9 +77,6 @@ class ArchiveController extends Controller
             'counts' => $counts,
             'forms' => $forms,
             'employees' => $employees,
-            'response_fields2' => $response_fields2,
-            'response_fields3' => $response_fields3,
-
         ]);
     }
 }

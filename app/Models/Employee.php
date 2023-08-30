@@ -13,10 +13,10 @@ class Employee extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
+    use HasFactory;
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
-    use HasFactory;
 
     /**
      * The attributes that are mass assignable.

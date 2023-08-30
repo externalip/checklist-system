@@ -93,6 +93,7 @@ class ModelController extends Controller
         foreach ($tags as $tag) {
             array_push($form_ids, $tag->form_id);
         }
+
         // $forms = DB::table('forms')->whereIn('id', $form_ids)->get();
         return response()->json(['model' => $model, 'form_ids' => $form_ids]);
     }

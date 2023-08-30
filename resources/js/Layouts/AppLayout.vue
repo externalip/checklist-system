@@ -1,161 +1,407 @@
 <template>
     <Head :title="title" />
-    <div id="mySidebar" class="sidebar" style="z-index: 3;" @click.stop="toggleUserDropdown">
-        <div id="e2" class="text-center" style="padding:10px;">
+    <div
+        id="mySidebar"
+        class="sidebar"
+        style="z-index: 3"
+        @click.stop="toggleUserDropdown"
+    >
+        <div id="e2" class="text-center" style="padding: 10px">
             <p class="text-3xl font-semibold">Hello,</p>
-            <p class="text-xl">Employee ID#{{ `${$page.props.auth.employee?.id}` }}
+            <p class="text-xl">
+                Employee ID#{{ `${$page.props.auth.employee?.id}` }}
             </p>
-            <p class="self-center text-sm" style="padding-top:20px;">Production Checklist</p>
+            <p class="self-center text-sm" style="padding-top: 20px">
+                Production Checklist
+            </p>
         </div>
-        <button class="closebtn x" onclick="closeNav()" @click.stop="closeNav">×</button>
+        <button class="closebtn x" onclick="closeNav()" @click.stop="closeNav">
+            ×
+        </button>
 
         <ul class="space-y-2 font-medium">
-            <li class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <Link :href="route('dashboard')" :class="{ 'active': $page.url === '/dashboard' }"
-                    class="inline-flex items-center p-2 text-gray-900 rounded-lg group">
-                <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
-                    <path
-                        d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
-                    <path
-                        d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
-                </svg>
-                <span class="ml-3">Dashboard</span>
+            <!-- DASHBOARD -->
+            <li
+                class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+            >
+                <Link
+                    :href="route('dashboard')"
+                    :class="{ active: $page.url === '/dashboard' }"
+                    class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            d="M4 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5Zm10 0a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V5ZM4 16a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3Zm10-3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-6Z"
+                        />
+                    </svg>
+
+                    <span class="ml-3">Dashboard</span>
                 </Link>
             </li>
-            <li class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <a href="#" class="inline-flex items-center p-2 text-gray-900 rounded-lg group">
-                    <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+
+            <!-- MANAGE CHECK SHEETS -->
+            <li
+                class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+            >
+                <a
+                    href="#"
+                    class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 15 15"
+                    >
                         <path
-                            d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z" />
+                            fill="currentColor"
+                            d="M4.5 6.995H4v1h.5v-1Zm6 1h.5v-1h-.5v1Zm-6 2.505H4v.5h.5v-.5Zm6 0v.5h.5v-.5h-.5Zm-6-6.503H4v1h.5v-1Zm6 1h.5v-1h-.5v1Zm3-1.497h.5v-.207l-.146-.147l-.354.354Zm-3-3l.354-.354L10.707 0H10.5v.5Zm-6 7.495h6v-1h-6v1ZM4.5 11h6v-1h-6v1Zm0-6.003h6v-1h-6v1Zm8 9.003h-10v1h10v-1ZM2 13.5v-12H1v12h1Zm11-10v10h1v-10h-1ZM2.5 1h8V0h-8v1Zm7.646-.146l3 3l.708-.708l-3-3l-.708.708ZM2.5 14a.5.5 0 0 1-.5-.5H1A1.5 1.5 0 0 0 2.5 15v-1Zm10 1a1.5 1.5 0 0 0 1.5-1.5h-1a.5.5 0 0 1-.5.5v1ZM2 1.5a.5.5 0 0 1 .5-.5V0A1.5 1.5 0 0 0 1 1.5h1Zm2 3v6h1v-6H4Zm3 0v6h1v-6H7Zm3 0v6h1v-6h-1Z"
+                        />
                     </svg>
-                    <span class="flex-1 ml-3 whitespace-nowrap">Manage Check Sheet</span>
+                    <span class="flex-1 ml-3 whitespace-nowrap"
+                        >Manage Check Sheet</span
+                    >
                 </a>
             </li>
-            <li class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <Link :href="route('Pending-Reports')" :class="{ 'active': $page.url === '/Pending-Reports' }"
-                    class="inline-flex items-center p-2 text-gray-900 rounded-lg group">
-                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
-                    <path
-                        d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z" />
-                </svg>
-                <span class="flex-1 ml-3 whitespace-nowrap">Pending Reports</span>
+
+            <!-- PENDING REPORTS -->
+            <li
+                class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+            >
+                <Link
+                    :href="route('Pending-Reports')"
+                    :class="{ active: $page.url === '/Pending-Reports' }"
+                    class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            fill="currentColor"
+                            d="M17 22q-2.075 0-3.538-1.463T12 17q0-2.075 1.463-3.538T17 12q2.075 0 3.538 1.463T22 17q0 2.075-1.463 3.538T17 22Zm1.675-2.625l.7-.7L17.5 16.8V14h-1v3.2l2.175 2.175ZM5 21q-.825 0-1.413-.588T3 19V5q0-.825.588-1.413T5 3h4.175q.275-.875 1.075-1.438T12 1q1 0 1.788.563T14.85 3H19q.825 0 1.413.588T21 5v6.25q-.45-.325-.95-.55T19 10.3V5h-2v3H7V5H5v14h5.3q.175.55.4 1.05t.55.95H5Zm7-16q.425 0 .713-.288T13 4q0-.425-.288-.713T12 3q-.425 0-.713.288T11 4q0 .425.288.713T12 5Z"
+                        />
+                    </svg>
+                    <span class="flex-1 ml-3 whitespace-nowrap"
+                        >Pending Reports</span
+                    >
                 </Link>
             </li>
-            <li class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <a href="#" class="items-center p-2 text-gray-900 rounded-lg group">
-                    <button id="e3" class="inline-flex" type="button" aria-controls="dropdown-example"
-                        data-collapse-toggle="dropdown-example">
-                        <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+
+            <!-- VIEW CHECKLISTS -->
+            <li
+                class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+            >
+                <a
+                    href="#"
+                    class="items-center p-2 text-gray-900 rounded-lg group"
+                >
+                    <button
+                        id="e3"
+                        class="inline-flex"
+                        type="button"
+                        aria-controls="dropdown-example"
+                        data-collapse-toggle="dropdown-example"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 36 36"
+                        >
                             <path
-                                d="M17 5.923A1 1 0 0 0 16 5h-3V4a4 4 0 1 0-8 0v1H2a1 1 0 0 0-1 .923L.086 17.846A2 2 0 0 0 2.08 20h13.84a2 2 0 0 0 1.994-2.153L17 5.923ZM7 9a1 1 0 0 1-2 0V7h2v2Zm0-5a2 2 0 1 1 4 0v1H7V4Zm6 5a1 1 0 1 1-2 0V7h2v2Z" />
+                                fill="currentColor"
+                                d="M15 8h9v2h-9z"
+                                class="clr-i-outline clr-i-outline-path-1"
+                            />
+                            <path
+                                fill="currentColor"
+                                d="M15 12h9v2h-9z"
+                                class="clr-i-outline clr-i-outline-path-2"
+                            />
+                            <path
+                                fill="currentColor"
+                                d="M15 16h9v2h-9z"
+                                class="clr-i-outline clr-i-outline-path-3"
+                            />
+                            <path
+                                fill="currentColor"
+                                d="M15 20h9v2h-9z"
+                                class="clr-i-outline clr-i-outline-path-4"
+                            />
+                            <path
+                                fill="currentColor"
+                                d="M15 24h9v2h-9z"
+                                class="clr-i-outline clr-i-outline-path-5"
+                            />
+                            <path
+                                fill="currentColor"
+                                d="M11 8h2v2h-2z"
+                                class="clr-i-outline clr-i-outline-path-6"
+                            />
+                            <path
+                                fill="currentColor"
+                                d="M11 12h2v2h-2z"
+                                class="clr-i-outline clr-i-outline-path-7"
+                            />
+                            <path
+                                fill="currentColor"
+                                d="M11 16h2v2h-2z"
+                                class="clr-i-outline clr-i-outline-path-8"
+                            />
+                            <path
+                                fill="currentColor"
+                                d="M11 20h2v2h-2z"
+                                class="clr-i-outline clr-i-outline-path-9"
+                            />
+                            <path
+                                fill="currentColor"
+                                d="M11 24h2v2h-2z"
+                                class="clr-i-outline clr-i-outline-path-10"
+                            />
+                            <path
+                                fill="currentColor"
+                                d="M28 2H8a2 2 0 0 0-2 2v28a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Zm0 30H8V4h20Z"
+                                class="clr-i-outline clr-i-outline-path-11"
+                            />
+                            <path fill="none" d="M0 0h36v36H0z" />
                         </svg>
-                        <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>View Checklists</span>
-                        <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
+
+                        <span
+                            class="flex-1 ml-3 text-left whitespace-nowrap"
+                            sidebar-toggle-item
+                            >View Checklists</span
+                        >
+                        <svg
+                            sidebar-toggle-item
+                            class="w-6 h-6"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                fill-rule="evenodd"
                                 d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd"></path>
+                                clip-rule="evenodd"
+                            ></path>
                         </svg>
                     </button>
                 </a>
                 <ul id="dropdown-example" class="hidden py-2 space-y-2">
                     <li>
-                        <Link :href="route('5S-Checklist')" :class="{ 'active': $page.url === '/5S-Checklist' }"
-                            class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">
-                        5s Checklist
+                        <Link
+                            :href="route('5S-Checklist')"
+                            :class="{ active: $page.url === '/5S-Checklist' }"
+                            class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11"
+                        >
+                            5s Checklist
                         </Link>
                     </li>
                     <li>
-                        <Link :href="route('PTouch-Solder')" :class="{ 'active': $page.url === '/PTouch-Solder' }"
-                            class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">
-                        P-Touch Soldering
+                        <Link
+                            :href="route('PTouch-Solder')"
+                            :class="{ active: $page.url === '/PTouch-Solder' }"
+                            class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11"
+                        >
+                            P-Touch Soldering
                         </Link>
                     </li>
                     <li>
-                        <Link :href="route('PTouch-ICT')" :class="{ 'active': $page.url === '/PTouch-ICT' }"
-                            class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">
-                        P-Touch ICT
+                        <Link
+                            :href="route('PTouch-ICT')"
+                            :class="{ active: $page.url === '/PTouch-ICT' }"
+                            class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11"
+                        >
+                            P-Touch ICT
                         </Link>
                     </li>
                 </ul>
+            </li>
 
-            </li>
-            <li class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <Link :href="route('archives')" :class="{ 'active': $page.url === '/archives' }"
-                    class="inline-flex items-center p-2 text-gray-900 rounded-lg group">
-                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3" />
-                </svg>
-                <span class="flex-1 ml-3 whitespace-nowrap">Archives</span>
+            <!-- ARCHIVES -->
+            <li
+                class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+            >
+                <Link
+                    :href="route('archives')"
+                    :class="{ active: $page.url === '/archives' }"
+                    class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            fill="currentColor"
+                            d="M2.75 2h18.5c.966 0 1.75.784 1.75 1.75v3.5A1.75 1.75 0 0 1 21.25 9H2.75A1.75 1.75 0 0 1 1 7.25v-3.5C1 2.784 1.784 2 2.75 2Zm18.5 1.5H2.75a.25.25 0 0 0-.25.25v3.5c0 .138.112.25.25.25h18.5a.25.25 0 0 0 .25-.25v-3.5a.25.25 0 0 0-.25-.25ZM2.75 10a.75.75 0 0 1 .75.75v9.5c0 .138.112.25.25.25h16.5a.25.25 0 0 0 .25-.25v-9.5a.75.75 0 0 1 1.5 0v9.5A1.75 1.75 0 0 1 20.25 22H3.75A1.75 1.75 0 0 1 2 20.25v-9.5a.75.75 0 0 1 .75-.75Z"
+                        />
+                        <path
+                            fill="currentColor"
+                            d="M9.75 11.5a.75.75 0 0 0 0 1.5h4.5a.75.75 0 0 0 0-1.5h-4.5Z"
+                        />
+                    </svg>
+                    <span class="flex-1 ml-3 whitespace-nowrap">Archives</span>
                 </Link>
             </li>
-            <li class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <Link :href="route('audit')" :class="{ 'active': $page.url === '/audit' }"
-                    class="inline-flex items-center p-2 text-gray-900 rounded-lg group">
-                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z" />
-                    <path
-                        d="M6.737 11.061a2.961 2.961 0 0 1 .81-1.515l6.117-6.116A4.839 4.839 0 0 1 16 2.141V2a1.97 1.97 0 0 0-1.933-2H7v5a2 2 0 0 1-2 2H0v11a1.969 1.969 0 0 0 1.933 2h12.134A1.97 1.97 0 0 0 16 18v-3.093l-1.546 1.546c-.413.413-.94.695-1.513.81l-3.4.679a2.947 2.947 0 0 1-1.85-.227 2.96 2.96 0 0 1-1.635-3.257l.681-3.397Z" />
-                    <path
-                        d="M8.961 16a.93.93 0 0 0 .189-.019l3.4-.679a.961.961 0 0 0 .49-.263l6.118-6.117a2.884 2.884 0 0 0-4.079-4.078l-6.117 6.117a.96.96 0 0 0-.263.491l-.679 3.4A.961.961 0 0 0 8.961 16Zm7.477-9.8a.958.958 0 0 1 .68-.281.961.961 0 0 1 .682 1.644l-.315.315-1.36-1.36.313-.318Zm-5.911 5.911 4.236-4.236 1.359 1.359-4.236 4.237-1.7.339.341-1.699Z" />
-                </svg>
-                <span class="flex-1 ml-3 whitespace-nowrap">Audit Tracking</span>
+
+            <!-- AUDIT TRACKING -->
+            <li
+                class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+            >
+                <Link
+                    :href="route('audit')"
+                    :class="{ active: $page.url === '/audit' }"
+                    class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 2048 2048"
+                    >
+                        <path
+                            fill="currentColor"
+                            d="M1033 1280q-14 30-21 62t-13 66H384v-128h649zm-649 384v-128h613q5 33 14 65t23 63H384zm-128 256h1349l127 128H128V0h1115l549 549v568q-29-26-61-47t-67-37V640h-512V128H256v1792zM1280 219v293h293l-293-293zm24 805q-109 41-187 128H384v-128h920zM384 512h640v128H384V512zm1152 256v128H384V768h1152zm512 1216q0 26-19 45t-45 19q-26 0-45-19l-291-290q-39 26-84 39t-92 14q-66 0-124-25t-102-68t-69-102t-25-125q0-66 25-124t68-101t102-69t125-26q66 0 124 25t101 69t69 102t26 124q0 47-13 92t-40 84l290 291q19 19 19 45zm-768-512q0 40 15 75t41 61t61 41t75 15q40 0 75-15t61-41t41-61t15-75q0-40-15-75t-41-61t-61-41t-75-15q-40 0-75 15t-61 41t-41 61t-15 75z"
+                        />
+                    </svg>
+
+                    <span class="flex-1 ml-3 whitespace-nowrap"
+                        >Audit Tracking</span
+                    >
                 </Link>
             </li>
-            <li class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <Link :href="route('models.index')" :class="{ 'active': $page.url === '/Models' }"
-                    class="inline-flex items-center p-2 text-gray-900 rounded-lg group">
-                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z" />
-                    <path
-                        d="M6.737 11.061a2.961 2.961 0 0 1 .81-1.515l6.117-6.116A4.839 4.839 0 0 1 16 2.141V2a1.97 1.97 0 0 0-1.933-2H7v5a2 2 0 0 1-2 2H0v11a1.969 1.969 0 0 0 1.933 2h12.134A1.97 1.97 0 0 0 16 18v-3.093l-1.546 1.546c-.413.413-.94.695-1.513.81l-3.4.679a2.947 2.947 0 0 1-1.85-.227 2.96 2.96 0 0 1-1.635-3.257l.681-3.397Z" />
-                    <path
-                        d="M8.961 16a.93.93 0 0 0 .189-.019l3.4-.679a.961.961 0 0 0 .49-.263l6.118-6.117a2.884 2.884 0 0 0-4.079-4.078l-6.117 6.117a.96.96 0 0 0-.263.491l-.679 3.4A.961.961 0 0 0 8.961 16Zm7.477-9.8a.958.958 0 0 1 .68-.281.961.961 0 0 1 .682 1.644l-.315.315-1.36-1.36.313-.318Zm-5.911 5.911 4.236-4.236 1.359 1.359-4.236 4.237-1.7.339.341-1.699Z" />
-                </svg>
-                <span class="flex-1 ml-3 whitespace-nowrap">Manage Models</span>
+
+            <!-- MANAGE MODEL -->
+            <li
+                class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+            >
+                <Link
+                    :href="route('models.index')"
+                    :class="{ active: $page.url === '/Models' }"
+                    class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 32 32"
+                    >
+                        <path
+                            fill="currentColor"
+                            d="M16 25a6.99 6.99 0 0 1-5.833-3.129l1.666-1.107a5 5 0 0 0 8.334 0l1.666 1.107A6.99 6.99 0 0 1 16 25zm4-11a2 2 0 1 0 2 2a1.98 1.98 0 0 0-2-2zm-8 0a2 2 0 1 0 2 2a1.98 1.98 0 0 0-2-2z"
+                        />
+                        <path
+                            fill="currentColor"
+                            d="M30 16v-2h-2v-4a4.005 4.005 0 0 0-4-4h-2V2h-2v4h-8V2h-2v4H8a4.005 4.005 0 0 0-4 4v4H2v2h2v5H2v2h2v3a4.005 4.005 0 0 0 4 4h16a4.005 4.005 0 0 0 4-4v-3h2v-2h-2v-5Zm-4 10a2.002 2.002 0 0 1-2 2H8a2.002 2.002 0 0 1-2-2V10a2.002 2.002 0 0 1 2-2h16a2.002 2.002 0 0 1 2 2Z"
+                        />
+                    </svg>
+
+                    <span class="flex-1 ml-3 whitespace-nowrap"
+                        >Manage Models</span
+                    >
                 </Link>
             </li>
-            <p class="text-center text-sm" style="padding-top:20px;">User Configuration</p>
-            <li class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <Link :href="route('users')" :class="{ 'active': $page.url === '/Users' }"
-                    class="inline-flex items-center p-2 text-gray-900 rounded-lg group">
-                <svg class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z" />
-                    <path
-                        d="M6.737 11.061a2.961 2.961 0 0 1 .81-1.515l6.117-6.116A4.839 4.839 0 0 1 16 2.141V2a1.97 1.97 0 0 0-1.933-2H7v5a2 2 0 0 1-2 2H0v11a1.969 1.969 0 0 0 1.933 2h12.134A1.97 1.97 0 0 0 16 18v-3.093l-1.546 1.546c-.413.413-.94.695-1.513.81l-3.4.679a2.947 2.947 0 0 1-1.85-.227 2.96 2.96 0 0 1-1.635-3.257l.681-3.397Z" />
-                    <path
-                        d="M8.961 16a.93.93 0 0 0 .189-.019l3.4-.679a.961.961 0 0 0 .49-.263l6.118-6.117a2.884 2.884 0 0 0-4.079-4.078l-6.117 6.117a.96.96 0 0 0-.263.491l-.679 3.4A.961.961 0 0 0 8.961 16Zm7.477-9.8a.958.958 0 0 1 .68-.281.961.961 0 0 1 .682 1.644l-.315.315-1.36-1.36.313-.318Zm-5.911 5.911 4.236-4.236 1.359 1.359-4.236 4.237-1.7.339.341-1.699Z" />
-                </svg>
-                <span class="flex-1 ml-3 whitespace-nowrap">Manage Personnel</span>
+
+            <p class="text-center text-sm" style="padding-top: 20px">
+                User Configuration
+            </p>
+
+            <!-- MANAGE USERS -->
+            <li
+                class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+            >
+                <Link
+                    :href="route('users')"
+                    :class="{ active: $page.url === '/Users' }"
+                    class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 256 256"
+                    >
+                        <g fill="currentColor">
+                            <path
+                                d="M136 108a52 52 0 1 1-52-52a52 52 0 0 1 52 52Z"
+                                opacity=".2"
+                            />
+                            <path
+                                d="M117.25 157.92a60 60 0 1 0-66.5 0a95.83 95.83 0 0 0-47.22 37.71a8 8 0 1 0 13.4 8.74a80 80 0 0 1 134.14 0a8 8 0 0 0 13.4-8.74a95.83 95.83 0 0 0-47.22-37.71ZM40 108a44 44 0 1 1 44 44a44.05 44.05 0 0 1-44-44Zm210.14 98.7a8 8 0 0 1-11.07-2.33A79.83 79.83 0 0 0 172 168a8 8 0 0 1 0-16a44 44 0 1 0-16.34-84.87a8 8 0 1 1-5.94-14.85a60 60 0 0 1 55.53 105.64a95.83 95.83 0 0 1 47.22 37.71a8 8 0 0 1-2.33 11.07Z"
+                            />
+                        </g>
+                    </svg>
+
+                    <span class="flex-1 ml-3 whitespace-nowrap"
+                        >Manage Personnel</span
+                    >
                 </Link>
             </li>
         </ul>
     </div>
 
-    <div class="max-w-screen-l flex flex-wrap items-center justify-between mx-auto p-1" style="background-color:#CCCDCF;">
-        <nav id="side" class="flex fixed-top navbar navbar-dark" aria-label="First navbar example">
+    <div
+        class="max-w-screen-l flex flex-wrap items-center justify-between mx-auto p-1"
+        style="background-color: #cccdcf"
+    >
+        <nav
+            id="side"
+            class="flex fixed-top navbar navbar-dark"
+            aria-label="First navbar example"
+        >
             <button
                 class="navbar-toggler inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01" aria-controls="navbarsExample01"
-                aria-expanded="false" aria-label="Toggle navigation" @click.stop="openNav">
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarsExample01"
+                aria-controls="navbarsExample01"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                @click.stop="openNav"
+            >
                 <span class="sr-only">Open main menu</span>
-                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M1 1h15M1 7h15M1 13h15" />
+                <svg
+                    class="w-5 h-5"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 17 14"
+                >
+                    <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M1 1h15M1 7h15M1 13h15"
+                    />
                 </svg>
             </button>
             <div id="myComp" class="comp flex">
-                <img src="/Logo.png" class="h-9 mr-3" alt="MA Technology Logo" />
-                <p class="self-center text-3xl font-semibold collapse  md:visible">MA Technology</p>
+                <img
+                    src="/Logo.png"
+                    class="h-9 mr-3"
+                    alt="MA Technology Logo"
+                />
+                <p
+                    class="self-center text-xl font-semibold collapse md:visible"
+                >
+                    MA Technology
+                    <span class="text-xs bg-slate-100 p-1 px-2 rounded-full"
+                        >Production Checklist</span
+                    >
+                </p>
             </div>
         </nav>
 
@@ -163,23 +409,38 @@
             <div class="ml-3 relative">
                 <Dropdown align="right" width="48">
                     <template #trigger>
-                        <button v-if="$page.props.jetstream
-                            .managesProfilePhotos
-                            "
-                            class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                            <img class="h-8 w-8 rounded-full object-cover" :src="$page.props.auth.user
-                                .profile_photo_url
-                                " :alt="$page.props.auth.user.name
-        " />
+                        <button
+                            v-if="$page.props.jetstream.managesProfilePhotos"
+                            class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition"
+                        >
+                            <img
+                                class="h-8 w-8 rounded-full object-cover"
+                                :src="$page.props.auth.user.profile_photo_url"
+                                :alt="$page.props.auth.user.name"
+                            />
                         </button>
 
                         <span v-else class="inline-flex rounded-md">
-                            <button type="button"
-                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
-                                {{ `${$page.props.auth.employee?.first_name} ${$page.props.auth.employee?.last_name}` }}
-                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                            <button
+                                type="button"
+                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150"
+                            >
+                                {{
+                                    `${$page.props.auth.employee?.first_name} ${$page.props.auth.employee?.last_name}`
+                                }}
+                                <svg
+                                    class="ml-2 -mr-0.5 h-4 w-4"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                                    />
                                 </svg>
                             </button>
                         </span>
@@ -199,9 +460,7 @@
 
                         <!-- Authentication -->
                         <form @submit.prevent="logout">
-                            <DropdownLink as="button">
-                                Log Out
-                            </DropdownLink>
+                            <DropdownLink as="button"> Log Out </DropdownLink>
                         </form>
                     </template>
                 </Dropdown>
@@ -210,18 +469,18 @@
     </div>
     <main class="p-2">
         <div class="mt-5">
-            <h1 class=" lg:mx-20 text-center">{{ title }}</h1>
+            <h1 class="lg:mx-20 text-center">{{ title }}</h1>
         </div>
         <slot />
     </main>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref } from "vue";
 import { Head, Link, router } from "@inertiajs/vue3";
 import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
-import { initFlowbite } from 'flowbite';
+import { initFlowbite } from "flowbite";
 
 defineProps({
     title: String,
@@ -261,7 +520,7 @@ const toggleUserDropdown = (event) => {
 };
 
 const handleOutsideClick = (event) => {
-    if (event.target.id !== 'mySidebar') {
+    if (event.target.id !== "mySidebar") {
         closeNav();
     }
 };
@@ -295,7 +554,8 @@ body {
     white-space: nowrap;
     vertical-align: baseline;
     border-radius: 0.25rem;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -324,7 +584,7 @@ body {
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #CCCDCF;
+    background-color: #cccdcf;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 10px;
@@ -339,7 +599,7 @@ body {
 
 .sidebar a,
 p {
-    color: #3C5393;
+    color: #3c5393;
 }
 
 .sidebar li {
@@ -351,13 +611,13 @@ p {
 .sidebar a:hover {
     color: white;
     font-weight: bold;
-    background-color: #3C5393;
+    background-color: #3c5393;
 }
 
 .active {
     color: white !important;
     font-weight: bold;
-    background-color: #3C5393;
+    background-color: #3c5393;
 }
 
 .sidebar .closebtn {
@@ -369,7 +629,7 @@ p {
 }
 
 #side {
-    transition: margin-left .5s;
+    transition: margin-left 0.5s;
 }
 
 .openbtn {
@@ -386,7 +646,7 @@ p {
 }
 
 #main {
-    transition: margin-left .5s;
+    transition: margin-left 0.5s;
 }
 
 @media (min-width: 62em) {
