@@ -1,6 +1,7 @@
 <script setup>
-    import AppLayout from '@/Layouts/AppLayout.vue';
-    import { defineProps } from 'vue';
+import AppLayout from '@/Layouts/AppLayout.vue';
+import { Link } from '@inertiajs/vue3';
+import { defineProps } from 'vue';
 
 const props = defineProps({
     forms: Array,
@@ -38,12 +39,14 @@ const props = defineProps({
                         <div
                             class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                             <span
-                                class="text-transparent font-bold bg-clip-text bg-sky-400 text-4xl flex md:justify-end justify-center">{{form.pending_count}}</span>
-                            <a href="#">
-                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{form.form_name}}
+                                class="text-transparent font-bold bg-clip-text bg-sky-400 text-4xl flex md:justify-end justify-center">{{ form.pending_count }}</span>
+                            <a :href="route('Pending-Reports', { form_name: form.form_name })">
+                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                    {{ form.form_name }}
                                 </h5>
                             </a>
-                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">You have {{form.pending_count}} pending reviews on this
+                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">You have {{ form.pending_count }}
+                                pending reviews on this
                                 check sheet.</p>
                         </div>
                     </div>
@@ -61,8 +64,8 @@ const props = defineProps({
 
                     <div id="reg-personnel">
 
-                        <a href="#"
-                            class="flex items-center flex-col block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                        <div
+                            class="flex items-center flex-col block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                             <svg class="w-20 h-20 mb-5 text-gray-400 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -73,14 +76,14 @@ const props = defineProps({
                                 Personnel
                                 <span class="block text-4xl font-bold">{{ users }}</span>
                             </h5>
-                        </a>
+                        </div>
 
                     </div>
 
                     <div id="reg-models">
 
-                        <a href="#"
-                            class="flex items-center flex-col block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                        <div
+                            class="flex items-center flex-col block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                             <svg class="w-20 h-20 mb-5 text-gray-400 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -91,14 +94,14 @@ const props = defineProps({
                                 Models
                                 <span class="block text-4xl font-bold">{{ models }}</span>
                             </h5>
-                        </a>
+                        </div>
 
                     </div>
 
                     <div id="reg-checksheets">
 
-                        <a href="#"
-                            class="flex items-center flex-col block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                        <div
+                            class="flex items-center flex-col block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                             <svg class="w-20 h-20 mb-5 text-gray-400 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="18" height="20" fill="none" viewBox="0 0 18 20">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-width="0.9"
@@ -108,14 +111,14 @@ const props = defineProps({
                                 Check Sheets
                                 <span class="block text-4xl font-bold">{{ checksheets }}</span>
                             </h5>
-                        </a>
+                        </div>
 
                     </div>
 
                     <div id="reg-archives">
 
-                        <a href="#"
-                            class="flex items-center flex-col block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                        <div
+                            class="flex items-center flex-col block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                             <svg class="w-20 h-20 text-gray-400 mb-5 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                                 <path stroke="currentColor" stroke-linejoin="round" stroke-width="0.9"
@@ -125,7 +128,7 @@ const props = defineProps({
                                 Archives
                                 <span class="block text-4xl font-bold">{{ archives }}</span>
                             </h5>
-                        </a>
+                        </div>
 
                     </div>
 
@@ -140,7 +143,7 @@ const props = defineProps({
                     <h2>Recent Actions</h2>
                 </div>
 
-                 <!-- Recent Actions Table -->
+                <!-- Recent Actions Table -->
 
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <table id="myTable" class="w-full text-sm text-left text-gray-500 dark:text-gray-400 text-center">
