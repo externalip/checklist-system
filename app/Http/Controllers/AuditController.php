@@ -75,8 +75,7 @@ class AuditController extends Controller
             )
             ->orderBy('employees.first_name')
             ->get();
-            // dd($users);
-
+        // dd($users);
 
         return Inertia::render('Audit/Index', [
             'audits' => $audits,
