@@ -1,27 +1,27 @@
 <template>
     <div class="flex items-center justify-between p-3 bg-white border-t border-gray-200 sm:px-6">
         <!-- Previous Button (hidden on mobile) -->
-        <button v-if="data.current_page > 1" @click="gotoPage(data.current_page - 1)"
-            class="pagination-button hidden sm:block">
-            Previous
+        <button @click="gotoPage(data.current_page - 1)" :class="['pagination-button', 'hidden', 'sm:block', { 'disabled': data.current_page <= 1 }]">
+                    Previous
         </button>
 
-        <div class="flex items-center justify-center flex-1"> <!-- Flex layout added -->
+        <div class="flex items-center justify-center flex-1">
+            <!-- Flex layout added -->
             <nav class="relative z-0 inline-flex shadow-sm">
                 <!-- Numbered Pages -->
                 <template v-for="num in visiblePages" :key="num">
-                    <button @click="gotoPage(num)"
-                        :class="['pagination-button', num === data.current_page ? 'bg-blue-500 text-white' : 'text-gray-700 hover:text-gray-500']">
-                        {{ num }}
-                    </button>
+                        <button @click="gotoPage(num)"
+                            :class="['pagination-button', num === data.current_page ? 'bg-blue-500 text-white' : 'text-gray-700 hover:text-gray-500']">
+                            {{ num }}
+                        </button>
                 </template>
             </nav>
         </div>
 
         <!-- Next Button (hidden on mobile) -->
-        <button v-if="data.current_page < data.last_page" @click="gotoPage(data.current_page + 1)"
-            class="pagination-button hidden sm:block">
-            Next
+        <button @click="gotoPage(data.current_page + 1)"
+                :class="['pagination-button', 'hidden', 'sm:block', { 'disabled': data.current_page >= data.last_page }]">
+                Next
         </button>
     </div>
 </template>
