@@ -88,7 +88,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/PTouch-ICT', [UserController::class, 'showICTForm'])->name('PTouch-ICT');
 
     //Forms
-    Route::get('Forms/{id}', function($form_id) {
+    Route::get('Forms/{id}', function ($form_id) {
         // Get form path
         $path = 'Forms/form'.$form_id;
 
