@@ -1,14 +1,7 @@
-div<style>
-<<<<<<< HEAD
-    .hidden_div{
-        display: none;
-    }
-
-=======
+<style>
 .hidden_div {
     display: none;
 }
->>>>>>> 7d9d3e3c47eb91a0a65d6fe5169e76a87db85174
 </style>
 
 <script setup>
@@ -23,11 +16,7 @@ const selectedForm = reactive({
 const props = defineProps({
     forms: Array,
     data: Array,
-<<<<<<< HEAD
-  
-=======
 
->>>>>>> 7d9d3e3c47eb91a0a65d6fe5169e76a87db85174
     signatures: Array,
     counts: Array,
     counts2: Array,
@@ -50,10 +39,7 @@ const props = defineProps({
                     <select v-model="selectedForm.form_name" id="pending-checklists" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         @change="showDiv($event.target)">
                             <option value="">Select a Form</option>
-                            <option
-                                v-for="form in forms"
-                                :key="form.id"
-                                :value="form.form_name">{{ form.form_name }}</option>
+                            <option v-for="form in forms" :key="form.id" :value="form.form_name">{{ form.form_name }}</option>
                         </select>
 
                 </section>
@@ -121,266 +107,36 @@ const props = defineProps({
                 <div id="5S Start-Up Check Sheet" class="hidden_div accordions">
                     <h4>{{ counts }} Pending Reports on {{ selectedForm.form_name }}</h4>
 
-<<<<<<< HEAD
-                    <div v-for="(row, index) in data" id="accordion-flush" data-accordion="collapse"
-                        data-active-classes="bg-white dark:bg-gray-900 text-blue-500 dark:text-white"
-                        data-inactive-classes="text-gray-500 dark:text-gray-400" class="border-lg">
-                        <div>
-                            <ul v-if="row.form_id ===1">
-                        <h2 :id="'accordion-flush-heading-' + index.toString()">
-                            <button type="button"
-                                class="flex items-center justify-between w-full py-5 text-lg font-regular antialiased text-left border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
-                                :data-accordion-target="'#accordion-flush-body-' + index.toString()" aria-expanded="false"
-                                :aria-controls="'accordion-flush-body-' + index.toString()">
-=======
                     <div v-for="(row, index) in data" :key="index" id="accordion-flush" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-900 text-blue-500 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400" class="border-lg">
                         <div>
-                            <ul v-if="row.form_id ===1">
+                            <ul v-if="row.form_id === 1">
                                 <h2 :id="'accordion-flush-heading-' + index.toString()">
                                     <button type="button" class="flex items-center justify-between w-full py-5 text-lg font-regular antialiased text-left border-b border-gray-200 dark:border-gray-700 dark:text-gray-400" :data-accordion-target="'#accordion-flush-body-' + index.toString()"
                                         aria-expanded="false" :aria-controls="'accordion-flush-body-' + index.toString()">
->>>>>>> 7d9d3e3c47eb91a0a65d6fe5169e76a87db85174
 
-                                    <!-- {{ Name of the Submitted Model by the Operator }} -->
-                                    <span>{{ JSON.parse(row.response).fieldAnswers['Model Name'] }}
-                                        <span
-                                            class="bg-orange-100 text-orange-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-2">to
-                                            be signed
-                                        </span>
-                                    </span>
+                                            <!-- {{ Name of the Submitted Model by the Operator }} -->
+                                            <span>{{ JSON.parse(row.response).fieldAnswers['Model Name'] }}
+                                                <span
+                                                    class="bg-orange-100 text-orange-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-2">to
+                                                    be signed
+                                                </span>
+                                            </span>
 
-<<<<<<< HEAD
-                                <svg data-accordion-icon class="w-3 h-3 transition-transform shrink-0" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="M9 5 5 1 1 5" />
-                                </svg>
-                            </button>
-                        </h2>
-                        <div :id="'accordion-flush-body-' + index.toString()" class="hidden border-2 border-gray-100"
-                            :aria-labelledby="'accordion-flush-heading-' + index.toString()">
-                            <!-- Record Details Lot Number ||  Operator || Type of Checking || Shift -->
-                            <div id="pending-record-details"
-                                class="bg-gray-100 p-3 px-12 lg:flex lg:items-center text-center lg:justify-between">
-                                <div id="lot-number" class="">
-                                    <label for="" class="text-sm">Lot Number</label>
-                                    <h5 class="font-bold">{{ JSON.parse(row.response).fieldAnswers['Lot Number'] }}</h5>
-                                </div>
-
-                                <div id="check-type" class="">
-                                    <label for="" class="text-sm">Type of Checking</label>
-                                    <h5 class="font-bold">{{ JSON.parse(row.response).fieldAnswers['Type of Checking'] }}</h5>
-                                </div>
-
-                                <div id="performed-by" class="">
-                                    <label for="" class="text-sm">Performed by</label>
-                                    <h5 class="font-bold">{{ row.first_name }}</h5>
-                                </div>
-
-                                <div id="shift" class="">
-                                    <label for="" class="text-sm">Shift</label>
-                                    <h5 class="font-bold">{{ row.shift }}</h5>
-                                </div>
-                            </div>
-
-                            <!-- Record Section Checksheet -->
-                            <div id="pending-record-section" class="p-3 lg:flex lg:flex-col">
-                                <!-- Header -->
-                                <div class="pending-section-header px-5">
-                                    <h3 class="font-bold text-2xl">Checking Items</h3>
-                                </div>
-
-                                <!-- Table -->
-                                <div class="relative overflow-x-auto p-5">
-                                    <table class="rounded-full w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                        <thead
-                                            class="text-s text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                            <tr>
-                                                <!-- Description coming from the Checklist -->
-                                                <th scope="col" class="px-6 py-3">
-                                                    Description
-                                                </th>
-                                                <!-- Status OK | NG | NA Depends on the RadioButton of the Checklist -->
-                                                <th scope="col" class="px-6 py-3">
-                                                    Status
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium whitespace-wrap text-gray-900 dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[3] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Production Checksheet'] === 'OK') ?
-                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
-                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'"
-                                                >
-                                                    {{JSON.parse(row.response).fieldAnswers['Production Checksheet']}}
-                                                </td>
-                                            </tr>
-
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[4] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Procedures/OPL/Work Instructions'] === 'OK') ?
-                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
-                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'"
-                                                >
-                                                    {{JSON.parse(row.response).fieldAnswers['Procedures/OPL/Work Instructions']}}
-                                                </td>
-                                            </tr>
-
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[5] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Working Area'] === 'OK') ?
-                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
-                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'"
-                                                >
-                                                    {{JSON.parse(row.response).fieldAnswers['Working Area']}}
-                                                </td>
-                                            </tr>
-
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[6] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Materials'] === 'OK') ?
-                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
-                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'"
-                                                >
-                                                    {{JSON.parse(row.response).fieldAnswers['Materials']}}
-                                                </td>
-                                            </tr>
-
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[7] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Tools/Jigs Instrument'] === 'OK') ?
-                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
-                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'"
-                                                >
-                                                    {{JSON.parse(row.response).fieldAnswers['Tools/Jigs Instrument']}}
-                                                </td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>        
-                            </div>
-
-                            <!-- Record Section Signatures -->
-                            <div id="pending-record-signature" class="p-3 lg:flex lg:flex-col">
-                                <!-- Header -->
-                                <div class="pending-section-header px-5">
-                                    <h3 class="font-bold text-2xl">Signatures</h3>
-                                </div>
-
-                                <!-- Table -->
-                                <div class="relative overflow-x-auto p-5">
-                                    <table class="rounded-full w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                        <thead
-                                            class="text-s text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                            <tr>
-                                                <!-- Description coming from the Checklist -->
-                                                <th scope="col" class="px-6 py-3">
-                                                    Person to sign
-                                                </th>
-                                                <!-- Status OK | NG | NA Depends on the RadioButton of the Checklist -->
-                                                <th scope="col" class="px-6 py-3">
-                                                    Status
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- Signature -->
-                                            <tr
-                                                v-for="sign in signatures"
-                                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th v-if="sign.response_id == row.id" scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ sign.required_sign_role }}
-                                                </th>
-                                                <td v-if="sign.response_id == row.id"
-                                                    :class="(sign.status == 'OK') ?
-                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
-                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
-                                                    {{ sign.status }}
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div id="pending-record-remarks" class="p-3 lg:flex lg:flex-col">
-                                <!-- Header -->
-                                <div class="pending-section-header px-5">
-                                    <h3 class="font-bold text-2xl">{{ Object.keys(JSON.parse(row.response).fieldAnswers)[8] }}</h3>
-                                </div>
-
-                                <!-- Disabled TextArea -->
-                                <div class="pending-record-remark px-5">
-
-                                    <label for="message"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Operator's
-                                        Remark on the Model</label>
-                                    <textarea id="message" rows="4"
-                                        class="resize-none disabled:opacity-90 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        :placeholder="JSON.parse(row.response).fieldAnswers['Remarks on the Model']" disabled></textarea>
-
-                                </div>
-                            </div>
-
-                            <!-- Button -->
-                            <div id="pending-sign-btn" class="px-5 p-2 w-full flex justify-end">
-
-                                <!-- Reject Button -->
-                                <Link :href="route('Pending-Reports.update', {
-                                    status: 'Rejected',
-                                    id: row.id
-                                })" as="button" method="PUT">
-                                    <button type="button"
-                                        class="focus:outline-none text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                                        >Reject
-                                    </button>
-                                </Link>
-                                <!-- </router-link> -->
-
-                                <!-- Approve Button -->
-                                <Link :href="route('Pending-Reports.update', {
-                                    status: 'OK',
-                                    id: row.id
-                                })" as="button" method="PUT">
-                                    <button type="button"
-                                        class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                                        >Approve
-                                    </button>
-                                </Link>
-                            </div>
-                        </div></ul>
-=======
-                                    <svg data-accordion-icon class="w-3 h-3 transition-transform shrink-0" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M9 5 5 1 1 5" />
-                                    </svg>
-                                </button>
+                                            <svg data-accordion-icon class="w-3 h-3 transition-transform shrink-0"
+                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 10 6">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="2" d="M9 5 5 1 1 5" />
+                                            </svg>
+                                        </button>
                                 </h2>
                                 <div :id="'accordion-flush-body-' + index.toString()" class="hidden border-2 border-gray-100" :aria-labelledby="'accordion-flush-heading-' + index.toString()">
                                     <!-- Record Details Lot Number ||  Operator || Type of Checking || Shift -->
                                     <div id="pending-record-details" class="bg-gray-100 p-3 px-12 lg:flex lg:items-center text-center lg:justify-between">
                                         <div id="lot-number" class="">
                                             <label for="" class="text-sm">Lot Number</label>
-                                            <h5 class="font-bold">{{ JSON.parse(row.response).fieldAnswers['Lot Number'] }}</h5>
+                                            <h5 class="font-bold">{{ JSON.parse(row.response).fieldAnswers['Lot Number'] }}
+                                            </h5>
                                         </div>
 
                                         <div id="check-type" class="">
@@ -426,10 +182,10 @@ const props = defineProps({
                                                         <th scope="row" class="w-full px-6 py-4 font-medium whitespace-wrap text-gray-900 dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[3] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Production Checksheet'] === 'OK') ?
-                                                            'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
-                                                            'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Production Checksheet']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Production Checksheet'] === 'OK') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Production Checksheet']}}
                                                         </td>
                                                     </tr>
 
@@ -437,10 +193,10 @@ const props = defineProps({
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[4] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Procedures/OPL/Work Instructions'] === 'OK') ?
-                                                            'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
-                                                            'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Procedures/OPL/Work Instructions']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Procedures/OPL/Work Instructions'] === 'OK') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Procedures/OPL/Work Instructions']}}
                                                         </td>
                                                     </tr>
 
@@ -448,10 +204,10 @@ const props = defineProps({
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[5] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Working Area'] === 'OK') ?
-                                                            'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
-                                                            'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Working Area']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Working Area'] === 'OK') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Working Area'] }}
                                                         </td>
                                                     </tr>
 
@@ -459,10 +215,10 @@ const props = defineProps({
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[6] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Materials'] === 'OK') ?
-                                                            'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
-                                                            'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Materials']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Materials'] === 'OK') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Materials'] }}
                                                         </td>
                                                     </tr>
 
@@ -470,10 +226,10 @@ const props = defineProps({
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[7] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Tools/Jigs Instrument'] === 'OK') ?
-                                                            'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
-                                                            'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Tools/Jigs Instrument']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Tools/Jigs Instrument'] === 'OK') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Tools/Jigs Instrument']}}
                                                         </td>
                                                     </tr>
 
@@ -511,8 +267,8 @@ const props = defineProps({
                                                             {{ sign.required_sign_role }}
                                                         </th>
                                                         <td v-if="sign.response_id == row.id" :class="(sign.status == 'OK') ?
-                                                            'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
-                                                            'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
                                                             {{ sign.status }}
                                                         </td>
                                                     </tr>
@@ -531,7 +287,7 @@ const props = defineProps({
                                         <div class="pending-record-remark px-5">
 
                                             <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Operator's
-                                            Remark on the Model</label>
+                                                    Remark on the Model</label>
                                             <textarea id="message" rows="4" class="resize-none disabled:opacity-90 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 :placeholder="JSON.parse(row.response).fieldAnswers['Remarks on the Model']" disabled></textarea>
 
@@ -543,74 +299,53 @@ const props = defineProps({
 
                                         <!-- Reject Button -->
                                         <Link :href="route('Pending-Reports.update', {
-                                        status: 'Rejected',
-                                        id: row.id
-                                    })" as="button" method="PUT">
+                                                status: 'Rejected',
+                                                id: row.id
+                                            })" as="button" method="PUT">
                                         <button type="button" class="focus:outline-none text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Reject
-                                        </button>
+                                            </button>
                                         </Link>
                                         <!-- </router-link> -->
 
                                         <!-- Approve Button -->
                                         <Link :href="route('Pending-Reports.update', {
-                                        status: 'OK',
-                                        id: row.id
-                                    })" as="button" method="PUT">
+                                                status: 'OK',
+                                                id: row.id
+                                            })" as="button" method="PUT">
                                         <button type="button" class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Approve
-                                        </button>
+                                            </button>
                                         </Link>
                                     </div>
                                 </div>
                             </ul>
->>>>>>> 7d9d3e3c47eb91a0a65d6fe5169e76a87db85174
                         </div>
                     </div>
                 </div>
                 <!-- Second Accordion -->
-<<<<<<< HEAD
-                <div id="P-Touch Soldering" class="hidden_div accordions">    
-                         <h4>{{ counts2 }} Pending Reports on {{ selectedForm.form_name }} </h4>         
-                    <div v-for="(row, index) in data" id="accordion-flush" data-accordion="collapse"
-                        data-active-classes="bg-white dark:bg-gray-900 text-blue-500 dark:text-white"
-                        data-inactive-classes="text-gray-500 dark:text-gray-400" class="border-lg">
-                        <div>
-                            <ul v-if="row.form_id ===2">                
-                        <h2 :id="'accordion-flush-heading-2' + index.toString()">
-                            <button type="button"
-                                class="flex items-center justify-between w-full py-5 text-lg font-regular antialiased text-left border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
-                                :data-accordion-target="'#accordion-flush-body-2' + index.toString()" aria-expanded="false"
-                                :aria-controls="'accordion-flush-body-2' + index.toString()">
-
-                                <!-- {{ Name of the Submitted Model by the Operator }} -->
-                                <span>{{ JSON.parse(row.response).fieldAnswers['Model Name'] }}
-                                    <span
-                                        class="bg-orange-100 text-orange-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-2">to
-                                        be signed
-=======
                 <div id="P-Touch Soldering" class="hidden_div accordions">
                     <h4>{{ counts2 }} Pending Reports on {{ selectedForm.form_name }} </h4>
                     <div v-for="(row, index) in data" :key="index" id="accordion-flush" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-900 text-blue-500 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400" class="border-lg">
                         <div>
-                            <ul v-if="row.form_id ===2">
+                            <ul v-if="row.form_id === 2">
                                 <h2 :id="'accordion-flush-heading-2' + index.toString()">
                                     <button type="button" class="flex items-center justify-between w-full py-5 text-lg font-regular antialiased text-left border-b border-gray-200 dark:border-gray-700 dark:text-gray-400" :data-accordion-target="'#accordion-flush-body-2' + index.toString()"
                                         aria-expanded="false" :aria-controls="'accordion-flush-body-2' + index.toString()">
 
-                                    <!-- {{ Name of the Submitted Model by the Operator }} -->
-                                    <span>{{ JSON.parse(row.response).fieldAnswers['Model Name'] }}
-                                        <span
-                                            class="bg-orange-100 text-orange-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-2">to
-                                            be signed
-                                        </span>
->>>>>>> 7d9d3e3c47eb91a0a65d6fe5169e76a87db85174
-                                    </span>
+                                            <!-- {{ Name of the Submitted Model by the Operator }} -->
+                                            <span>{{ JSON.parse(row.response).fieldAnswers['Model Name'] }}
+                                                <span
+                                                    class="bg-orange-100 text-orange-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-2">to
+                                                    be signed
+                                                </span>
+                                            </span>
 
-                                    <svg data-accordion-icon class="w-3 h-3 transition-transform shrink-0" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M9 5 5 1 1 5" />
-                                    </svg>
-                                </button>
+                                            <svg data-accordion-icon class="w-3 h-3 transition-transform shrink-0"
+                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 10 6">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="2" d="M9 5 5 1 1 5" />
+                                            </svg>
+                                        </button>
                                 </h2>
 
                                 <div :id="'accordion-flush-body-2' + index.toString()" class="hidden border-2 border-gray-100" :aria-labelledby="'accordion-flush-heading-2' + index.toString()">
@@ -618,7 +353,8 @@ const props = defineProps({
                                     <div id="pending-record-details" class="bg-gray-100 p-3 px-12 lg:flex lg:items-center text-center lg:justify-between">
                                         <div id="lot-number" class="">
                                             <label for="" class="text-sm">Lot Number</label>
-                                            <h5 class="font-bold">{{ JSON.parse(row.response).fieldAnswers['Lot Number'] }}</h5>
+                                            <h5 class="font-bold">{{ JSON.parse(row.response).fieldAnswers['Lot Number'] }}
+                                            </h5>
                                         </div>
 
                                         <div id="check-type" class="">
@@ -664,11 +400,11 @@ const props = defineProps({
                                                         <th scope="row" class="w-full px-6 py-4 font-medium whitespace-wrap text-gray-900 dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[3] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Soldering Iron Set'] === '✔') ?
-                                                            'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Soldering Iron Set'] === 'X') ?
-                                                            'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                            'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Soldering Iron Set']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Soldering Iron Set'] === '✔') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : (JSON.parse(row.response).fieldAnswers['Soldering Iron Set'] === 'X') ?
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Soldering Iron Set'] }}
                                                         </td>
                                                     </tr>
 
@@ -676,11 +412,11 @@ const props = defineProps({
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[4] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Soldering Machine Condition'] === '✔') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Soldering Machine Condition'] === 'X') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Soldering Machine Condition']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Soldering Machine Condition'] === '✔') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : (JSON.parse(row.response).fieldAnswers['Soldering Machine Condition'] === 'X') ?
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Soldering Machine Condition']}}
                                                         </td>
                                                     </tr>
 
@@ -688,11 +424,11 @@ const props = defineProps({
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[5] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Solder Wire'] === '✔') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Solder Wire'] === 'X') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Solder Wire']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Solder Wire'] === '✔') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : (JSON.parse(row.response).fieldAnswers['Solder Wire'] === 'X') ?
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Solder Wire'] }}
                                                         </td>
                                                     </tr>
 
@@ -700,11 +436,11 @@ const props = defineProps({
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[6] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Solder Wire Expiration Date'] === '✔') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Solder Wire Expiration Date'] === 'X') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Solder Wire Expiration Date']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Solder Wire Expiration Date'] === '✔') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : (JSON.parse(row.response).fieldAnswers['Solder Wire Expiration Date'] === 'X') ?
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Solder Wire Expiration Date']}}
                                                         </td>
                                                     </tr>
 
@@ -713,18 +449,18 @@ const props = defineProps({
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[7] }}
                                                         </th>
                                                         <td class="px-6 py-4 text-black text-center" style="background-color:#E6EEF7;">
-                                                            {{JSON.parse(row.response).fieldAnswers['Solder Tip Type']}}
+                                                            {{ JSON.parse(row.response).fieldAnswers['Solder Tip Type'] }}
                                                         </td>
                                                     </tr>
                                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[8] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Solder Tip Condition'] === '✔') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Solder Tip Condition'] === 'X') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Solder Tip Condition']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Solder Tip Condition'] === '✔') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : (JSON.parse(row.response).fieldAnswers['Solder Tip Condition'] === 'X') ?
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Solder Tip Condition']}}
                                                         </td>
                                                     </tr>
                                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -732,7 +468,7 @@ const props = defineProps({
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[9] }}
                                                         </th>
                                                         <td class="px-6 py-4 text-black text-center" style="background-color:#E6EEF7;">
-                                                            {{JSON.parse(row.response).fieldAnswers['Solder Tip Temperature']}}
+                                                            {{ JSON.parse(row.response).fieldAnswers['Solder Tip Temperature']}}
                                                         </td>
                                                     </tr>
                                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -740,7 +476,7 @@ const props = defineProps({
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[10] }}
                                                         </th>
                                                         <td class="px-6 py-4 text-black text-center" style="background-color:#E6EEF7;">
-                                                            {{JSON.parse(row.response).fieldAnswers['Resistance Value']}}
+                                                            {{ JSON.parse(row.response).fieldAnswers['Resistance Value'] }}
                                                         </td>
                                                     </tr>
                                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -748,18 +484,18 @@ const props = defineProps({
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[11] }}
                                                         </th>
                                                         <td class="px-6 py-4 text-black text-center" style="background-color:#E6EEF7;">
-                                                            {{JSON.parse(row.response).fieldAnswers['Leak Voltage Value']}}
+                                                            {{ JSON.parse(row.response).fieldAnswers['Leak Voltage Value'] }}
                                                         </td>
                                                     </tr>
                                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[12] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Sponge \/ Sponge Bin'] === '✔') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Sponge \/ Sponge Bin'] === 'X') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Sponge \/ Sponge Bin']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Sponge \/ Sponge Bin'] === '✔') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : (JSON.parse(row.response).fieldAnswers['Sponge \/ Sponge Bin'] === 'X') ?
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Sponge \/ Sponge Bin']}}
                                                         </td>
                                                     </tr>
                                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -767,51 +503,51 @@ const props = defineProps({
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[13] }}
                                                         </th>
                                                         <td class="px-6 py-4 text-black text-center" style="background-color:#E6EEF7;">
-                                                            {{JSON.parse(row.response).fieldAnswers['Soldering Jig ID Number']}}
+                                                            {{ JSON.parse(row.response).fieldAnswers['Soldering Jig ID Number']}}
                                                         </td>
                                                     </tr>
                                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[14] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Soldering Jig Appearance'] === '✔') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Soldering Jig Appearance'] === 'X') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Soldering Jig Appearance']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Soldering Jig Appearance'] === '✔') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : (JSON.parse(row.response).fieldAnswers['Soldering Jig Appearance'] === 'X') ?
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Soldering Jig Appearance']}}
                                                         </td>
                                                     </tr>
                                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[15] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Components Reference on Soldering Jig (if Applicable)'] === '✔') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Components Reference on Soldering Jig (if Applicable)'] === 'X') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Components Reference on Soldering Jig (if Applicable)']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Components Reference on Soldering Jig (if Applicable)'] === '✔') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : (JSON.parse(row.response).fieldAnswers['Components Reference on Soldering Jig (if Applicable)'] === 'X') ?
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Components Reference on Soldering Jig(if Applicable) ']}}
                                                         </td>
                                                     </tr>
                                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[16] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Bamboo Stick'] === '✔') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Bamboo Stick'] === 'X') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Bamboo Stick']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Bamboo Stick'] === '✔') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : (JSON.parse(row.response).fieldAnswers['Bamboo Stick'] === 'X') ?
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Bamboo Stick'] }}
                                                         </td>
                                                     </tr>
                                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[17] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Exhaust System'] === '✔') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Exhaust System'] === 'X') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Exhaust System']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Exhaust System'] === '✔') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : (JSON.parse(row.response).fieldAnswers['Exhaust System'] === 'X') ?
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Exhaust System'] }}
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -825,22 +561,22 @@ const props = defineProps({
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[18] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['D02484-D01 (D460 MAIN)'] === '✔') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['D02484-D01 (D460 MAIN)'] === 'X') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['D02484-D01 (D460 MAIN)']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['D02484-D01 (D460 MAIN)'] === '✔') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : (JSON.parse(row.response).fieldAnswers['D02484-D01 (D460 MAIN)'] === 'X') ?
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['D02484-D01 (D460 MAIN) ']}}
                                                         </td>
                                                     </tr>
                                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[19] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['D027CR-001 (D610 MAIN)'] === '✔') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['D027CR-001 (D610 MAIN)'] === 'X') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['D027CR-001 (D610 MAIN)']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['D027CR-001 (D610 MAIN)'] === '✔') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : (JSON.parse(row.response).fieldAnswers['D027CR-001 (D610 MAIN)'] === 'X') ?
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['D027CR-001 (D610 MAIN) ']}}
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -878,8 +614,8 @@ const props = defineProps({
                                                             {{ sign.required_sign_role }}
                                                         </th>
                                                         <td v-if="sign.response_id == row.id" :class="(sign.status == 'OK') ?
-                                                            'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
-                                                            'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
                                                             {{ sign.user_id }}
                                                         </td>
                                                     </tr>
@@ -898,7 +634,7 @@ const props = defineProps({
                                         <div class="pending-record-remark px-5">
 
                                             <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Operator's
-                                            Remark on the Model</label>
+                                                    Remark on the Model</label>
                                             <textarea id="message" rows="4" class="resize-none disabled:opacity-90 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 :placeholder="JSON.parse(row.response).fieldAnswers['Remarks on the Model']" disabled></textarea>
 
@@ -910,374 +646,27 @@ const props = defineProps({
 
                                         <!-- Reject Button -->
                                         <Link :href="route('Pending-Reports.update', {
-                                        status: 'Rejected',
-                                        id: row.id
-                                    })" as="button" method="PUT">
+                                                status: 'Rejected',
+                                                id: row.id
+                                            })" as="button" method="PUT">
                                         <button type="button" class="focus:outline-none text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Reject
-                                        </button>
+                                            </button>
                                         </Link>
                                         <!-- </router-link> -->
 
                                         <!-- Approve Button -->
                                         <Link :href="route('Pending-Reports.update', {
-                                        status: 'OK',
-                                        id: row.id
-                                    })" as="button" method="PUT">
+                                                status: 'OK',
+                                                id: row.id
+                                            })" as="button" method="PUT">
                                         <button type="button" class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Approve
-                                        </button>
+                                            </button>
                                         </Link>
                                     </div>
                                 </div>
-<<<<<<< HEAD
-
-                                <div id="check-type" class="">
-                                    <label for="" class="text-sm">Type of Checking</label>
-                                    <h5 class="font-bold">{{ JSON.parse(row.response).fieldAnswers['Type of Checking'] }}</h5>
-                                </div>
-
-                                <div id="performed-by" class="">
-                                    <label for="" class="text-sm">Performed by</label>
-                                    <h5 class="font-bold">{{ row.first_name }}</h5>
-                                </div>
-
-                                <div id="shift" class="">
-                                    <label for="" class="text-sm">Shift</label>
-                                    <h5 class="font-bold">{{ row.shift }}</h5>
-                                </div>
-                            </div>
-
-                            <!-- Record Section Checksheet -->
-                            <div id="pending-record-section" class="p-3 lg:flex lg:flex-col">
-                                <!-- Header -->
-                                <div class="pending-section-header px-5">
-                                    <h3 class="font-bold text-2xl">Checking Items</h3>
-                                </div>
-
-                                <!-- Table -->
-                                <div class="relative overflow-x-auto p-5">
-                                    <table class="rounded-full w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                        <thead
-                                            class="text-s text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                            <tr>
-                                                <!-- Description coming from the Checklist -->
-                                                <th scope="col" class="px-6 py-3">
-                                                    Description
-                                                </th>
-                                                <!-- Status OK | NG | NA Depends on the RadioButton of the Checklist -->
-                                                <th scope="col" class="px-6 py-3">
-                                                    Status
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium whitespace-wrap text-gray-900 dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[3] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Soldering Iron Set'] === '✔') ?
-                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Soldering Iron Set'] === 'X') ?
-                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'"
-                                                >
-                                                    {{JSON.parse(row.response).fieldAnswers['Soldering Iron Set']}}
-                                                </td>
-                                            </tr>
-
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[4] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Soldering Machine Condition'] === '✔') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Soldering Machine Condition'] === 'X') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'"
-                                                >
-                                                    {{JSON.parse(row.response).fieldAnswers['Soldering Machine Condition']}}
-                                                </td>
-                                            </tr>
-
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[5] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Solder Wire'] === '✔') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Solder Wire'] === 'X') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'"
-                                                >
-                                                    {{JSON.parse(row.response).fieldAnswers['Solder Wire']}}
-                                                </td>
-                                            </tr>
-
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[6] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Solder Wire Expiration Date'] === '✔') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Solder Wire Expiration Date'] === 'X') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'"
-                                                >
-                                                    {{JSON.parse(row.response).fieldAnswers['Solder Wire Expiration Date']}}
-                                                </td>
-                                            </tr>
-
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[7] }}
-                                                </th>
-                                                <td class="px-6 py-4 text-black text-center" style="background-color:#E6EEF7;">
-                                                    {{JSON.parse(row.response).fieldAnswers['Solder Tip Type']}}
-                                                </td>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[8] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Solder Tip Condition'] === '✔') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Solder Tip Condition'] === 'X') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'" >
-                                                    {{JSON.parse(row.response).fieldAnswers['Solder Tip Condition']}}
-                                                </td>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[9] }}
-                                                </th>
-                                                <td class="px-6 py-4 text-black text-center" style="background-color:#E6EEF7;" >
-                                                    {{JSON.parse(row.response).fieldAnswers['Solder Tip Temperature']}}
-                                                </td>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[10] }}
-                                                </th>
-                                                <td class="px-6 py-4 text-black text-center" style="background-color:#E6EEF7;">
-                                                    {{JSON.parse(row.response).fieldAnswers['Resistance Value']}}
-                                                </td>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[11] }}
-                                                </th>
-                                                <td class="px-6 py-4 text-black text-center" style="background-color:#E6EEF7;">
-                                                    {{JSON.parse(row.response).fieldAnswers['Leak Voltage Value']}}
-                                                </td>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[12] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Sponge \/ Sponge Bin'] === '✔') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Sponge \/ Sponge Bin'] === 'X') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'" >
-                                                    {{JSON.parse(row.response).fieldAnswers['Sponge \/ Sponge Bin']}}
-                                                </td>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[13] }}
-                                                </th>
-                                                <td class="px-6 py-4 text-black text-center" style="background-color:#E6EEF7;" >
-                                                    {{JSON.parse(row.response).fieldAnswers['Soldering Jig ID Number']}}
-                                                </td>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[14] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Soldering Jig Appearance'] === '✔') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Soldering Jig Appearance'] === 'X') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'" >
-                                                    {{JSON.parse(row.response).fieldAnswers['Soldering Jig Appearance']}}
-                                                </td>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[15] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Components Reference on Soldering Jig (if Applicable)'] === '✔') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Components Reference on Soldering Jig (if Applicable)'] === 'X') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'" >
-                                                    {{JSON.parse(row.response).fieldAnswers['Components Reference on Soldering Jig (if Applicable)']}}
-                                                </td>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[16] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Bamboo Stick'] === '✔') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Bamboo Stick'] === 'X') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'" >
-                                                    {{JSON.parse(row.response).fieldAnswers['Bamboo Stick']}}
-                                                </td>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[17] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Exhaust System'] === '✔') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Exhaust System'] === 'X') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'" >
-                                                    {{JSON.parse(row.response).fieldAnswers['Exhaust System']}}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <!-- Description coming from the Checklist -->
-                                                <th scope="col" class="bg-gray-50 dark:bg-gray-700 text-black px-6 py-3">
-                                                    Barcode Part No. (for D460 and D610 Main Only)
-                                                </th>
-                                                <!-- Status OK | NG | NA Depends on the RadioButton of the Checklist -->
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[18] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['D02484-D01 (D460 MAIN)'] === '✔') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['D02484-D01 (D460 MAIN)'] === 'X') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'" >
-                                                    {{JSON.parse(row.response).fieldAnswers['D02484-D01 (D460 MAIN)']}}
-                                                </td>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[19] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['D027CR-001 (D610 MAIN)'] === '✔') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['D027CR-001 (D610 MAIN)'] === 'X') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'" >
-                                                    {{JSON.parse(row.response).fieldAnswers['D027CR-001 (D610 MAIN)']}}
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-
-                            <!-- Record Section Signatures -->
-                            <div id="pending-record-signature" class="p-3 lg:flex lg:flex-col">
-                                <!-- Header -->
-                                <div class="pending-section-header px-5">
-                                    <h3 class="font-bold text-2xl">Signatures</h3>
-                                </div>
-
-                                <!-- Table -->
-                                <div class="relative overflow-x-auto p-5">
-                                    <table class="rounded-full w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                        <thead
-                                            class="text-s text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                            <tr>
-                                                <!-- Description coming from the Checklist -->
-                                                <th scope="col" class="px-6 py-3">
-                                                    Person to sign
-                                                </th>
-                                                <!-- Status OK | NG | NA Depends on the RadioButton of the Checklist -->
-                                                <th scope="col" class="px-6 py-3">
-                                                    Status
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- Signature -->
-                                            <tr
-                                                v-for="sign in signatures"
-                                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th v-if="sign.response_id == row.id" scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ sign.required_sign_role }}
-                                                </th>
-                                                <td v-if="sign.response_id == row.id"
-                                                    :class="(sign.status == 'OK') ?
-                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
-                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
-                                                    {{ sign.user_id }}
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div id="pending-record-remarks" class="p-3 lg:flex lg:flex-col">
-                                <!-- Header -->
-                                <div class="pending-section-header px-5">
-                                    <h3 class="font-bold text-2xl">{{ Object.keys(JSON.parse(row.response).fieldAnswers)[20] }}</h3>
-                                </div>
-
-                                <!-- Disabled TextArea -->
-                                <div class="pending-record-remark px-5">
-
-                                    <label for="message"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Operator's
-                                        Remark on the Model</label>
-                                    <textarea id="message" rows="4"
-                                        class="resize-none disabled:opacity-90 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        :placeholder="JSON.parse(row.response).fieldAnswers['Remarks on the Model']" disabled></textarea>
-
-                                </div>
-                            </div>
-
-                            <!-- Button -->
-                            <div id="pending-sign-btn" class="px-5 p-2 w-full flex justify-end">
-
-                                <!-- Reject Button -->
-                                <Link :href="route('Pending-Reports.update', {
-                                    status: 'Rejected',
-                                    id: row.id
-                                })" as="button" method="PUT">
-                                    <button type="button"
-                                        class="focus:outline-none text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                                        >Reject
-                                    </button>
-                                </Link>
-                                <!-- </router-link> -->
-
-                                <!-- Approve Button -->
-                                <Link :href="route('Pending-Reports.update', {
-                                    status: 'OK',
-                                    id: row.id
-                                })" as="button" method="PUT">
-                                    <button type="button"
-                                        class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                                        >Approve
-                                    </button>
-                                </Link>
-                            </div>
-                        </div>
-                         </ul>  
-                    </div>
-             
-=======
                             </ul>
                         </div>
 
->>>>>>> 7d9d3e3c47eb91a0a65d6fe5169e76a87db85174
                     </div>
                 </div>
 
@@ -1286,40 +675,28 @@ const props = defineProps({
                 <div id="P-Touch ICT" class="hidden_div accordions">
                     <h4>{{ counts3 }} Pending Reports on {{ selectedForm.form_name }}</h4>
 
-<<<<<<< HEAD
-                    <div v-for="(row, index) in data" id="accordion-flush" data-accordion="collapse"
-                        data-active-classes="bg-white dark:bg-gray-900 text-blue-500 dark:text-white"
-                        data-inactive-classes="text-gray-500 dark:text-gray-400" class="border-lg">
-                        <div>
-                            <ul v-if="row.form_id ===3">
-                        <h2 :id="'accordion-flush-heading-3' + index.toString()">
-                            <button type="button"
-                                class="flex items-center justify-between w-full py-5 text-lg font-regular antialiased text-left border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
-                                :data-accordion-target="'#accordion-flush-body-3' + index.toString()" aria-expanded="false"
-                                :aria-controls="'accordion-flush-body-3' + index.toString()">
-=======
                     <div v-for="(row, index) in data" :key="index" id="accordion-flush" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-900 text-blue-500 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400" class="border-lg">
                         <div>
-                            <ul v-if="row.form_id ===3">
+                            <ul v-if="row.form_id === 3">
                                 <h2 :id="'accordion-flush-heading-3' + index.toString()">
                                     <button type="button" class="flex items-center justify-between w-full py-5 text-lg font-regular antialiased text-left border-b border-gray-200 dark:border-gray-700 dark:text-gray-400" :data-accordion-target="'#accordion-flush-body-3' + index.toString()"
                                         aria-expanded="false" :aria-controls="'accordion-flush-body-3' + index.toString()">
->>>>>>> 7d9d3e3c47eb91a0a65d6fe5169e76a87db85174
 
-                                    <!-- {{ Name of the Submitted Model by the Operator }} -->
-                                    <span>{{ JSON.parse(row.response).fieldAnswers['Model Name'] }}
-                                        <span
-                                            class="bg-orange-100 text-orange-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-2">to
-                                            be signed
-                                        </span>
-                                    </span>
+                                            <!-- {{ Name of the Submitted Model by the Operator }} -->
+                                            <span>{{ JSON.parse(row.response).fieldAnswers['Model Name'] }}
+                                                <span
+                                                    class="bg-orange-100 text-orange-800 text-sm font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-2">to
+                                                    be signed
+                                                </span>
+                                            </span>
 
-                                    <svg data-accordion-icon class="w-3 h-3 transition-transform shrink-0" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M9 5 5 1 1 5" />
-                                    </svg>
-                                </button>
+                                            <svg data-accordion-icon class="w-3 h-3 transition-transform shrink-0"
+                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 10 6">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="2" d="M9 5 5 1 1 5" />
+                                            </svg>
+                                        </button>
                                 </h2>
 
                                 <div :id="'accordion-flush-body-3' + index.toString()" class="hidden border-2 border-gray-100" :aria-labelledby="'accordion-flush-heading-3' + index.toString()">
@@ -1327,7 +704,8 @@ const props = defineProps({
                                     <div id="pending-record-details" class="bg-gray-100 p-3 px-12 lg:flex lg:items-center text-center lg:justify-between">
                                         <div id="lot-number" class="">
                                             <label for="" class="text-sm">Lot Number</label>
-                                            <h5 class="font-bold">{{ JSON.parse(row.response).fieldAnswers['Lot Number'] }}</h5>
+                                            <h5 class="font-bold">{{ JSON.parse(row.response).fieldAnswers['Lot Number'] }}
+                                            </h5>
                                         </div>
 
                                         <div id="check-type" class="">
@@ -1373,11 +751,11 @@ const props = defineProps({
                                                         <th scope="row" class="w-full px-6 py-4 font-medium whitespace-wrap text-gray-900 dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[3] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Main Breaker'] === '✔') ?
-                                                            'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Main Breaker'] === 'X') ?
-                                                            'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                            'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Main Breaker']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Main Breaker'] === '✔') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : (JSON.parse(row.response).fieldAnswers['Main Breaker'] === 'X') ?
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Main Breaker'] }}
                                                         </td>
                                                     </tr>
 
@@ -1385,11 +763,11 @@ const props = defineProps({
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[4] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Power Switch'] === '✔') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Power Switch'] === 'X') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Power Switch']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Power Switch'] === '✔') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : (JSON.parse(row.response).fieldAnswers['Power Switch'] === 'X') ?
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Power Switch'] }}
                                                         </td>
                                                     </tr>
 
@@ -1398,7 +776,7 @@ const props = defineProps({
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[5] }}
                                                         </th>
                                                         <td class="px-6 py-4 text-black text-center" style="background-color:#E6EEF7;">
-                                                            {{JSON.parse(row.response).fieldAnswers['Standard Pressure']}}
+                                                            {{ JSON.parse(row.response).fieldAnswers['Standard Pressure'] }}
                                                         </td>
                                                     </tr>
 
@@ -1406,11 +784,11 @@ const props = defineProps({
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[6] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['CPU'] === '✔') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['CPU'] === 'X') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['CPU']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['CPU'] === '✔') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : (JSON.parse(row.response).fieldAnswers['CPU'] === 'X') ?
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['CPU'] }}
                                                         </td>
                                                     </tr>
 
@@ -1418,66 +796,66 @@ const props = defineProps({
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[7] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Monitor'] === '✔') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Monitor'] === 'X') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Monitor']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Monitor'] === '✔') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : (JSON.parse(row.response).fieldAnswers['Monitor'] === 'X') ?
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Monitor'] }}
                                                         </td>
                                                     </tr>
                                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[8] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Operation Buttons (2)'] === '✔') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Operation Buttons (2)'] === 'X') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Operation Buttons (2)']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Operation Buttons (2)'] === '✔') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : (JSON.parse(row.response).fieldAnswers['Operation Buttons (2)'] === 'X') ?
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Operation Buttons (2)']}}
                                                         </td>
                                                     </tr>
                                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[9] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Pneumatic'] === '✔') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Pneumatic'] === 'X') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Pneumatic']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Pneumatic'] === '✔') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : (JSON.parse(row.response).fieldAnswers['Pneumatic'] === 'X') ?
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Pneumatic'] }}
                                                         </td>
                                                     </tr>
                                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[10] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Text Fixture, Contact Pins/Probe'] === '✔') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Text Fixture, Contact Pins/Probe'] === 'X') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Text Fixture, Contact Pins/Probe']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Text Fixture, Contact Pins/Probe'] === '✔') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : (JSON.parse(row.response).fieldAnswers['Text Fixture, Contact Pins/Probe'] === 'X') ?
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Text Fixture, Contact Pins / Probe']}}
                                                         </td>
                                                     </tr>
                                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[11] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Presence Pins'] === '✔') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Presence Pins'] === 'X') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Presence Pins']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Presence Pins'] === '✔') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : (JSON.parse(row.response).fieldAnswers['Presence Pins'] === 'X') ?
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Presence Pins'] }}
                                                         </td>
                                                     </tr>
                                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[12] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Tray for NG and for confirmation units'] === '✔') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Tray for NG and for confirmation units'] === 'X') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Tray for NG and for confirmation units']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Tray for NG and for confirmation units'] === '✔') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : (JSON.parse(row.response).fieldAnswers['Tray for NG and for confirmation units'] === 'X') ?
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Tray for NG and for confirmation units']}}
                                                         </td>
                                                     </tr>
                                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -1485,7 +863,7 @@ const props = defineProps({
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[13] }}
                                                         </th>
                                                         <td class="px-6 py-4 text-black text-center" style="background-color:#E6EEF7;">
-                                                            {{JSON.parse(row.response).fieldAnswers['Program Settings']}}
+                                                            {{ JSON.parse(row.response).fieldAnswers['Program Settings'] }}
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -1498,20 +876,20 @@ const props = defineProps({
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[14] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['1st Result must be PASS. '] === 'PASS') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['1st Result must be PASS. ']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['1st Result must be PASS. '] === 'PASS') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['1st Result must be PASS. ']}}
                                                         </td>
                                                     </tr>
                                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[15] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['2nd Result must be PASS. '] === 'PASS') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' ">
-                                                            {{JSON.parse(row.response).fieldAnswers['2nd Result must be PASS. ']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['2nd Result must be PASS. '] === 'PASS') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['2nd Result must be PASS. ']}}
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -1524,20 +902,20 @@ const props = defineProps({
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[16] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['1st Result must be FAIL.'] === 'FAIL') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['1st Result must be FAIL.']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['1st Result must be FAIL.'] === 'FAIL') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['1st Result must be FAIL.']}}
                                                         </td>
                                                     </tr>
                                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[17] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['2nd Result must be FAIL.'] === 'FAIL') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['2nd Result must be FAIL.']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['2nd Result must be FAIL.'] === 'FAIL') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['2nd Result must be FAIL.']}}
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -1550,54 +928,54 @@ const props = defineProps({
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[18] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['ICT Good/Passed Mark'] === 'PASS') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]':
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['ICT Good/Passed Mark']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['ICT Good/Passed Mark'] === 'PASS') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['ICT Good/Passed Mark']}}
                                                         </td>
                                                     </tr>
                                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[19] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Lot Date Reference'] === '✔') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Lot Date Reference'] === 'X') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Lot Date Reference']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Lot Date Reference'] === '✔') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : (JSON.parse(row.response).fieldAnswers['Lot Date Reference'] === 'X') ?
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Lot Date Reference'] }}
                                                         </td>
                                                     </tr>
                                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[20] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Actual Lot Date Sticker'] === '✔') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Actual Lot Date Sticker'] === 'X') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Actual Lot Date Sticker']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Actual Lot Date Sticker'] === '✔') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : (JSON.parse(row.response).fieldAnswers['Actual Lot Date Sticker'] === 'X') ?
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Actual Lot Date Sticker']}}
                                                         </td>
                                                     </tr>
                                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[21] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Lot Date Sticker Box'] === '✔') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Lot Date Sticker Box'] === 'X') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Lot Date Sticker Box']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Lot Date Sticker Box'] === '✔') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : (JSON.parse(row.response).fieldAnswers['Lot Date Sticker Box'] === 'X') ?
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Lot Date Sticker Box']}}
                                                         </td>
                                                     </tr>
                                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                         <th scope="row" class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                             {{ Object.keys(JSON.parse(row.response).fieldAnswers)[22] }}
                                                         </th>
-                                                        <td :class=" (JSON.parse(row.response).fieldAnswers['Tweezers'] === '✔') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Tweezers'] === 'X') ?
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
-                                                            {{JSON.parse(row.response).fieldAnswers['Tweezers']}}
+                                                        <td :class="(JSON.parse(row.response).fieldAnswers['Tweezers'] === '✔') ?
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : (JSON.parse(row.response).fieldAnswers['Tweezers'] === 'X') ?
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
+                                                                    'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'">
+                                                            {{ JSON.parse(row.response).fieldAnswers['Tweezers'] }}
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -1635,8 +1013,8 @@ const props = defineProps({
                                                             {{ sign.required_sign_role }}
                                                         </th>
                                                         <td v-if="sign.response_id == row.id" :class="(sign.status == 'OK') ?
-                                                            'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
-                                                            'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
+                                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
                                                             {{ sign.status }}
                                                         </td>
                                                     </tr>
@@ -1655,7 +1033,7 @@ const props = defineProps({
                                         <div class="pending-record-remark px-5">
 
                                             <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Operator's
-                                            Remark on the Model</label>
+                                                Remark on the Model</label>
                                             <textarea id="message" rows="4" class="resize-none disabled:opacity-90 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 :placeholder="JSON.parse(row.response).fieldAnswers['Remarks on the Model']" disabled></textarea>
 
@@ -1667,9 +1045,9 @@ const props = defineProps({
 
                                         <!-- Reject Button -->
                                         <Link :href="route('Pending-Reports.update', {
-                                        status: 'Rejected',
-                                        id: row.id
-                                    })" as="button" method="PUT">
+                                            status: 'Rejected',
+                                            id: row.id
+                                        })" as="button" method="PUT">
                                         <button type="button" class="focus:outline-none text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Reject
                                         </button>
                                         </Link>
@@ -1677,412 +1055,16 @@ const props = defineProps({
 
                                         <!-- Approve Button -->
                                         <Link :href="route('Pending-Reports.update', {
-                                        status: 'OK',
-                                        id: row.id
-                                    })" as="button" method="PUT">
+                                            status: 'OK',
+                                            id: row.id
+                                        })" as="button" method="PUT">
                                         <button type="button" class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Approve
                                         </button>
                                         </Link>
                                     </div>
                                 </div>
 
-<<<<<<< HEAD
-                                <div id="check-type" class="">
-                                    <label for="" class="text-sm">Type of Checking</label>
-                                    <h5 class="font-bold">{{ JSON.parse(row.response).fieldAnswers['Type of Checking'] }}</h5>
-                                </div>
-
-                                <div id="performed-by" class="">
-                                    <label for="" class="text-sm">Performed by</label>
-                                    <h5 class="font-bold">{{ row.first_name }}</h5>
-                                </div>
-
-                                <div id="shift" class="">
-                                    <label for="" class="text-sm">Shift</label>
-                                    <h5 class="font-bold">{{ row.shift }}</h5>
-                                </div>
-                            </div>
-
-                            <!-- Record Section Checksheet -->
-                            <div id="pending-record-section" class="p-3 lg:flex lg:flex-col">
-                                <!-- Header -->
-                                <div class="pending-section-header px-5">
-                                    <h3 class="font-bold text-2xl">Checking Items</h3>
-                                </div>
-
-                                <!-- Table -->
-                                <div class="relative overflow-x-auto p-5">
-                                    <table class="rounded-full w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                        <thead
-                                            class="text-s text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                            <tr>
-                                                <!-- Description coming from the Checklist -->
-                                                <th scope="col" class="px-6 py-3">
-                                                    Description
-                                                </th>
-                                                <!-- Status OK | NG | NA Depends on the RadioButton of the Checklist -->
-                                                <th scope="col" class="px-6 py-3">
-                                                    Status
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium whitespace-wrap text-gray-900 dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[3] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Main Breaker'] === '✔') ?
-                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Main Breaker'] === 'X') ?
-                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'"
-                                                >
-                                                    {{JSON.parse(row.response).fieldAnswers['Main Breaker']}}
-                                                </td>
-                                            </tr>
-
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[4] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Power Switch'] === '✔') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Power Switch'] === 'X') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'"
-                                                >
-                                                    {{JSON.parse(row.response).fieldAnswers['Power Switch']}}
-                                                </td>
-                                            </tr>
-
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[5] }}
-                                                </th>
-                                                <td class="px-6 py-4 text-black text-center" style="background-color:#E6EEF7;">
-                                                    {{JSON.parse(row.response).fieldAnswers['Standard Pressure']}}
-                                                </td>
-                                            </tr>
-
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[6] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['CPU'] === '✔') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['CPU'] === 'X') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'"
-                                                >
-                                                    {{JSON.parse(row.response).fieldAnswers['CPU']}}
-                                                </td>
-                                            </tr>
-
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[7] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Monitor'] === '✔') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Monitor'] === 'X') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'"
-                                                >
-                                                    {{JSON.parse(row.response).fieldAnswers['Monitor']}}
-                                                </td>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[8] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Operation Buttons (2)'] === '✔') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Operation Buttons (2)'] === 'X') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'" >
-                                                    {{JSON.parse(row.response).fieldAnswers['Operation Buttons (2)']}}
-                                                </td>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[9] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Pneumatic'] === '✔') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Pneumatic'] === 'X') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'" >
-                                                    {{JSON.parse(row.response).fieldAnswers['Pneumatic']}}
-                                                </td>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[10] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Text Fixture, Contact Pins/Probe'] === '✔') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Text Fixture, Contact Pins/Probe'] === 'X') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'" >
-                                                    {{JSON.parse(row.response).fieldAnswers['Text Fixture, Contact Pins/Probe']}}
-                                                </td>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[11] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Presence Pins'] === '✔') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Presence Pins'] === 'X') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'" >
-                                                    {{JSON.parse(row.response).fieldAnswers['Presence Pins']}}
-                                                </td>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[12] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Tray for NG and for confirmation units'] === '✔') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Tray for NG and for confirmation units'] === 'X') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'" >
-                                                    {{JSON.parse(row.response).fieldAnswers['Tray for NG and for confirmation units']}}
-                                                </td>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[13] }}
-                                                </th>
-                                                <td class="px-6 py-4 text-black text-center" style="background-color:#E6EEF7;" >
-                                                    {{JSON.parse(row.response).fieldAnswers['Program Settings']}}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <!-- Description coming from the Checklist -->
-                                                <th scope="col" class="bg-gray-50 dark:bg-gray-700 text-black px-6 py-3">
-                                                    GOOD Master Sample
-                                                </th>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[14] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['1st Result must be PASS. '] === 'PASS') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
-                                                    {{JSON.parse(row.response).fieldAnswers['1st Result must be PASS. ']}}
-                                                </td>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[15] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['2nd Result must be PASS. '] === 'PASS') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' " >
-                                                    {{JSON.parse(row.response).fieldAnswers['2nd Result must be PASS. ']}}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <!-- Description coming from the Checklist -->
-                                                <th scope="col" class="bg-gray-50 dark:bg-gray-700 text-black px-6 py-3">
-                                                    NO GOOD Master Sample
-                                                </th>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[16] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['1st Result must be FAIL.'] === 'FAIL') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'" >
-                                                    {{JSON.parse(row.response).fieldAnswers['1st Result must be FAIL.']}}
-                                                </td>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[17] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['2nd Result must be FAIL.'] === 'FAIL') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'" >
-                                                    {{JSON.parse(row.response).fieldAnswers['2nd Result must be FAIL.']}}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <!-- Description coming from the Checklist -->
-                                                <th scope="col" class="bg-gray-50 dark:bg-gray-700 text-black px-6 py-3">
-                                                   DESCRIPTION
-                                                </th>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[18] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['ICT Good/Passed Mark'] === 'PASS') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]':
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'" >
-                                                    {{JSON.parse(row.response).fieldAnswers['ICT Good/Passed Mark']}}
-                                                </td>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[19] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Lot Date Reference'] === '✔') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Lot Date Reference'] === 'X') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'" >
-                                                    {{JSON.parse(row.response).fieldAnswers['Lot Date Reference']}}
-                                                </td>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[20] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Actual Lot Date Sticker'] === '✔') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Actual Lot Date Sticker'] === 'X') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'" >
-                                                    {{JSON.parse(row.response).fieldAnswers['Actual Lot Date Sticker']}}
-                                                </td>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[21] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Lot Date Sticker Box'] === '✔') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Lot Date Sticker Box'] === 'X') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'" >
-                                                    {{JSON.parse(row.response).fieldAnswers['Lot Date Sticker Box']}}
-                                                </td>
-                                            </tr>
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ Object.keys(JSON.parse(row.response).fieldAnswers)[22] }}
-                                                </th>
-                                                <td :class=" (JSON.parse(row.response).fieldAnswers['Tweezers'] === '✔') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :  (JSON.parse(row.response).fieldAnswers['Tweezers'] === 'X') ?
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]' :
-                                                'px-6 py-4 text-center text-[#FFFFFF] bg-[#EF5B0C]'" >
-                                                    {{JSON.parse(row.response).fieldAnswers['Tweezers']}}
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-
-                            <!-- Record Section Signatures -->
-                            <div id="pending-record-signature" class="p-3 lg:flex lg:flex-col">
-                                <!-- Header -->
-                                <div class="pending-section-header px-5">
-                                    <h3 class="font-bold text-2xl">Signatures</h3>
-                                </div>
-
-                                <!-- Table -->
-                                <div class="relative overflow-x-auto p-5">
-                                    <table class="rounded-full w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                        <thead
-                                            class="text-s text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                            <tr>
-                                                <!-- Description coming from the Checklist -->
-                                                <th scope="col" class="px-6 py-3">
-                                                    Person to sign
-                                                </th>
-                                                <!-- Status OK | NG | NA Depends on the RadioButton of the Checklist -->
-                                                <th scope="col" class="px-6 py-3">
-                                                    Status
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- Signature -->
-                                            <tr
-                                                v-for="sign in signatures"
-                                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                                <th v-if="sign.response_id == row.id" scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
-                                                    {{ sign.required_sign_role }}
-                                                </th>
-                                                <td v-if="sign.response_id == row.id"
-                                                    :class="(sign.status == 'OK') ?
-                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
-                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
-                                                    {{ sign.status }}
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div id="pending-record-remarks" class="p-3 lg:flex lg:flex-col">
-                                <!-- Header -->
-                                <div class="pending-section-header px-5">
-                                    <h3 class="font-bold text-2xl">{{ Object.keys(JSON.parse(row.response).fieldAnswers)[23] }}</h3>
-                                </div>
-
-                                <!-- Disabled TextArea -->
-                                <div class="pending-record-remark px-5">
-
-                                    <label for="message"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Operator's
-                                        Remark on the Model</label>
-                                    <textarea id="message" rows="4"
-                                        class="resize-none disabled:opacity-90 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        :placeholder="JSON.parse(row.response).fieldAnswers['Remarks on the Model']" disabled></textarea>
-
-                                </div>
-                            </div>
-
-                            <!-- Button -->
-                            <div id="pending-sign-btn" class="px-5 p-2 w-full flex justify-end">
-
-                                <!-- Reject Button -->
-                                <Link :href="route('Pending-Reports.update', {
-                                    status: 'Rejected',
-                                    id: row.id
-                                })" as="button" method="PUT">
-                                    <button type="button"
-                                        class="focus:outline-none text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                                        >Reject
-                                    </button>
-                                </Link>
-                                <!-- </router-link> -->
-
-                                <!-- Approve Button -->
-                                <Link :href="route('Pending-Reports.update', {
-                                    status: 'OK',
-                                    id: row.id
-                                })" as="button" method="PUT">
-                                    <button type="button"
-                                        class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-                                        >Approve
-                                    </button>
-                                </Link>
-                            </div>
-=======
                             </ul>
->>>>>>> 7d9d3e3c47eb91a0a65d6fe5169e76a87db85174
-                        </div>
-
-                        </ul>
                         </div>
                     </div>
                 </div>
@@ -2093,13 +1075,13 @@ const props = defineProps({
                         <ul class="flex items-center -space-x-px h-8 text-sm">
                             <li class="pagination-button">
                                 <a href="#" class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                        <span class="sr-only">Previous</span>
-                                        <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                            fill="none" viewBox="0 0 6 10">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" d="M5 1 1 5l4 4" />
-                                        </svg>
-                                    </a>
+                                    <span class="sr-only">Previous</span>
+                                    <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 6 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="M5 1 1 5l4 4" />
+                                    </svg>
+                                </a>
                             </li>
                             <li>
                                 <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
@@ -2118,13 +1100,13 @@ const props = defineProps({
                             </li>
                             <li>
                                 <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                        <span class="sr-only">Next</span>
-                                        <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                            fill="none" viewBox="0 0 6 10">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" d="m1 9 4-4-4-4" />
-                                        </svg>
-                                    </a>
+                                    <span class="sr-only">Next</span>
+                                    <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 6 10">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m1 9 4-4-4-4" />
+                                    </svg>
+                                </a>
                             </li>
                         </ul>
                     </nav>
@@ -2150,4 +1132,3 @@ function showDiv(element) {
     }
 }
 </script>
-
