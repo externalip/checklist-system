@@ -9,8 +9,8 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class Form extends Model implements Auditable
 {
-    use HasFactory;
     use AuditingAuditable;
+    use HasFactory;
 
     protected $fillable = [
         'created_by',
