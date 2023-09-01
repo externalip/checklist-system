@@ -264,4 +264,9 @@ class UserController extends Controller
     {
         return Inertia::render('UserManual/Index');
     }
+
+    public function showChecksheetManager()
+    {
+        return Inertia::render('ChecksheetManager/Index');
+    }
 }
