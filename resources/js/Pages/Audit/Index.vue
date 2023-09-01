@@ -1,6 +1,6 @@
 
 <template>
-    <AppLayout title="Audit Trail">
+    <AppLayout title="Audit Tracking">
         <div id="audit-track" class="lg:mx-20 text-[--blue]">
             <section id="audit-filter">
                 <div class="audit-filter-header">

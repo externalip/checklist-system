@@ -1,7 +1,7 @@
 <template>
     <AppLayout title="Model Manager">
         <div id="model-manager" class="lg:mx-20">
-            <Filter :Forms="Forms"/>
+            <Filter :Forms="Forms" />
             <!-- Add Model Modal  -->
             <form id="add-model-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" @submit.prevent="submitForm" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                 <div class="relative w-full max-w-2xl max-h-full">
@@ -19,39 +19,23 @@
                             <!-- Name of the Model input -->
                             <div class="mb-2">
                                 <label for="model_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Model
-                                                Name</label>
+                                                    Name</label>
                                 <input type="text" v-model="form.model_name" id="model_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="Model Name..." required>
                             </div>
 
                             <!-- Checklists Appearance Checkbox -->
-                            <label for="checklists-search" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Displayed
-                                            on
-                                            Checklists</label>
+
                             <div id="checklists-search" class="z-10 bg-white rounded-lg shadow w-full dark:bg-gray-700">
-                                <div class="p-3">
-                                    <label for="input-group-search" class="sr-only">Search</label>
-                                    <div class="relative">
-                                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                                            <path stroke="currentColor" stroke-linecap="round"
-                                                                stroke-linejoin="round" stroke-width="2"
-                                                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                                        </svg>
-                                        </div>
-                                        <input type="text" id="input-group-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            placeholder="Search Available Checklists...">
-                                    </div>
-                                </div>
 
                                 <!-- Checkboxes -->
                                 <ul class="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownSearchButton">
                                     <li v-for="(formItem, index) in Forms" :key="index">
                                         <div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                                            <input :id="'checkbox-item-' + formItem.id" type="checkbox" :value="formItem.id" v-model="SelectedForms" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                            <label :for="'checkbox-item-' + formItem.id" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">
+                                        <input :id="'checkbox-item-' + formItem.id" type="checkbox" :value="formItem.id" v-model="SelectedForms" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                        <label :for="'checkbox-item-' + formItem.id" class="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">
                                                             {{ formItem.form_name }}
-                                                        </label>
+                                        </label>
                                         </div>
                                     </li>
                                 </ul>
@@ -61,7 +45,7 @@
                         <!-- Modal footer -->
                         <div class="flex flex-col sm:flex-row md:justify-end justify-center align-center items-center mt-3 space-x-2 rounded-b gap-2">
                             <button data-modal-hide="add-model-modal" type="button" @click="submitForm" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create
-                                            Model</button>
+                                                Model</button>
                             <button data-modal-hide="add-model-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-4 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Back</button>
                         </div>
                     </div>
@@ -78,11 +62,11 @@
                     <table class="rounded-lg w-full text-sm text-center text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" class="px-6 py-3" >
+                                <th scope="col" class="px-6 py-3">
                                     <input type="checkbox" v-model="selectAll">
-                                     <button v-if="selectedModels?.length > 0" @click="deleteSelected" class="hover:bg-gray-200 transition duration-200 ease-in-out p-4 flex-none">
-                                                    <img src="@/Shared/Icons/delete.svg" alt="Delete" class="w-5 h-5 cursor-pointer " />
-                                    </button>
+                                    <button v-if="selectedModels?.length > 0" @click="deleteSelected" class="hover:bg-gray-200 transition duration-200 ease-in-out p-4 flex-none">
+                                                        <img src="@/Shared/Icons/delete.svg" alt="Delete" class="w-5 h-5 cursor-pointer " />
+                                        </button>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Model ID
@@ -100,31 +84,31 @@
                         </thead>
                         <tbody>
                             <template v-if="models.length === 0">
-                                <tr>
-                                    <td colspan="4" class="text-center py-4">
-                                        No models available.
-                                    </td>
-                                </tr>
-                            </template>
-                            <template v-else>
-                                <tr v-for="model in models.data" :key="model.model_id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 transition ease-in-out duration-200">
-                                    <td>
-                                    <input type="checkbox" v-model="selectedModels" :value="model.model_id">
-                                    </td>
-                                    <td class="px-6 py-4">{{ model.model_id }}</td>
-                                    <td class="px-6 py-4">{{ model.model_name }}</td>
-                                    <td class="px-6 py-4">{{ model.checksheet_appearance ? model.checksheet_appearance : 'No Checksheet Appearance' }}</td>
-                                    <td class="px-6 py-4 flex justify-center items-center space-x-4 mx-10">
-                                        <button href="#" @click.prevent="editModel(model.model_id)" type="button" class="hover:bg-gray-200 transition duration-200 ease-in-out p-4 flex-none">
-                                                                                <img src="@/Shared/Icons/edit.svg" alt="edit icon"
-                                                                                    class="w-5 h-5 cursor-pointer flex-none">
-                                                                            </button>
-                                        <button href="#" @click.prevent="deleteModel(model.model_id)" type="button" class="hover:bg-gray-200 transition duration-200 ease-in-out p-4 flex-none">
-                                                                                <img src="@/Shared/Icons/delete.svg" alt="Delete" class="w-5 h-5 cursor-pointer " />
-                                                                            </button>
-                                    </td>
-                                </tr>
-                            </template>
+                                    <tr>
+                                        <td colspan="4" class="text-center py-4">
+                                            No models available.
+                                        </td>
+                                    </tr>
+</template>
+                <template v-else>
+                    <tr v-for="model in models.data" :key="model.model_id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 transition ease-in-out duration-200">
+                        <td>
+                            <input type="checkbox" v-model="selectedModels" :value="model.model_id">
+                        </td>
+                        <td class="px-6 py-4">{{ model.model_id }}</td>
+                        <td class="px-6 py-4">{{ model.model_name }}</td>
+                        <td class="px-6 py-4">{{ model.checksheet_appearance ? model.checksheet_appearance : 'No Checksheet Appearance' }}</td>
+                        <td class="px-6 py-4 flex justify-center items-center space-x-4 mx-10">
+                            <button href="#" @click.prevent="editModel(model.model_id)" type="button" class="hover:bg-gray-200 transition duration-200 ease-in-out p-4 flex-none">
+                                                                                                    <img src="@/Shared/Icons/edit.svg" alt="edit icon"
+                                                                                                        class="w-5 h-5 cursor-pointer flex-none">
+                                                                                                </button>
+                            <button href="#" @click.prevent="deleteModel(model.model_id)" type="button" class="hover:bg-gray-200 transition duration-200 ease-in-out p-4 flex-none">
+                                                                                                    <img src="@/Shared/Icons/delete.svg" alt="Delete" class="w-5 h-5 cursor-pointer " />
+                                                                                                </button>
+                        </td>
+                    </tr>
+                </template>
                         </tbody>
                     </table>
                 </div>
@@ -134,7 +118,7 @@
             <div v-if="showEditModal" class="fixed inset-0 bg-black bg-opacity-50 z-40">
                 <Modal v-if="showEditModal" :id="editedModelId" :Forms="Forms" :closeModalCallback="closeModal" />
             </div>
-            <Pagination :data="models" />
+            <Pagination :data="models" :preservestate="false" />
         </div>
     </AppLayout>
 </template>
@@ -143,11 +127,11 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { useForm } from '@inertiajs/vue3';
-import { ref, computed  } from 'vue';
+import { ref, computed } from 'vue';
 import Modal from './Components/EditModal.vue';
 import Pagination from '@/Shared/Pagination.vue';
 import Filter from './Components/Filter.vue';
-import {Inertia} from '@inertiajs/inertia';
+import { Inertia } from '@inertiajs/inertia';
 const { Forms, models } = defineProps(['Forms', 'models']);
 const SelectedForms = ref([]);
 
@@ -169,14 +153,19 @@ const submitForm = async () => {
         const success = await Swal.fire({
             icon: 'success',
             title: 'Success',
-            text: 'Form submitted successfully!',
+            text: 'Model submitted successfully!',
             confirmButtonText: 'OK'
         });
         if (success.isConfirmed) {
             window.location.reload(true);
         }
     } catch (error) {
-        console.error("Error submitting form:", error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.response.data.message,
+            confirmButtonText: 'OK'
+        });
     }
 };
 
@@ -214,7 +203,12 @@ const deleteModel = async (id) => {
                 window.location.reload(true);
             });
         } catch (error) {
-            console.error('Error deleting model:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.response.data.message,
+                confirmButtonText: 'OK'
+            });
         }
     }
 }
@@ -249,13 +243,13 @@ const deleteSelected = async () => {
     });
     sure.then(async (result) => {
         if (result.isConfirmed) {
-          try {
-                 await axios.delete(route('models.destroy'), {
+            try {
+                await axios.delete(route('models.destroy'), {
                     data: {
                         ids: selectedModels.value
                     }
-                    });
-              Swal.fire({
+                });
+                Swal.fire({
                     icon: 'success',
                     title: 'Success',
                     text: 'Selected models deleted successfully!',
@@ -264,7 +258,12 @@ const deleteSelected = async () => {
                     window.location.reload(true);
                 });
             } catch (error) {
-                console.error('Error deleting selected models:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error.response.data.message,
+                    confirmButtonText: 'OK'
+                });
             }
         }
     });

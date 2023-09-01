@@ -68,12 +68,15 @@ class AuditController extends Controller
         //get all users with employee using db::table
         $users = DB::table('users')
             ->join('employees', 'users.employee_id', '=', 'employees.id')
+            ->join('audits', 'users.id', '=', 'audits.user_id')
             ->select(
                 'users.id',
                 'employees.first_name',
                 'employees.last_name',
             )
+            ->whereNotNull('audits.user_id')
             ->orderBy('employees.first_name')
+            ->distinct()
             ->get();
         // dd($users);
 

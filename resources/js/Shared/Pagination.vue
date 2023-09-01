@@ -1,28 +1,28 @@
 <template>
-    <div class="flex items-center justify-between p-3 bg-white border-t border-gray-200 sm:px-6">
+    <div v-if="data.last_page > 1" class="flex items-center justify-between p-3 bg-white border-t border-gray-200 sm:px-6">
         <!-- Previous Button (hidden on mobile) -->
-        <button @click="gotoPage(data.current_page - 1)" :class="['pagination-button', 'hidden', 'sm:block', { 'disabled': data.current_page <= 1 }]">
-                        Previous
-            </button>
+        <button @click="gotoPage(data.current_page - 1)"
+            :class="['pagination-button', 'hidden', 'sm:block', { 'disabled': data.current_page <= 1 }]">
+            Previous
+        </button>
 
         <div class="flex items-center justify-center flex-1">
-            <!-- Flex layout added -->
             <nav class="relative z-0 inline-flex shadow-sm">
                 <!-- Numbered Pages -->
                 <template v-for="num in visiblePages" :key="num">
-                            <button @click="gotoPage(num)"
-                                :class="['pagination-button', num === data.current_page ? 'bg-blue-500 text-white' : 'text-gray-700 hover:text-gray-500']">
-                                {{ num }}
-                            </button>
-</template>
+                    <button @click="gotoPage(num)"
+                        :class="['pagination-button', num === data.current_page ? 'bg-blue-500 text-white' : 'text-gray-700 hover:text-gray-500']">
+                        {{ num }}
+                    </button>
+                </template>
             </nav>
         </div>
 
         <!-- Next Button (hidden on mobile) -->
-       <button @click="gotoPage(data.current_page + 1)"
+        <button @click="gotoPage(data.current_page + 1)"
             :class="['pagination-button', 'hidden', 'sm:block', { 'disabled': data.current_page >= data.last_page }]"
             :disabled="data.current_page >= data.last_page">
-             Next
+            Next
         </button>
     </div>
 </template>
@@ -35,6 +35,10 @@ export default {
             type: Object,
             required: true,
         },
+         preservestate: {
+            type: Boolean,
+            default: true, // Set a default value (optional)
+        },
     },
     computed: {
         firstItem() {
@@ -43,7 +47,7 @@ export default {
         lastItem() {
             return Math.min(this.data.current_page * this.data.per_page, this.data.total);
         },
-        visiblePages() {
+       visiblePages() {
             const range = 2;
             const start = Math.max(1, this.data.current_page - range);
             const end = Math.min(this.data.last_page, this.data.current_page + range);
@@ -57,17 +61,22 @@ export default {
         },
     },
     methods: {
-        gotoPage(page) {
+       gotoPage(page) {
             const url = new URL(window.location.href);
             url.searchParams.set('page', page);
-            this.$inertia.visit(url.toString(), {
-                preserveState: true,
+            const options = {
                 preserveScroll: true,
                 replace: true,
                 onSuccess: (page) => {
                     this.$inertia.remember(page);
                 },
-            });
+            };
+
+            if (this.preservestate) {
+                options.preserveState = true;
+            }
+
+            this.$inertia.visit(url.toString(), options);
         },
     },
 };

@@ -102,7 +102,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
             'models' => $models,
         ]);
     })->name('showForm');
-
+    //checksheetManager
+    Route::get('/checksheetManager', [UserController::class, 'showChecksheetManager'])->name('checksheetManager');
     // User Manual
     Route::get('/UserManual', [UserController::class, 'showUserManual'])->name('UserManual');
 
