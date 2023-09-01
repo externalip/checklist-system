@@ -70,7 +70,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
         // Save Form Changes
         Route::put('/edit', [CheckSheetController::class, 'store'])->name('checksheet.store');
-        
+
         // Delete Check Sheet
         Route::delete('/delete', [CheckSheetController::class, 'destroy'])->name('checksheet.delete');
     });
@@ -92,7 +92,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::put('/{id}', [ModelController::class, 'update'])->name('models.update');
         Route::delete('/', [ModelController::class, 'destroy'])->name('models.destroy');
     });
-    
+
     // Form Submission Function
     Route::post('/submit-response', [ResponseController::class, 'store']);
     Route::post('/submit', [ResponseController::class, 'storeResponse']);
@@ -121,7 +121,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
             'models' => $models,
         ]);
     })->name('showForm');
-    
+
     // User Manual
     Route::get('/UserManual', [UserController::class, 'showUserManual'])->name('UserManual');
 
