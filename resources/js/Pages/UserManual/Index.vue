@@ -11,13 +11,13 @@ import AppLayout from "@/Layouts/AppLayout.vue";
             Voluptatibus animi culpa nesciunt cupiditate.
         </p>
         <section
-            class="grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5"
+            class="text-[--blue] grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5"
         >
             <div
                 class="border-2 border-gray-100 rounded-2xl p-5 hover:bg-gray-100 duration-200"
             >
                 <h2 class="text-center">How to</h2>
-                <h5 class="mb-5 font-bold text-md text-gray-500 text-center">
+                <h5 class="mb-5 font-normal text-md text-gray-500 text-center">
                     Register a Personnel
                 </h5>
                 <iframe
@@ -33,7 +33,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
                 class="border-2 border-gray-100 rounded-2xl p-5 hover:bg-gray-100 duration-200"
             >
                 <h2 class="text-center">How to</h2>
-                <h5 class="mb-5 font-bold text-md text-gray-500 text-center">
+                <h5 class="mb-5 font-normal text-md text-gray-500 text-center">
                     Register a Personnel
                 </h5>
                 <iframe
@@ -49,7 +49,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
                 class="border-2 border-gray-100 rounded-2xl p-5 hover:bg-gray-100 duration-200"
             >
                 <h2 class="text-center">How to</h2>
-                <h5 class="mb-5 font-bold text-md text-gray-500 text-center">
+                <h5 class="mb-5 font-normal text-md text-gray-500 text-center">
                     Approve a pending report of the operator?
                 </h5>
                 <iframe
@@ -65,7 +65,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
                 class="border-2 border-gray-100 rounded-2xl p-5 hover:bg-gray-100 duration-200"
             >
                 <h2 class="text-center">How to</h2>
-                <h5 class="mb-5 font-bold text-md text-gray-500 text-center">
+                <h5 class="mb-5 font-normal text-md text-gray-500 text-center">
                     Register a Personnel
                 </h5>
                 <iframe
@@ -81,7 +81,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
                 class="border-2 border-gray-100 rounded-2xl p-5 hover:bg-gray-100 duration-200"
             >
                 <h2 class="text-center">How to</h2>
-                <h5 class="mb-5 font-bold text-md text-gray-500 text-center">
+                <h5 class="mb-5 font-normal text-md text-gray-500 text-center">
                     Check a checksheet
                 </h5>
                 <iframe
@@ -97,7 +97,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
                 class="border-2 border-gray-100 rounded-2xl p-5 hover:bg-gray-100 duration-200"
             >
                 <h2 class="text-center">How to</h2>
-                <h5 class="mb-5 font-bold text-md text-gray-500 text-center">
+                <h5 class="mb-5 font-normal text-md text-gray-500 text-center">
                     Register a model
                 </h5>
                 <iframe

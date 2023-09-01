@@ -228,7 +228,9 @@
                     <li v-for="form in $page.props.sharedForms">
                         <Link
                             :href="route('showForm', form.id)"
-                            :class="{ active: $page.url === ('/Forms/' + form.id) }"
+                            :class="{
+                                active: $page.url === '/Forms/' + form.id,
+                            }"
                             class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11"
                         >
                             {{ form.form_name }}
@@ -355,6 +357,53 @@
 
                     <span class="flex-1 ml-3 whitespace-nowrap"
                         >Manage Personnel</span
+                    >
+                </Link>
+            </li>
+
+            <p class="text-center text-sm" style="padding-top: 20px">
+                User Manual
+            </p>
+
+            <li
+                class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+            >
+                <Link
+                    :href="route('UserManual')"
+                    :class="{ active: $page.url === '/user-manual' }"
+                    class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 48 48"
+                    >
+                        <path
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M8.4 6.5v35a2 2 0 0 0 2 2h2.33v-39H10.4a2 2 0 0 0-2 2Zm4.33-2v39H37.6a2 2 0 0 0 2-2v-35a2 2 0 0 0-2-2Z"
+                        />
+                        <ellipse
+                            cx="25.531"
+                            cy="33.668"
+                            fill="currentColor"
+                            rx=".823"
+                            ry=".75"
+                        />
+                        <path
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M18.301 20.049a6.432 6.432 0 0 1 1.959-4.763a7.274 7.274 0 0 1 5.224-1.786c3.918 0 7.183 2.977 7.183 6.548a6.432 6.432 0 0 1-1.959 4.763c-1.632 1.19-5.224 2.977-5.224 5.656"
+                        />
+                    </svg>
+
+                    <span class="flex-1 ml-3 whitespace-nowrap"
+                        >User Manual</span
                     >
                 </Link>
             </li>
