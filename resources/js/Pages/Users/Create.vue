@@ -122,7 +122,16 @@
                                     <InputError class="mt-2" :message="form.errors.role_id" />
                                 </select>
                             </div>
-
+                            <!-- Active -->
+                            <div class="col-span-0 p-1">
+                                <label for="active" class="block mb-1">Active</label>
+                                <select v-model="form.active" type="text" id="active"
+                                    class="w-full rounded-lg border-2 border-gray-300 p-2">
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                                <InputError class="mt-2" :message="form.errors.active" />
+                                </div>
                         </div>
 
                     </div>
@@ -155,6 +164,7 @@ const form = useForm({
     username: '',
     password: '',
     password_confirmation: '',
+    active: '',
     first_name: '',
     last_name: '',
     gender: '',

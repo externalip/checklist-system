@@ -89,15 +89,17 @@ class UserController extends Controller
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Password::min(8)],
             'first_name' => ['required', 'string', 'max:255'],
+            'active' => ['required'],
             'last_name' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'string', 'max:255'],
             'date_of_birth' => ['required', 'date'],
-            'contact' => ['required'],
+            'contact' => ['required', 'regex:/^(09|\+639)\d{9}$/', 'size:11'],
             'shift' => ['required', 'string', 'max:255'],
+        ], [
+            'contact.regex' => 'The phone number format is incorrect. Please use a valid Philippine phone number format.',
+            'contact.size' => 'The phone number must be exactly 11 digits long.',
         ]);
-
         if ($validator->fails()) {
-            // return redirect()->back()->withErrors($validator)->withInput();
             return response()->json(['status' => 'error', 'errors' => $validator->errors()]);
         }
 
@@ -116,6 +118,7 @@ class UserController extends Controller
             'employee_id' => $employee->id,
             'username' => $input['username'],
             'password' => Hash::make($input['password']),
+            'active' => $input['active'],
         ]);
 
         return response()->json(['status' => 'success']);
@@ -151,6 +154,7 @@ class UserController extends Controller
     {
         $input = $request->all();
         $validator = Validator::make($input, [
+            'active' => ['required'],
             'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user)],
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
@@ -182,6 +186,7 @@ class UserController extends Controller
 
         $user->update([
             'username' => $input['username'],
+            'active' => $input['active'],
         ]);
 
         if (! empty($input['password'])) {

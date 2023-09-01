@@ -74,9 +74,11 @@ const confirmDelete = async (userId) => {
                         <Link :href="route('users.edit', user.id)" as="button" class="w-5 mx-4">
                         <img src="@/Shared/Icons/edit.svg" alt="Edit" class="w-5 h-5 cursor-pointer" />
                         </Link>
-                        <button @click="confirmDelete(user.id)" class="w-5">
+
+                        <button  v-if="user.active != 0" @click="confirmDelete(user.id)" class="w-5">
                             <img src="@/Shared/Icons/delete.svg" alt="Delete" class="w-5 h-5 cursor-pointer" />
                         </button>
+
                     </td>
                 </tr>
             </tbody>
