@@ -51,8 +51,9 @@
             <li
                 class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
-                <a
-                    href="#"
+                <Link
+                    :href="route('checksheet')"
+                    :class="{ active: $page.url === '/checksheet' }"
                     class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
                 >
                     <svg
@@ -69,7 +70,7 @@
                     <span class="flex-1 ml-3 whitespace-nowrap"
                         >Manage Check Sheet</span
                     >
-                </a>
+                </Link>
             </li>
 
             <!-- PENDING REPORTS -->

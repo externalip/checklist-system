@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\AuditController;
+use App\Http\Controllers\CheckSheetController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FormGeneratorController;
 use App\Http\Controllers\ModelController;
@@ -39,6 +40,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    // User Manager Page
     Route::prefix('Users')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('users');
         Route::get('/create', [UserController::class, 'create'])->name('users.create');
@@ -55,6 +57,22 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::prefix('/generate')->group(function () {
         Route::get('/', [FormGeneratorController::class, 'index'])->name('generate');
         Route::post('/', [FormGeneratorController::class, 'store'])->name('generate.store');
+    });
+
+    // Form Editor
+    Route::prefix('/checksheet')->group(function () {
+
+        // Show Check Sheets Table
+        Route::get('/', [CheckSheetController::class, 'index'])->name('checksheet');
+
+        // Redirect to Form Editor Page
+        Route::get('/editor', [CheckSheetController::class, 'show'])->name('checksheet.editor');
+
+        // Save Form Changes
+        Route::put('/edit', [CheckSheetController::class, 'store'])->name('checksheet.store');
+        
+        // Delete Check Sheet
+        Route::delete('/delete', [CheckSheetController::class, 'destroy'])->name('checksheet.delete');
     });
 
     // Audit Trail Page
@@ -74,6 +92,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::put('/{id}', [ModelController::class, 'update'])->name('models.update');
         Route::delete('/', [ModelController::class, 'destroy'])->name('models.destroy');
     });
+    
     // Form Submission Function
     Route::post('/submit-response', [ResponseController::class, 'store']);
     Route::post('/submit', [ResponseController::class, 'storeResponse']);
@@ -84,7 +103,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     // P-Touch Solder Form Page
     Route::get('/PTouch-Solder', [UserController::class, 'showPTouchForm'])->name('PTouch-Solder');
 
-    //P-Touch-ICT Form Page
+    // P-Touch-ICT Form Page
     Route::get('/PTouch-ICT', [UserController::class, 'showICTForm'])->name('PTouch-ICT');
 
     //Forms
@@ -102,8 +121,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
             'models' => $models,
         ]);
     })->name('showForm');
-    //checksheetManager
-    Route::get('/checksheetManager', [UserController::class, 'showChecksheetManager'])->name('checksheetManager');
+    
     // User Manual
     Route::get('/UserManual', [UserController::class, 'showUserManual'])->name('UserManual');
 
