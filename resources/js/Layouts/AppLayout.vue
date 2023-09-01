@@ -478,7 +478,7 @@
     </div>
     <main class="p-2">
         <div class="mt-5">
-            <h1 class="lg:mx-20 text-center">{{ title }}</h1>
+            <h1 class="lg:mx-20 text-center text-[--blue]">{{ title }}</h1>
         </div>
         <slot />
     </main>
