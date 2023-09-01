@@ -179,7 +179,7 @@ const createAccount = async () => {
         const response = await axios.post(route('users.store'), form);
         if (response.data.status === 'success') {
             await Swal.fire({
-                title: 'Success create whatever!',
+                title: 'Successfully created!',
                 text: 'User has been created!',
                 icon: 'success',
                 confirmButtonText: 'OK'
