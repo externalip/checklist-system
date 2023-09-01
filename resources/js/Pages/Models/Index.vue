@@ -153,14 +153,19 @@ const submitForm = async () => {
         const success = await Swal.fire({
             icon: 'success',
             title: 'Success',
-            text: 'Form submitted successfully!',
+            text: 'Model submitted successfully!',
             confirmButtonText: 'OK'
         });
         if (success.isConfirmed) {
             window.location.reload(true);
         }
     } catch (error) {
-        console.error("Error submitting form:", error);
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.response.data.message,
+            confirmButtonText: 'OK'
+        });
     }
 };
 
@@ -198,7 +203,12 @@ const deleteModel = async (id) => {
                 window.location.reload(true);
             });
         } catch (error) {
-            console.error('Error deleting model:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.response.data.message,
+                confirmButtonText: 'OK'
+            });
         }
     }
 }
@@ -248,7 +258,12 @@ const deleteSelected = async () => {
                     window.location.reload(true);
                 });
             } catch (error) {
-                console.error('Error deleting selected models:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: error.response.data.message,
+                    confirmButtonText: 'OK'
+                });
             }
         }
     });
