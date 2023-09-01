@@ -9,13 +9,17 @@
 import AppLayout from "@/Layouts/AppLayout.vue";
 import { Link } from '@inertiajs/vue3';
 import { reactive } from 'vue'
+
+console.log(this.config);
 </script>
 
 <template>
     <AppLayout title="Create Checksheet">
         <div class="lg:mx-[25%] mb-40">
             <div class="mx-auto">
-
+                <!-- DEBUGGER -->
+                {{ this.config }}
+                
                 <!-- CHECKSHEET NAME -->
                 <div class="mb-5">
                     <p class="text-xl mb-3">Check Sheet Name</p>
@@ -385,7 +389,7 @@ import { reactive } from 'vue'
         <div
             class="visible md:invisible fixed z-50 w-5/6 h-16 max-w-lg -translate-x-1/2 bg-white border border-gray-200 rounded-full bottom-4 left-1/2 dark:bg-gray-700 dark:border-gray-600">
             <div class="grid h-full max-w-lg grid-cols-3 mx-auto">
-                <button type="button" @click="redirectBack"
+                <button type="button"
                     class="inline-flex flex-col items-center justify-center px-5 rounded-l-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
                     <svg class="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -429,7 +433,7 @@ import { reactive } from 'vue'
             <div class="grid h-full max-w-lg grid-rows-3 mx-auto">
 
                 <!-- Back Button -->
-                <button type="button" @click="redirectBack"
+                <button type="button" href="#"
                     class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                         fill="none" viewBox="0 0 16 16">
@@ -512,6 +516,9 @@ let form_config = reactive({
 
 export default {
   name: 'App',
+  props: {
+    config: Array
+  },
   methods: {
     removeSection(sectionName) {
       // Get index of section from form config
@@ -635,9 +642,6 @@ export default {
       form_config.form_content[sectionName].section_content[questionName]['options'] = {
         ans1: null
       };
-    },
-    redirectBack () {
-        router.get('/checksheet');
     },
     submit(){
         router.post('/generate', form_config);
