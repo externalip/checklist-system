@@ -1,7 +1,7 @@
 <template>
     <AppLayout title="Add User">
         <form @submit.prevent="createAccount">
-            <div class=" lg:mx-20 rounded-lg grid grid-row-3 gap-5">
+            <div class=" lg:mx-20 rounded-lg grid grid-row-3 gap-5 text-[--blue]">
                 <!-- Employee Info -->
                 <div class="mx-3 border-2 border-gray-300 lg:p-10 p-5 rounded-2xl">
                     <h3 class="text-2xl font-semibold mb-2 md:text-left text-center">
@@ -11,12 +11,12 @@
                     <!-- INPUTS -->
                     <div class="space-y-4">
                         <!-- FIRST NAME & LAST NAME -->
-                        <div class="grid grid-cols-2">
+                        <div class="grid md:grid-cols-2 grid-cols-1">
                             <!-- First Name -->
                             <div class="col-span-1 p-1">
                                 <label for="first_name" class="block mb-1">First Name</label>
                                 <input v-model="form.first_name" type="text" id="first_name"
-                                    class="w-full rounded-lg border-2 border-gray-300 p-2" />
+                                    class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2" />
                                 <InputError class="mt-2" :message="form.errors.first_name" />
                             </div>
 
@@ -24,7 +24,7 @@
                             <div class="col-span-1 p-1">
                                 <label for="last_name" class="block mb-1">Last Name</label>
                                 <input v-model="form.last_name" type="text" id="last_name"
-                                    class="w-full rounded-lg border-2 border-gray-300 p-2" />
+                                    class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2" />
                                 <InputError class="mt-2" :message="form.errors.last_name" />
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                             <div class="p-1">
                                 <label for="date_of_birth" class="block mb-1">Date of Birth</label>
                                 <input v-model="form.date_of_birth" type="date" id="date_of_birth"
-                                    class="w-full rounded-lg border-2 border-gray-300 p-2" />
+                                    class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2" />
                                 <InputError class="mt-2" :message="form.errors.date_of_birth" />
                             </div>
 
@@ -43,7 +43,7 @@
                             <div class="p-1">
                                 <label for="contact" class="block mb-1">Contact</label>
                                 <input v-model="form.contact" type="text" id="contact"
-                                    class="w-full rounded-lg border-2 border-gray-300 p-2" />
+                                    class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2" />
                                 <InputError class="mt-2" :message="form.errors.contact" />
                             </div>
 
@@ -51,7 +51,7 @@
                             <div class=" p-1">
                                 <label for="shift" class="block mb-1">Shift</label>
                                 <select v-model="form.shift" type="text" id="shift"
-                                    class="w-full rounded-lg border-2 border-gray-300 p-2">
+                                    class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2">
                                     <option value="0">None</option>
                                     <option value="1st">1st</option>
                                     <option value="2nd">2nd</option>
@@ -64,7 +64,7 @@
                             <div class="p-1">
                                 <label for="gender" class="block mb-1">Gender</label>
                                 <select v-model="form.gender" type="text" id="gender"
-                                    class="w-full rounded-lg border-2 border-gray-300 p-2">
+                                    class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2">
                                     <option value="" disabled>Gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
@@ -90,7 +90,7 @@
                             <div class="p-1">
                                 <label for="username" class="block mb-1">Username</label>
                                 <input v-model="form.username" type="text" id="username"
-                                    class="w-full rounded-lg border-2 border-gray-300 p-2" />
+                                    class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2" />
                                 <InputError class="mt-2" :message="form.errors.username" />
                             </div>
 
@@ -98,7 +98,7 @@
                             <div class="p-1">
                                 <label for="password" class="block mb-1">Password</label>
                                 <input v-model="form.password" type="password" id="password"
-                                    class="w-full rounded-lg border-2 border-gray-300 p-2" />
+                                    class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2" />
                                 <InputError class="mt-2" :message="form.errors.password" />
                             </div>
 
@@ -109,14 +109,14 @@
                             <div class="p-1">
                                 <label for="password_confirmation" class="block mb-1">Confirm Password</label>
                                 <input v-model="form.password_confirmation" type="password" id="password_confirmation"
-                                    class="w-full rounded-lg border-2 border-gray-300 p-2" />
+                                    class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2" />
                                 <InputError class="mt-2" :message="form.errors.password_confirmation" />
                             </div>
                             <!-- ROLE -->
                             <div class="col-span-0 p-1">
                                 <label for="role_id" class="block mb-1">Role</label>
                                 <select v-model="form.role_id" type="text" id="role_id"
-                                    class="w-full rounded-lg border-2 border-gray-300 p-2">
+                                    class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2">
                                     <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.position }}
                                     </option>
                                     <InputError class="mt-2" :message="form.errors.role_id" />
@@ -132,10 +132,10 @@
                 <!-- BUTTONS -->
                 <div class="flex justify-center p-10">
                     <button type="submit"
-                        class="text-white bg-[#3C5393] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create
+                        class="duration-200 text-white bg-[#3C5393] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create
                         Account</button>
                          <Link :href="route('users')" type="button"
-                            class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                            class="duration-200 py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                         Back</Link>
                 </div>
 
