@@ -217,7 +217,7 @@ const props = defineProps({
                                             </thead>
                                             <tbody>
                                                 <!-- Signature -->
-                                                <tr v-for="sign in signatures" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                                <tr v-for="sign in signatures" :key="sign.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                     <th v-if="sign.response_id == row.id" scope="row" class="w-full text-[--blue] px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                         {{ sign.required_sign_role }}
                                                     </th>
