@@ -35,7 +35,7 @@ class ReportController extends Controller
             WHERE response_fields.form_id = 1;
         */
         $responses = DB::table('response_fields')
-            ->select('forms.form_name','forms.form_data', 'employees.first_name', 'response_fields.*', 'employees.shift')
+            ->select('forms.form_name', 'forms.form_data', 'employees.first_name', 'response_fields.*', 'employees.shift')
             ->join('forms', 'response_fields.form_id', '=', 'forms.id')
             ->join('users', 'users.id', '=', 'response_fields.submitted_by')
             ->join('employees', 'employees.id', '=', 'users.employee_id')
@@ -51,19 +51,18 @@ class ReportController extends Controller
             ->select('response_id', 'required_sign_role', 'status')
             ->get();
 
-            $counts = DB::table('response_fields')
-            ->select('forms.form_name','response_fields.*')
+        $counts = DB::table('response_fields')
+            ->select('forms.form_name', 'response_fields.*')
             ->join('forms', 'response_fields.form_id', '=', 'forms.id')
             ->where('status', '=', 'pending')
             ->count();
-
 
         return Inertia::render('Pending-Reports/Index', [
             'forms' => $forms,
             'data' => $responses,
             'signatures' => $signature_status,
             'counts' => $counts,
-            'formtable'=>  $formtable
+            'formtable' => $formtable,
         ]);
     }
 
@@ -198,7 +197,6 @@ class ReportController extends Controller
                 ['status' => $status]
             );
     }
-
 
     /**
      * Remove the specified resource from storage.
