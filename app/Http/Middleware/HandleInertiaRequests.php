@@ -45,7 +45,7 @@ class HandleInertiaRequests extends Middleware
             'auth.employee' => fn () => $request->user()
                 ? $request->user()->employee
                 : null,
-            'forms' => $forms,
+            'sharedForms' => $forms,
         ]);
     }
 }

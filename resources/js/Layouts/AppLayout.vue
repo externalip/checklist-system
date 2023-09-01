@@ -225,7 +225,7 @@
                             P-Touch ICT
                         </Link>
                     </li>
-                    <li v-for="form in $page.props.forms">
+                    <li v-for="form in $page.props.sharedForms">
                         <Link
                             :href="route('showForm', form.id)"
                             :class="{ active: $page.url === ('/Forms/' + form.id) }"
