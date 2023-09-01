@@ -63,9 +63,9 @@ class ModelController extends Controller
         $input = $request->all();
         $submissionIDs = array_map('intval', array_map('trim', $input['form_id']));
         $validate = $request->validate([
-            'model_name' => 'required',
+            'model_name' => ['required', 'string', 'unique:models'],
         ]);
-        if ($validate) {
+        if (!$validate) {
             return response()->json(['message' => 'Model Name is required']);
         }
         $model = Models::create([

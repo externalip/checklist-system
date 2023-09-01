@@ -92,7 +92,7 @@ class UserController extends Controller
             'last_name' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'string', 'max:255'],
             'date_of_birth' => ['required', 'date'],
-            'contact' => ['required', 'regex:/^(09|\+639)\d{9}$/'],
+            'contact' => ['required'],
             'shift' => ['required', 'string', 'max:255'],
         ]);
 
