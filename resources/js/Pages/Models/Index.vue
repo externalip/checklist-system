@@ -1,6 +1,6 @@
 <template>
     <AppLayout title="Model Manager">
-        <div id="model-manager" class="lg:mx-20">
+        <div id="model-manager" class="lg:mx-20 text-[--blue]">
             <Filter :Forms="Forms" />
             <!-- Add Model Modal  -->
             <form id="add-model-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" @submit.prevent="submitForm" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -55,18 +55,18 @@
 
 
 
-
+            <!-- Model Table  -->
             <section id="model-table-section">
 
-                <div class="relative overflow-x-auto">
-                    <table class="rounded-lg w-full text-sm text-center text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <div class="rounded-lg relative overflow-x-auto">
+                    <table class="w-full text-sm text-center text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-white uppercase bg-[--blue] dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" class="px-6 py-3">
+                                <th scope="col" class="align-center items-center flex px-6 py-3">
                                     <input type="checkbox" v-model="selectAll">
-                                    <button v-if="selectedModels?.length > 0" @click="deleteSelected" class="hover:bg-gray-200 transition duration-200 ease-in-out p-4 flex-none">
-                                                        <img src="@/Shared/Icons/delete.svg" alt="Delete" class="w-5 h-5 cursor-pointer " />
-                                        </button>
+                                    <button v-if="selectedModels?.length > 0" @click="deleteSelected" class="mx-2 hover:bg-gray-500 transition duration-200 ease-in-out p-1 flex-none">
+                                    <img src="@/Shared/Icons/delete.svg" alt="Delete" class="w-4 h-4 cursor-pointer " />
+                                    </button>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Model ID

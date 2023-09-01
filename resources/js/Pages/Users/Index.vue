@@ -8,7 +8,7 @@ defineProps(['users', 'roles']);
 
 <template>
     <AppLayout title="Account Manager">
-        <div class="py-5">
+        <div class="py-5 text-[--blue]">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <Filter :roles="roles"/>
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
