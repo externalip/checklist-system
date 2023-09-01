@@ -153,7 +153,7 @@ onMounted(() => {
                 <div id="5S Start-Up Check Sheet" class="hidden_div accordions">
                      <h4>{{ counts }} Pending Reports on {{ selectedForm.form_name }}</h4>
 
-                    <div v-if="counts > 0" v-for="(row, index) in data" id="accordion-flush" data-accordion="collapse"
+                    <div v-if="counts > 0" v-for="(row, index) in data" :key="index" id="accordion-flush" data-accordion="collapse"
                         data-active-classes="bg-white dark:bg-gray-900 text-blue-500 dark:text-white"
                         data-inactive-classes="text-gray-500 dark:text-gray-400" class="border-lg">
                         <h2 :id="'accordion-flush-heading-' + index.toString()">
@@ -325,7 +325,7 @@ onMounted(() => {
                                         <tbody>
                                             <!-- Signature -->
                                             <tr
-                                                v-for="sign in signatures"
+                                                v-for="sign in signatures" :key="sign.id"
                                                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th v-if="sign.response_id == row.id" scope="row"
                                                     class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
@@ -363,6 +363,7 @@ onMounted(() => {
                             </div>
 
                             <!-- Button -->
+                            <div v-if="$page.props.auth.employee.role_id != 1">
                             <div id="pending-sign-btn" class="px-5 p-2 w-full flex justify-end">
 
                                 <!-- Reject Button -->
@@ -388,6 +389,7 @@ onMounted(() => {
                                     </button>
                                 </Link>
                             </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -395,7 +397,7 @@ onMounted(() => {
                 <div id="P-Touch Soldering" class="hidden_div accordions">
                     <h4>{{ counts2 }} Pending Reports on {{ selectedForm.form_name }}</h4>
 
-                    <div v-if="counts > 0" v-for="(row, index) in data2" id="accordion-flush" data-accordion="collapse"
+                    <div v-if="counts > 0" v-for="(row, index) in data2" :key="index" id="accordion-flush" data-accordion="collapse"
                         data-active-classes="bg-white dark:bg-gray-900 text-blue-500 dark:text-white"
                         data-inactive-classes="text-gray-500 dark:text-gray-400" class="border-lg">
                         <h2 :id="'accordion-flush-heading-2' + index.toString()">
@@ -706,7 +708,7 @@ onMounted(() => {
                                         <tbody>
                                             <!-- Signature -->
                                             <tr
-                                                v-for="sign in signatures"
+                                                v-for="sign in signatures" :key="sign.id"
                                                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th v-if="sign.response_id == row.id" scope="row"
                                                     class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
@@ -744,6 +746,7 @@ onMounted(() => {
                             </div>
 
                             <!-- Button -->
+                            <div v-if="$page.props.auth.employee.role_id != 1">
                             <div id="pending-sign-btn" class="px-5 p-2 w-full flex justify-end">
 
                                 <!-- Reject Button -->
@@ -769,6 +772,7 @@ onMounted(() => {
                                     </button>
                                 </Link>
                             </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -778,7 +782,7 @@ onMounted(() => {
                 <div id="P-Touch ICT" class="hidden_div accordions">
                     <h4>{{ counts3 }} Pending Reports on {{ selectedForm.form_name }}</h4>
 
-                    <div v-if="counts > 0" v-for="(row, index) in data3" id="accordion-flush" data-accordion="collapse"
+                    <div v-if="counts > 0" v-for="(row, index) in data3" :key="index" id="accordion-flush" data-accordion="collapse"
                         data-active-classes="bg-white dark:bg-gray-900 text-blue-500 dark:text-white"
                         data-inactive-classes="text-gray-500 dark:text-gray-400" class="border-lg">
                         <h2 :id="'accordion-flush-heading-3' + index.toString()">
@@ -1140,7 +1144,7 @@ onMounted(() => {
                                         <tbody>
                                             <!-- Signature -->
                                             <tr
-                                                v-for="sign in signatures"
+                                                v-for="sign in signatures" :key="sign.id"
                                                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th v-if="sign.response_id == row.id" scope="row"
                                                     class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
@@ -1178,6 +1182,8 @@ onMounted(() => {
                             </div>
 
                             <!-- Button -->
+
+                            <div v-if="$page.props.auth.employee.role_id != 1" >
                             <div id="pending-sign-btn" class="px-5 p-2 w-full flex justify-end">
 
                                 <!-- Reject Button -->
@@ -1202,6 +1208,7 @@ onMounted(() => {
                                         >Approve
                                     </button>
                                 </Link>
+                            </div>
                             </div>
                         </div>
                     </div>

@@ -53,7 +53,7 @@ class FortifyServiceProvider extends ServiceProvider
                 } else {
                     throw ValidationException::withMessages([
                         Fortify::username() => __('Your account is inactive.'),
-                    ])->redirectTo('/login');
+                    ])->redirectTo('/');
                 }
             }
         });
