@@ -11,16 +11,13 @@ class ReportController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
         // Get existing check sheet forms
         $forms = DB::table('forms')
             ->select('form_name')
             ->orderBy('form_name')
             ->get();
-
-        // Get the selected form_name from the query parameter
-        $selectedFormName = $request->query('form_name');
 
         // Get pending responses for 5S check sheet
         /*
@@ -38,30 +35,15 @@ class ReportController extends Controller
             WHERE response_fields.form_id = 1;
         */
         $responses = DB::table('response_fields')
-            ->select('forms.form_name', 'employees.first_name', 'response_fields.*')
+            ->select('forms.form_name','forms.form_data', 'employees.first_name', 'response_fields.*', 'employees.shift')
             ->join('forms', 'response_fields.form_id', '=', 'forms.id')
             ->join('users', 'users.id', '=', 'response_fields.submitted_by')
             ->join('employees', 'employees.id', '=', 'users.employee_id')
-            ->where('response_fields.form_id', '=', 1)
             ->where('response_fields.status', '=', 'Pending')
             ->get();
 
-        $responses2 = DB::table('response_fields')
-            ->select('forms.form_name', 'employees.first_name', 'response_fields.*')
-            ->join('forms', 'response_fields.form_id', '=', 'forms.id')
-            ->join('users', 'users.id', '=', 'response_fields.submitted_by')
-            ->join('employees', 'employees.id', '=', 'users.employee_id')
-            ->where('response_fields.form_id', '=', 2)
-            ->where('response_fields.status', '=', 'Pending')
-            ->get();
-
-        $responses3 = DB::table('response_fields')
-            ->select('forms.form_name', 'employees.first_name', 'response_fields.*')
-            ->join('forms', 'response_fields.form_id', '=', 'forms.id')
-            ->join('users', 'users.id', '=', 'response_fields.submitted_by')
-            ->join('employees', 'employees.id', '=', 'users.employee_id')
-            ->where('response_fields.form_id', '=', 3)
-            ->where('response_fields.status', '=', 'Pending')
+        $formtable = DB::table('forms')
+            ->select('forms.form_data')
             ->get();
 
         // Get signature status per response
@@ -69,34 +51,19 @@ class ReportController extends Controller
             ->select('response_id', 'required_sign_role', 'status')
             ->get();
 
-        // Get pending reports count for 5s
-        $counts = DB::table('response_fields')
-            ->select()
+            $counts = DB::table('response_fields')
+            ->select('forms.form_name','response_fields.*')
+            ->join('forms', 'response_fields.form_id', '=', 'forms.id')
             ->where('status', '=', 'pending')
-            ->where('form_id', '=', '1')
             ->count();
 
-        $counts2 = DB::table('response_fields')
-            ->select()
-            ->where('status', '=', 'pending')
-            ->where('form_id', '=', '2')
-            ->count();
-        $counts3 = DB::table('response_fields')
-            ->select()
-            ->where('status', '=', 'pending')
-            ->where('form_id', '=', '3')
-            ->count();
 
         return Inertia::render('Pending-Reports/Index', [
             'forms' => $forms,
-            'selectedFormName' => $selectedFormName,
             'data' => $responses,
-            'data2' => $responses2,
-            'data3' => $responses3,
             'signatures' => $signature_status,
             'counts' => $counts,
-            'counts2' => $counts2,
-            'counts3' => $counts3,
+            'formtable'=>  $formtable
         ]);
     }
 
@@ -231,6 +198,7 @@ class ReportController extends Controller
                 ['status' => $status]
             );
     }
+
 
     /**
      * Remove the specified resource from storage.
