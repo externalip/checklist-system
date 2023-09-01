@@ -61,17 +61,17 @@ onMounted(() => {
     <AppLayout title="Pending Reports">
         <div id="pending-reports">
 
-            <h4 class="lg:mx-20">Filter by:</h4>
+            <h4 class="lg:mx-20 text-[--blue]">Filter by:</h4>
             <section id="pending-filters" class="lg:mx-20 lg:flex lg:space-x-2 py-3">
 
                 <!-- Dropdown  Select -->
                 <section id="checklist-dropdown" class="lg:w-6/12 mb-2 rounded-lg">
 
                     <label for="pending-checklists"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose a
+                        class="block mb-2 text-sm font-medium text-[--blue] dark:text-white">Choose a
                         checklist</label>
                     <select v-model="selectedForm.form_name" id="pending-checklists"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" @change="showDiv($event.target)" >
+                        class="bg-gray-50 border border-gray-300 text-[--blue] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" @change="showDiv($event.target)" >
                         <option value="">Select a Form</option>
                         <option
                             v-for="form in forms"
@@ -83,9 +83,9 @@ onMounted(() => {
                 </section>
 
                 <!-- Searchbar -->
-                <section id="pending-search" class="lg:w-full mb-2  rounded-lg">
+                <section id="pending-search" class="lg:w-full mb-2 rounded-lg">
                     <label for="pending-searchbar"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Search a
+                        class="block mb-2 text-sm font-medium text-[--blue] dark:text-white">Search a
                         Model</label>
                     <form class="flex items-center">
                         <label for="pending-searchbar" class="sr-only">Search</label>
@@ -99,11 +99,11 @@ onMounted(() => {
                                 </svg>
                             </div>
                             <input type="text" id="pending-searchbar"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Type here..." required>
                         </div>
                         <button type="submit"
-                            class="p-2.5 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            class="p-2.5 ml-2 text-sm font-medium text-white bg-[--blue] rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 20 20">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -114,11 +114,12 @@ onMounted(() => {
                     </form>
                 </section>
 
+                <!-- Export Button -->
                 <section id="export-btn" class="lg:w-1/6 rounded-lg">
-                    <label for="export-dropdown" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Export
+                    <label for="export-dropdown" class="block mb-2 text-sm font-medium text-[--blue] dark:text-white">Export
                         Pending</label>
                     <button id="export-dropdown" data-dropdown-toggle="dropdown"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        class="text-white bg-[--blue] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                         type="button">Export<svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -143,19 +144,20 @@ onMounted(() => {
 
                 </section>
 
-                <!-- Export Button -->
             </section>
 
             <section id="pending-accordions" class="lg:mx-20">
                 <!-- {{ Number of Pending Reports }} Pending Reports on {{ Checksheet Selected }}-->
 
-            <!-- First Accordion -->
+                <!-- First Accordion for 5S Start-Up Check Sheet -->
                 <div id="5S Start-Up Check Sheet" class="hidden_div accordions">
-                     <h4>{{ counts }} Pending Reports on {{ selectedForm.form_name }}</h4>
+                     <h4 class="text-[--blue]">{{ counts }} Pending Reports on {{ selectedForm.form_name }}</h4>
 
                     <div v-if="counts > 0" v-for="(row, index) in data" :key="index" id="accordion-flush" data-accordion="collapse"
                         data-active-classes="bg-white dark:bg-gray-900 text-blue-500 dark:text-white"
                         data-inactive-classes="text-gray-500 dark:text-gray-400" class="border-lg">
+
+                        <!-- PENDING MODEL NAME -->
                         <h2 :id="'accordion-flush-heading-' + index.toString()">
                             <button type="button"
                                 class="flex items-center justify-between w-full py-5 text-lg font-regular antialiased text-left border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
@@ -178,11 +180,12 @@ onMounted(() => {
                             </button>
                         </h2>
 
+                        <!-- PENDING MODEL INFORMATION -->
                         <div :id="'accordion-flush-body-' + index.toString()" class="hidden border-2 border-gray-100"
                             :aria-labelledby="'accordion-flush-heading-' + index.toString()">
                             <!-- Record Details Lot Number ||  Operator || Type of Checking || Shift -->
                             <div id="pending-record-details"
-                                class="bg-gray-100 p-3 px-12 lg:flex lg:items-center text-center lg:justify-between">
+                                class="bg-gray-100 text-[--blue] p-3 px-12 lg:flex lg:items-center text-center lg:justify-between">
                                 <div id="lot-number" class="">
                                     <label for="" class="text-sm">Lot Number</label>
                                     <h5 class="font-bold">{{ JSON.parse(row.response).fieldAnswers['Lot Number'] }}</h5>
@@ -208,14 +211,14 @@ onMounted(() => {
                             <div id="pending-record-section" class="p-3 lg:flex lg:flex-col">
                                 <!-- Header -->
                                 <div class="pending-section-header px-5">
-                                    <h3 class="font-bold text-2xl">Checking Items</h3>
+                                    <h3 class="font-bold text-2xl text-[--blue]">Checking Items</h3>
                                 </div>
 
                                 <!-- Table -->
                                 <div class="relative overflow-x-auto p-5">
-                                    <table class="rounded-full w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                         <thead
-                                            class="text-s text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                            class="text-s text-white uppercase bg-[--blue] dark:bg-gray-700 dark:text-gray-400">
                                             <tr>
                                                 <!-- Description coming from the Checklist -->
                                                 <th scope="col" class="px-6 py-3">
@@ -230,7 +233,7 @@ onMounted(() => {
                                         <tbody>
                                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium whitespace-wrap text-gray-900 dark:text-white">
+                                                    class="w-full text-[--blue] px-6 py-4 font-medium whitespace-wrap text-gray-900 dark:text-white">
                                                     {{ Object.keys(JSON.parse(row.response).fieldAnswers)[3] }}
                                                 </th>
                                                 <td :class=" (JSON.parse(row.response).fieldAnswers['Production Checksheet'] === 'OK') ?
@@ -243,7 +246,7 @@ onMounted(() => {
 
                                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
+                                                    class="w-full text-[--blue] px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                     {{ Object.keys(JSON.parse(row.response).fieldAnswers)[4] }}
                                                 </th>
                                                 <td :class=" (JSON.parse(row.response).fieldAnswers['Procedures/OPL/Work Instructions'] === 'OK') ?
@@ -256,7 +259,7 @@ onMounted(() => {
 
                                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
+                                                    class="w-full text-[--blue] px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                     {{ Object.keys(JSON.parse(row.response).fieldAnswers)[5] }}
                                                 </th>
                                                 <td :class=" (JSON.parse(row.response).fieldAnswers['Working Area'] === 'OK') ?
@@ -269,7 +272,7 @@ onMounted(() => {
 
                                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
+                                                    class="w-full text-[--blue] px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                     {{ Object.keys(JSON.parse(row.response).fieldAnswers)[6] }}
                                                 </th>
                                                 <td :class=" (JSON.parse(row.response).fieldAnswers['Materials'] === 'OK') ?
@@ -282,7 +285,7 @@ onMounted(() => {
 
                                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
+                                                    class="w-full text-[--blue] px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                     {{ Object.keys(JSON.parse(row.response).fieldAnswers)[7] }}
                                                 </th>
                                                 <td :class=" (JSON.parse(row.response).fieldAnswers['Tools/Jigs Instrument'] === 'OK') ?
@@ -303,14 +306,14 @@ onMounted(() => {
                             <div id="pending-record-signature" class="p-3 lg:flex lg:flex-col">
                                 <!-- Header -->
                                 <div class="pending-section-header px-5">
-                                    <h3 class="font-bold text-2xl">Signatures</h3>
+                                    <h3 class="font-bold text-2xl text-[--blue]">Signatures</h3>
                                 </div>
 
                                 <!-- Table -->
                                 <div class="relative overflow-x-auto p-5">
                                     <table class="rounded-full w-full text-sm text-left text-gray-500 dark:text-gray-400">
                                         <thead
-                                            class="text-s text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                            class="text-s text-white uppercase bg-[--blue] dark:bg-gray-700 dark:text-gray-400">
                                             <tr>
                                                 <!-- Description coming from the Checklist -->
                                                 <th scope="col" class="px-6 py-3">
@@ -328,7 +331,7 @@ onMounted(() => {
                                                 v-for="sign in signatures" :key="sign.id"
                                                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th v-if="sign.response_id == row.id" scope="row"
-                                                    class="w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
+                                                    class="text-[--blue] w-full px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                     {{ sign.required_sign_role }}
                                                 </th>
                                                 <td v-if="sign.response_id == row.id"
@@ -343,17 +346,18 @@ onMounted(() => {
                                 </div>
                             </div>
 
+                            <!-- Record Section Remarks -->
                             <div id="pending-record-remarks" class="p-3 lg:flex lg:flex-col">
                                 <!-- Header -->
                                 <div class="pending-section-header px-5">
-                                    <h3 class="font-bold text-2xl">{{ Object.keys(JSON.parse(row.response).fieldAnswers)[8] }}</h3>
+                                    <h3 class="text-[--blue] font-bold text-2xl">{{ Object.keys(JSON.parse(row.response).fieldAnswers)[8] }}</h3>
                                 </div>
 
                                 <!-- Disabled TextArea -->
                                 <div class="pending-record-remark px-5">
 
                                     <label for="message"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Operator's
+                                        class="block mb-2 text-sm font-medium text-[--blue] dark:text-white">Operator's
                                         Remark on the Model</label>
                                     <textarea id="message" rows="4"
                                         class="resize-none disabled:opacity-90 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -372,7 +376,7 @@ onMounted(() => {
                                     id: row.id
                                 })" as="button" method="PUT">
                                     <button type="button"
-                                        class="focus:outline-none text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                                        class="focus:outline-none text-white bg-[--red] hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                                         >Reject
                                     </button>
                                 </Link>
@@ -384,7 +388,7 @@ onMounted(() => {
                                     id: row.id
                                 })" as="button" method="PUT">
                                     <button type="button"
-                                        class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                                        class="text-white bg-[--blue] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                                         >Approve
                                     </button>
                                 </Link>
@@ -393,7 +397,8 @@ onMounted(() => {
                         </div>
                     </div>
                 </div>
-                <!-- Second Accordion -->
+
+                <!-- Second Accordion for P-Touch Soldering -->
                 <div id="P-Touch Soldering" class="hidden_div accordions">
                     <h4>{{ counts2 }} Pending Reports on {{ selectedForm.form_name }}</h4>
 
@@ -778,7 +783,6 @@ onMounted(() => {
                 </div>
 
                 <!-- Third Accordion -->
-
                 <div id="P-Touch ICT" class="hidden_div accordions">
                     <h4>{{ counts3 }} Pending Reports on {{ selectedForm.form_name }}</h4>
 

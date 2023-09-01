@@ -8,10 +8,10 @@
 
 :root {
     font-family: 'Nunito', sans-serif;
-    --button: #3C5393;
+    --blue: #3C5393;
     --navbar: #CCCDCF;
     --complete: #1FAC3C;
-    --delete: #E33A3A;
+    --red: #E33A3A;
     --input: #fff;
     --outline-input: #414141;
     --disabled: #E5E5E5;

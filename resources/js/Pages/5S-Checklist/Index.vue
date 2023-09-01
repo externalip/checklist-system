@@ -96,7 +96,7 @@ const getErrorString= (errorArray) => {
 
 <template>
     <AppLayout title="5S Checklist">
-        <div class="5s lg:mx-[25%]">
+        <div class="5s lg:mx-[25%] text-[--blue]">
 
             <form @submit.prevent="submit" method="post" id="1">
 
@@ -112,7 +112,7 @@ const getErrorString= (errorArray) => {
                         <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
                             <h5 id="question1">Model Name</h5>
 
-                            <label for="models" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            <label for="models" class="block mb-2 text-sm font-medium dark:text-white">
                                 Select a model
                             </label>
 
@@ -124,15 +124,14 @@ const getErrorString= (errorArray) => {
                           <InputError :message="getErrorString(errorDisplay['fieldAnswers.Model Name'])" class="mt-2" />
                         </div>
 
-
                         <!-- Lot Number -->
                         <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
                             <h5 id="question2">Lot Number</h5>
-                            <label for="models" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Input
+                            <label for="models" class="block mb-2 text-sm font-medium dark:text-white">Input
                                         the
                                         Lot Number</label>
                             <div class="">
-                                <input v-model="form.fieldAnswers.ans2" type="text" id="ltnum" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <input v-model="form.fieldAnswers.ans2" type="text" id="ltnum" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Type here...">
                             </div>
                             <InputError :message="getErrorString(errorDisplay['fieldAnswers.Lot Number'])" class="mt-2" />
                         </div>
@@ -142,25 +141,24 @@ const getErrorString= (errorArray) => {
                         <!-- Type of Checking -->
                         <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 sm:py-5 rounded-md sm:rounded-md">
                             <h5 id="question3">Type of Checking</h5>
-                            <ul class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            <ul class="items-center w-full text-sm font-medium bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                     <div class="flex items-center pl-3">
                                         <input v-model="form.fieldAnswers.ans3" id="horizontal-list-radio-startup" type="radio" value="Start-Up" name="type-of-checking-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="horizontal-list-radio-startup" class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Start-up
+                                        <label for="horizontal-list-radio-startup" class="w-full py-3 ml-2 text-sm font-medium dark:text-gray-300">Start-up
                                                 </label>
                                     </div>
                                 </li>
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                     <div class="flex items-center pl-3">
                                         <input v-model="form.fieldAnswers.ans3" id="horizontal-list-radio-restartup" type="radio" value="Re-Startup" name="type-of-checking-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="horizontal-list-radio-restartup" class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Re-Startup</label>
+                                        <label for="horizontal-list-radio-restartup" class="w-full py-3 ml-2 text-sm font-medium dark:text-gray-300">Re-Startup</label>
                                     </div>
                                 </li>
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                     <div class="flex items-center pl-3">
                                         <input v-model="form.fieldAnswers.ans3" id="horizontal-list-radio-changemodel" type="radio" value="Change Model" name="type-of-checking-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                        <label for="horizontal-list-radio-changemodel" class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Change
-                                                    Model</label>
+                                        <label for="horizontal-list-radio-changemodel" class="w-full py-3 ml-2 text-sm font-medium dark:text-gray-300">Change Model</label>
                                     </div>
                                 </li>
                             </ul>
@@ -539,7 +537,7 @@ const getErrorString= (errorArray) => {
                     <h2 class="mb-2">Remarks</h2>
                     <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
                         <h5 id="question9">Remarks on the Model</h5>
-                        <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Please
+                        <label for="message" class="block mb-2 text-sm font-medium dark:text-white">Please
                                     type
                                     possible problems regarding with the machine.</label>
                         <textarea v-model="form.fieldAnswers.ans9" id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -551,10 +549,10 @@ const getErrorString= (errorArray) => {
                 <!-- BUTTONS -->
                 <section id="button-group" class="place-content-end mt-5 mb-5 align-right justify-center lg:justify-end flex">
                     <!-- Back Button -->
-                    <button type="button" class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Back</button>
+                    <button type="button" class="duration-200 py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Back</button>
 
                     <!-- Submit Button -->
-                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" >Submit
+                    <button type="submit" class="duration-200 text-white bg-[--blue] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" >Submit
                             </button>
                 </section>
 

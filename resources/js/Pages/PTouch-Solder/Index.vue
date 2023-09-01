@@ -62,7 +62,7 @@ function submit() {
 
 <template>
     <AppLayout title="P-Touch Soldering Iron Start-Up">
-        <div class="ptouch-solder lg:mx-[25%]">
+        <div class="ptouch-solder lg:mx-[25%] text-[--blue]">
             <form @submit.prevent="submit()" method="post" id="1">
 
                 <!-- Hidden CSRF Token -->
@@ -76,7 +76,7 @@ function submit() {
                         <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
                             <h5 id="question1">Model Name</h5>
 
-                            <label for="models" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"> Select
+                            <label for="models" class="block mb-2 text-sm font-medium dark:text-white"> Select
                                 a
                                 model </label>
 
@@ -94,7 +94,7 @@ function submit() {
                             <h5 id="question2">Lot Number</h5>
                             <div class="">
                                 <label for="models"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Input
+                                    class="block mb-2 text-sm font-medium dark:text-white">Input
                                     the
                                     Lot Number</label>
                                 <input v-model="form.fieldAnswers.ans2" type="text" id="ltnum"
@@ -109,14 +109,14 @@ function submit() {
                         <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 sm:py-5 rounded-md sm:rounded-md">
                             <h5 id="question3">Type of Checking</h5>
                             <ul
-                                class="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                class="items-center w-full text-sm font-medium bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                     <div class="flex items-center pl-3">
                                         <input v-model="form.fieldAnswers.ans3" id="horizontal-list-radio-startup"
                                             type="radio" value="Start-Up" name="type-of-checking-radio"
                                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                                         <label for="horizontal-list-radio-startup"
-                                            class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Start-up
+                                            class="w-full py-3 ml-2 text-sm font-medium dark:text-gray-300">Start-up
                                         </label>
                                     </div>
                                 </li>
@@ -126,7 +126,7 @@ function submit() {
                                             type="radio" value="Re-Startup" name="type-of-checking-radio"
                                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                                         <label for="horizontal-list-radio-restartup"
-                                            class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Re-Startup</label>
+                                            class="w-full py-3 ml-2 text-sm font-medium dark:text-gray-300">Re-Startup</label>
                                     </div>
                                 </li>
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
@@ -135,7 +135,7 @@ function submit() {
                                             type="radio" value="Change Model" name="type-of-checking-radio"
                                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                                         <label for="horizontal-list-radio-changemodel"
-                                            class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Change
+                                            class="w-full py-3 ml-2 text-sm font-medium dark:text-gray-300">Change
                                             Model</label>
                                     </div>
                                 </li>
@@ -1254,7 +1254,7 @@ function submit() {
                     <h2 id="question" class="mb-2 text-center md:text-left">Remarks</h2>
                     <div class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
                         <h5 id="question21">Remarks on the Model</h5>
-                        <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Please
+                        <label for="message" class="block mb-2 text-sm font-medium dark:text-white">Please
                             type
                             possible problems regarding with the machine.</label>
                         <textarea v-model="form.fieldAnswers.ans21" id="message" rows="4"
