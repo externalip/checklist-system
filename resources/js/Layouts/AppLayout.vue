@@ -26,7 +26,7 @@
             >
                 <Link
                     :href="route('dashboard')"
-                    :class="{ active: $page.url === '/dashboard' }"
+                    :class="{ active: $page.url.startsWith('/dashboard') }"
                     class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
                 >
                     <svg
@@ -53,7 +53,7 @@
             >
                 <Link
                     :href="route('checksheet')"
-                    :class="{ active: $page.url === '/checksheet' }"
+                   :class="{ active: $page.url.startsWith('/checksheet') }"
                     class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
                 >
                     <svg
@@ -79,7 +79,7 @@
             >
                 <Link
                     :href="route('Pending-Reports')"
-                    :class="{ active: $page.url === '/Pending-Reports' }"
+                    :class="{ active: $page.url.startsWith('/Pending-Reports') }"
                     class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
                 >
                     <svg
@@ -202,7 +202,7 @@
                     <li>
                         <Link
                             :href="route('5S-Checklist')"
-                            :class="{ active: $page.url === '/5S-Checklist' }"
+                            :class="{ active: $page.url.startsWith('/5S-Checklist') }"
                             class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11"
                         >
                             5s Checklist
@@ -211,7 +211,7 @@
                     <li>
                         <Link
                             :href="route('PTouch-Solder')"
-                            :class="{ active: $page.url === '/PTouch-Solder' }"
+                            :class="{ active: $page.url.startsWith('/PTouch-Solder') }"
                             class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11"
                         >
                             P-Touch Soldering
@@ -220,7 +220,7 @@
                     <li>
                         <Link
                             :href="route('PTouch-ICT')"
-                            :class="{ active: $page.url === '/PTouch-ICT' }"
+                        :class="{ active: $page.url.startsWith('/PTouch-ICT') }"
                             class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11"
                         >
                             P-Touch ICT
@@ -229,9 +229,7 @@
                     <li v-for="form in $page.props.sharedForms">
                         <Link
                             :href="route('showForm', form.id)"
-                            :class="{
-                                active: $page.url === '/Forms/' + form.id,
-                            }"
+                            :class="{ active: $page.url.startsWith('/Forms/' + form.id)}"
                             class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11"
                         >
                             {{ form.form_name }}
@@ -246,7 +244,7 @@
             >
                 <Link
                     :href="route('archives')"
-                    :class="{ active: $page.url === '/archives' }"
+                    :class="{ active: $page.url.startsWith('/Archives') }"
                     class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
                 >
                     <svg
@@ -274,7 +272,7 @@
             >
                 <Link
                     :href="route('audit')"
-                    :class="{ active: $page.url === '/audit' }"
+                    :class="{ active: $page.url.startsWith('/audit') }"
                     class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
                 >
                     <svg
@@ -301,7 +299,7 @@
             >
                 <Link
                     :href="route('models.index')"
-                    :class="{ active: $page.url === '/Models' }"
+                    :class="{ active: $page.url.startsWith('/models') }"
                     class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
                 >
                     <svg
@@ -336,7 +334,7 @@
             >
                 <Link
                     :href="route('users')"
-                    :class="{ active: $page.url === '/Users' }"
+                    :class="{ active: $page.url.startsWith('/Users') }"
                     class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
                 >
                     <svg
@@ -371,7 +369,7 @@
             >
                 <Link
                     :href="route('UserManual')"
-                    :class="{ active: $page.url === '/user-manual' }"
+                    :class="{ active: $page.url.startsWith('/user-manual') }"
                     class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
                 >
                     <svg
