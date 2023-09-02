@@ -299,7 +299,7 @@
             >
                 <Link
                     :href="route('models.index')"
-                    :class="{ active: $page.url.startsWith('/models') }"
+                    :class="{ active: $page.url.startsWith('/Models') }"
                     class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
                 >
                     <svg

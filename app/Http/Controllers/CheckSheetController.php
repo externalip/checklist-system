@@ -12,20 +12,25 @@ class CheckSheetController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Get All Forms
-        $forms = DB::table('forms')
+        // Get forms
+        $query = DB::table('forms')
             ->select('forms.*', DB::raw('CONCAT(employees.first_name, " ", employees.last_name) as created_by_name'))
-            ->leftJoin('employees', 'forms.created_by', '=', 'employees.id')
-            ->get();
+            ->leftJoin('employees', 'forms.created_by', '=', 'employees.id');
 
-        // Send Data to Check Sheet Manager
+        // Search by name
+        if ($request->has('name') && $request->name) {
+            $name = $request->input('name');
+            $query->where('forms.form_name', 'like', "%$name%");
+        }
+
+        $forms = $query->paginate(10);
+
         return Inertia::render('Create-Checklist/Edit/Edit', [
             'forms' => $forms,
         ]);
     }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -68,7 +73,7 @@ class CheckSheetController extends Controller
     {
         $id = $request->input('id');
 
-        Storage::disk('form_path')->delete('form'.$id.'.vue');
+        Storage::disk('form_path')->delete('form' . $id . '.vue');
         $result = DB::table('forms')
             ->where('id', $id)
             ->delete();
