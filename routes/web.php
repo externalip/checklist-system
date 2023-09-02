@@ -71,7 +71,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         // Save Form Changes
         Route::put('/edit', [CheckSheetController::class, 'store'])->name('checksheet.store');
 
-
         //edit based on id
         Route::get('/edit/{id}', [CheckSheetController::class, 'edit'])->name('checksheet.edit');
         //update based on id
@@ -115,7 +114,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     //Forms
     Route::get('Forms/{id}', function ($form_id) {
         // Get form path
-        $path = 'Forms/form' . $form_id;
+        $path = 'Forms/form'.$form_id;
 
         // Get all models
         $models = DB::table('models')

@@ -39,9 +39,11 @@ class CheckSheetController extends Controller
             'forms' => $request,
         ]);
     }
+
     public function edit(string $id)
     {
         $form = DB::table('forms')->where('id', $id)->first();
+
         return Inertia::render('Create-Checklist/Edit/Editor', [
             'config' => $form,
         ]);
