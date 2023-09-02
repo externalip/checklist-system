@@ -8,9 +8,6 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
 import { Link } from '@inertiajs/vue3';
-import { reactive } from 'vue'
-
-console.log(this.config);
 </script>
 
 <template>
@@ -18,8 +15,8 @@ console.log(this.config);
         <div class="lg:mx-[25%] mb-40">
             <div class="mx-auto">
                 <!-- DEBUGGER -->
-                {{ this.config }}
-                
+                {{ this.form_config2 }}
+
                 <!-- CHECKSHEET NAME -->
                 <div class="mb-5">
                     <p class="text-xl mb-3">Check Sheet Name</p>
@@ -186,7 +183,7 @@ console.log(this.config);
                                                         :name="'radio' + key"
                                                         :id="'radio' + key"
                                                         class="mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                        placeholder="Enter answer option here" 
+                                                        placeholder="Enter answer option here"
                                                         required/>
                                                     <label :for="'radio' + key"
                                                         class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Radio
@@ -490,10 +487,10 @@ console.log(this.config);
 
 <script>
 import { router } from "@inertiajs/vue3";
+import {ref} from 'vue';
 const answerType = ['radio', 'checkbox', 'dropdown'];
 
-// Form JSON Structure
-let form_config = reactive({
+let form_config = ref({
   form_name: null,
   form_content: {
     section1: {
@@ -514,10 +511,22 @@ let form_config = reactive({
   }
 });
 
+
+// Form JSON Structure
 export default {
   name: 'App',
   props: {
-    config: Array
+    config: {
+      type: Object,
+      required: true,
+    },
+  },
+  created() {
+        // Extract and parse the form_data property from form_config2
+        const formData = JSON.parse(this.config.form_data);
+
+        // Completely override form_config with the parsed formData
+        form_config = ref(formData);
   },
   methods: {
     removeSection(sectionName) {

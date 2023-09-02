@@ -63,7 +63,7 @@ const props = defineProps({
 
                         <!-- Table -->
                         <table class="rounded-lg w-full text-sm text-center text-gray-500 dark:text-gray-400">
-                            
+
                             <!-- Table Headers -->
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
@@ -113,7 +113,7 @@ const props = defineProps({
                                     <td class="px-6 flex justify-center mx-10">
 
                                         <!-- Edit Button -->
-                                        <button type="button" @click="callEditor(form.id, form.form_data)"
+                                        <Link type="button" :href="route('checksheet.edit', form.id)"
                                             class="hover:bg-gray-200 transition duration-200 ease-in-out p-4">
                                             <svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -124,7 +124,7 @@ const props = defineProps({
                                                     <path d="M10 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
                                                 </g>
                                             </svg>
-                                        </button>
+                                        </Link>
 
                                         <!-- Delete Button -->
                                         <button type="button"
