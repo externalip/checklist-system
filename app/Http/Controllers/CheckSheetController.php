@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
 
 class CheckSheetController extends Controller
 {
@@ -68,7 +68,7 @@ class CheckSheetController extends Controller
     {
         $id = $request->input('id');
 
-        Storage::disk('form_path')->delete('form' . $id . '.vue');
+        Storage::disk('form_path')->delete('form'.$id.'.vue');
         $result = DB::table('forms')
             ->where('id', $id)
             ->delete();
