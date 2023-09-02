@@ -56,15 +56,35 @@ class CheckSheetController extends Controller
 
         return Inertia::render('Create-Checklist/Edit/Editor', [
             'config' => $form,
+            'form_id' => $id,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $form_id = $request->input('form_id');
+        $form_config = $request->input('new_config');
+
+        $result = DB::table('forms')
+            ->where('id', $form_id)
+            ->update(['form_data' => $form_config]);
+
+        // if ($result) {
+        //     return response()->json([
+        //         'message' => 'Form updated successfully',
+        //         'status' => 'success',
+        //     ], 200);
+        // } else {
+        //     return response()->json([
+        //         'message' => 'Form update failed',
+        //         'status' => 'error',
+        //     ], 400);
+        // }
+
+        return response()->json($result);
     }
 
     /**
