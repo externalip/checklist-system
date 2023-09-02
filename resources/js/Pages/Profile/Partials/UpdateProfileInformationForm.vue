@@ -24,6 +24,15 @@ const form = useForm({
     contact: props.employee?.contact,
     shift: props.employee?.shift,
 });
+const updateProfileInformation = () => {
+    form.post(route("user-profile-information.update"), {
+        errorBag: "updateProfileInformation",
+        preserveScroll: true,
+        onSuccess: () => clearPhotoFileInput(),
+    });
+};
+
+
 </script>
 
 <template>

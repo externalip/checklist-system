@@ -5,7 +5,6 @@ namespace App\Actions\Fortify;
 use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 
 class UpdateUserProfileInformation implements UpdatesUserProfileInformation
@@ -23,7 +22,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'last_name' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'string', 'max:255'],
             'date_of_birth' => ['required', 'date'],
-            'contact' => ['required', 'integer', 'digits:10', Rule::unique('employees')->ignore($user->employee_id)],
+            'contact' => ['required', 'regex:/^(09|\+639)\d{9}$/', 'size:11'],
             'shift' => ['required', 'string', 'max:255'],
         ])->validateWithBag('updateProfileInformation');
     }

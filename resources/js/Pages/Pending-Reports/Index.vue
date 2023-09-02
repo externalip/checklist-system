@@ -5,22 +5,55 @@
 </style>
 
 <script setup>
-import axios from 'axios';
+
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { Link } from '@inertiajs/vue3';
-import { computed, ref } from 'vue'
+import { reactive, ref, onMounted, watch } from 'vue';
 
-const selectedForm = ref({
-    form_name: null
+const showDiv = (selectedFormName) => {
+  // Hide all hidden divs first
+  const hiddenDivs = document.getElementsByClassName('hidden_div');
+  for (let i = 0; i < hiddenDivs.length; i++) {
+    hiddenDivs[i].style.display = 'none';
+  }
+
+  // Show the selected hidden div
+  const selectedDiv = document.getElementById(selectedFormName);
+  if (selectedDiv) {
+    selectedDiv.style.display = 'block';
+  }
+};
+let selectedForm = reactive({
+    form_name: null,
 });
 
-const props = defineProps({
+let props = defineProps({
     forms: Array,
+    selectedFormName: Array,
     data: Array,
     signatures: Array,
     counts: Array,
     formtable: Array
 });
+watch(() => selectedForm.form_name, (newValue) => {
+    setTimeout(() => {
+        showDiv(newValue);
+    }, 0);
+});
+
+onMounted(() => {
+    // Retrieve form_name from the query parameters
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const formNameFromQuery = urlParams.get('form_name');
+
+    // Set the retrieved form_name to selectedForm
+    if (formNameFromQuery) {
+        selectedForm.form_name = formNameFromQuery;
+    }
+
+});
+
 </script>
 
 <template>
@@ -35,12 +68,16 @@ const props = defineProps({
 
                     <label for="pending-checklists" class="block mb-2 text-sm font-medium text-[--blue] dark:text-white">Choose a
                             checklist</label>
-                    <select v-model="selectedForm.form_name" id="pending-checklists" class="bg-gray-50 border border-gray-300 text-[--blue] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        @change="showDiv($event.target)">
+                    <select v-model="selectedForm.form_name" id="pending-checklists" class="bg-gray-50 border border-gray-300 text-[#3182ce] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    @change="showDiv(selectedForm.form_name)">
                             <option value="">Select a Form</option>
-                            <option v-for="form in forms" :key="form.id" :value="form.form_name">{{ form.form_name }}</option>
-                        </select>
+                            <option
+                            v-for="form in forms"
+                            :key="form.id"
+                            :value="form.form_name"
 
+                           >{{ form.form_name }}</option>
+                        </select>
                 </section>
 
                 <!-- Searchbar -->
@@ -277,66 +314,8 @@ const props = defineProps({
                 </div>
 
                 <!-- Pagination -->
-                <div class="pagination flex p-10 items-center justify-center">
-                    <nav aria-label="Page navigation example">
-                        <ul class="flex items-center -space-x-px h-8 text-sm">
-                            <li class="pagination-button">
-                                <a href="#" class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                        <span class="sr-only">Previous</span>
-                                        <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                            fill="none" viewBox="0 0 6 10">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" d="M5 1 1 5l4 4" />
-                                        </svg>
-                                    </a>
-                            </li>
-                            <li>
-                                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-                            </li>
-                            <li>
-                                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-                            </li>
-                            <li>
-                                <a href="#" aria-current="page" class="z-10 flex items-center justify-center px-3 h-8 leading-tight text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-                            </li>
-                            <li>
-                                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</a>
-                            </li>
-                            <li>
-                                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</a>
-                            </li>
-                            <li>
-                                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                        <span class="sr-only">Next</span>
-                                        <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                            fill="none" viewBox="0 0 6 10">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" d="m1 9 4-4-4-4" />
-                                        </svg>
-                                    </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
 
             </section>
         </div>
     </AppLayout>
 </template>
-
-<script>
-function showDiv(element) {
-    // Hide all hidden divs first
-    var hiddenDivs = document.getElementsByClassName('hidden_div');
-    for (var i = 0; i < hiddenDivs.length; i++) {
-        hiddenDivs[i].style.display = 'none';
-    }
-
-    // Show the selected hidden div
-    var selectedDiv = document.getElementById(element.value);
-    if (selectedDiv) {
-        selectedDiv.style.display = 'block';
-    }
-}
-</script>
-
