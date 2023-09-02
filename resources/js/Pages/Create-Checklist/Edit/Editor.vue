@@ -15,7 +15,7 @@ import { Link } from '@inertiajs/vue3';
         <div class="lg:mx-[25%] mb-40">
             <div class="mx-auto">
                 <!-- DEBUGGER -->
-                {{ this.form_config2 }}
+                {{ form_config }}
 
                 <!-- CHECKSHEET NAME -->
                 <div class="mb-5">
@@ -25,8 +25,7 @@ import { Link } from '@inertiajs/vue3';
                         <!-- FORM NAME INPUT FIELD -->
                         <input v-model="form_config.form_name" type="text" id="checksheet-id" name="checksheet-name"
                             class="block px-2.5 pb-2.5 pt-4 w-5/6 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                            placeholder=" " required
-                        />
+                            placeholder=" " required />
                         <label for="checksheet-id"
                             class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Type
                             here the Checksheet name...
@@ -45,7 +44,8 @@ import { Link } from '@inertiajs/vue3';
 
                                 <!-- DELETE SECTION BUTTON -->
                                 <div class="flex items-center align-center">
-                                    <button @click="removeSection('section' + key)" class="duration-200 p-2 hover:bg-red-200 rounded-md">
+                                    <button @click="removeSection('section' + key)"
+                                        class="duration-200 p-2 hover:bg-red-200 rounded-md">
                                         <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
                                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
                                             <path stroke="red" stroke-linecap="round" stroke-linejoin="round"
@@ -58,16 +58,16 @@ import { Link } from '@inertiajs/vue3';
                             </div>
 
                             <!-- TOP SECTION (Section Name) -->
-                            <div
-                                class="grid grid-rows lg:grid-cols-5 gap-3 p-4 rounded-lg border-gray-200 border-2">
+                            <div class="grid grid-rows lg:grid-cols-5 gap-3 p-4 rounded-lg border-gray-200 border-2">
                                 <div class="lg:col-span-4">
                                     <p class="text-md mb-1">Section Name</p>
 
                                     <!-- SECTION NAME INPUT -->
                                     <div class="relative">
-                                        <input v-model="form_config.form_content['section' + key.toString()].section_name" type="text" :name="'section_name' + key" :id="'section_name' + key"
+                                        <input v-model="form_config.form_content['section' + key.toString()].section_name"
+                                            type="text" :name="'section_name' + key" :id="'section_name' + key"
                                             class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                            placeholder=" " required/>
+                                            placeholder=" " required />
                                         <label :for="'section_name' + key"
                                             class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Type
                                             here the section name...</label>
@@ -102,11 +102,11 @@ import { Link } from '@inertiajs/vue3';
 
                                                 <input v-model="form_config
                                                     .form_content['section' + key.toString()]
-                                                    .section_content['question' + qIndex.toString()].label" type="text" :name="'question' + key"
-                                                    :id="'question' + key" class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent
+                                                    .section_content['question' + qIndex.toString()].label" type="text"
+                                                    :name="'question' + key" :id="'question' + key" class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent
                                                 rounded-lg border-1 border-gray-300 appearance-none dark:text-white
                                                 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none
-                                                focus:ring-0 focus:border-blue-600 peer" placeholder=" " required/>
+                                                focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
 
                                                 <label :for="'question' + key"
                                                     class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Type
@@ -124,8 +124,8 @@ import { Link } from '@inertiajs/vue3';
                                             <div class="relative">
                                                 <input v-model="form_config
                                                     .form_content['section' + key.toString()]
-                                                    .section_content['question' + qIndex.toString()].instruction" type="text" :name="'instruction' + key"
-                                                    :id="'instruction' + key"
+                                                    .section_content['question' + qIndex.toString()].instruction"
+                                                    type="text" :name="'instruction' + key" :id="'instruction' + key"
                                                     class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                     placeholder=" " />
                                                 <label :for="'instruction' + key"
@@ -140,9 +140,12 @@ import { Link } from '@inertiajs/vue3';
                                             <p class="text-md mb-2">
                                                 Question Type
                                             </p>
-                                            <select @change="resetQuestionContent('section' + key.toString(), 'question' + qIndex.toString())"
-                                                v-model="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type" :name="'v'"
-                                                class="border-1 border-gray-300 text-gray-900 text-m rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                            <select
+                                                @change="resetQuestionContent('section' + key.toString(), 'question' + qIndex.toString())"
+                                                v-model="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type"
+                                                :name="'v'"
+                                                class="border-1 border-gray-300 text-gray-900 text-m rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                required>
                                                 <option selected>
                                                     Choose a type
                                                 </option>
@@ -164,7 +167,8 @@ import { Link } from '@inertiajs/vue3';
                                         <!-- Question Type Options -->
 
                                         <!-- OPTION || Radio -->
-                                        <div class="col-span-2" v-if="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type === 'radio'">
+                                        <div class="col-span-2"
+                                            v-if="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type === 'radio'">
 
                                             <div class="mb-2">
                                                 <p class="text-md">
@@ -173,18 +177,16 @@ import { Link } from '@inertiajs/vue3';
                                             </div>
 
                                             <!-- Radio Input Label -->
-                                            <div v-for="ansIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].options).length" class="flex">
+                                            <div v-for="ansIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].options).length"
+                                                class="flex">
                                                 <div class="w-full relative">
                                                     <input v-model="form_config
                                                         .form_content['section' + key.toString()]
                                                         .section_content['question' + qIndex.toString()]
-                                                        .options['ans' + ansIndex.toString()]"
-                                                        type="text"
-                                                        :name="'radio' + key"
-                                                        :id="'radio' + key"
+                                                        .options['ans' + ansIndex.toString()]" type="text"
+                                                        :name="'radio' + key" :id="'radio' + key"
                                                         class="mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                        placeholder="Enter answer option here"
-                                                        required/>
+                                                        placeholder="Enter answer option here" required />
                                                     <label :for="'radio' + key"
                                                         class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Radio
                                                         Option
@@ -192,7 +194,9 @@ import { Link } from '@inertiajs/vue3';
                                                 </div>
 
                                                 <!-- Delete answer option button -->
-                                                <button @click="removeAnswer('section' + key.toString(), 'question' + qIndex.toString(), 'ans' + ansIndex.toString())" class="p-3 hover:bg-red-100">
+                                                <button
+                                                    @click="removeAnswer('section' + key.toString(), 'question' + qIndex.toString(), 'ans' + ansIndex.toString())"
+                                                    class="p-3 hover:bg-red-100">
                                                     <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
                                                         xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                         viewBox="0 0 20 20">
@@ -204,7 +208,9 @@ import { Link } from '@inertiajs/vue3';
                                             </div>
 
                                             <!-- Add answer option button -->
-                                            <button @click="addAnswer('section' + key.toString(), 'question' + qIndex.toString())" v-if="answerType.includes(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type)"
+                                            <button
+                                                @click="addAnswer('section' + key.toString(), 'question' + qIndex.toString())"
+                                                v-if="answerType.includes(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type)"
                                                 class="hover:bg-blue-500 bg-[#3c5393] text-white duration-200 p-2 rounded-md text-sm flex items-center align-center">
                                                 <svg class="w-4 h-4 mr-2 text-white-800 dark:text-white" aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
@@ -219,45 +225,46 @@ import { Link } from '@inertiajs/vue3';
                                         </div>
 
                                         <!-- OPTION || Checkbox -->
-                                        <div class="col-span-2" v-if="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type === 'checkbox'">
+                                        <div class="col-span-2"
+                                            v-if="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type === 'checkbox'">
                                             <div class="mb-2">
                                                 <p class="text-md">
                                                     Checkbox Options
                                                 </p>
                                             </div>
 
-                                                <!-- Checkbox Input Label -->
-                                                <div v-for="ansIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].options).length" class="flex">
-                                                    <div class="w-full relative">
-                                                        <input type="text" :name="'check' + key"
-                                                            :id="'check' + key"
-                                                            class="mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                            placeholder="Enter answer option here"
-                                                            v-model="form_config
-                                                                .form_content['section' + key.toString()]
-                                                                .section_content['question' + qIndex.toString()]
-                                                                .options['ans' + ansIndex.toString()]
-                                                            "
-                                                            required
-                                                        />
-                                                        <label :for="'check' + key"
-                                                            class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Checkbox
-                                                            Option</label>
-                                                    </div>
-
-                                                    <!-- Delete Answer Option Button -->
-                                                    <button @click="removeAnswer('section' + key.toString(), 'question' + qIndex.toString(), 'ans' + ansIndex.toString())" class="p-3 hover:bg-red-100">
-                                                        <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
-                                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                            viewBox="0 0 20 20">
-                                                            <path
-                                                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
-                                                        </svg>
-
-                                                    </button>
+                                            <!-- Checkbox Input Label -->
+                                            <div v-for="ansIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].options).length"
+                                                class="flex">
+                                                <div class="w-full relative">
+                                                    <input type="text" :name="'check' + key" :id="'check' + key"
+                                                        class="mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                        placeholder="Enter answer option here" v-model="form_config
+                                                            .form_content['section' + key.toString()]
+                                                            .section_content['question' + qIndex.toString()]
+                                                            .options['ans' + ansIndex.toString()]
+                                                            " required />
+                                                    <label :for="'check' + key"
+                                                        class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Checkbox
+                                                        Option</label>
                                                 </div>
 
-                                            <button @click="addAnswer('section' + key.toString(), 'question' + qIndex.toString())"
+                                                <!-- Delete Answer Option Button -->
+                                                <button
+                                                    @click="removeAnswer('section' + key.toString(), 'question' + qIndex.toString(), 'ans' + ansIndex.toString())"
+                                                    class="p-3 hover:bg-red-100">
+                                                    <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                        viewBox="0 0 20 20">
+                                                        <path
+                                                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                                                    </svg>
+
+                                                </button>
+                                            </div>
+
+                                            <button
+                                                @click="addAnswer('section' + key.toString(), 'question' + qIndex.toString())"
                                                 class="hover:bg-blue-500 bg-[#3c5393] text-white duration-200 p-2 rounded-md text-sm flex items-center align-center">
                                                 <svg class="w-4 h-4 mr-2 text-white-800 dark:text-white" aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
@@ -271,7 +278,8 @@ import { Link } from '@inertiajs/vue3';
                                         </div>
 
                                         <!-- OPTION || Textbox -->
-                                        <div class="col-span-2" v-if="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type === 'text'">
+                                        <div class="col-span-2"
+                                            v-if="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type === 'text'">
                                             <div class="">
                                                 <p class="text-md mb-2">
                                                     Textbox
@@ -290,7 +298,8 @@ import { Link } from '@inertiajs/vue3';
                                         </div>
 
                                         <!-- OPTION || Dropdown Options -->
-                                        <div class="col-span-2" v-if="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type === 'dropdown'">
+                                        <div class="col-span-2"
+                                            v-if="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type === 'dropdown'">
                                             <div class="">
                                                 <p class="text-md mb-2">
                                                     Dropdown Options
@@ -298,21 +307,23 @@ import { Link } from '@inertiajs/vue3';
                                             </div>
 
                                             <!-- Dropdown Option Label -->
-                                            <div v-for="ansIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].options).length" class="flex">
+                                            <div v-for="ansIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].options).length"
+                                                class="flex">
                                                 <div class="w-full relative">
                                                     <input v-model="form_config
                                                         .form_content['section' + key.toString()]
                                                         .section_content['question' + qIndex.toString()]
-                                                        .options['ans' + ansIndex.toString()]"
-                                                        type="text" :name="'drop' + key"
-                                                        :id="'drop' + key"
+                                                        .options['ans' + ansIndex.toString()]" type="text"
+                                                        :name="'drop' + key" :id="'drop' + key"
                                                         class="mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                        placeholder=" " required/>
+                                                        placeholder=" " required />
                                                     <label :for="'drop' + key"
                                                         class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Dropbox
                                                         Option</label>
                                                 </div>
-                                                <button @click="removeAnswer('section' + key.toString(), 'question' + qIndex.toString(), 'ans' + ansIndex.toString())" class="p-3 hover:bg-red-100">
+                                                <button
+                                                    @click="removeAnswer('section' + key.toString(), 'question' + qIndex.toString(), 'ans' + ansIndex.toString())"
+                                                    class="p-3 hover:bg-red-100">
                                                     <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
                                                         xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                         viewBox="0 0 20 20">
@@ -323,7 +334,8 @@ import { Link } from '@inertiajs/vue3';
                                                 </button>
                                             </div>
 
-                                            <button @click="addAnswer('section' + key.toString(), 'question' + qIndex.toString())"
+                                            <button
+                                                @click="addAnswer('section' + key.toString(), 'question' + qIndex.toString())"
                                                 class="hover:bg-blue-500 bg-[#3c5393] text-white duration-200 p-2 rounded-md text-sm flex items-center align-center">
                                                 <svg class="w-4 h-4 mr-2 text-white-800 dark:text-white" aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
@@ -342,7 +354,9 @@ import { Link } from '@inertiajs/vue3';
 
                                             <!-- Delete Question -->
                                             <div class="flex items-center align-center">
-                                                <button @click="removeQuestion('section' + key.toString(), 'question' + qIndex.toString())" class="duration-200 p-2 hover:bg-red-200 rounded-md">
+                                                <button
+                                                    @click="removeQuestion('section' + key.toString(), 'question' + qIndex.toString())"
+                                                    class="duration-200 p-2 hover:bg-red-200 rounded-md">
                                                     <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
                                                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
                                                         <path stroke="currentColor" stroke-linecap="round"
@@ -359,9 +373,7 @@ import { Link } from '@inertiajs/vue3';
                                                     <input v-model="form_config
                                                         .form_content['section' + key.toString()]
                                                         .section_content['question' + qIndex.toString()]
-                                                        .required"
-                                                         type="checkbox" value="" class="sr-only peer"
-                                                    />
+                                                        .required" type="checkbox" value="" class="sr-only peer" />
                                                     <div
                                                         class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
                                                     </div>
@@ -410,14 +422,15 @@ import { Link } from '@inertiajs/vue3';
 
                 <!-- Confirm and Save -->
                 <div class="flex items-center justify-center">
-                    <Link :href="route('generate.store', form_config)" as="button" method="POST" data-tooltip-target="tooltip-save" type="button"
+                    <Link :href="route('generate.store', form_config)" as="button" method="POST"
+                        data-tooltip-target="tooltip-save" type="button"
                         class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
-                        <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 16 12">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M1 5.917 5.724 10.5 15 1.5" />
-                        </svg>
-                        <span class="sr-only">New item</span>
+                    <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 16 12">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M1 5.917 5.724 10.5 15 1.5" />
+                    </svg>
+                    <span class="sr-only">New item</span>
                     </Link>
                 </div>
 
@@ -462,14 +475,14 @@ import { Link } from '@inertiajs/vue3';
                 <!-- Confirm and Save -->
                 <div class="flex items-center justify-center">
                     <button @click.prevent="submit" type="button"
-                            class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800"
-                            data-tooltip-target="tooltip-save">
-                    <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 16 12">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M1 5.917 5.724 10.5 15 1.5" />
-                    </svg>
-                    <span class="sr-only">New item</span>
+                        class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800"
+                        data-tooltip-target="tooltip-save">
+                        <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 16 12">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M1 5.917 5.724 10.5 15 1.5" />
+                        </svg>
+                        <span class="sr-only">New item</span>
                     </button>
                 </div>
 
@@ -487,175 +500,158 @@ import { Link } from '@inertiajs/vue3';
 
 <script>
 import { router } from "@inertiajs/vue3";
-import {ref} from 'vue';
+import { reactive } from 'vue';
 const answerType = ['radio', 'checkbox', 'dropdown'];
 
-let form_config = ref({
-  form_name: null,
-  form_content: {
-    section1: {
-      section_name: null,
-      section_type: 'question',
-      section_content: {
-        question1: {
-            label: null,
-            instruction: null,
-            type: null,
-            required: false,
-            options: {
-                ans1: null
-            }
-        }
-      }
-    }
-  }
-});
+// Declare configuration variable for storage
+let form_config;
 
 
 // Form JSON Structure
 export default {
-  name: 'App',
-  props: {
-    config: {
-      type: Object,
-      required: true,
+    name: 'App',
+    props: {
+        config: {
+            type: Object,
+            required: true,
+        },
     },
-  },
-  created() {
+    created() {
         // Extract and parse the form_data property from form_config2
         const formData = JSON.parse(this.config.form_data);
 
-        // Completely override form_config with the parsed formData
-        form_config = ref(formData);
-  },
-  methods: {
-    removeSection(sectionName) {
-      // Get index of section from form config
-      let config = form_config.form_content;
-      let removedSectionIndex = Object.keys(config).indexOf(sectionName);
 
-      // Delete the section from the form configuration
-      delete config[sectionName];
-
-      // To maintain the consecutive numbering of sections,
-      // We re-index the sections.
-      // 1. Get all the keys from the form content object
-      let sectionKeys = Object.keys(config);
-
-      // 2. Loop through the keys from removed section `i` to `n`
-      for (let i = removedSectionIndex; i < sectionKeys.length; i++) {
-        // 3. Re-index the section names
-        config['section' + (i + 1)] = config[sectionKeys[i]];
-
-        // 4. Delete the original section names
-        delete config[sectionKeys[i]];
-      }
-
+        // Initialize form_config with reactive values
+        form_config = reactive(formData);
     },
-    removeQuestion(sectionName, questionName) {
-      // Get question index in section content
-      let config = form_config.form_content[sectionName].section_content;
-      let removedSectionIndex = Object.keys(config).indexOf(questionName);
+    methods: {
+        removeSection(sectionName) {
+            // Get index of section from form config
+            let config = form_config.form_content;
+            let removedSectionIndex = Object.keys(config).indexOf(sectionName);
 
-      // Delete the question
-      delete config[questionName];
+            // Delete the section from the form configuration
+            delete config[sectionName];
 
-      // To maintain the consecutive numbering of questions,
-      // We re-index the questions.
-      // 1. Get all the keys from the form content object
-      let questionKeys = Object.keys(config);
+            // To maintain the consecutive numbering of sections,
+            // We re-index the sections.
+            // 1. Get all the keys from the form content object
+            let sectionKeys = Object.keys(config);
 
-      // 2. Loop through the keys from removed question `i` to `n`
-      for (let i = removedSectionIndex; i < questionKeys.length; i++) {
-        // 3. Re-index the question names
-        config['question' + (i + 1)] = config[questionKeys[i]];
+            // 2. Loop through the keys from removed section `i` to `n`
+            for (let i = removedSectionIndex; i < sectionKeys.length; i++) {
+                // 3. Re-index the section names
+                config['section' + (i + 1)] = config[sectionKeys[i]];
 
-        // 4. Delete the original question names
-        delete config[questionKeys[i]];
-      }
-    },
-    removeAnswer(sectionName, questionName, answerName) {
-        // Get answer index in options object
-        let config = form_config.form_content[sectionName].section_content[questionName].options;
-        let removedAnswerIndex = Object.keys(config).indexOf(answerName);
+                // 4. Delete the original section names
+                delete config[sectionKeys[i]];
+            }
 
-        // Delete the question
-        delete config[answerName];
+        },
+        removeQuestion(sectionName, questionName) {
+            // Get question index in section content
+            let config = form_config.form_content[sectionName].section_content;
+            let removedSectionIndex = Object.keys(config).indexOf(questionName);
 
-        // To maintain the consecutive numbering of answers,
-        // We re-index the answers.
-        // 1. Get all the keys from the options object
-        let answerKeys = Object.keys(config);
+            // Delete the question
+            delete config[questionName];
 
-        // 2. Loop through the keys from removed answer `i` to `n`
-        for (let i = removedAnswerIndex; i < answerKeys.length; i++) {
-            // 3. Re-index the answer names
-            config['ans' + (i + 1)] = config[answerKeys[i]];
+            // To maintain the consecutive numbering of questions,
+            // We re-index the questions.
+            // 1. Get all the keys from the form content object
+            let questionKeys = Object.keys(config);
 
-            // 4. Delete the original answer names
-            delete config[answerKeys[i]];
+            // 2. Loop through the keys from removed question `i` to `n`
+            for (let i = removedSectionIndex; i < questionKeys.length; i++) {
+                // 3. Re-index the question names
+                config['question' + (i + 1)] = config[questionKeys[i]];
+
+                // 4. Delete the original question names
+                delete config[questionKeys[i]];
+            }
+        },
+        removeAnswer(sectionName, questionName, answerName) {
+            // Get answer index in options object
+            let config = form_config.form_content[sectionName].section_content[questionName].options;
+            let removedAnswerIndex = Object.keys(config).indexOf(answerName);
+
+            // Delete the question
+            delete config[answerName];
+
+            // To maintain the consecutive numbering of answers,
+            // We re-index the answers.
+            // 1. Get all the keys from the options object
+            let answerKeys = Object.keys(config);
+
+            // 2. Loop through the keys from removed answer `i` to `n`
+            for (let i = removedAnswerIndex; i < answerKeys.length; i++) {
+                // 3. Re-index the answer names
+                config['ans' + (i + 1)] = config[answerKeys[i]];
+
+                // 4. Delete the original answer names
+                delete config[answerKeys[i]];
+            }
+        },
+        addSection() {
+            // Get number of sections
+            let formContentSize = Object.keys(form_config.form_content).length;
+
+            // Append new section to form content
+            form_config
+                .form_content['section' + (formContentSize + 1)] = {
+                section_name: null,
+                section_type: 'question',
+                section_content: {
+
+                }
+            };
+        },
+        addQuestion(sectionName) {
+            // Get number of questions
+            let sectionContentSize = Object.keys(form_config.form_content[sectionName].section_content).length;
+
+            // Append new question with unique key identifier
+            form_config
+                .form_content[sectionName]
+                .section_content['question' + (sectionContentSize + 1)] = {
+                label: null,
+                instruction: null,
+                type: null,
+                required: false,
+                options: {
+                    ans1: null
+                }
+            };
+
+        },
+        addAnswer(sectionName, questionName) {
+            // Get number of questions
+            let questionContentSize = Object.keys(
+                form_config
+                    .form_content[sectionName]
+                    .section_content[questionName]
+                    .options
+            ).length;
+
+            // Append new answer with unique key identifier
+            form_config
+                .form_content[sectionName]
+                .section_content[questionName]
+                .options['ans' + (questionContentSize + 1)] = null;
+        },
+        resetQuestionContent(sectionName, questionName) {
+            // Delete current options object
+            delete form_config.form_content[sectionName].section_content[questionName].options;
+
+            // Re-add options object
+            form_config.form_content[sectionName].section_content[questionName]['options'] = {
+                ans1: null
+            };
+        },
+        submit() {
+            router.post('/generate', form_config);
         }
-    },
-    addSection() {
-      // Get number of sections
-      let formContentSize = Object.keys(form_config.form_content).length;
-
-      // Append new section to form content
-      form_config
-        .form_content['section' + (formContentSize + 1)] = {
-        section_name: null,
-        section_type: 'question',
-        section_content: {
-
-        }
-      };
-    },
-    addQuestion(sectionName) {
-      // Get number of questions
-      let sectionContentSize = Object.keys(form_config.form_content[sectionName].section_content).length;
-
-      // Append new question with unique key identifier
-      form_config
-        .form_content[sectionName]
-        .section_content['question' + (sectionContentSize + 1)] = {
-        label: null,
-        instruction: null,
-        type: null,
-        required: false,
-        options: {
-          ans1: null
-        }
-      };
-
-    },
-    addAnswer(sectionName, questionName) {
-      // Get number of questions
-      let questionContentSize = Object.keys(
-          form_config
-            .form_content[sectionName]
-            .section_content[questionName]
-            .options
-        ).length;
-
-      // Append new answer with unique key identifier
-      form_config
-        .form_content[sectionName]
-        .section_content[questionName]
-        .options['ans' + (questionContentSize + 1)] = null;
-    },
-    resetQuestionContent(sectionName, questionName) {
-      // Delete current options object
-      delete form_config.form_content[sectionName].section_content[questionName].options;
-
-      // Re-add options object
-      form_config.form_content[sectionName].section_content[questionName]['options'] = {
-        ans1: null
-      };
-    },
-    submit(){
-        router.post('/generate', form_config);
     }
-  }
 };
 
 </script>
