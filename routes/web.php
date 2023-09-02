@@ -65,16 +65,11 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         // Show Check Sheets Table
         Route::get('/', [CheckSheetController::class, 'index'])->name('checksheet');
 
-        // Redirect to Form Editor Page
-        Route::get('/editor', [CheckSheetController::class, 'show'])->name('checksheet.editor');
-
         // Save Form Changes
-        Route::put('/edit', [CheckSheetController::class, 'store'])->name('checksheet.store');
+        Route::put('/edit', [CheckSheetController::class, 'update'])->name('checksheet.update');
 
         //edit based on id
         Route::get('/edit/{id}', [CheckSheetController::class, 'edit'])->name('checksheet.edit');
-        //update based on id
-        Route::put('/{id}', [CheckSheetController::class, 'update'])->name('checksheet.update');
 
         // Delete Check Sheet
         Route::delete('/delete', [CheckSheetController::class, 'destroy'])->name('checksheet.delete');
@@ -114,7 +109,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     //Forms
     Route::get('Forms/{id}', function ($form_id) {
         // Get form path
-        $path = 'Forms/form'.$form_id;
+        $path = 'Forms/form' . $form_id;
 
         // Get all models
         $models = DB::table('models')

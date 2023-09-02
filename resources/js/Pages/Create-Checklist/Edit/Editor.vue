@@ -11,11 +11,9 @@ import { Link } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <AppLayout title="Create Checksheet">
+    <AppLayout title="Edit Checksheet">
         <div class="lg:mx-[25%] mb-40">
             <div class="mx-auto">
-                <!-- DEBUGGER -->
-                {{ form_config }}
 
                 <!-- CHECKSHEET NAME -->
                 <div class="mb-5">
@@ -515,6 +513,10 @@ export default {
             type: Object,
             required: true,
         },
+        form_id: {
+            type: String,
+            required: true,
+        }
     },
     created() {
         // Extract and parse the form_data property from form_config2
@@ -649,7 +651,10 @@ export default {
             };
         },
         submit() {
-            router.post('/generate', form_config);
+            router.put(route('checksheet.update'), {
+                form_id: this.form_id,
+                new_config: form_config,
+            });
         }
     }
 };
