@@ -100,7 +100,7 @@ const props = defineProps({
                                         {{ form.form_name }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ form.created_by }}
+                                        {{ form.created_by_name }}
                                     </td>
                                     <td class="px-6 py-4">
                                         {{ form.created_at }}

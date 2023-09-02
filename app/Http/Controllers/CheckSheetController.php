@@ -14,7 +14,10 @@ class CheckSheetController extends Controller
     public function index()
     {
         // Get All Forms
-        $forms = DB::table('forms')->select()->get();
+        $forms = DB::table('forms')
+            ->select('forms.*', DB::raw('CONCAT(employees.first_name, " ", employees.last_name) as created_by_name'))
+            ->leftJoin('employees', 'forms.created_by', '=', 'employees.id')
+            ->get();
 
         // Send Data to Check Sheet Manager
         return Inertia::render('Create-Checklist/Edit/Edit', [
