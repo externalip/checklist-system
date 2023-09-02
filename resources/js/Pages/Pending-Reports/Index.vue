@@ -10,19 +10,19 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import { Link } from '@inertiajs/vue3';
 import { reactive, ref, onMounted, watch } from 'vue';
 
-function showDiv(element) {
-    // Hide all hidden divs first
-    var hiddenDivs = document.getElementsByClassName('hidden_div');
-    for (var i = 0; i < hiddenDivs.length; i++) {
-        hiddenDivs[i].style.display = 'none';
-    }
+const showDiv = (selectedFormName) => {
+  // Hide all hidden divs first
+  const hiddenDivs = document.getElementsByClassName('hidden_div');
+  for (let i = 0; i < hiddenDivs.length; i++) {
+    hiddenDivs[i].style.display = 'none';
+  }
 
-    // Show the selected hidden div
-    var selectedDiv = document.getElementById(element.value);
-    if (selectedDiv) {
-        selectedDiv.style.display = 'block';
-    }
-}
+  // Show the selected hidden div
+  const selectedDiv = document.getElementById(selectedFormName);
+  if (selectedDiv) {
+    selectedDiv.style.display = 'block';
+  }
+};
 let selectedForm = reactive({
     form_name: null,
 });
@@ -36,19 +36,9 @@ let props = defineProps({
     formtable: Array
 });
 watch(() => selectedForm.form_name, (newValue) => {
-    // Hide all hidden divs first
-    var hiddenDivs = document.getElementsByClassName('hidden_div');
-    for (var i = 0; i < hiddenDivs.length; i++) {
-        hiddenDivs[i].style.display = 'none';
-    }
-
-    // Show the selected hidden div
-    var selectedDiv = document.getElementById(newValue);
-    if (selectedDiv) {
-        selectedDiv.style.display = 'block';
-    }
-
-
+    setTimeout(() => {
+        showDiv(newValue);
+    }, 0);
 });
 
 onMounted(() => {
@@ -79,7 +69,7 @@ onMounted(() => {
                     <label for="pending-checklists" class="block mb-2 text-sm font-medium text-[--blue] dark:text-white">Choose a
                             checklist</label>
                     <select v-model="selectedForm.form_name" id="pending-checklists" class="bg-gray-50 border border-gray-300 text-[#3182ce] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        @change="showDiv($event.target)">
+                    @change="showDiv(selectedForm.form_name)">
                             <option value="">Select a Form</option>
                             <option
                             v-for="form in forms"
