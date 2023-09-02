@@ -31,6 +31,7 @@ class CheckSheetController extends Controller
             'forms' => $forms,
         ]);
     }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -73,7 +74,7 @@ class CheckSheetController extends Controller
     {
         $id = $request->input('id');
 
-        Storage::disk('form_path')->delete('form' . $id . '.vue');
+        Storage::disk('form_path')->delete('form'.$id.'.vue');
         $result = DB::table('forms')
             ->where('id', $id)
             ->delete();
