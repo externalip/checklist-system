@@ -40,11 +40,11 @@ const props = defineProps({
                             class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                             <span
                                 class="text-[--blue] font-bold bg-clip-text text-4xl flex md:justify-end justify-center">{{ form.pending_count }}</span>
-                            <a :href="route('Pending-Reports', { form_name: form.form_name })">
+                            <Link href="/Pending-Reports" :data="{ form_name: form.form_name }">
                                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-[--blue] dark:text-white">
                                     {{ form.form_name }}
                                 </h5>
-                            </a>
+                            </Link>
                             <p class="mb-3 font-normal text-[--blue] dark:text-gray-400">You have {{ form.pending_count }}
                                 pending reviews on this
                                 check sheet.</p>
