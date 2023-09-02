@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Inertia\Inertia;
+use Illuminate\Support\Facades\Storage;
 
 class CheckSheetController extends Controller
 {
@@ -63,8 +64,25 @@ class CheckSheetController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->input('id');
+
+        Storage::disk('form_path')->delete('form' . $id . '.vue');
+        $result = DB::table('forms')
+            ->where('id', $id)
+            ->delete();
+
+        if ($result) {
+            return response()->json([
+                'message' => 'Form deleted successfully',
+                'status' => 'success',
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Form deletion failed',
+                'status' => 'error',
+            ], 400);
+        }
     }
 }
