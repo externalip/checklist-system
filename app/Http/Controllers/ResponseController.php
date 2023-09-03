@@ -113,7 +113,7 @@ class ResponseController extends Controller
         $timestamp = now()->format('ymdHis');
         $userId = auth()->user()->id;
 
-        $responseNo = $timestamp . '-' . $userId;
+        $responseNo = $timestamp.'-'.$userId;
 
         return $responseNo;
     }
