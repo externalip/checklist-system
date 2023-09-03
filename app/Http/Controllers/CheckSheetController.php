@@ -94,7 +94,10 @@ class CheckSheetController extends Controller
         //     ], 400);
         // }
 
-        return response()->json($result);
+        return response()->json([
+            'message' => 'Form updated successfully',
+            'status' => 'success',
+        ], 200);
     }
 
     /**
