@@ -284,7 +284,7 @@ onMounted(() => {
                                             :placeholder="JSON.parse(row.response).fieldAnswers['Remarks on the Model']" disabled></textarea>
                                     </div>
                                 </div>
-
+                                <div v-if="$page.props.auth.employee.role ==! 1 " class="pb-5">
                                 <!-- Button -->
                                 <div id="pending-sign-btn" class="px-5 p-2 w-full flex justify-end">
 
@@ -306,6 +306,7 @@ onMounted(() => {
                                     <button type="button" class="text-white bg-[--blue] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Approve
                                         </button>
                                     </Link>
+                                </div>
                                 </div>
                             </div>
                         </ul>
