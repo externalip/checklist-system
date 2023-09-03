@@ -33,21 +33,41 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/Login', function () {
+    return Inertia::render('Auth/Login', [
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});
+
 // Registration Page
 Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    route::middleware('checkRole:2,3')->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        // User Manager Page
+        Route::prefix('Users')->group(function () {
+            Route::get('/', [UserController::class, 'index'])->name('users');
+            Route::get('/create', [UserController::class, 'create'])->name('users.create');
+            Route::post('/', [UserController::class, 'store'])->name('users.store');
+            Route::get('/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+            Route::put('/{user}', [UserController::class, 'update'])->name('users.update');
+            Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+        });
 
-    // User Manager Page
-    Route::prefix('Users')->group(function () {
-        Route::get('/', [UserController::class, 'index'])->name('users');
-        Route::get('/create', [UserController::class, 'create'])->name('users.create');
-        Route::post('/', [UserController::class, 'store'])->name('users.store');
-        Route::get('/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
-        Route::put('/{user}', [UserController::class, 'update'])->name('users.update');
-        Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+        // Model Manager Page
+        Route::prefix('Models')->group(function () {
+            Route::get('/', [ModelController::class, 'index'])->name('models.index');
+            Route::get('/{id}/edit', [ModelController::class, 'edit'])->name('models.edit');
+            Route::post('/', [ModelController::class, 'store'])->name('models.store');
+            Route::put('/{id}', [ModelController::class, 'update'])->name('models.update');
+            Route::delete('/', [ModelController::class, 'destroy'])->name('models.destroy');
+        });
+
+        // Audit Trail Page
+        Route::get('/audit', [AuditController::class, 'index'])->name('audit');
     });
 
     // 5S Checklist Form Page
@@ -75,22 +95,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::delete('/delete', [CheckSheetController::class, 'destroy'])->name('checksheet.delete');
     });
 
-    // Audit Trail Page
-    Route::get('/audit', [AuditController::class, 'index'])->name('audit');
-
     // Pending Reports Page
     Route::prefix('/Pending-Reports')->group(function () {
         Route::get('/', [ReportController::class, 'index'])->name('Pending-Reports');
         Route::put('/{status}/{id}', [ReportController::class, 'update'])->name('Pending-Reports.update');
-    });
-
-    // Model Manager Page
-    Route::prefix('Models')->group(function () {
-        Route::get('/', [ModelController::class, 'index'])->name('models.index');
-        Route::get('/{id}/edit', [ModelController::class, 'edit'])->name('models.edit');
-        Route::post('/', [ModelController::class, 'store'])->name('models.store');
-        Route::put('/{id}', [ModelController::class, 'update'])->name('models.update');
-        Route::delete('/', [ModelController::class, 'destroy'])->name('models.destroy');
     });
 
     // Form Submission Function

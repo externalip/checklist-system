@@ -20,6 +20,7 @@
         </button>
 
         <ul class="space-y-2 font-medium">
+            <div v-if="$page.props.auth.employee.role_id !== 1"  class="space-y-2">
             <!-- DASHBOARD -->
             <li
                 class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
@@ -72,7 +73,7 @@
                     >
                 </Link>
             </li>
-
+            </div>
             <!-- PENDING REPORTS -->
             <li
                 class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
@@ -265,10 +266,10 @@
                     <span class="flex-1 ml-3 whitespace-nowrap">Archives</span>
                 </Link>
             </li>
-
+            <div v-if="$page.props.auth.employee.role_id !== 1" class="space-y-2">
             <!-- AUDIT TRACKING -->
             <li
-                class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group mb-5"
             >
                 <Link
                     :href="route('audit')"
@@ -359,7 +360,7 @@
                     >
                 </Link>
             </li>
-
+        </div>
             <p class="text-center text-sm" style="padding-top: 20px">
                 User Manual
             </p>
@@ -406,6 +407,7 @@
                     >
                 </Link>
             </li>
+
         </ul>
     </div>
 
