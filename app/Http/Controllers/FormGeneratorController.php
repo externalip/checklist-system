@@ -215,6 +215,8 @@ class FormGeneratorController extends Controller
                                 </div>
                                 ');
                         }
+
+                        $answerIndex++;
                     }
 
                     // Append Closing Question Label
