@@ -32,7 +32,7 @@ const props = defineProps({
                     <h2 class="text-[--blue]">Pending Reviews</h2>
                 </div>
 
-                <div id="pending-review-cards" class="grid 2xl:grid-col-6 lg:grid-cols-3 md:grid-cols-2 grid-cols-2 gap-4">
+                <div id="pending-review-cards" class="grid 2xl:grid-cols-5 lg:grid-cols-3 md:grid-cols-2 grid-cols-2 gap-4">
 
                     <!-- Dynamic Card -->
                     <div v-for="form in forms" :key="form.id">
