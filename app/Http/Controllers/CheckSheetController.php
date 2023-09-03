@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\FormGeneratorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -65,12 +66,17 @@ class CheckSheetController extends Controller
      */
     public function update(Request $request)
     {
+        $form_generator = new FormGeneratorController();
+
         $form_id = $request->input('form_id');
         $form_config = $request->input('new_config');
+        $form_name = $form_config['form_name'];
 
         $result = DB::table('forms')
             ->where('id', $form_id)
             ->update(['form_data' => $form_config]);
+
+        $form_generator->generateForm($form_id, $form_name, $form_config);
 
         // if ($result) {
         //     return response()->json([
