@@ -285,7 +285,7 @@ const parsedArray = (data) => {
                                             :placeholder="JSON.parse(row.response).fieldAnswers['Remarks on the Model']" disabled></textarea>
                                     </div>
                                 </div>
-                                <div v-if="$page.props.auth.employee.role_id ==! 1 " class="pb-5">
+                                <div v-if="$page.props.auth.employee.role_id != 1 " class="pb-5">
                                 <!-- Button -->
                                 <div id="pending-sign-btn" class="px-5 p-2 w-full flex justify-end">
 
