@@ -8,7 +8,7 @@
 
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { Link } from '@inertiajs/vue3';
-import { reactive, ref, onMounted, watch } from 'vue';
+import { reactive, computed, onMounted, watch } from 'vue';
 
 const showDiv = (selectedFormName) => {
   // Hide all hidden divs first
@@ -53,6 +53,13 @@ onMounted(() => {
     }
 
 });
+const parsedArray = (data) => {
+  if (Array.isArray(data)) {
+    return data.join(', ');
+  } else {
+    return data;
+  }
+};
 
 </script>
 
@@ -215,7 +222,7 @@ onMounted(() => {
                                                             {{ question.label }}
                                                         </th>
                                                         <td :class="(JSON.parse(row.response).fieldAnswers[question.label] === 'OK' || JSON.parse(row.response).fieldAnswers[question.label] === 'PASS' || JSON.parse(row.response).fieldAnswers[question.label] === '✔') ? 'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : 'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
-                                                            {{ JSON.parse(row.response).fieldAnswers[question.label] }}
+                                                            {{ parsedArray(JSON.parse(row.response).fieldAnswers[question.label]) }}
                                                         </td>
                                                     </tr>
                                                 </tbody>
