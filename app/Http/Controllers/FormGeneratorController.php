@@ -230,6 +230,23 @@ class FormGeneratorController extends Controller
             Storage::disk('form_path')->append($file_name, '</section>');
         }
 
+        // Append Remarks Field
+        Storage::disk('form_path')->append($file_name, '
+                <!-- REMARKS -->
+                <section id="form-section" class="p-10 mt-5 mb-5 border-2 rounded-lg">
+                    <h2 class="mb-2">Remarks</h2>
+                    <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
+                        <h5 id="question'.$questionIndex++.'">Remarks on the Model</h5>
+                        <label for="message" class="block mb-2 text-sm font-medium dark:text-white">Please
+                                    type
+                                    possible problems regarding with the machine.</label>
+                        <textarea v-model="form.fieldAnswers.ans'.$answerIndex.'" id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Write here...">
+                        </textarea>
+                    </div>
+                </section>
+        ');
+
         // Append Final Closing Tags
         Storage::disk('form_path')->append($file_name, '
                             <section id="button-group"
@@ -313,6 +330,7 @@ class FormGeneratorController extends Controller
                 ans1: null,
                 ans2: null,
                 '.$fieldAnswersData.'
+                ans'.$fieldCount.': null,
             }
         })
         
