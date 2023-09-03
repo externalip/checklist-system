@@ -55,8 +55,6 @@ class ResponseController extends Controller
 
         // Save response to database
         $this->storeResponse($request);
-
-        return response()->json(['status' => 'success', 'message' => 'Form submitted successfully']);
     }
 
     public function storeResponse(Request $request)
@@ -82,6 +80,9 @@ class ResponseController extends Controller
 
         // Assign required signatures for the submitted data
         $this->requireSign($row_id);
+
+        // Success prompt
+        return response()->json(['status' => 'success', 'message' => 'Form submitted successfully']);
     }
 
     private function requireSign($row_id)
@@ -102,7 +103,6 @@ class ResponseController extends Controller
                 'updated_at' => Carbon::now(),
             ]);
         }
-
     }
 
     private function generateUniqueResponseNo()
