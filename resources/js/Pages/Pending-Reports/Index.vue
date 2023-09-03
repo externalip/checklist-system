@@ -175,12 +175,6 @@ onMounted(() => {
                                         <h5 class="font-bold">{{ JSON.parse(row.response).fieldAnswers['Lot Number'] }}</h5>
                                     </div>
 
-                                    <div id="check-type" class="">
-                                        <label for="" class="text-sm">Type of Checking</label>
-                                        <h5 class="font-bold">{{ JSON.parse(row.response).fieldAnswers['Type of Checking'] }}
-                                        </h5>
-                                    </div>
-
                                     <div id="performed-by" class="">
                                         <label for="" class="text-sm">Performed by</label>
                                         <h5 class="font-bold">{{ row.first_name }}</h5>
@@ -284,7 +278,7 @@ onMounted(() => {
                                             :placeholder="JSON.parse(row.response).fieldAnswers['Remarks on the Model']" disabled></textarea>
                                     </div>
                                 </div>
-                                <div v-if="$page.props.auth.employee.role ==! 1 " class="pb-5">
+                                <div v-if="$page.props.auth.employee.role_id ==! 1 " class="pb-5">
                                 <!-- Button -->
                                 <div id="pending-sign-btn" class="px-5 p-2 w-full flex justify-end">
 
