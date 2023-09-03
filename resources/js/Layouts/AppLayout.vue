@@ -20,59 +20,62 @@
         </button>
 
         <ul class="space-y-2 font-medium">
-            <div v-if="$page.props.auth.employee.role_id !== 1"  class="space-y-2">
-            <!-- DASHBOARD -->
-            <li
-                class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+            <div
+                v-if="$page.props.auth.employee.role_id !== 1"
+                class="space-y-2"
             >
-                <Link
-                    :href="route('dashboard')"
-                    :class="{ active: $page.url.startsWith('/dashboard') }"
-                    class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
+                <!-- DASHBOARD -->
+                <li
+                    class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                 >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
+                    <Link
+                        :href="route('dashboard')"
+                        :class="{ active: $page.url.startsWith('/dashboard') }"
+                        class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
                     >
-                        <path
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            d="M4 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5Zm10 0a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V5ZM4 16a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3Zm10-3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-6Z"
-                        />
-                    </svg>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                d="M4 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5Zm10 0a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V5ZM4 16a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3Zm10-3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-6Z"
+                            />
+                        </svg>
 
-                    <span class="ml-3">Dashboard</span>
-                </Link>
-            </li>
+                        <span class="ml-3">Dashboard</span>
+                    </Link>
+                </li>
 
-            <!-- MANAGE CHECK SHEETS -->
-            <li
-                class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-            >
-                <Link
-                    :href="route('checksheet')"
-                   :class="{ active: $page.url.startsWith('/checksheet') }"
-                    class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
+                <!-- MANAGE CHECK SHEETS -->
+                <li
+                    class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                 >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 15 15"
+                    <Link
+                        :href="route('checksheet')"
+                        :class="{ active: $page.url.startsWith('/checksheet') }"
+                        class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
                     >
-                        <path
-                            fill="currentColor"
-                            d="M4.5 6.995H4v1h.5v-1Zm6 1h.5v-1h-.5v1Zm-6 2.505H4v.5h.5v-.5Zm6 0v.5h.5v-.5h-.5Zm-6-6.503H4v1h.5v-1Zm6 1h.5v-1h-.5v1Zm3-1.497h.5v-.207l-.146-.147l-.354.354Zm-3-3l.354-.354L10.707 0H10.5v.5Zm-6 7.495h6v-1h-6v1ZM4.5 11h6v-1h-6v1Zm0-6.003h6v-1h-6v1Zm8 9.003h-10v1h10v-1ZM2 13.5v-12H1v12h1Zm11-10v10h1v-10h-1ZM2.5 1h8V0h-8v1Zm7.646-.146l3 3l.708-.708l-3-3l-.708.708ZM2.5 14a.5.5 0 0 1-.5-.5H1A1.5 1.5 0 0 0 2.5 15v-1Zm10 1a1.5 1.5 0 0 0 1.5-1.5h-1a.5.5 0 0 1-.5.5v1ZM2 1.5a.5.5 0 0 1 .5-.5V0A1.5 1.5 0 0 0 1 1.5h1Zm2 3v6h1v-6H4Zm3 0v6h1v-6H7Zm3 0v6h1v-6h-1Z"
-                        />
-                    </svg>
-                    <span class="flex-1 ml-3 whitespace-nowrap"
-                        >Manage Check Sheet</span
-                    >
-                </Link>
-            </li>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 15 15"
+                        >
+                            <path
+                                fill="currentColor"
+                                d="M4.5 6.995H4v1h.5v-1Zm6 1h.5v-1h-.5v1Zm-6 2.505H4v.5h.5v-.5Zm6 0v.5h.5v-.5h-.5Zm-6-6.503H4v1h.5v-1Zm6 1h.5v-1h-.5v1Zm3-1.497h.5v-.207l-.146-.147l-.354.354Zm-3-3l.354-.354L10.707 0H10.5v.5Zm-6 7.495h6v-1h-6v1ZM4.5 11h6v-1h-6v1Zm0-6.003h6v-1h-6v1Zm8 9.003h-10v1h10v-1ZM2 13.5v-12H1v12h1Zm11-10v10h1v-10h-1ZM2.5 1h8V0h-8v1Zm7.646-.146l3 3l.708-.708l-3-3l-.708.708ZM2.5 14a.5.5 0 0 1-.5-.5H1A1.5 1.5 0 0 0 2.5 15v-1Zm10 1a1.5 1.5 0 0 0 1.5-1.5h-1a.5.5 0 0 1-.5.5v1ZM2 1.5a.5.5 0 0 1 .5-.5V0A1.5 1.5 0 0 0 1 1.5h1Zm2 3v6h1v-6H4Zm3 0v6h1v-6H7Zm3 0v6h1v-6h-1Z"
+                            />
+                        </svg>
+                        <span class="flex-1 ml-3 whitespace-nowrap"
+                            >Manage Check Sheet</span
+                        >
+                    </Link>
+                </li>
             </div>
             <!-- PENDING REPORTS -->
             <li
@@ -80,7 +83,9 @@
             >
                 <Link
                     :href="route('Pending-Reports')"
-                    :class="{ active: $page.url.startsWith('/Pending-Reports') }"
+                    :class="{
+                        active: $page.url.startsWith('/Pending-Reports'),
+                    }"
                     class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
                 >
                     <svg
@@ -199,11 +204,16 @@
                         </svg>
                     </button>
                 </a>
-                <ul id="dropdown-example" class="hidden py-2 space-y-2">
+                <ul
+                    id="dropdown-example"
+                    class="hidden py-2 space-y-2 max-h-60 overflow-y-auto"
+                >
                     <li>
                         <Link
                             :href="route('5S-Checklist')"
-                            :class="{ active: $page.url.startsWith('/5S-Checklist') }"
+                            :class="{
+                                active: $page.url.startsWith('/5S-Checklist'),
+                            }"
                             class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11"
                         >
                             5s Checklist
@@ -212,7 +222,9 @@
                     <li>
                         <Link
                             :href="route('PTouch-Solder')"
-                            :class="{ active: $page.url.startsWith('/PTouch-Solder') }"
+                            :class="{
+                                active: $page.url.startsWith('/PTouch-Solder'),
+                            }"
                             class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11"
                         >
                             P-Touch Soldering
@@ -221,7 +233,9 @@
                     <li>
                         <Link
                             :href="route('PTouch-ICT')"
-                        :class="{ active: $page.url.startsWith('/PTouch-ICT') }"
+                            :class="{
+                                active: $page.url.startsWith('/PTouch-ICT'),
+                            }"
                             class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11"
                         >
                             P-Touch ICT
@@ -230,7 +244,11 @@
                     <li v-for="form in $page.props.sharedForms">
                         <Link
                             :href="route('showForm', form.id)"
-                            :class="{ active: $page.url.startsWith('/Forms/' + form.id)}"
+                            :class="{
+                                active: $page.url.startsWith(
+                                    '/Forms/' + form.id
+                                ),
+                            }"
                             class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11"
                         >
                             {{ form.form_name }}
@@ -266,101 +284,104 @@
                     <span class="flex-1 ml-3 whitespace-nowrap">Archives</span>
                 </Link>
             </li>
-            <div v-if="$page.props.auth.employee.role_id !== 1" class="space-y-2">
-            <!-- AUDIT TRACKING -->
-            <li
-                class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group mb-5"
+            <div
+                v-if="$page.props.auth.employee.role_id !== 1"
+                class="space-y-2"
             >
-                <Link
-                    :href="route('audit')"
-                    :class="{ active: $page.url.startsWith('/audit') }"
-                    class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
+                <!-- AUDIT TRACKING -->
+                <li
+                    class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group mb-5"
                 >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 2048 2048"
+                    <Link
+                        :href="route('audit')"
+                        :class="{ active: $page.url.startsWith('/audit') }"
+                        class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
                     >
-                        <path
-                            fill="currentColor"
-                            d="M1033 1280q-14 30-21 62t-13 66H384v-128h649zm-649 384v-128h613q5 33 14 65t23 63H384zm-128 256h1349l127 128H128V0h1115l549 549v568q-29-26-61-47t-67-37V640h-512V128H256v1792zM1280 219v293h293l-293-293zm24 805q-109 41-187 128H384v-128h920zM384 512h640v128H384V512zm1152 256v128H384V768h1152zm512 1216q0 26-19 45t-45 19q-26 0-45-19l-291-290q-39 26-84 39t-92 14q-66 0-124-25t-102-68t-69-102t-25-125q0-66 25-124t68-101t102-69t125-26q66 0 124 25t101 69t69 102t26 124q0 47-13 92t-40 84l290 291q19 19 19 45zm-768-512q0 40 15 75t41 61t61 41t75 15q40 0 75-15t61-41t41-61t15-75q0-40-15-75t-41-61t-61-41t-75-15q-40 0-75 15t-61 41t-41 61t-15 75z"
-                        />
-                    </svg>
-
-                    <span class="flex-1 ml-3 whitespace-nowrap"
-                        >Audit Tracking</span
-                    >
-                </Link>
-            </li>
-
-            <!-- MANAGE MODEL -->
-            <li
-                class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-            >
-                <Link
-                    :href="route('models.index')"
-                    :class="{ active: $page.url.startsWith('/Models') }"
-                    class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 32 32"
-                    >
-                        <path
-                            fill="currentColor"
-                            d="M16 25a6.99 6.99 0 0 1-5.833-3.129l1.666-1.107a5 5 0 0 0 8.334 0l1.666 1.107A6.99 6.99 0 0 1 16 25zm4-11a2 2 0 1 0 2 2a1.98 1.98 0 0 0-2-2zm-8 0a2 2 0 1 0 2 2a1.98 1.98 0 0 0-2-2z"
-                        />
-                        <path
-                            fill="currentColor"
-                            d="M30 16v-2h-2v-4a4.005 4.005 0 0 0-4-4h-2V2h-2v4h-8V2h-2v4H8a4.005 4.005 0 0 0-4 4v4H2v2h2v5H2v2h2v3a4.005 4.005 0 0 0 4 4h16a4.005 4.005 0 0 0 4-4v-3h2v-2h-2v-5Zm-4 10a2.002 2.002 0 0 1-2 2H8a2.002 2.002 0 0 1-2-2V10a2.002 2.002 0 0 1 2-2h16a2.002 2.002 0 0 1 2 2Z"
-                        />
-                    </svg>
-
-                    <span class="flex-1 ml-3 whitespace-nowrap"
-                        >Manage Models</span
-                    >
-                </Link>
-            </li>
-
-            <p class="text-center text-sm" style="padding-top: 20px">
-                User Configuration
-            </p>
-
-            <!-- MANAGE USERS -->
-            <li
-                class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-            >
-                <Link
-                    :href="route('users')"
-                    :class="{ active: $page.url.startsWith('/Users') }"
-                    class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 256 256"
-                    >
-                        <g fill="currentColor">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 2048 2048"
+                        >
                             <path
-                                d="M136 108a52 52 0 1 1-52-52a52 52 0 0 1 52 52Z"
-                                opacity=".2"
+                                fill="currentColor"
+                                d="M1033 1280q-14 30-21 62t-13 66H384v-128h649zm-649 384v-128h613q5 33 14 65t23 63H384zm-128 256h1349l127 128H128V0h1115l549 549v568q-29-26-61-47t-67-37V640h-512V128H256v1792zM1280 219v293h293l-293-293zm24 805q-109 41-187 128H384v-128h920zM384 512h640v128H384V512zm1152 256v128H384V768h1152zm512 1216q0 26-19 45t-45 19q-26 0-45-19l-291-290q-39 26-84 39t-92 14q-66 0-124-25t-102-68t-69-102t-25-125q0-66 25-124t68-101t102-69t125-26q66 0 124 25t101 69t69 102t26 124q0 47-13 92t-40 84l290 291q19 19 19 45zm-768-512q0 40 15 75t41 61t61 41t75 15q40 0 75-15t61-41t41-61t15-75q0-40-15-75t-41-61t-61-41t-75-15q-40 0-75 15t-61 41t-41 61t-15 75z"
+                            />
+                        </svg>
+
+                        <span class="flex-1 ml-3 whitespace-nowrap"
+                            >Audit Tracking</span
+                        >
+                    </Link>
+                </li>
+
+                <!-- MANAGE MODEL -->
+                <li
+                    class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                >
+                    <Link
+                        :href="route('models.index')"
+                        :class="{ active: $page.url.startsWith('/Models') }"
+                        class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 32 32"
+                        >
+                            <path
+                                fill="currentColor"
+                                d="M16 25a6.99 6.99 0 0 1-5.833-3.129l1.666-1.107a5 5 0 0 0 8.334 0l1.666 1.107A6.99 6.99 0 0 1 16 25zm4-11a2 2 0 1 0 2 2a1.98 1.98 0 0 0-2-2zm-8 0a2 2 0 1 0 2 2a1.98 1.98 0 0 0-2-2z"
                             />
                             <path
-                                d="M117.25 157.92a60 60 0 1 0-66.5 0a95.83 95.83 0 0 0-47.22 37.71a8 8 0 1 0 13.4 8.74a80 80 0 0 1 134.14 0a8 8 0 0 0 13.4-8.74a95.83 95.83 0 0 0-47.22-37.71ZM40 108a44 44 0 1 1 44 44a44.05 44.05 0 0 1-44-44Zm210.14 98.7a8 8 0 0 1-11.07-2.33A79.83 79.83 0 0 0 172 168a8 8 0 0 1 0-16a44 44 0 1 0-16.34-84.87a8 8 0 1 1-5.94-14.85a60 60 0 0 1 55.53 105.64a95.83 95.83 0 0 1 47.22 37.71a8 8 0 0 1-2.33 11.07Z"
+                                fill="currentColor"
+                                d="M30 16v-2h-2v-4a4.005 4.005 0 0 0-4-4h-2V2h-2v4h-8V2h-2v4H8a4.005 4.005 0 0 0-4 4v4H2v2h2v5H2v2h2v3a4.005 4.005 0 0 0 4 4h16a4.005 4.005 0 0 0 4-4v-3h2v-2h-2v-5Zm-4 10a2.002 2.002 0 0 1-2 2H8a2.002 2.002 0 0 1-2-2V10a2.002 2.002 0 0 1 2-2h16a2.002 2.002 0 0 1 2 2Z"
                             />
-                        </g>
-                    </svg>
+                        </svg>
 
-                    <span class="flex-1 ml-3 whitespace-nowrap"
-                        >Manage Personnel</span
+                        <span class="flex-1 ml-3 whitespace-nowrap"
+                            >Manage Models</span
+                        >
+                    </Link>
+                </li>
+
+                <p class="text-center text-sm" style="padding-top: 20px">
+                    User Configuration
+                </p>
+
+                <!-- MANAGE USERS -->
+                <li
+                    class="dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                >
+                    <Link
+                        :href="route('users')"
+                        :class="{ active: $page.url.startsWith('/Users') }"
+                        class="inline-flex items-center p-2 text-gray-900 rounded-lg group"
                     >
-                </Link>
-            </li>
-        </div>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 256 256"
+                        >
+                            <g fill="currentColor">
+                                <path
+                                    d="M136 108a52 52 0 1 1-52-52a52 52 0 0 1 52 52Z"
+                                    opacity=".2"
+                                />
+                                <path
+                                    d="M117.25 157.92a60 60 0 1 0-66.5 0a95.83 95.83 0 0 0-47.22 37.71a8 8 0 1 0 13.4 8.74a80 80 0 0 1 134.14 0a8 8 0 0 0 13.4-8.74a95.83 95.83 0 0 0-47.22-37.71ZM40 108a44 44 0 1 1 44 44a44.05 44.05 0 0 1-44-44Zm210.14 98.7a8 8 0 0 1-11.07-2.33A79.83 79.83 0 0 0 172 168a8 8 0 0 1 0-16a44 44 0 1 0-16.34-84.87a8 8 0 1 1-5.94-14.85a60 60 0 0 1 55.53 105.64a95.83 95.83 0 0 1 47.22 37.71a8 8 0 0 1-2.33 11.07Z"
+                                />
+                            </g>
+                        </svg>
+
+                        <span class="flex-1 ml-3 whitespace-nowrap"
+                            >Manage Personnel</span
+                        >
+                    </Link>
+                </li>
+            </div>
             <p class="text-center text-sm" style="padding-top: 20px">
                 User Manual
             </p>
@@ -407,7 +428,6 @@
                     >
                 </Link>
             </li>
-
         </ul>
     </div>
 
