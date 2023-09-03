@@ -85,7 +85,7 @@ class ReportController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $status, string $response_id)
+    public function update(string $status, string $response_id)
     {
         // Get user id
         $user_id = $this->getUserId();
@@ -128,7 +128,10 @@ class ReportController extends Controller
             $this->markResponseStatus($response_id, 'OK');
         }
 
-        return redirect()->route('Pending-Reports')->with('success', 'Report signed successfully');
+        return response()->json([
+            'message' => 'Signature status updated successfully!',
+            'status' => 'success',
+        ]);
     }
 
     public function getUserId()
