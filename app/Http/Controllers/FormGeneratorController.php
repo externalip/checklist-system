@@ -56,7 +56,7 @@ class FormGeneratorController extends Controller
         return $count > 0;
     }
 
-    private function generateForm($form_id, $form_title, $config)
+    public function generateForm($form_id, $form_title, $config)
     {
         // Set directory, file name, and file extension type
         $file_name = 'form'.$form_id.'.vue';
@@ -119,7 +119,6 @@ class FormGeneratorController extends Controller
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                                 </div>
                             ');
-
                         } else {
 
                             // Append Text Answer Field
@@ -129,7 +128,6 @@ class FormGeneratorController extends Controller
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 </div>
                             ');
-
                         }
                     } elseif (str_contains($value['section_content'][$qKey]['type'], 'radio')) {
 
@@ -182,14 +180,12 @@ class FormGeneratorController extends Controller
                             Storage::disk('form_path')->append($file_name, '
                                 <select id="models" v-model="form.fieldAnswers.ans'.$answerIndex.'" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                             ');
-
                         } else {
 
                             // Append Opening Dropdown Group
                             Storage::disk('form_path')->append($file_name, '
                                 <select id="models" v-model="form.fieldAnswers.ans'.$answerIndex.'" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             ');
-
                         }
 
                         // Append Dropdown Options
@@ -203,7 +199,6 @@ class FormGeneratorController extends Controller
 
                         // Append Closing Dropdown Group
                         Storage::disk('form_path')->append($file_name, '</select>');
-
                     } else {
 
                         // Append Checkbox Options
@@ -251,7 +246,6 @@ class FormGeneratorController extends Controller
                 </AppLayout>
             </template>
         ');
-
     }
 
     private function generateStartingTags($form_id, $form_title, $config)
