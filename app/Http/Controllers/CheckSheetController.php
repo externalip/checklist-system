@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -73,7 +74,11 @@ class CheckSheetController extends Controller
 
         $result = DB::table('forms')
             ->where('id', $form_id)
-            ->update(['form_data' => $form_config]);
+            ->update([
+                'form_data' => $form_config,
+                'form_name' => $form_name,
+                'updated_at' => Carbon::now(),
+            ]);
 
         $form_generator->generateForm($form_id, $form_name, $form_config);
 
@@ -99,7 +104,7 @@ class CheckSheetController extends Controller
     {
         $id = $request->input('id');
 
-        Storage::disk('form_path')->delete('form'.$id.'.vue');
+        Storage::disk('form_path')->delete('form' . $id . '.vue');
         $result = DB::table('forms')
             ->where('id', $id)
             ->delete();
