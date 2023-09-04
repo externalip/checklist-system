@@ -500,50 +500,85 @@ let form_config = reactive({
 export default {
     name: 'App',
     methods: {
-        removeSection(sectionName) {
-            // Get index of section from form config
-            let config = form_config.form_content;
-            let removedSectionIndex = Object.keys(config).indexOf(sectionName);
+      removeSection(sectionName) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: `You are about to delete section. This action cannot be undone.`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Get index of section from form config
+                    let config = form_config.form_content;
+                    let removedSectionIndex = Object.keys(config).indexOf(sectionName);
 
-            // Delete the section from the form configuration
-            delete config[sectionName];
+                    // Delete the section from the form configuration
+                    delete config[sectionName];
 
-            // To maintain the consecutive numbering of sections,
-            // We re-index the sections.
-            // 1. Get all the keys from the form content object
-            let sectionKeys = Object.keys(config);
+                    // To maintain the consecutive numbering of sections,
+                    // We re-index the sections.
+                    // 1. Get all the keys from the form content object
+                    let sectionKeys = Object.keys(config);
 
-            // 2. Loop through the keys from removed section `i` to `n`
-            for (let i = removedSectionIndex; i < sectionKeys.length; i++) {
-                // 3. Re-index the section names
-                config['section' + (i + 1)] = config[sectionKeys[i]];
+                    // 2. Loop through the keys from removed section `i` to `n`
+                    for (let i = removedSectionIndex; i < sectionKeys.length; i++) {
+                        // 3. Re-index the section names
+                        config['section' + (i + 1)] = config[sectionKeys[i]];
 
-                // 4. Delete the original section names
-                delete config[sectionKeys[i]];
-            }
+                        // 4. Delete the original section names
+                        delete config[sectionKeys[i]];
+                    }
 
+                    Swal.fire(
+                        'Deleted!',
+                        `Section ${sectionName} has been deleted.`,
+                        'success'
+                    );
+                }
+            });
         },
         removeQuestion(sectionName, questionName) {
-            // Get question index in section content
-            let config = form_config.form_content[sectionName].section_content;
-            let removedSectionIndex = Object.keys(config).indexOf(questionName);
+            Swal.fire({
+                title: 'Are you sure?',
+                text: `You are about to delete the question from ${sectionName}. This action cannot be undone.`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Get question index in section content
+                    let config = form_config.form_content[sectionName].section_content;
+                    let removedQuestionIndex = Object.keys(config).indexOf(questionName);
 
-            // Delete the question
-            delete config[questionName];
+                    // Delete the question
+                    delete config[questionName];
 
-            // To maintain the consecutive numbering of questions,
-            // We re-index the questions.
-            // 1. Get all the keys from the form content object
-            let questionKeys = Object.keys(config);
+                    // To maintain the consecutive numbering of questions,
+                    // We re-index the questions.
+                    // 1. Get all the keys from the section content object
+                    let questionKeys = Object.keys(config);
 
-            // 2. Loop through the keys from removed question `i` to `n`
-            for (let i = removedSectionIndex; i < questionKeys.length; i++) {
-                // 3. Re-index the question names
-                config['question' + (i + 1)] = config[questionKeys[i]];
+                    // 2. Loop through the keys from removed question `i` to `n`
+                    for (let i = removedQuestionIndex; i < questionKeys.length; i++) {
+                        // 3. Re-index the question names
+                        config['question' + (i + 1)] = config[questionKeys[i]];
 
-                // 4. Delete the original question names
-                delete config[questionKeys[i]];
-            }
+                        // 4. Delete the original question names
+                        delete config[questionKeys[i]];
+                    }
+
+                    Swal.fire(
+                        'Deleted!',
+                        `Question ${questionName} has been deleted from section ${sectionName}.`,
+                        'success'
+                    );
+                }
+            });
         },
         removeAnswer(sectionName, questionName, answerName) {
             // Get answer index in options object
