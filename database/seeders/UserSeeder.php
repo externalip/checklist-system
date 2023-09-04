@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -21,7 +20,7 @@ class UserSeeder extends Seeder
         // Loop to create 50 user records
         for ($i = 1; $i <= 50; $i++) { // Use <= 50 to create 50 records
             $employeeId = $i; // Use the current loop counter as the employee ID
-            $username = 'user' . $i;
+            $username = 'user'.$i;
 
             // Check if a user with the generated employee ID and username already exists
             $existingUser = DB::table('users')
@@ -29,7 +28,7 @@ class UserSeeder extends Seeder
                 ->where('username', $username)
                 ->first();
 
-            if (!$existingUser) {
+            if (! $existingUser) {
                 // Insert a new user record with matching employee ID and username
                 DB::table('users')->insert([
                     'employee_id' => $employeeId,
