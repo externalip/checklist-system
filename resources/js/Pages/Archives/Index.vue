@@ -37,7 +37,7 @@ export default {
                         <div>
                             <select v-model="selectedUser" class="w-full rounded-lg">
                                 <option value="default">Default</option>
-                                <option v-for="employee in employees" :employee="employee.id" :value="employee.first_name">
+                                <option v-for="employee in employees" :employee="employee.id" :value="employee.id">
                                     {{ employee.last_name }},
                                     {{ employee.first_name }}
                                 </option>
@@ -126,7 +126,7 @@ export default {
                         <tr v-if="(response_field.form_id === 1 &&
                                 selectedUser === 'default') ||
                             (response_field.form_id === 1 &&
-                                response_field.first_name ===
+                                response_field.operator_employee_id ===
                                 selectedUser)
                             "
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
