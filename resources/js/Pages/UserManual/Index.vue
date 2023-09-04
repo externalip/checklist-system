@@ -13,92 +13,128 @@ import AppLayout from "@/Layouts/AppLayout.vue";
         <section
             class="text-[--blue] grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5"
         >
+            <!-- Add a Personnel -->
             <div
-                class="border-2 border-gray-100 rounded-2xl p-5 hover:bg-gray-100 duration-200"
+                class="flex flex-col items-center border-2 border-gray-100 rounded-2xl p-5 hover:bg-gray-100 duration-200"
             >
+                <span
+                    class="bg-blue-100 text-blue-800 text-md font-semibold px-2.5 py-0.5 rounded-full dark:bg-blue-200 dark:text-blue-800 w-max"
+                >
+                    Account Management
+                </span>
                 <h2 class="text-center">How to</h2>
                 <h5 class="mb-5 font-normal text-md text-gray-500 text-center">
                     Register a Personnel
                 </h5>
                 <iframe
-                    src="https://scribehow.com/embed/Dashboard_Try__AWVAY5kCQeq4Vv-w_Gqmsw"
+                    src="https://scribehow.com/embed/Creating_a_new_user_account__Uk8Dmx80RGefVX8Yxv5oAA"
                     width="100%"
-                    height="540"
+                    height="640"
                     allowfullscreen
                     frameborder="0"
                 ></iframe>
             </div>
 
+            <!-- Deletion / Setting Active of Users -->
             <div
-                class="border-2 border-gray-100 rounded-2xl p-5 hover:bg-gray-100 duration-200"
+                class="flex flex-col items-center border-2 border-gray-100 rounded-2xl p-5 hover:bg-gray-100 duration-200"
             >
+                <span
+                    class="bg-blue-100 text-blue-800 text-md font-semibold px-2.5 py-0.5 rounded-full dark:bg-blue-200 dark:text-blue-800 w-max"
+                >
+                    Account Management
+                </span>
                 <h2 class="text-center">How to</h2>
                 <h5 class="mb-5 font-normal text-md text-gray-500 text-center">
-                    Register a Personnel
+                    Delete / Set Active a Personnel
                 </h5>
                 <iframe
-                    src="https://scribehow.com/embed/Dashboard_Try__AWVAY5kCQeq4Vv-w_Gqmsw"
+                    src="https://scribehow.com/embed/DeletingSet_the_User_inactive__agNJcL8tR9-8WSIgsVbe5A"
                     width="100%"
-                    height="540"
+                    height="640"
                     allowfullscreen
                     frameborder="0"
                 ></iframe>
             </div>
 
+            <!-- Create a Model -->
             <div
-                class="border-2 border-gray-100 rounded-2xl p-5 hover:bg-gray-100 duration-200"
+                class="flex flex-col items-center border-2 border-gray-100 rounded-2xl p-5 hover:bg-gray-100 duration-200"
             >
+                <span
+                    class="bg-blue-100 text-blue-800 text-md font-semibold px-2.5 py-0.5 rounded-full dark:bg-blue-200 dark:text-blue-800 w-max"
+                >
+                    Model Manager
+                </span>
                 <h2 class="text-center">How to</h2>
                 <h5 class="mb-5 font-normal text-md text-gray-500 text-center">
-                    Approve a pending report of the operator?
+                    Create a Model
                 </h5>
                 <iframe
-                    src="https://scribehow.com/embed/Dashboard_Try__AWVAY5kCQeq4Vv-w_Gqmsw"
+                    src="https://scribehow.com/embed/Create_a_model__r4DkFCffT2-jFyxOAvx87A"
                     width="100%"
-                    height="540"
+                    height="640"
                     allowfullscreen
                     frameborder="0"
                 ></iframe>
             </div>
 
+            <!-- Create a new checklist -->
             <div
-                class="border-2 border-gray-100 rounded-2xl p-5 hover:bg-gray-100 duration-200"
+                class="flex flex-col items-center border-2 border-gray-100 rounded-2xl p-5 hover:bg-gray-100 duration-200"
             >
+                <span
+                    class="bg-blue-100 text-blue-800 text-md font-semibold px-2.5 py-0.5 rounded-full dark:bg-blue-200 dark:text-blue-800 w-max"
+                >
+                    Checksheet Manager
+                </span>
                 <h2 class="text-center">How to</h2>
                 <h5 class="mb-5 font-normal text-md text-gray-500 text-center">
-                    Register a Personnel
+                    Create a new checklist
                 </h5>
                 <iframe
-                    src="https://scribehow.com/embed/Dashboard_Try__AWVAY5kCQeq4Vv-w_Gqmsw"
+                    src="https://scribehow.com/embed/Creating_a_Check_sheet__UCzJFUReQD2OYFKHX8DTBg"
                     width="100%"
-                    height="540"
+                    height="640"
                     allowfullscreen
                     frameborder="0"
                 ></iframe>
             </div>
 
+            <!-- Edit Delete a Check sheet -->
             <div
-                class="border-2 border-gray-100 rounded-2xl p-5 hover:bg-gray-100 duration-200"
+                class="flex flex-col items-center border-2 border-gray-100 rounded-2xl p-5 hover:bg-gray-100 duration-200"
             >
+                <span
+                    class="bg-blue-100 text-blue-800 text-md font-semibold px-2.5 py-0.5 rounded-full dark:bg-blue-200 dark:text-blue-800 w-max"
+                >
+                    Checksheet Manager
+                </span>
                 <h2 class="text-center">How to</h2>
                 <h5 class="mb-5 font-normal text-md text-gray-500 text-center">
-                    Check a checksheet
+                    Edit / Delete a Check sheet
                 </h5>
                 <iframe
-                    src="https://scribehow.com/embed/Dashboard_Try__AWVAY5kCQeq4Vv-w_Gqmsw"
+                    src="https://scribehow.com/embed/Edit_and_Delete_a_check_sheet__xJV4Q14LT3qmEB9XuWVdDw"
                     width="100%"
-                    height="540"
+                    height="640"
                     allowfullscreen
                     frameborder="0"
                 ></iframe>
             </div>
 
+            <!-- Answer a checklist -->
             <div
-                class="border-2 border-gray-100 rounded-2xl p-5 hover:bg-gray-100 duration-200"
+                class="flex flex-col items-center border-2 border-gray-100 rounded-2xl p-5 hover:bg-gray-100 duration-200"
             >
+                <span
+                    class="bg-blue-100 text-blue-800 text-md font-semibold px-2.5 py-0.5 rounded-full dark:bg-blue-200 dark:text-blue-800 w-max"
+                >
+                    Checklist
+                </span>
                 <h2 class="text-center">How to</h2>
                 <h5 class="mb-5 font-normal text-md text-gray-500 text-center">
-                    Register a model
+                    Answer a checklist
                 </h5>
                 <iframe
                     src="https://scribehow.com/embed/Dashboard_Try__AWVAY5kCQeq4Vv-w_Gqmsw"
