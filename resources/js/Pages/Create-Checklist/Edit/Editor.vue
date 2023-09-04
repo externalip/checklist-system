@@ -85,12 +85,12 @@ import { Link } from '@inertiajs/vue3';
 
                                                 <input v-model="form_config
                                                             .form_content['section' + key.toString()]
-                                                            .section_content['question' + qIndex.toString()].label" type="text" :name="'question' + key" :id="'question' + key" class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent
+                                                            .section_content['question' + qIndex.toString()].label" type="text" :name="'question' + qIndex" :id="'question' + qIndex" class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent
                                                         rounded-lg border-1 border-gray-300 appearance-none dark:text-white
                                                         dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none
                                                         focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
 
-                                                <label :for="'question' + key" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Type
+                                                <label :for="'question' + qIndex" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Type
                                                             here the question...</label>
                                             </div>
                                         </div>
@@ -105,9 +105,9 @@ import { Link } from '@inertiajs/vue3';
                                             <div class="relative">
                                                 <input v-model="form_config
                                                             .form_content['section' + key.toString()]
-                                                            .section_content['question' + qIndex.toString()].instruction" type="text" :name="'instruction' + key" :id="'instruction' + key" class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                            .section_content['question' + qIndex.toString()].instruction" type="text" :name="'instruction' + qIndex" :id="'instruction' + qIndex" class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                     placeholder=" " />
-                                                <label :for="'instruction' + key" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Type
+                                                <label :for="'instruction' + qIndex" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Type
                                                             here your
                                                             instruction...</label>
                                             </div>
