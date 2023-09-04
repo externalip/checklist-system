@@ -39,7 +39,7 @@ class ArchiveController extends Controller
                 'line_leader_employee.first_name AS line_leader_first_name',
                 'qc_employee.first_name AS qc_first_name',
                 'employees.id AS operator_employee_id'
-    
+
             )
             ->join('forms', 'response_fields.form_id', '=', 'forms.id')
             ->join('users', 'users.id', '=', 'response_fields.submitted_by')
