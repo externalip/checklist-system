@@ -103,21 +103,13 @@ const submit = async () => {
                                     </div>
 
                                 </div>
-
-                                <!-- ADD QUESTION BUTTON -->
-                                <div v-if="form_config.form_content['section' + key.toString()].section_type == 'question'">
-                                    <p class="text-md mb-1">Add a Question</p>
-                                    <button class="pb-1.5 duration-200 border-[#3C5393]-200 border-2 rounded-md hover:bg-[#3C5393] hover:text-white font-bold py-2 px-4 w-[5rem]" @click="addQuestion('section' + key.toString())">
-                                                +
-                                            </button>
-                                </div>
                             </div>
                             <!--End of Top Section (Section Name)-->
 
                             <!-- QUESTION SECTION LOOPER -->
                             <div>
-                                <div v-for="qIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content).length" :key="qIndex" class="pt-5">
-                                    <div class="border-gray-200 border-2 p-4 flex flex-col rounded-lg">
+                                <div v-for="qIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content).length" :key="qIndex" class="pt-5" ref="questionRefs">
+                                    <div :id="'question' + 'qIndex'" class="border-gray-200 border-2 p-4 flex flex-col rounded-lg">
 
                                         <!-- Question -->
                                         <div>
@@ -370,10 +362,19 @@ const submit = async () => {
                                     </div>
                                     <!-- End of Question Block Section -->
                                 </div>
+                                <!-- ADD QUESTION BUTTON -->
+                                <div class="p-5 flex flex-col items-center justify-center" v-if="form_config.form_content['section' + key.toString()].section_type == 'question'">
+                                    <p class="text-md mb-1">Add a Question</p>
+                                    <button class="pb-1.5 duration-200 border-[#3C5393]-200 border-2 rounded-md hover:bg-[#3C5393] hover:text-white font-bold py-2 px-4 w-[7rem]" @click="addQuestion('section' + key.toString())">
+                                                +
+                                    </button>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <!-- End of Adding Section section -->
             </div>
         </div>
@@ -598,6 +599,22 @@ export default {
                     }
                 };
 
+                    // Use $nextTick to ensure the DOM has been updated
+            this.$nextTick(() => {
+                // Get a reference to the last added question
+                const questionRefs = this.$refs.questionRefs;
+                const lastQuestion = questionRefs[questionRefs.length - 1];
+                        // Scroll to the last added question element
+                if (lastQuestion) {
+                    lastQuestion.scrollIntoView({ behavior: 'smooth' });
+                }
+
+                // Focus on the input element of the last question
+                const inputElement = lastQuestion.querySelector('input');
+                if (inputElement) {
+                    inputElement.focus();
+                }
+            });
         },
         addAnswer(sectionName, questionName) {
             // Get number of questions
