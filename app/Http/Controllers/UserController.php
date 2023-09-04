@@ -56,7 +56,7 @@ class UserController extends Controller
                 $q->whereIn('role_id', $selectedRoles);
             });
         }
-        $users = $query->orderBy('created_at', 'ASC')->paginate(10)->withQueryString();
+        $users = $query->orderBy('id', 'ASC')->paginate(10)->withQueryString();
         $users->appends(request()->query());
 
         return Inertia::render('Users/Index', [
