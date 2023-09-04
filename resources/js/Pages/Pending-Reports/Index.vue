@@ -59,6 +59,7 @@ const parsedArray = (data) => {
         return data;
     }
 };
+
 const submit = async (status, id) => {
     if (status === 'OK' || status === 'Rejected') {
         const { isConfirmed } = await Swal.fire({
@@ -81,14 +82,16 @@ const submit = async (status, id) => {
                 Swal.fire({
                     icon: 'success',
                     title: status === 'OK' ? 'Approved!' : 'Rejected!',
-                    text: `Checklist has been ${status.toLowerCase()}.`,
-                });
+                    text: `Checklist has been ${ status === 'OK' ? 'approved' : status.toLowerCase()}.`,
+                    confirmButtonText: 'OK',
+                }).then(() => window.location.reload(true));
             } else {
                 Swal.fire({
                     icon: 'error',
                     title: 'Failed!',
                     text: `Checklist has not been ${status.toLowerCase()}.`,
-                });
+                    confirmButtonText: 'OK',
+                }).then(() => window.location.reload(true));
             }
         } catch (e) {
             Swal.fire({
