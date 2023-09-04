@@ -15,25 +15,29 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        // Retrieve all employee IDs from the employees table
         $employeeIds = DB::table('employees')->pluck('id')->toArray();
 
-        for ($i = 1; $i < 50; $i++) {
-            $username = 'user'.$i;
+        // Loop to create 50 user records
+        for ($i = 1; $i <= 50; $i++) { // Use <= 50 to create 50 records
+            $username = 'user' . $i;
 
+            // Check if a user with the generated username already exists
             $existingUser = DB::table('users')->where('username', $username)->first();
 
-            if (! $existingUser) {
-                do {
-                    $randomEmployeeId = $employeeIds[array_rand($employeeIds)];
-                } while (DB::table('users')->where('employee_id', $randomEmployeeId)->exists());
+            if (!$existingUser) {
+                // Assign the user ID to match the employee ID
+                $userId = $employeeIds[$i - 1]; // Subtract 1 to match the index
 
+                // Insert a new user record with the matching IDs
                 DB::table('users')->insert([
-                    'employee_id' => $randomEmployeeId,
+                    'id' => $userId,
+                    'employee_id' => $userId,
                     'username' => $username,
-                    'password' => Hash::make('password'),
+                    'password' => Hash::make('password'), // You may want to change this for security.
                     'active' => Arr::random([true, false]),
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now(),
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ]);
             }
         }
