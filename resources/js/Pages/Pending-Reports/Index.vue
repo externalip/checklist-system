@@ -31,7 +31,7 @@ let props = defineProps({
     selectedFormName: Array,
     data: Array,
     signatures: Array,
-    counts: Array,
+    counts: Number,
     formtable: Array
 });
 watch(() => selectedForm.form_name, (newValue) => {
