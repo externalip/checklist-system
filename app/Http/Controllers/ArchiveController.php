@@ -31,7 +31,8 @@ class ArchiveController extends Controller
         $response_fields = DB::table('response_fields')
             ->select(
                 'forms.form_name',
-                'employees.*',
+                'employees.first_name',
+                'employees.last_name',
                 'response_fields.*',
                 'line_leader_signature.user_id AS line_leader_user_id',
                 'qc_signature.user_id AS qc_user_id',
