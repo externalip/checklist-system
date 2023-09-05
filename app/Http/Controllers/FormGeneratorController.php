@@ -23,13 +23,14 @@ class FormGeneratorController extends Controller
      */
     public function store(Request $request)
     {
-        $userId = $this->getUserId();
+
+        $employee_id = auth()->user()->employee_id;
         $config = $request->only('form_name', 'form_content');
         $form_name = $request->input('form_name');
 
         DB::table('forms')
             ->insert([
-                'created_by' => $userId,
+                'created_by' => $employee_id,
                 'form_name' => $form_name,
                 'completed' => 1,
                 'form_data' => json_encode($config),
@@ -415,12 +416,6 @@ class FormGeneratorController extends Controller
                             </div>
                         </section>
         ';
-    }
-
-    public function getUserId()
-    {
-        // Return session user id
-        return auth()->user()->id;
     }
 
     /**
