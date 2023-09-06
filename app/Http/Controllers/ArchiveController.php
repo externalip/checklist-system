@@ -33,11 +33,14 @@ class ArchiveController extends Controller
                 'forms.form_name',
                 'employees.first_name',
                 'employees.last_name',
+                'employees.shift',
                 'response_fields.*',
                 'line_leader_signature.user_id AS line_leader_user_id',
                 'qc_signature.user_id AS qc_user_id',
                 'line_leader_employee.first_name AS line_leader_first_name',
                 'qc_employee.first_name AS qc_first_name',
+                'line_leader_employee.last_name AS line_leader_last_name',
+                'qc_employee.last_name AS qc_last_name',
                 'employees.id AS operator_employee_id'
 
             )
