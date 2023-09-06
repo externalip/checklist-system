@@ -24,24 +24,56 @@ let form = reactive({
     },
 });
 
-function submit() {
-    // Get no. of questions based on h5 tags with an id `question#`
-    let questionInputs = document.querySelectorAll('h5[id^="question"]');
-    let questionCount = questionInputs.length;
-
-    // Get question text
-    for (let i = 1; i <= questionCount; i++) {
-        let ansKey = "ans".concat(i);
-        let questionLabel = document.getElementById("question" + i).textContent;
-
-        // Store question into object
-        form.fieldAnswers[questionLabel] = form.fieldAnswers[ansKey];
-        delete form.fieldAnswers[ansKey];
+const submit = async () => {
+    // Show a confirmation dialog before submitting
+    const confirmResult = await Swal.fire({
+        title: 'Before Submitting',
+        text: 'Please confirm that every field is filled up and correct before submitting. After submitting, it will now be sent to the Pending Reviews for the Line Leader and QC.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Submit',
+        cancelButtonText: 'Cancel',
+    });
+    if (confirmResult.isConfirmed) {
+        // Get no. of questions based on h5 tags with an id `question#`
+        let questionInputs = document.querySelectorAll('h5[id^="question"]');
+        let questionCount = questionInputs.length;
+        // Get question text
+        for (let i = 1; i <= questionCount; i++) {
+            let ansKey = "ans".concat(i);
+            let questionLabel = document.getElementById('question' + i)?.textContent;
+            // Store question into object
+            form.fieldAnswers[questionLabel] = form.fieldAnswers[ansKey];
+            delete form.fieldAnswers[ansKey];
+        }
+        try {
+            const response = await axios.post('/submit-response', form);
+            console.log(response.data);
+            const status = response.data.status;
+            if (status === 'success') {
+                console.log()
+                await Swal.fire({
+                    title: 'Success',
+                    text: 'The form was successfully submitted.',
+                    icon: 'success',
+                });
+                //reset form
+                form.reset();
+                errorDisplay.value = {};
+            } else if (status === 'error') {
+                errorDisplay.value = response.data.errors;
+                await Swal.fire({
+                    title: 'Submission Error',
+                    text: 'Please check the form fields for errors before submitting.',
+                    icon: 'error',
+                });
+            }
+        } catch (error) {
+            console.error('Form submission error', error);
+        }
     }
+};
 
-    // Send user input to ResponseController
-    router.post("/submit", form);
-}
 </script>
 
 <style scoped></style>
