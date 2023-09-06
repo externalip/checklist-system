@@ -121,6 +121,10 @@
                                     </option>
                                     <InputError class="mt-2" :message="form.errors.role_id" />
                                 </select>
+                                 <button href="#" @click.prevent="addRole" type="button" class="hover:bg-gray-200 transition duration-200 ease-in-out p-4 flex-none">
+                                    <img src="@/Shared/Icons/edit.svg" alt="edit icon"
+                                        class="w-5 h-5 cursor-pointer flex-none">
+                                </button>
                             </div>
                         </div>
 
@@ -140,13 +144,16 @@
 
             </div>
         </form>
-
+         <div v-if="showAddRole" class="fixed inset-0 bg-black bg-opacity-50 z-40">
+            <AddRoleModal v-if="showAddRole" :closeModalCallback="closeModal" />
+        </div>
     </AppLayout>
 </template>
 
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import InputError from '@/Components/InputError.vue';
+import  AddRoleModal  from '@/Pages/Users/Components/Modal.vue';
 import { ref, defineProps } from 'vue';
 import { useForm, Link } from "@inertiajs/vue3";
 const { roles } = defineProps(['roles']);
@@ -162,7 +169,13 @@ const form = useForm({
     shift: '',
     role_id: '',
 });
-
+const showAddRole = ref(false);
+const addRole = () => {
+    showAddRole.value = true;
+}
+const closeModal = () => {
+    showAddRole.value = false;
+}
 const createAccount = async () => {
     try {
         const response = await axios.post(route('users.store'), form);

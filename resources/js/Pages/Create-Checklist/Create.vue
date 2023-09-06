@@ -23,7 +23,7 @@ import { reactive } from 'vue';
         <form @submit.prevent="submit">
         <div class="lg:mx-[25%] mb-40">
             <div class="mx-auto">
-
+                
                 <!-- CHECKSHEET NAME -->
                 <div class="mb-5">
                     <p class="text-xl mb-3">Check Sheet Name</p>
@@ -149,7 +149,10 @@ import { reactive } from 'vue';
                                                     Choose a type
                                                 </option>
                                                 <option :value="'radio'">
-                                                    Radio
+                                                    Multiple Choice
+                                                </option>
+                                                <option :value="'radio-symbol'">
+                                                    Multiple Choice (✔, ✘, ✔✘)
                                                 </option>
                                                 <option :value="'checkbox'">
                                                     Check
@@ -262,6 +265,45 @@ import { reactive } from 'vue';
 
                                         </div>
 
+                                        <!-- OPTION || Radio-Symbol -->
+                                        <div class="col-span-2"
+                                            v-if="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type === 'radio-symbol'">
+
+                                            <div class="mb-2">
+                                                <p class="text-md">
+                                                    Radio Options
+                                                </p>
+                                            </div>
+
+                                            <!-- Radio Input Label -->
+                                            <div v-for="ansIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].options).length"
+                                                class="flex">
+                                                <div class="w-full relative">
+                                                    <input v-model="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()]" type="text"
+                                                        :name="'radio' + key" :id="'radio' + key"
+                                                        class="bg-[--disabled] border-[--disabled-outline] mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-sm text-gray-900 rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                        placeholder="Enter answer option here" disabled required/>
+                                                    <label :for="'radio' + key"
+                                                        class="bg-transparent absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Radio
+                                                        Option
+                                                    </label>
+                                                </div>
+
+                                                <!-- Delete answer option button -->
+                                                <button class="p-3" disabled>
+                                                    <svg class="w-4 h-4 text-gray-400 dark:text-white" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                        viewBox="0 0 20 20">
+                                                        <path
+                                                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+
                                         <!-- OPTION || Checkbox -->
                                         <div class="col-span-2"
                                             v-if="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type === 'checkbox'">
@@ -327,10 +369,10 @@ import { reactive } from 'vue';
                                             <!-- Text Input Label -->
                                             <div class="relative">
                                                 <input type="text" :name="'text' + key"
-                                                    class="bg-[--disabled] border-[--disabled-outline] block px-2.5 pb-1.5 pt-3 w-5/6 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                    class="bg-[--disabled] border-[--disabled-outline] block px-2.5 pb-1.5 pt-3 w-5/6 text-sm text-gray-900 rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                     placeholder=" " disabled />
                                                 <label for="section_name"
-                                                    class="bg-[--disabled] absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Type
+                                                    class="bg-[--disabled] absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Type
                                                     here...</label>
                                             </div>
                                         </div>
@@ -748,13 +790,25 @@ export default {
                 .options['ans' + (questionContentSize + 1)] = null;
         },
         resetQuestionContent(sectionName, questionName) {
+            // Get question type
+            let questionType = form_config.form_content[sectionName].section_content[questionName].type;
+
             // Delete current options object
             delete form_config.form_content[sectionName].section_content[questionName].options;
 
-            // Re-add options object
-            form_config.form_content[sectionName].section_content[questionName]['options'] = {
-                ans1: null
-            };
+            if (questionType == "radio-symbol") {
+                // Re-add options object with predefined answers
+                form_config.form_content[sectionName].section_content[questionName]['options'] = {
+                    ans1: '✔',
+                    ans2: '✘',
+                    ans3: '✔✘',
+                };
+            } else {
+                // Re-add options object
+                form_config.form_content[sectionName].section_content[questionName]['options'] = {
+                    ans1: null
+                };
+            }
         },
         redirectBack() {
             router.get('/checksheet');

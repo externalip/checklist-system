@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class RoleController extends Controller
 {
@@ -16,16 +17,34 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255|unique:roles',
-            'description' => 'nullable|string',
-        ]);
+        try {
+            $validatedData = $request->validate([
+                'position' => 'required|string|max:255|unique:roles',
+                'description' => 'required|string|max:255',
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $e->errors(),
+            ], 422);
+        }
 
         $role = Role::create([
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
+            'position' => $validatedData['position'],
+            'description' => $validatedData['description'],
         ]);
 
-        return response()->json($role, 201);
+        if (! $role) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Role not created',
+            ], 500);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Role created successfully',
+            'data' => $role,
+        ], 201);
     }
 }

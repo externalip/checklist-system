@@ -8,6 +8,7 @@ use App\Http\Controllers\FormGeneratorController;
 use App\Http\Controllers\ModelController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ResponseController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\DB;
@@ -69,6 +70,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         // Audit Trail Page
         Route::get('/audit', [AuditController::class, 'index'])->name('audit');
     });
+
+    Route::post('/add-role', [RoleController::class, 'store'])->name('role.store');
 
     // 5S Checklist Form Page
     Route::get('/5S-Checklist', [UserController::class, 'show5SForm'])->name('5S-Checklist');
