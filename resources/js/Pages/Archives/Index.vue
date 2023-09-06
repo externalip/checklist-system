@@ -88,6 +88,9 @@ export default {
                             <th colspan="1" rowspan="2" class="border-solid border-2 border-black px-1 py-1">
                                 Remarks
                             </th>
+                            <th colspan="1" rowspan="2" class="border-solid border-2 border-black px-1 py-1">
+                                Status
+                            </th>
                         </tr>
                         <tr>
                             <th class="border-solid border-2 border-black px-1 py-1">
@@ -235,6 +238,9 @@ export default {
                                     JSON.parse(response_field.response)
                                         .fieldAnswers["Remarks on the Model"]
                                 }}
+                            </td>
+                            <td class="border-solid whitespace-nowrap border-2 border-black px-1 py-1">
+                                {{ response_field.status }}
                             </td>
                         </tr>
                     </tbody>

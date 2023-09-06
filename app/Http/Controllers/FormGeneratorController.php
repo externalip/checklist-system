@@ -100,11 +100,17 @@ class FormGeneratorController extends Controller
                         <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
                     ');
 
-                    // Append Question Label
-                    Storage::disk('form_path')->append($file_name, '
-                        <h5 id="'.'question'.$questionIndex++.'">'.$value['section_content'][$qKey]['label'].'</h5>
-                    ');
-
+                    if ($isRequired) {
+                        // Append Question Label w/ Required Indicator
+                        Storage::disk('form_path')->append($file_name, '
+                            <h5 id="'.'question'.$questionIndex++.'" class="required">'.$value['section_content'][$qKey]['label'].'</h5>
+                        ');
+                    } else {
+                        // Append Question Label
+                        Storage::disk('form_path')->append($file_name, '
+                            <h5 id="'.'question'.$questionIndex++.'">'.$value['section_content'][$qKey]['label'].'</h5>
+                        ');
+                    }
                     // Append Question Instruction (if any)
                     Storage::disk('form_path')->append($file_name, '
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -358,7 +364,13 @@ class FormGeneratorController extends Controller
         }
         </script>
 
-        <style scoped></style>
+        <style scoped>
+            .required::after {
+                content: " *";
+                color: red;
+                font-size: 1em;
+            }
+        </style>
 
         <template>
             <AppLayout title="'.$form_title.'">
@@ -375,7 +387,7 @@ class FormGeneratorController extends Controller
                             <div id="model-identification" class="grid lg:grid-cols-2 lg:gap-3">
                                 <!-- Model Name -->
                                 <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
-                                    <h5 id="question1">Model Name</h5>
+                                    <h5 id="question1" class="required">Model Name</h5>
 
                                     <label for="models" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                         Select a model
@@ -392,7 +404,7 @@ class FormGeneratorController extends Controller
 
                                 <!-- Lot Number -->
                                 <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
-                                    <h5 id="question2">Lot Number</h5>
+                                    <h5 id="question2"  class="required">Lot Number</h5>
                                     <div class="">
                                         <label for="models" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" required>
                                             Input the Lot Number
