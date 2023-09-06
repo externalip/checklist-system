@@ -54,7 +54,7 @@ class FormGeneratorController extends Controller
     {
         $count = DB::table('forms')
             ->where('form_name', '=', $form_name)
-            ->get("*")
+            ->get('*')
             ->count();
 
         return $count > 0;
