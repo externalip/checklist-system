@@ -48,7 +48,7 @@ export default {
             return Math.min(this.data.current_page * this.data.per_page, this.data.total);
         },
        visiblePages() {
-            const range = 2;
+            const range = 10;
             const start = Math.max(1, this.data.current_page - range);
             const end = Math.min(this.data.last_page, this.data.current_page + range);
 
