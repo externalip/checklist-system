@@ -139,7 +139,7 @@ class FormGeneratorController extends Controller
                                 </div>
                             ');
                         }
-                    } elseif ($value['section_content'][$qKey]['type'] == 'radio' or $value['section_content'][$qKey]['type'] == 'radio-symbol') {
+                    } elseif (str_contains($value['section_content'][$qKey]['type'], 'radio')) {
 
                         // Append Opening Radio Group
                         Storage::disk('form_path')->append($file_name, '
