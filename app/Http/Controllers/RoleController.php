@@ -34,7 +34,7 @@ class RoleController extends Controller
             'description' => $validatedData['description'],
         ]);
 
-        if (!$role) {
+        if (! $role) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Role not created',

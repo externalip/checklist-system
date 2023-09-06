@@ -8,7 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Role extends Authenticatable
 {
     use HasFactory;
+
     public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *
