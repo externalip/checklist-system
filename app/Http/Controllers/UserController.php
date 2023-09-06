@@ -89,7 +89,6 @@ class UserController extends Controller
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Password::min(8)],
             'first_name' => ['required', 'string', 'max:255'],
-            'active' => ['required'],
             'last_name' => ['required', 'string', 'max:255'],
             'gender' => ['required', 'string', 'max:255'],
             'date_of_birth' => ['required', 'date'],
@@ -118,10 +117,10 @@ class UserController extends Controller
             'employee_id' => $employee->id,
             'username' => $input['username'],
             'password' => Hash::make($input['password']),
-            'active' => $input['active'],
+            'active' => 1,
         ]);
 
-        return response()->json(['status' => 'success']);
+        return response()->json(['status' => 'success'], 200);
     }
 
     /**
