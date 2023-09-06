@@ -467,7 +467,7 @@ const submit = async () => {
 
                 <!-- Confirm and Save -->
                 <div class="flex items-center justify-center">
-                    <button  @click.prevent="submit" type="submit" data-tooltip-target="tooltip-save" type="button" class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
+                    <button  @click.prevent="submit" type="submit" data-tooltip-target="tooltip-save" class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
                     <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M1 5.917 5.724 10.5 15 1.5" />
