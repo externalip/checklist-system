@@ -56,7 +56,7 @@ class ArchiveController extends Controller
             ->leftJoin('users AS qc_user', 'qc_user.id', '=', 'qc_signature.user_id')
             ->leftJoin('employees AS line_leader_employee', 'line_leader_employee.id', '=', 'line_leader_user.employee_id')
             ->leftJoin('employees AS qc_employee', 'qc_employee.id', '=', 'qc_user.employee_id')
-            ->where('response_fields.status', '=', 'OK')
+            ->whereIn('response_fields.status', ['OK', 'Rejected'])
             ->orderByDesc('response_fields.created_at')
             ->paginate(10);
 
