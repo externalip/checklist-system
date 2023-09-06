@@ -408,7 +408,7 @@ import { Link } from '@inertiajs/vue3';
         <div
             class="visible md:invisible fixed z-50 w-5/6 h-16 max-w-lg -translate-x-1/2 bg-white border border-gray-200 rounded-full bottom-4 left-1/2 dark:bg-gray-700 dark:border-gray-600">
             <div class="grid h-full max-w-lg grid-cols-3 mx-auto">
-                <button type="button"
+                <button type="button" @click="redirectBack"
                     class="inline-flex flex-col items-center justify-center px-5 rounded-l-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
                     <svg class="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -452,14 +452,13 @@ import { Link } from '@inertiajs/vue3';
             <div class="grid h-full max-w-lg grid-rows-3 mx-auto">
 
                 <!-- Back Button -->
-                <button type="button" href="#"
-                    class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                        fill="none" viewBox="0 0 16 16">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 8h11m0 0-4-4m4 4-4 4m-5 3H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h3" />
-                    </svg>
-                    <span class="sr-only">Back</span>
+                <button type="button" @click.prevent="redirectBack" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 16 16">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 8h11m0 0-4-4m4 4-4 4m-5 3H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h3" />
+                            </svg>
+                            <span class="sr-only">Back</span>
                 </button>
 
                 <!-- Add Section -->
@@ -483,15 +482,13 @@ import { Link } from '@inertiajs/vue3';
 
                 <!-- Confirm and Save -->
                 <div class="flex items-center justify-center">
-                    <button @click.prevent="submit" type="button"
-                        class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800"
-                        data-tooltip-target="tooltip-save">
-                        <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 16 12">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M1 5.917 5.724 10.5 15 1.5" />
-                        </svg>
-                        <span class="sr-only">New item</span>
+                    <button @click.prevent="submit" type="button" class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800" data-tooltip-target="tooltip-save">
+                                <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 16 12">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M1 5.917 5.724 10.5 15 1.5" />
+                                </svg>
+                                <span class="sr-only">New item</span>
                     </button>
                 </div>
 
@@ -740,6 +737,9 @@ export default {
                     text: e.message,
                 });
             }
+        },
+         redirectBack() {
+            router.get('/checksheet');
         },
     }
 };
