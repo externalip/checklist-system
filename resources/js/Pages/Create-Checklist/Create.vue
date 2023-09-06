@@ -16,45 +16,11 @@
 import AppLayout from "@/Layouts/AppLayout.vue";
 import { Link } from '@inertiajs/vue3';
 import { reactive } from 'vue';
-const submit = async () => {
-    try {
-        const response = await axios.post(route('generate.store'), form_config);
-        if (response.data.status === 'success') {
-
-            await Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: 'The form was successfully created!',
-                confirmButtonText: 'Okay',
-            });
-        } else if (response.data.status === 'error') {
-
-            await Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Something went wrong!',
-            });
-        } else {
-
-            await Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Something went wrong!',
-            });
-        }
-    } catch (error) {
-        // Use SweetAlert to show an error message
-        await Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong!',
-        });
-    }
-}
 </script>
 
 <template>
     <AppLayout title="Create Checksheet">
+        <form @submit.prevent="submit">
         <div class="lg:mx-[25%] mb-40">
             <div class="mx-auto">
 
@@ -422,6 +388,7 @@ const submit = async () => {
                                     v-if="form_config.form_content['section' + key.toString()].section_type == 'question'">
                                     <p class="text-md mb-1">Add a Question</p>
                                     <button
+                                        type="button"
                                         class="pb-1.5 duration-200 border-[#3C5393]-200 border-2 rounded-md hover:bg-[#3C5393] hover:text-white font-bold py-2 px-4 w-[7rem]"
                                         @click="addQuestion('section' + key.toString())">
                                         +
@@ -467,7 +434,7 @@ const submit = async () => {
 
                 <!-- Confirm and Save -->
                 <div class="flex items-center justify-center">
-                    <button  @click.prevent="submit" type="submit" data-tooltip-target="tooltip-save" class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
+                    <button type="submit" data-tooltip-target="tooltip-save" class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
                     <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M1 5.917 5.724 10.5 15 1.5" />
@@ -516,7 +483,7 @@ const submit = async () => {
 
                 <!-- Confirm and Save -->
                 <div class="flex items-center justify-center">
-                    <button @click.prevent="submit" type="submit" class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800" data-tooltip-target="tooltip-save">
+                    <button type="submit" class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800" data-tooltip-target="tooltip-save">
                             <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                 viewBox="0 0 16 12">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -534,7 +501,7 @@ const submit = async () => {
 
             </div>
         </div>
-
+    </form>
     </AppLayout>
 </template>
 
@@ -744,6 +711,41 @@ export default {
         redirectBack() {
             router.get('/checksheet');
         },
+        async submit() {
+            try {
+                const response = await axios.post(route('generate.store'), form_config);
+                if (response.data.status === 'success') {
+
+                    await Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'The form was successfully created!',
+                        confirmButtonText: 'Okay',
+                    });
+                } else if (response.data.status === 'error') {
+
+                    await Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                    });
+                } else {
+
+                    await Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                    });
+                }
+            } catch (error) {
+                // Use SweetAlert to show an error message
+                await Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                });
+            }
+        }
     },
 };
 </script>

@@ -19,6 +19,7 @@ import { Link } from '@inertiajs/vue3';
 
 <template>
     <AppLayout title="Edit Checksheet">
+        <form @submit.prevent="submit">
         <div class="lg:mx-[25%] mb-40">
             <div class="mx-auto">
 
@@ -388,7 +389,7 @@ import { Link } from '@inertiajs/vue3';
                                 <div class="p-5 flex flex-col items-center justify-center"
                                     v-if="form_config.form_content['section' + key.toString()].section_type == 'question'">
                                     <p class="text-md mb-1">Add a Question</p>
-                                    <button
+                                    <button type="button"
                                         class="pb-1.5 duration-200 border-[#3C5393]-200 border-2 rounded-md hover:bg-[#3C5393] hover:text-white font-bold py-2 px-4 w-[7rem]"
                                         @click="addQuestion('section' + key.toString())">
                                         +
@@ -432,7 +433,7 @@ import { Link } from '@inertiajs/vue3';
 
                 <!-- Confirm and Save -->
                 <div class="flex items-center justify-center">
-                    <button @click="submit" as="button" method="POST" data-tooltip-target="tooltip-save" type="button"
+                    <button  data-tooltip-target="tooltip-save" type="submit"
                         class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
                         <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 16 12">
@@ -481,7 +482,7 @@ import { Link } from '@inertiajs/vue3';
 
                 <!-- Confirm and Save -->
                 <div class="flex items-center justify-center">
-                    <button @click.prevent="submit" type="button" class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800" data-tooltip-target="tooltip-save">
+                    <button type="submit" class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800" data-tooltip-target="tooltip-save">
                                 <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                     viewBox="0 0 16 12">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -499,7 +500,7 @@ import { Link } from '@inertiajs/vue3';
 
             </div>
         </div>
-
+    </form>
     </AppLayout>
 </template>
 
