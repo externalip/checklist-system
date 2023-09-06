@@ -54,7 +54,7 @@ class FormGeneratorController extends Controller
     {
         $count = DB::table('forms')
             ->where('form_name', '=', $form_name)
-            ->get()
+            ->get("*")
             ->count();
 
         return $count > 0;
@@ -139,7 +139,7 @@ class FormGeneratorController extends Controller
                                 </div>
                             ');
                         }
-                    } elseif (str_contains($value['section_content'][$qKey]['type'], 'radio')) {
+                    } elseif ($value['section_content'][$qKey]['type'] == 'radio' or $value['section_content'][$qKey]['type'] == 'radio-symbol') {
 
                         // Append Opening Radio Group
                         Storage::disk('form_path')->append($file_name, '
