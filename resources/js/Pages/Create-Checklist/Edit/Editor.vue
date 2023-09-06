@@ -346,7 +346,7 @@ import { Link } from '@inertiajs/vue3';
         <!-- Bottom Navigation (Mobile View) -->
         <div class="visible md:invisible fixed z-50 w-5/6 h-16 max-w-lg -translate-x-1/2 bg-white border border-gray-200 rounded-full bottom-4 left-1/2 dark:bg-gray-700 dark:border-gray-600">
             <div class="grid h-full max-w-lg grid-cols-3 mx-auto">
-                <button type="button" class="inline-flex flex-col items-center justify-center px-5 rounded-l-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
+                <button type="button" @click="redirectBack" class="inline-flex flex-col items-center justify-center px-5 rounded-l-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
                             <svg class="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                                 <path
@@ -385,14 +385,14 @@ import { Link } from '@inertiajs/vue3';
             <div class="grid h-full max-w-lg grid-rows-3 mx-auto">
 
                 <!-- Back Button -->
-                <button type="button" href="#" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+                <button type="button" @click.prevent="redirectBack" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 fill="none" viewBox="0 0 16 16">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M4 8h11m0 0-4-4m4 4-4 4m-5 3H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h3" />
                             </svg>
                             <span class="sr-only">Back</span>
-                        </button>
+                </button>
 
                 <!-- Add Section -->
                 <div class="flex items-center justify-center">
@@ -403,7 +403,7 @@ import { Link } from '@inertiajs/vue3';
                                         d="M9 1v16M1 9h16" />
                                 </svg>
                                 <span class="sr-only">New item</span>
-                            </button>
+                    </button>
                 </div>
 
                 <div id="tooltip-new" role="tooltip" class="absolute invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
@@ -420,7 +420,7 @@ import { Link } from '@inertiajs/vue3';
                                         d="M1 5.917 5.724 10.5 15 1.5" />
                                 </svg>
                                 <span class="sr-only">New item</span>
-                            </button>
+                    </button>
                 </div>
 
                 <div id="tooltip-save" role="tooltip" class="absolute invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
@@ -667,6 +667,9 @@ export default {
                     text: e.message,
                 });
             }
+        },
+         redirectBack() {
+            router.get('/checksheet');
         },
     }
 };
