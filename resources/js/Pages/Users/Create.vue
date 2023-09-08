@@ -114,24 +114,22 @@
                             </div>
                             <!-- ROLE -->
                             <div class="col-span-0 p-1">
-                                <label for="role_id" class="block mb-1">Role</label>
-                                <select v-model="form.role_id" type="text" id="role_id"
-                                    class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2">
-                                    <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.position }}
-                                    </option>
-                                    <InputError class="mt-2" :message="form.errors.role_id" />
-                                </select>
-                            </div>
-                            <!-- Active -->
-                            <div class="col-span-0 p-1">
-                                <label for="active" class="block mb-1">Active</label>
-                                <select v-model="form.active" type="text" id="active"
-                                    class="w-full rounded-lg border-2 border-gray-300 p-2">
-                                    <option value="1">Active</option>
-                                    <option value="0">Inactive</option>
-                                </select>
-                                <InputError class="mt-2" :message="form.errors.active" />
+                                <div class="flex">
+                                    <label for="role_id" class="block mb-1">Role</label>
+                                    <button href="#" @click.prevent="addRole" type="button" class="mb-1 mx-2 px-4 rounded-full flex bg-gray-200 hover:bg-blue-100 transition duration-200 ease-in-out align-center items-center text-sm">
+                                            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M7.345 4.017a42.253 42.253 0 0 1 9.31 0c1.713.192 3.095 1.541 3.296 3.26a40.66 40.66 0 0 1 0 9.445a3.734 3.734 0 0 1-3.296 3.26a42.123 42.123 0 0 1-9.31 0a3.734 3.734 0 0 1-3.296-3.26a40.652 40.652 0 0 1 0-9.444a3.734 3.734 0 0 1 3.295-3.26ZM12 7.007a.75.75 0 0 1 .75.75v3.493h3.493a.75.75 0 1 1 0 1.5H12.75v3.493a.75.75 0 0 1-1.5 0V12.75H7.757a.75.75 0 0 1 0-1.5h3.493V7.757a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd"/></svg>
+                                            Add Role
+                                    </button>
                                 </div>
+                                <div class="flex">
+                                    <select v-model="form.role_id" type="text" id="role_id"
+                                        class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2">
+                                        <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.position }}
+                                        </option>
+                                        <InputError class="mt-2" :message="form.errors.role_id" />
+                                    </select>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -150,13 +148,16 @@
 
             </div>
         </form>
-
+         <div v-if="showAddRole" class="fixed inset-0 bg-black bg-opacity-50 z-40">
+            <AddRoleModal v-if="showAddRole" :closeModalCallback="closeModal" />
+        </div>
     </AppLayout>
 </template>
 
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import InputError from '@/Components/InputError.vue';
+import  AddRoleModal  from '@/Pages/Users/Components/Modal.vue';
 import { ref, defineProps } from 'vue';
 import { useForm, Link } from "@inertiajs/vue3";
 const { roles } = defineProps(['roles']);
@@ -164,7 +165,6 @@ const form = useForm({
     username: '',
     password: '',
     password_confirmation: '',
-    active: '',
     first_name: '',
     last_name: '',
     gender: '',
@@ -173,7 +173,13 @@ const form = useForm({
     shift: '',
     role_id: '',
 });
-
+const showAddRole = ref(false);
+const addRole = () => {
+    showAddRole.value = true;
+}
+const closeModal = () => {
+    showAddRole.value = false;
+}
 const createAccount = async () => {
     try {
         const response = await axios.post(route('users.store'), form);

@@ -23,7 +23,7 @@ import { reactive } from 'vue';
         <form @submit.prevent="submit">
         <div class="lg:mx-[25%] mb-40">
             <div class="mx-auto">
-                
+
                 <!-- CHECKSHEET NAME -->
                 <div class="mb-5">
                     <p class="text-xl mb-3">Check Sheet Name</p>
@@ -180,20 +180,59 @@ import { reactive } from 'vue';
 
                                             <!-- Radio Input Label -->
                                             <div v-for="ansIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].options).length"
-                                                class="flex">
-                                                <div class="w-full relative">
+                                                class="flex mb-2">
+                                                <div class="w-full relative flex">
                                                     <input v-model="form_config
                                                         .form_content['section' + key.toString()]
                                                         .section_content['question' + qIndex.toString()]
                                                         .options['ans' + ansIndex.toString()]" type="text"
                                                         :name="'radio' + key" :id="'radio' + key"
-                                                        class="mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                        class="mb-2 block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                         placeholder="Enter answer option here" required />
+
                                                     <label :for="'radio' + key"
                                                         class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Radio
                                                         Option
                                                     </label>
+
+                                                    <!-- <select id="countries" class="border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 block w-2/6 mx-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                        <option selected>Color</option>
+                                                        <option value="US" class="bg-[--complete]">
+                                                            <div class="w-[20px] p-10 bg-red-100">
+
+                                                            </div>Green
+                                                        </option>
+                                                        <option value="CA" class="bg-[--red]">Red</option>
+                                                        <option value="FR" class="bg-[#FFBF00]">Yellow</option>
+                                                        <option value="DE" class="bg-[--overdue]">Orange</option>
+                                                        <option value="DS" class="bg-[--input]">Clear</option>
+                                                    </select> -->
                                                 </div>
+
+                                                <!-- Color Identifier -->
+                                                <div class="mx-5 md:w-2/6 rounded-full flex">
+
+
+                                                    <!-- THE COLOR -->
+                                                    <div class="flex items-center">
+                                                        <div class="rounded-full p-2 bg-green-600">
+
+                                                        </div>
+                                                    </div>
+
+
+                                                    <!-- THE SELECT OPTION -->
+                                                    <select id="countries" class="border-none text-gray-900 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                        <option selected>Color</option>
+                                                        <option value="US">Green</option>
+                                                        <option value="CA">Red</option>
+                                                        <option value="FR">Orange</option>
+                                                        <option value="DE">Yellow</option>
+                                                        <option value="DG">Clear</option>
+                                                    </select>
+
+                                                </div>
+
 
                                                 <!-- Delete answer option button -->
                                                 <button
@@ -205,9 +244,9 @@ import { reactive } from 'vue';
                                                         <path
                                                             d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
                                                     </svg>
-
                                                 </button>
                                             </div>
+
 
                                             <!-- Add answer option button -->
                                             <button
@@ -454,10 +493,10 @@ import { reactive } from 'vue';
             <div class="grid h-full max-w-lg grid-cols-3 mx-auto">
                 <button type="button" @click="redirectBack"
                     class="inline-flex flex-col items-center justify-center px-5 rounded-l-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
-                    <svg class="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
-                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                            d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
+                    <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 16 16">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 8h11m0 0-4-4m4 4-4 4m-5 3H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h3" />
                     </svg>
                     <span class="sr-only">Back</span>
                 </button>
@@ -575,7 +614,16 @@ let form_config = reactive({
 
 export default {
     name: 'App',
+    data() {
+        return {
+              isDropdownOpen: false,
+      dropdownButtonId: 'dpbtn', // ID of the button that controls the dropdown
+    }
+    },
     methods: {
+        toggleDropdown() {
+      this.isDropdownOpen = !this.isDropdownOpen;
+        },
         removeSection(sectionName) {
             Swal.fire({
                 title: 'Are you sure?',
