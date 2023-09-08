@@ -23,7 +23,7 @@ import { reactive } from 'vue';
         <form @submit.prevent="submit">
         <div class="lg:mx-[25%] mb-40">
             <div class="mx-auto">
-                {{ form_config }}
+                
                 <!-- CHECKSHEET NAME -->
                 <div class="mb-5">
                     <p class="text-xl mb-3">Check Sheet Name</p>
@@ -155,7 +155,7 @@ import { reactive } from 'vue';
                                                     Multiple Choice (✔, ✘, ✔✘)
                                                 </option>
                                                 <option :value="'checkbox'">
-                                                    Check
+                                                    Checkbox
                                                 </option>
                                                 <option :value="'text'">
                                                     Text
@@ -194,24 +194,10 @@ import { reactive } from 'vue';
                                                         class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Radio
                                                         Option
                                                     </label>
-
-                                                    <!-- <select id="countries" class="border border-gray-300 text-gray-900 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 block w-2/6 mx-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                        <option selected>Color</option>
-                                                        <option value="US" class="bg-[--complete]">
-                                                            <div class="w-[20px] p-10 bg-red-100">
-
-                                                            </div>Green
-                                                        </option>
-                                                        <option value="CA" class="bg-[--red]">Red</option>
-                                                        <option value="FR" class="bg-[#FFBF00]">Yellow</option>
-                                                        <option value="DE" class="bg-[--overdue]">Orange</option>
-                                                        <option value="DS" class="bg-[--input]">Clear</option>
-                                                    </select> -->
                                                 </div>
 
                                                 <!-- Color Identifier -->
                                                 <div class="mx-5 md:w-2/6 rounded-full flex">
-
 
                                                     <!-- THE COLOR -->
                                                     <div class="flex items-center">
@@ -258,7 +244,7 @@ import { reactive } from 'vue';
                                                         .section_content['question' + qIndex.toString()]
                                                         .options['ans' + ansIndex.toString()].color" 
                                                         id="countries" 
-                                                        class="border-none text-gray-900 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                        class="border-none text-gray-900 rounded-lg text-xs focus-none block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                     >
                                                         <option value="clear" selected>Clear</option>
                                                         <option value="#E33A3A">Red</option>
@@ -318,7 +304,7 @@ import { reactive } from 'vue';
                                                     <input v-model="form_config
                                                         .form_content['section' + key.toString()]
                                                         .section_content['question' + qIndex.toString()]
-                                                        .options['ans' + ansIndex.toString()]" type="text"
+                                                        .options['ans' + ansIndex.toString()].label" type="text"
                                                         :name="'radio' + key" :id="'radio' + key"
                                                         class="bg-[--disabled] border-[--disabled-outline] mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-sm text-gray-900 rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                         placeholder="Enter answer option here" disabled required/>
@@ -326,6 +312,65 @@ import { reactive } from 'vue';
                                                         class="bg-transparent absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Radio
                                                         Option
                                                     </label>
+                                                </div>
+
+                                                <!-- Color Identifier -->
+                                                <div class="mx-5 md:w-2/6 rounded-full flex">
+
+                                                    <!-- THE COLOR -->
+                                                    <div class="flex items-center">
+                                                        <!-- Clear -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color == 'clear'" 
+                                                        class="rounded-full border p-2 bg-[#FFFFFF]"></div>
+
+                                                        <!-- Red -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color == '#E33A3A'" 
+                                                        class="rounded-full p-2 bg-[#E33A3A]"></div>
+
+                                                        <!-- Green -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color == '#1FAC3C'" 
+                                                        class="rounded-full p-2 bg-[#1FAC3C]"></div>
+
+                                                        <!-- Blue -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color == '#3C5393'" 
+                                                        class="rounded-full p-2 bg-[#3C5393]"></div>
+
+                                                        <!-- Orange -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color == '#EF5B0C'" 
+                                                        class="rounded-full p-2 bg-[#EF5B0C]"></div>
+                                                    </div>
+
+
+                                                    <!-- THE SELECT OPTION -->
+                                                    <select v-model="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color" 
+                                                        id="countries" 
+                                                        class="border-none text-gray-900 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    >
+                                                        <option value="clear" selected>Clear</option>
+                                                        <option value="#E33A3A">Red</option>
+                                                        <option value="#1FAC3C">Green</option>
+                                                        <option value="#3C5393">Blue</option>
+                                                        <option value="#EF5B0C">Orange</option>
+                                                    </select>
+
                                                 </div>
 
                                                 <!-- Delete answer option button -->
@@ -358,11 +403,70 @@ import { reactive } from 'vue';
                                                         placeholder="Enter answer option here" v-model="form_config
                                                             .form_content['section' + key.toString()]
                                                             .section_content['question' + qIndex.toString()]
-                                                            .options['ans' + ansIndex.toString()]
+                                                            .options['ans' + ansIndex.toString()].label
                                                             " required />
                                                     <label :for="'check' + key"
                                                         class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Checkbox
                                                         Option</label>
+                                                </div>
+
+                                                <!-- Color Identifier -->
+                                                <div class="mx-5 md:w-2/6 rounded-full flex">
+
+                                                    <!-- THE COLOR -->
+                                                    <div class="flex items-center">
+                                                        <!-- Clear -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color == 'clear'" 
+                                                        class="rounded-full border p-2 bg-[#FFFFFF]"></div>
+
+                                                        <!-- Red -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color == '#E33A3A'" 
+                                                        class="rounded-full p-2 bg-[#E33A3A]"></div>
+
+                                                        <!-- Green -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color == '#1FAC3C'" 
+                                                        class="rounded-full p-2 bg-[#1FAC3C]"></div>
+
+                                                        <!-- Blue -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color == '#3C5393'" 
+                                                        class="rounded-full p-2 bg-[#3C5393]"></div>
+
+                                                        <!-- Orange -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color == '#EF5B0C'" 
+                                                        class="rounded-full p-2 bg-[#EF5B0C]"></div>
+                                                    </div>
+
+
+                                                    <!-- THE SELECT OPTION -->
+                                                    <select v-model="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color" 
+                                                        id="countries" 
+                                                        class="border-none text-gray-900 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    >
+                                                        <option value="clear" selected>Clear</option>
+                                                        <option value="#E33A3A">Red</option>
+                                                        <option value="#1FAC3C">Green</option>
+                                                        <option value="#3C5393">Blue</option>
+                                                        <option value="#EF5B0C">Orange</option>
+                                                    </select>
+
                                                 </div>
 
                                                 <!-- Delete Answer Option Button -->
@@ -375,7 +479,6 @@ import { reactive } from 'vue';
                                                         <path
                                                             d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
                                                     </svg>
-
                                                 </button>
                                             </div>
 
@@ -411,6 +514,66 @@ import { reactive } from 'vue';
                                                     class="bg-[--disabled] absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Type
                                                     here...</label>
                                             </div>
+
+                                            <!-- Color Identifier -->
+                                            <div class="mx-5 md:w-2/6 rounded-full flex">
+
+                                                <!-- THE COLOR -->
+                                                <div class="flex items-center">
+
+                                                    <!-- Clear -->
+                                                    <div v-if="form_config
+                                                    .form_content['section' + key.toString()]
+                                                    .section_content['question' + qIndex.toString()]
+                                                    .options.ans1.color == 'clear'" 
+                                                    class="rounded-full border p-2 bg-[#FFFFFF]"></div>
+
+                                                    <!-- Red -->
+                                                    <div v-if="form_config
+                                                    .form_content['section' + key.toString()]
+                                                    .section_content['question' + qIndex.toString()]
+                                                    .options.ans1.color == '#E33A3A'" 
+                                                    class="rounded-full p-2 bg-[#E33A3A]"></div>
+
+                                                    <!-- Green -->
+                                                    <div v-if="form_config
+                                                    .form_content['section' + key.toString()]
+                                                    .section_content['question' + qIndex.toString()]
+                                                    .options.ans1.color == '#1FAC3C'" 
+                                                    class="rounded-full p-2 bg-[#1FAC3C]"></div>
+
+                                                    <!-- Blue -->
+                                                    <div v-if="form_config
+                                                    .form_content['section' + key.toString()]
+                                                    .section_content['question' + qIndex.toString()]
+                                                    .options.ans1.color == '#3C5393'" 
+                                                    class="rounded-full p-2 bg-[#3C5393]"></div>
+
+                                                    <!-- Orange -->
+                                                    <div v-if="form_config
+                                                    .form_content['section' + key.toString()]
+                                                    .section_content['question' + qIndex.toString()]
+                                                    .options.ans1.color == '#EF5B0C'" 
+                                                    class="rounded-full p-2 bg-[#EF5B0C]"></div>
+                                                </div>
+
+
+                                                <!-- THE SELECT OPTION -->
+                                                <select v-model="form_config
+                                                    .form_content['section' + key.toString()]
+                                                    .section_content['question' + qIndex.toString()]
+                                                    .options.ans1.color" 
+                                                    id="countries" 
+                                                    class="border-none text-gray-900 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                >
+                                                    <option value="clear" selected>Clear</option>
+                                                    <option value="#E33A3A">Red</option>
+                                                    <option value="#1FAC3C">Green</option>
+                                                    <option value="#3C5393">Blue</option>
+                                                    <option value="#EF5B0C">Orange</option>
+                                                </select>
+
+                                            </div>
                                         </div>
 
                                         <!-- OPTION || Dropdown Options -->
@@ -422,6 +585,8 @@ import { reactive } from 'vue';
                                                 </p>
                                             </div>
 
+                                            {{ 'section' + key.toString() }}
+
                                             <!-- Dropdown Option Label -->
                                             <div v-for="ansIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].options).length"
                                                 class="flex">
@@ -429,7 +594,7 @@ import { reactive } from 'vue';
                                                     <input v-model="form_config
                                                         .form_content['section' + key.toString()]
                                                         .section_content['question' + qIndex.toString()]
-                                                        .options['ans' + ansIndex.toString()]" type="text"
+                                                        .options['ans' + ansIndex.toString()].label" type="text"
                                                         :name="'drop' + key" :id="'drop' + key"
                                                         class="mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                         placeholder=" " required />
@@ -437,6 +602,66 @@ import { reactive } from 'vue';
                                                         class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Dropbox
                                                         Option</label>
                                                 </div>
+
+                                                <!-- Color Identifier -->
+                                            <div class="mx-5 md:w-2/6 rounded-full flex">
+
+                                                <!-- THE COLOR -->
+                                                <div class="flex items-center">
+                                                    <!-- Clear -->
+                                                    <div v-if="form_config
+                                                    .form_content['section' + key.toString()]
+                                                    .section_content['question' + qIndex.toString()]
+                                                    .options['ans' + ansIndex.toString()].color == 'clear'" 
+                                                    class="rounded-full border p-2 bg-[#FFFFFF]"></div>
+
+                                                    <!-- Red -->
+                                                    <div v-if="form_config
+                                                    .form_content['section' + key.toString()]
+                                                    .section_content['question' + qIndex.toString()]
+                                                    .options['ans' + ansIndex.toString()].color == '#E33A3A'" 
+                                                    class="rounded-full p-2 bg-[#E33A3A]"></div>
+
+                                                    <!-- Green -->
+                                                    <div v-if="form_config
+                                                    .form_content['section' + key.toString()]
+                                                    .section_content['question' + qIndex.toString()]
+                                                    .options['ans' + ansIndex.toString()].color == '#1FAC3C'" 
+                                                    class="rounded-full p-2 bg-[#1FAC3C]"></div>
+
+                                                    <!-- Blue -->
+                                                    <div v-if="form_config
+                                                    .form_content['section' + key.toString()]
+                                                    .section_content['question' + qIndex.toString()]
+                                                    .options['ans' + ansIndex.toString()].color == '#3C5393'" 
+                                                    class="rounded-full p-2 bg-[#3C5393]"></div>
+
+                                                    <!-- Orange -->
+                                                    <div v-if="form_config
+                                                    .form_content['section' + key.toString()]
+                                                    .section_content['question' + qIndex.toString()]
+                                                    .options['ans' + ansIndex.toString()].color == '#EF5B0C'" 
+                                                    class="rounded-full p-2 bg-[#EF5B0C]"></div>
+                                                </div>
+
+
+                                                <!-- THE SELECT OPTION -->
+                                                <select v-model="form_config
+                                                    .form_content['section' + key.toString()]
+                                                    .section_content['question' + qIndex.toString()]
+                                                    .options['ans' + ansIndex.toString()].color" 
+                                                    id="countries" 
+                                                    class="border-none text-gray-900 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                >
+                                                    <option value="clear" selected>Clear</option>
+                                                    <option value="#E33A3A">Red</option>
+                                                    <option value="#1FAC3C">Green</option>
+                                                    <option value="#3C5393">Blue</option>
+                                                    <option value="#EF5B0C">Orange</option>
+                                                </select>
+
+                                            </div>
+
                                                 <button
                                                     @click="removeAnswer('section' + key.toString(), 'question' + qIndex.toString(), 'ans' + ansIndex.toString())"
                                                     class="p-3 hover:bg-red-100">
@@ -844,9 +1069,18 @@ export default {
             if (questionType == "radio-symbol") {
                 // Re-add options object with predefined answers
                 form_config.form_content[sectionName].section_content[questionName]['options'] = {
-                    ans1: '✔',
-                    ans2: '✘',
-                    ans3: '✔✘',
+                    ans1: {
+                        label: '✔',
+                        color: '#1FAC3C',
+                    },
+                    ans2: {
+                        label: '✘',
+                        color: '#E33A3A',
+                    },
+                    ans3: {
+                        label: '✔✘',
+                        color: '#EF5B0C',
+                    },
                 };
             } else {
                 // Re-add options object
