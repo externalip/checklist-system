@@ -505,75 +505,78 @@ import { reactive } from 'vue';
                                                 </p>
                                             </div>
 
-                                            <!-- Text Input Label -->
-                                            <div class="relative">
-                                                <input type="text" :name="'text' + key"
-                                                    class="bg-[--disabled] border-[--disabled-outline] block px-2.5 pb-1.5 pt-3 w-5/6 text-sm text-gray-900 rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                    placeholder=" " disabled />
-                                                <label for="section_name"
-                                                    class="bg-[--disabled] absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Type
-                                                    here...</label>
-                                            </div>
-
-                                            <!-- Color Identifier -->
-                                            <div class="mx-5 md:w-2/6 rounded-full flex">
-
-                                                <!-- THE COLOR -->
-                                                <div class="flex items-center">
-
-                                                    <!-- Clear -->
-                                                    <div v-if="form_config
-                                                    .form_content['section' + key.toString()]
-                                                    .section_content['question' + qIndex.toString()]
-                                                    .options.ans1.color == 'clear'" 
-                                                    class="rounded-full border p-2 bg-[#FFFFFF]"></div>
-
-                                                    <!-- Red -->
-                                                    <div v-if="form_config
-                                                    .form_content['section' + key.toString()]
-                                                    .section_content['question' + qIndex.toString()]
-                                                    .options.ans1.color == '#E33A3A'" 
-                                                    class="rounded-full p-2 bg-[#E33A3A]"></div>
-
-                                                    <!-- Green -->
-                                                    <div v-if="form_config
-                                                    .form_content['section' + key.toString()]
-                                                    .section_content['question' + qIndex.toString()]
-                                                    .options.ans1.color == '#1FAC3C'" 
-                                                    class="rounded-full p-2 bg-[#1FAC3C]"></div>
-
-                                                    <!-- Blue -->
-                                                    <div v-if="form_config
-                                                    .form_content['section' + key.toString()]
-                                                    .section_content['question' + qIndex.toString()]
-                                                    .options.ans1.color == '#3C5393'" 
-                                                    class="rounded-full p-2 bg-[#3C5393]"></div>
-
-                                                    <!-- Orange -->
-                                                    <div v-if="form_config
-                                                    .form_content['section' + key.toString()]
-                                                    .section_content['question' + qIndex.toString()]
-                                                    .options.ans1.color == '#EF5B0C'" 
-                                                    class="rounded-full p-2 bg-[#EF5B0C]"></div>
+                                            <div class="flex">
+                                                <!-- Text Input Label -->
+                                                <div class="relative w-full">
+                                                    <input type="text" :name="'text' + key"
+                                                        class="bg-[--disabled] border-[--disabled-outline] block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                        placeholder=" " disabled />
+                                                    <label for="section_name"
+                                                        class="bg-[--disabled] absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Type
+                                                        here...</label>
                                                 </div>
 
+                                                <!-- Color Identifier -->
+                                                <div class="mx-5 md:w-2/6 rounded-full flex">
 
-                                                <!-- THE SELECT OPTION -->
-                                                <select v-model="form_config
-                                                    .form_content['section' + key.toString()]
-                                                    .section_content['question' + qIndex.toString()]
-                                                    .options.ans1.color" 
-                                                    id="countries" 
-                                                    class="border-none text-gray-900 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                >
-                                                    <option value="clear" selected>Clear</option>
-                                                    <option value="#E33A3A">Red</option>
-                                                    <option value="#1FAC3C">Green</option>
-                                                    <option value="#3C5393">Blue</option>
-                                                    <option value="#EF5B0C">Orange</option>
-                                                </select>
+                                                    <!-- THE COLOR -->
+                                                    <div class="flex items-center">
 
+                                                        <!-- Clear -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options.ans1.color == 'clear'" 
+                                                        class="rounded-full border p-2 bg-[#FFFFFF]"></div>
+
+                                                        <!-- Red -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options.ans1.color == '#E33A3A'" 
+                                                        class="rounded-full p-2 bg-[#E33A3A]"></div>
+
+                                                        <!-- Green -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options.ans1.color == '#1FAC3C'" 
+                                                        class="rounded-full p-2 bg-[#1FAC3C]"></div>
+
+                                                        <!-- Blue -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options.ans1.color == '#3C5393'" 
+                                                        class="rounded-full p-2 bg-[#3C5393]"></div>
+
+                                                        <!-- Orange -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options.ans1.color == '#EF5B0C'" 
+                                                        class="rounded-full p-2 bg-[#EF5B0C]"></div>
+                                                    </div>
+
+
+                                                    <!-- THE SELECT OPTION -->
+                                                    <select v-model="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options.ans1.color" 
+                                                        id="countries" 
+                                                        class="border-none text-gray-900 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    >
+                                                        <option value="clear" selected>Clear</option>
+                                                        <option value="#E33A3A">Red</option>
+                                                        <option value="#1FAC3C">Green</option>
+                                                        <option value="#3C5393">Blue</option>
+                                                        <option value="#EF5B0C">Orange</option>
+                                                    </select>
+
+                                                </div>
                                             </div>
+
                                         </div>
 
                                         <!-- OPTION || Dropdown Options -->
