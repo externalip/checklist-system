@@ -118,7 +118,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     //Forms
     Route::get('Forms/{id}', function ($form_id) {
         // Get form path
-        $path = 'Forms/form' . $form_id;
+        $path = 'Forms/form'.$form_id;
 
         // Get all models
         $models = DB::table('tags')
@@ -126,6 +126,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
             ->join('forms', 'tags.form_id', '=', 'forms.id')
             ->select('models.model_name', 'forms.form_name', 'tags.*')
             ->get();
+
         // Send list of models to url
         return Inertia::render($path, [
             'models' => $models,
