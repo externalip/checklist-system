@@ -114,17 +114,18 @@
                             </div>
                             <!-- ROLE -->
                             <div class="col-span-0 p-1">
-                                <label for="role_id" class="block mb-1">Role</label>
+                                <label for="role_id" class="block mb-1">Role
+                                     <button href="#" @click.prevent="addRole" type="button" class="hover:bg-gray-200 transition duration-200 ease-in-out">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M7.345 4.017a42.253 42.253 0 0 1 9.31 0c1.713.192 3.095 1.541 3.296 3.26a40.66 40.66 0 0 1 0 9.445a3.734 3.734 0 0 1-3.296 3.26a42.123 42.123 0 0 1-9.31 0a3.734 3.734 0 0 1-3.296-3.26a40.652 40.652 0 0 1 0-9.444a3.734 3.734 0 0 1 3.295-3.26ZM12 7.007a.75.75 0 0 1 .75.75v3.493h3.493a.75.75 0 1 1 0 1.5H12.75v3.493a.75.75 0 0 1-1.5 0V12.75H7.757a.75.75 0 0 1 0-1.5h3.493V7.757a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd"/></svg>
+                                    </button>
+                                </label>
                                 <select v-model="form.role_id" type="text" id="role_id"
                                     class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2">
                                     <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.position }}
                                     </option>
                                     <InputError class="mt-2" :message="form.errors.role_id" />
                                 </select>
-                                 <button href="#" @click.prevent="addRole" type="button" class="hover:bg-gray-200 transition duration-200 ease-in-out p-4 flex-none">
-                                    <img src="@/Shared/Icons/edit.svg" alt="edit icon"
-                                        class="w-5 h-5 cursor-pointer flex-none">
-                                </button>
+
                             </div>
                         </div>
 
