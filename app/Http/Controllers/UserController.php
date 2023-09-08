@@ -273,4 +273,14 @@ class UserController extends Controller
     {
         return Inertia::render('ChecksheetManager/Index');
     }
+
+    public function showAmendment()
+    {
+        return Inertia::render('Create-Checklist/Amendment/Index');
+    }
+
+    public function showPendingApproval()
+    {
+        return Inertia::render('Create-Checklist/ChecklistApproval/Index');
+    }
 }

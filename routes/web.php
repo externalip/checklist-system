@@ -135,4 +135,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     // User Manual
     Route::get('/UserManual', [UserController::class, 'showUserManual'])->name('UserManual');
+
+    // Checklist Approval
+    Route::get('/ChecklistApproval', [UserController::class, 'showChecklistApproval'])->name('ChecklistApproval');
 });
