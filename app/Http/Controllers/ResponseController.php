@@ -32,12 +32,13 @@ class ResponseController extends Controller
             'fieldAnswers.Production Checksheet' => 'Production Checksheet',
             'fieldAnswers.Tools/Jigs Instrument' => 'Tools/Jigs Instrument',
             'fieldAnswers.Procedures/OPL/Work Instructions' => 'Procedures/OPL/Work Instructions',
+
         ];
 
         $validator = Validator::make($request->all(), [
             'fieldAnswers.Materials' => 'required',
             'fieldAnswers.Lot Number' => 'required',
-            'fieldAnswers.Kit Number' => 'Kit Number',
+            'fieldAnswers.Kit Number' => 'required',
             'fieldAnswers.Model Name' => 'required',
             'fieldAnswers.Working Area' => 'required',
             'fieldAnswers.Type of Checking' => 'required',
