@@ -221,8 +221,10 @@ class UserController extends Controller
     public function show5SForm()
     {
         // Get all models
-        $models = DB::table('models')
-            ->select('model_name')
+        $models = DB::table('tags')
+            ->join('models', 'tags.model_id', '=', 'models.id')
+            ->join('forms', 'tags.form_id', '=', 'forms.id')
+            ->select('models.model_name', 'forms.form_name', 'tags.*')
             ->get();
 
         // Send list of models to url

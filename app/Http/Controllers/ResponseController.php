@@ -25,17 +25,20 @@ class ResponseController extends Controller
         $attributeLabels = [
             'fieldAnswers.Materials' => 'Materials',
             'fieldAnswers.Lot Number' => 'Lot Number',
+            'fieldAnswers.Kit Number' => 'Kit Number',
             'fieldAnswers.Model Name' => 'Model Name',
             'fieldAnswers.Working Area' => 'Working Area',
             'fieldAnswers.Type of Checking' => 'Type of Checking',
             'fieldAnswers.Production Checksheet' => 'Production Checksheet',
             'fieldAnswers.Tools/Jigs Instrument' => 'Tools/Jigs Instrument',
             'fieldAnswers.Procedures/OPL/Work Instructions' => 'Procedures/OPL/Work Instructions',
+
         ];
 
         $validator = Validator::make($request->all(), [
             'fieldAnswers.Materials' => 'required',
             'fieldAnswers.Lot Number' => 'required',
+            'fieldAnswers.Kit Number' => 'required',
             'fieldAnswers.Model Name' => 'required',
             'fieldAnswers.Working Area' => 'required',
             'fieldAnswers.Type of Checking' => 'required',

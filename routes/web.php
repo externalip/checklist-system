@@ -70,9 +70,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         // Audit Trail Page
         Route::get('/audit', [AuditController::class, 'index'])->name('audit');
     });
-
     Route::post('/add-role', [RoleController::class, 'store'])->name('role.store');
-
     // 5S Checklist Form Page
     Route::get('/5S-Checklist', [UserController::class, 'show5SForm'])->name('5S-Checklist');
 
@@ -123,8 +121,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         $path = 'Forms/form'.$form_id;
 
         // Get all models
-        $models = DB::table('models')
-            ->select('model_name')
+        $models = DB::table('tags')
+            ->join('models', 'tags.model_id', '=', 'models.id')
+            ->join('forms', 'tags.form_id', '=', 'forms.id')
+            ->select('models.model_name', 'forms.form_name', 'tags.*')
             ->get();
 
         // Send list of models to url

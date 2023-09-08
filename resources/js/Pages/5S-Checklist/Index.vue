@@ -1,6 +1,6 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
-import { reactive } from "vue";
+import { reactive,computed } from "vue";
 import { router } from "@inertiajs/vue3";
 
 const props = defineProps({
@@ -21,6 +21,7 @@ let form = reactive({
         ans7: null,
         ans8: null,
         ans9: null,
+        ans10: null,
     },
 });
 
@@ -73,7 +74,9 @@ const submit = async () => {
         }
     }
 };
-
+const filteredModels = computed(() => {
+  return props.models.filter((model) => model.form_id === form.form_id);
+});
 </script>
 
 <style scoped></style>
@@ -94,7 +97,7 @@ const submit = async () => {
 
                     <div
                         id="model-identification"
-                        class="grid lg:grid-cols-2 lg:gap-3"
+                        class="grid grid-cols-1"
                     >
                         <!-- Model Name -->
                         <div
@@ -102,7 +105,6 @@ const submit = async () => {
                             class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md"
                         >
                             <h5 id="question1">Model Name</h5>
-
                             <label
                                 for="models"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -111,45 +113,70 @@ const submit = async () => {
                             </label>
 
                             <select
-                                id="models"
-                                v-model="form.fieldAnswers.ans1"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                required
+                            id="models"
+                            v-model="form.fieldAnswers.ans1"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            required
+                        >
+                            <option
+                                v-for="model in filteredModels"
+                                :value="model.model_name"
+                                :key="model.id"
                             >
-                                <option
-                                    v-for="model in models"
-                                    :value="model.model_name"
-                                    :key="model.id"
-                                >
-                                    {{ model.model_name }}
-                                </option>
-                            </select>
+                                {{ model.model_name }}
+                            </option>
+                        </select>
+                        </div>
                         </div>
 
                         <!-- Lot Number -->
-                        <div
-                            id="question"
-                            class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md"
-                        >
-                            <h5 id="question2">Lot Number</h5>
-                            <div class="">
-                                <label
-                                    for="models"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                    required
-                                >
-                                    Input the Lot Number
-                                </label>
-                                <input
-                                    v-model="form.fieldAnswers.ans2"
-                                    type="text"
-                                    id="ltnum"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    required
-                                />
+                        <div id="model-identification" class="grid lg:grid-cols-2 lg:gap-3">
+                            <div
+                                id="question"
+                                class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md"
+                            >
+                                <h5 id="question2">Lot Number</h5>
+                                <div class="">
+                                    <label
+                                        for="models"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                        required
+                                    >
+                                        Input the Lot Number
+                                    </label>
+                                    <input
+                                        v-model="form.fieldAnswers.ans2"
+                                        type="text"
+                                        id="ltnum" placeholder="Ex. 5/46"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required
+                                    />
+                                </div>
                             </div>
-                        </div>
+                            <div
+                                id="question"
+                                class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md"
+                            >
+                                <h5 id="question3">Kit Number</h5>
+                                <div class="">
+                                    <label
+                                        for="models"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                        required
+                                    >
+                                        Input the Kit Number
+                                    </label>
+                                    <input
+                                        v-model="form.fieldAnswers.ans3"
+                                        type="text"
+                                        id="ltnum" placeholder="Ex. 36132-001"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required
+                                    />
+                                </div>
+                            </div>
                     </div>
+
                 </section>
 
                 <section
@@ -162,7 +189,7 @@ const submit = async () => {
                         id="question"
                         class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md"
                     >
-                        <h5 id="question3">Type of Checking</h5>
+                        <h5 id="question4">Type of Checking</h5>
 
                         <label
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -178,7 +205,7 @@ const submit = async () => {
                             >
                                 <div class="flex items-center pl-3">
                                     <input
-                                        v-model="form.fieldAnswers.ans3"
+                                        v-model="form.fieldAnswers.ans4"
                                         id="production-checksheet-radio-1"
                                         type="radio"
                                         value="Start-up"
@@ -199,7 +226,7 @@ const submit = async () => {
                             >
                                 <div class="flex items-center pl-3">
                                     <input
-                                        v-model="form.fieldAnswers.ans3"
+                                        v-model="form.fieldAnswers.ans4"
                                         id="production-checksheet-radio-2"
                                         type="radio"
                                         value="Re-startup"
@@ -220,7 +247,7 @@ const submit = async () => {
                             >
                                 <div class="flex items-center pl-3">
                                     <input
-                                        v-model="form.fieldAnswers.ans3"
+                                        v-model="form.fieldAnswers.ans4"
                                         id="production-checksheet-radio-3"
                                         type="radio"
                                         value="Change Model"
@@ -238,6 +265,7 @@ const submit = async () => {
                         </ul>
                     </div>
                 </section>
+
                 <section
                     id="form-section"
                     class="p-10 mt-5 mb-5 border-2 rounded-lg"
@@ -248,7 +276,7 @@ const submit = async () => {
                         id="question"
                         class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md"
                     >
-                        <h5 id="question4">Production Checksheet</h5>
+                        <h5 id="question5">Production Checksheet</h5>
 
                         <div id="accordion-collapse" data-accordion="collapse">
                             <h2 id="accordion-collapse-heading-1">
@@ -320,7 +348,7 @@ const submit = async () => {
                             >
                                 <div class="flex items-center pl-3">
                                     <input
-                                        v-model="form.fieldAnswers.ans4"
+                                        v-model="form.fieldAnswers.ans5"
                                         id="production-checksheet-radio-4"
                                         type="radio"
                                         value="OK"
@@ -341,7 +369,7 @@ const submit = async () => {
                             >
                                 <div class="flex items-center pl-3">
                                     <input
-                                        v-model="form.fieldAnswers.ans4"
+                                        v-model="form.fieldAnswers.ans5"
                                         id="production-checksheet-radio-5"
                                         type="radio"
                                         value="NG"
@@ -362,7 +390,7 @@ const submit = async () => {
                             >
                                 <div class="flex items-center pl-3">
                                     <input
-                                        v-model="form.fieldAnswers.ans4"
+                                        v-model="form.fieldAnswers.ans5"
                                         id="production-checksheet-radio-6"
                                         type="radio"
                                         value="NA"
@@ -384,7 +412,7 @@ const submit = async () => {
                         id="question"
                         class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md"
                     >
-                        <h5 id="question5">Procedures/OPL/Work Instructions</h5>
+                        <h5 id="question6">Procedures/OPL/Work Instructions</h5>
 
                         <div id="accordion-collapse" data-accordion="collapse">
                             <h2 id="accordion-collapse-heading-2">
@@ -466,7 +494,7 @@ const submit = async () => {
                             >
                                 <div class="flex items-center pl-3">
                                     <input
-                                        v-model="form.fieldAnswers.ans5"
+                                        v-model="form.fieldAnswers.ans6"
                                         id="production-checksheet-radio-7"
                                         type="radio"
                                         value="OK"
@@ -487,7 +515,7 @@ const submit = async () => {
                             >
                                 <div class="flex items-center pl-3">
                                     <input
-                                        v-model="form.fieldAnswers.ans5"
+                                        v-model="form.fieldAnswers.ans6"
                                         id="production-checksheet-radio-8"
                                         type="radio"
                                         value="NG"
@@ -508,7 +536,7 @@ const submit = async () => {
                             >
                                 <div class="flex items-center pl-3">
                                     <input
-                                        v-model="form.fieldAnswers.ans5"
+                                        v-model="form.fieldAnswers.ans6"
                                         id="production-checksheet-radio-9"
                                         type="radio"
                                         value="NA"
@@ -530,7 +558,7 @@ const submit = async () => {
                         id="question"
                         class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md"
                     >
-                        <h5 id="question6">Working Area</h5>
+                        <h5 id="question7">Working Area</h5>
 
                         <div id="accordion-collapse" data-accordion="collapse">
                             <h2 id="accordion-collapse-heading-3">
@@ -618,7 +646,7 @@ const submit = async () => {
                             >
                                 <div class="flex items-center pl-3">
                                     <input
-                                        v-model="form.fieldAnswers.ans6"
+                                        v-model="form.fieldAnswers.ans7"
                                         id="production-checksheet-radio-10"
                                         type="radio"
                                         value="OK"
@@ -639,7 +667,7 @@ const submit = async () => {
                             >
                                 <div class="flex items-center pl-3">
                                     <input
-                                        v-model="form.fieldAnswers.ans6"
+                                        v-model="form.fieldAnswers.ans7"
                                         id="production-checksheet-radio-11"
                                         type="radio"
                                         value="NG"
@@ -660,7 +688,7 @@ const submit = async () => {
                             >
                                 <div class="flex items-center pl-3">
                                     <input
-                                        v-model="form.fieldAnswers.ans6"
+                                        v-model="form.fieldAnswers.ans7"
                                         id="production-checksheet-radio-12"
                                         type="radio"
                                         value="NA"
@@ -682,7 +710,7 @@ const submit = async () => {
                         id="question"
                         class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md"
                     >
-                        <h5 id="question7">Materials</h5>
+                        <h5 id="question8">Materials</h5>
 
                         <div id="accordion-collapse" data-accordion="collapse">
                             <h2 id="accordion-collapse-heading-4">
@@ -769,7 +797,7 @@ const submit = async () => {
                             >
                                 <div class="flex items-center pl-3">
                                     <input
-                                        v-model="form.fieldAnswers.ans7"
+                                        v-model="form.fieldAnswers.ans8"
                                         id="production-checksheet-radio-13"
                                         type="radio"
                                         value="OK"
@@ -790,7 +818,7 @@ const submit = async () => {
                             >
                                 <div class="flex items-center pl-3">
                                     <input
-                                        v-model="form.fieldAnswers.ans7"
+                                        v-model="form.fieldAnswers.ans8"
                                         id="production-checksheet-radio-14"
                                         type="radio"
                                         value="NG"
@@ -811,7 +839,7 @@ const submit = async () => {
                             >
                                 <div class="flex items-center pl-3">
                                     <input
-                                        v-model="form.fieldAnswers.ans7"
+                                        v-model="form.fieldAnswers.ans8"
                                         id="production-checksheet-radio-15"
                                         type="radio"
                                         value="NA"
@@ -833,7 +861,7 @@ const submit = async () => {
                         id="question"
                         class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md"
                     >
-                        <h5 id="question8">Tools/Jigs Instrument</h5>
+                        <h5 id="question9">Tools/Jigs Instrument</h5>
 
                         <div id="accordion-collapse" data-accordion="collapse">
                             <h2 id="accordion-collapse-heading-5">
@@ -924,7 +952,7 @@ const submit = async () => {
                             >
                                 <div class="flex items-center pl-3">
                                     <input
-                                        v-model="form.fieldAnswers.ans8"
+                                        v-model="form.fieldAnswers.ans9"
                                         id="production-checksheet-radio-16"
                                         type="radio"
                                         value="OK"
@@ -945,7 +973,7 @@ const submit = async () => {
                             >
                                 <div class="flex items-center pl-3">
                                     <input
-                                        v-model="form.fieldAnswers.ans8"
+                                        v-model="form.fieldAnswers.ans9"
                                         id="production-checksheet-radio-17"
                                         type="radio"
                                         value="NG"
@@ -966,7 +994,7 @@ const submit = async () => {
                             >
                                 <div class="flex items-center pl-3">
                                     <input
-                                        v-model="form.fieldAnswers.ans8"
+                                        v-model="form.fieldAnswers.ans9"
                                         id="production-checksheet-radio-18"
                                         type="radio"
                                         value="NA"
@@ -995,7 +1023,7 @@ const submit = async () => {
                         id="question"
                         class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md"
                     >
-                        <h5 id="question9">Remarks on the Model</h5>
+                        <h5 id="question10">Remarks on the Model</h5>
                         <label
                             for="message"
                             class="block mb-2 text-sm font-medium dark:text-white"
@@ -1003,7 +1031,7 @@ const submit = async () => {
                             machine.</label
                         >
                         <textarea
-                            v-model="form.fieldAnswers.ans9"
+                            v-model="form.fieldAnswers.ans10"
                             id="message"
                             rows="4"
                             class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
