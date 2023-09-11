@@ -54,7 +54,7 @@ class FormGeneratorController extends Controller
     {
         $count = DB::table('forms')
             ->where('form_name', '=', $form_name)
-            ->get('*')
+            ->get()
             ->count();
 
         return $count > 0;
@@ -72,8 +72,8 @@ class FormGeneratorController extends Controller
         Storage::disk('form_path')->put($file_name, $form_script);
 
         // Read Form JSON Config
-        $questionIndex = 3;
-        $answerIndex = 3;
+        $questionIndex = 4;
+        $answerIndex = 4;
         $radioTarget = 1;
         $checkboxTarget = 1;
 
@@ -306,7 +306,7 @@ class FormGeneratorController extends Controller
         */
 
         // Count number of questions in the form
-        $fieldCount = 3;
+        $fieldCount = 4;
         $fieldAnswersData = '';
 
         // section1 : {}
@@ -327,7 +327,7 @@ class FormGeneratorController extends Controller
         return '
         <script setup>
         import AppLayout from \'@/Layouts/AppLayout.vue\';
-        import { reactive } from \'vue\'
+        import { reactive, computed } from \'vue\'
         import { router } from \'@inertiajs/vue3\'
 
         const props = defineProps({
@@ -342,6 +342,7 @@ class FormGeneratorController extends Controller
             fieldAnswers: {
                 ans1: null,
                 ans2: null,
+                ans3: null,
                 '.$fieldAnswersData.'
                 ans'.$fieldCount.': null,
             }
@@ -365,6 +366,9 @@ class FormGeneratorController extends Controller
             // Send user input to ResponseController
             router.post(\'/submit\', form)
         }
+        const filteredModels = computed(() => {
+            return props.models.filter((model) => model.form_id === form.form_id);
+          });
         </script>
 
         <style scoped>
@@ -384,40 +388,96 @@ class FormGeneratorController extends Controller
                         <input type="hidden" name="_token" :value="csrf">
 
                         <!-- MODEL IDENTIFICATION -->
-                        <section id="form-section" class="p-10 mt-5 mb-5 border-2 rounded-lg">
-                            <h2 id="section-name" class="mb-2">Model Identification</h2>
+                        <section
+                    id="form-section"
+                    class="p-10 mt-5 mb-5 border-2 rounded-lg"
+                >
+                    <h2 id="section-name" class="mb-2">Model Identification</h2>
 
-                            <div id="model-identification" class="grid lg:grid-cols-2 lg:gap-3">
-                                <!-- Model Name -->
-                                <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
-                                    <h5 id="question1" class="required">Model Name</h5>
+                    <div
+                        id="model-identification"
+                        class="grid grid-cols-1"
+                    >
+                        <!-- Model Name -->
+                        <div
+                            id="question"
+                            class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md"
+                        >
+                            <h5 id="question1">Model Name</h5>
+                            <label
+                                for="models"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            >
+                                Select a model
+                            </label>
 
-                                    <label for="models" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                        Select a model
+                            <select
+                            id="models"
+                            v-model="form.fieldAnswers.ans1"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            required
+                        >
+                            <option
+                                v-for="model in filteredModels"
+                                :value="model.model_name"
+                                :key="model.id"
+                            >
+                                {{ model.model_name }}
+                            </option>
+                        </select>
+                        </div>
+                        </div>
+
+                        <!-- Lot Number -->
+                        <div id="model-identification" class="grid lg:grid-cols-2 lg:gap-3">
+                            <div
+                                id="question"
+                                class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md"
+                            >
+                                <h5 id="question2">Lot Number</h5>
+                                <div class="">
+                                    <label
+                                        for="models"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                        required
+                                    >
+                                        Input the Lot Number
                                     </label>
-
-                                    <select id="models" v-model="form.fieldAnswers.ans1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                                        <option v-for="model in models" :value="model.model_name" :key="model.id">
-                                            {{ model.model_name }}
-                                        </option>
-                                    </select>
-
-                                </div>
-
-
-                                <!-- Lot Number -->
-                                <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
-                                    <h5 id="question2"  class="required">Lot Number</h5>
-                                    <div class="">
-                                        <label for="models" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" required>
-                                            Input the Lot Number
-                                        </label>
-                                        <input v-model="form.fieldAnswers.ans2" type="text" id="ltnum" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                                    </div>
-
+                                    <input
+                                        v-model="form.fieldAnswers.ans2"
+                                        type="text"
+                                        id="ltnum" placeholder="Ex. 5/46"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required
+                                    />
                                 </div>
                             </div>
-                        </section>
+                            <div
+                                id="question"
+                                class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md"
+                            >
+                                <h5 id="question3">Kit Number</h5>
+                                <div class="">
+                                    <label
+                                        for="models"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                        required
+                                    >
+                                        Input the Kit Number
+                                    </label>
+                                    <input
+                                        v-model="form.fieldAnswers.ans3"
+                                        type="text"
+                                        id="ltnum" placeholder="Ex. 36132-001"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                    </div>
+
+                </section>
+
         ';
     }
 

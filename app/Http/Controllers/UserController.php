@@ -221,8 +221,10 @@ class UserController extends Controller
     public function show5SForm()
     {
         // Get all models
-        $models = DB::table('models')
-            ->select('model_name')
+        $models = DB::table('tags')
+            ->join('models', 'tags.model_id', '=', 'models.id')
+            ->join('forms', 'tags.form_id', '=', 'forms.id')
+            ->select('models.model_name', 'forms.form_name', 'tags.*')
             ->get();
 
         // Send list of models to url
@@ -272,5 +274,15 @@ class UserController extends Controller
     public function showChecksheetManager()
     {
         return Inertia::render('ChecksheetManager/Index');
+    }
+
+    public function showAmendment()
+    {
+        return Inertia::render('Create-Checklist/Amendment/Index');
+    }
+
+    public function showPendingApproval()
+    {
+        return Inertia::render('Create-Checklist/ChecklistApproval/Index');
     }
 }
