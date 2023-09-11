@@ -23,7 +23,7 @@ import { reactive } from 'vue';
         <form @submit.prevent="submit">
             <div class="lg:mx-[25%] mb-40">
                 <div class="mx-auto">
-
+                
                     <!-- CHECKSHEET NAME -->
                     <div class="mb-5">
                         <p class="text-xl mb-3">Check Sheet Name</p>
@@ -83,42 +83,48 @@ import { reactive } from 'vue';
                                     <div v-for="qIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content).length" :key="qIndex" class="pt-5" ref="questionRefs">
                                         <div :id="'question' + 'qIndex'" class="border-gray-200 border-2 p-4 flex flex-col rounded-lg">
 
-                                            <!-- Question -->
-                                            <div>
-                                                <p class="text-md mb-2">Question</p>
+                                        <!-- Question -->
+                                        <div>
+                                            <p class="text-md mb-2">Question</p>
 
-                                                <!-- QUESTION LABEL INPUT -->
-                                                <div class="relative">
+                                            <!-- QUESTION LABEL INPUT -->
+                                            <div class="relative">
 
-                                                    <input v-model="form_config
-                                                        .form_content['section' + key.toString()]
-                                                        .section_content['question' + qIndex.toString()].label" type="text" :id="'question' + qIndex" class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent
-                                                            rounded-lg border-1 border-gray-300 appearance-none dark:text-white
-                                                            dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none
-                                                            focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
+                                                <input v-model="form_config
+                                                    .form_content['section' + key.toString()]
+                                                    .section_content['question' + qIndex.toString()].label" type="text"
+                                                    :id="'question' + qIndex" class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent
+                                                        rounded-lg border-1 border-gray-300 appearance-none dark:text-white
+                                                        dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none
+                                                        focus:ring-0 focus:border-blue-600 peer" placeholder=" "
+                                                    required />
 
-                                                    <label :id="'question' + qIndex" :for="'question' + qIndex" class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Type
-                                                        here the question...</label>
-                                                </div>
+                                                <label :id="'question' + qIndex" :for="'question' + qIndex"
+                                                    class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Type
+                                                    here the question...</label>
                                             </div>
+                                        </div>
 
-                                            <!-- Instruction -->
-                                            <div>
-                                                <p class="text-md mb-2">
-                                                    Instruction
-                                                </p>
+                                        <!-- Instruction -->
+                                        <div>
+                                            <p class="text-md mb-2">
+                                                Instruction
+                                            </p>
 
-                                                <!-- INSTRUCTION LABEL INPUT -->
-                                                <div class="relative">
-                                                    <input v-model="form_config
-                                                        .form_content['section' + key.toString()]
-                                                        .section_content['question' + qIndex.toString()].instruction" type="text" :name="'instruction' + qIndex" :id="'instruction' + qIndex" class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                        placeholder=" " />
-                                                    <label :for="'instruction' + qIndex" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Type
-                                                        here your
-                                                        instruction...</label>
-                                                </div>
+                                            <!-- INSTRUCTION LABEL INPUT -->
+                                            <div class="relative">
+                                                <input v-model="form_config
+                                                    .form_content['section' + key.toString()]
+                                                    .section_content['question' + qIndex.toString()].instruction"
+                                                    type="text" :name="'instruction' + qIndex" :id="'instruction' + qIndex"
+                                                    class="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                    placeholder=" " />
+                                                <label :for="'instruction' + qIndex"
+                                                    class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Type
+                                                    here your
+                                                    instruction...</label>
                                             </div>
+                                        </div>
 
                                             <!-- Question Type -->
                                             <div>
@@ -137,7 +143,7 @@ import { reactive } from 'vue';
                                                         Multiple Choice (✔, ✘, ✔✘)
                                                     </option>
                                                     <option :value="'checkbox'">
-                                                        Check
+                                                        Checkbox
                                                     </option>
                                                     <option :value="'text'">
                                                         Text
@@ -148,16 +154,17 @@ import { reactive } from 'vue';
                                                 </select>
                                             </div>
 
-                                            <!-- Question Type Options -->
+                                        <!-- Question Type Options -->
 
-                                            <!-- OPTION || Radio -->
-                                            <div class="col-span-2" v-if="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type === 'radio'">
+                                        <!-- OPTION || Radio -->
+                                        <div class="col-span-2"
+                                            v-if="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type === 'radio'">
 
-                                                <div class="mb-2">
-                                                    <p class="text-md">
-                                                        Radio Options
-                                                    </p>
-                                                </div>
+                                            <div class="mb-2">
+                                                <p class="text-md">
+                                                    Radio Options
+                                                </p>
+                                            </div>
 
                                                 <!-- Radio Input Label -->
                                                 <div v-for="ansIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].options).length" class="flex mb-2">
@@ -165,9 +172,14 @@ import { reactive } from 'vue';
                                                         <input v-model="form_config
                                                             .form_content['section' + key.toString()]
                                                             .section_content['question' + qIndex.toString()]
-                                                            .options['ans' + ansIndex.toString()]" type="text" :name="'radio' + key" :id="'radio' + key" class="mb-2 block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                            .options['ans' + ansIndex.toString()].label" type="text" :name="'radio' + key" :id="'radio' + key" class="mb-2 block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                             placeholder="Enter answer option here" required />
 
+                                                    <label :for="'radio' + key"
+                                                        class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Radio
+                                                        Option
+                                                    </label>
+                                                </div>
                                                         <label :for="'radio' + key" class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Radio
                                                             Option
                                                         </label>
@@ -189,149 +201,385 @@ import { reactive } from 'vue';
                                                     <!-- Color Identifier -->
                                                     <div class="mx-5 md:w-2/6 rounded-full flex">
 
-
                                                         <!-- THE COLOR -->
                                                         <div class="flex items-center">
-                                                            <div class="rounded-full p-2 bg-green-600">
+                                                            <!-- Clear -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color == 'clear'" 
+                                                        class="rounded-full border p-2 bg-[#FFFFFF]"></div>
 
-                                                            </div>
+                                                            <!-- Red -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color == '#E33A3A'" 
+                                                        class="rounded-full p-2 bg-[#E33A3A]"></div>
+
+                                                        <!-- Green -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color == '#1FAC3C'" 
+                                                        class="rounded-full p-2 bg-[#1FAC3C]"></div>
+
+                                                        <!-- Blue -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color == '#3C5393'" 
+                                                        class="rounded-full p-2 bg-[#3C5393]"></div>
+
+                                                        <!-- Orange -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color == '#EF5B0C'" 
+                                                        class="rounded-full p-2 bg-[#EF5B0C]"></div>
                                                         </div>
-
+                                                    
 
                                                         <!-- THE SELECT OPTION -->
-                                                        <select id="countries" class="border-none text-gray-900 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                            <option selected>Color</option>
-                                                            <option value="US">Green</option>
-                                                            <option value="CA">Red</option>
-                                                            <option value="FR">Orange</option>
-                                                            <option value="DE">Yellow</option>
-                                                            <option value="DG">Clear</option>
+                                                        <select v-model="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color" 
+                                                        id="countries" 
+                                                        class="border-none text-gray-900 rounded-lg text-xs focus-none block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                        >
+                                                            <option value="clear" selected>Clear</option>
+                                                            <option value="#E33A3A">Red</option>
+                                                            <option value="#1FAC3C">Green</option>
+                                                            <option value="#3C5393">Blue</option>
+                                                            <option value="#EF5B0C">Orange</option>
                                                         </select>
 
+                                                </div>
+
+
+                                                <!-- Delete answer option button -->
+                                                <button
+                                                    @click="removeAnswer('section' + key.toString(), 'question' + qIndex.toString(), 'ans' + ansIndex.toString())"
+                                                    class="p-3 hover:bg-red-100">
+                                                    <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                        viewBox="0 0 20 20">
+                                                        <path
+                                                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+
+
+                                            <!-- Add answer option button -->
+                                            <button
+                                                @click="addAnswer('section' + key.toString(), 'question' + qIndex.toString())"
+                                                v-if="answerType.includes(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type)"
+                                                class="hover:bg-blue-500 bg-[#3c5393] text-white duration-200 p-2 rounded-md text-sm flex items-center align-center">
+                                                <svg class="w-4 h-4 mr-2 text-white-800 dark:text-white" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+                                                    viewBox="0 0 20 20">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="M10 5.757v8.486M5.757 10h8.486M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                </svg>
+                                                Add Option
+                                            </button>
+
+                                        </div>
+
+                                        <!-- OPTION || Radio-Symbol -->
+                                        <div class="col-span-2"
+                                            v-if="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type === 'radio-symbol'">
+
+                                            <div class="mb-2">
+                                                <p class="text-md">
+                                                    Radio Options
+                                                </p>
+                                            </div>
+
+                                            <!-- Radio Input Label -->
+                                            <div v-for="ansIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].options).length"
+                                                class="flex">
+                                                <div class="w-full relative">
+                                                    <input v-model="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].label" type="text"
+                                                        :name="'radio' + key" :id="'radio' + key"
+                                                        class="bg-[--disabled] border-[--disabled-outline] mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-sm text-gray-900 rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                        placeholder="Enter answer option here" disabled required/>
+                                                    <label :for="'radio' + key"
+                                                        class="bg-transparent absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Radio
+                                                        Option
+                                                    </label>
+                                                </div>
+
+                                                <!-- Color Identifier -->
+                                                <div class="mx-5 md:w-2/6 rounded-full flex">
+
+                                                    <!-- THE COLOR -->
+                                                    <div class="flex items-center">
+                                                        <!-- Clear -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color == 'clear'" 
+                                                        class="rounded-full border p-2 bg-[#FFFFFF]"></div>
+
+                                                        <!-- Red -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color == '#E33A3A'" 
+                                                        class="rounded-full p-2 bg-[#E33A3A]"></div>
+
+                                                        <!-- Green -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color == '#1FAC3C'" 
+                                                        class="rounded-full p-2 bg-[#1FAC3C]"></div>
+
+                                                        <!-- Blue -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color == '#3C5393'" 
+                                                        class="rounded-full p-2 bg-[#3C5393]"></div>
+
+                                                        <!-- Orange -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color == '#EF5B0C'" 
+                                                        class="rounded-full p-2 bg-[#EF5B0C]"></div>
                                                     </div>
 
 
-                                                    <!-- Delete answer option button -->
-                                                    <button @click="removeAnswer('section' + key.toString(), 'question' + qIndex.toString(), 'ans' + ansIndex.toString())" class="p-3 hover:bg-red-100">
-                                                        <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
-                                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                            viewBox="0 0 20 20">
-                                                            <path
-                                                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
-                                                        </svg>
-                                                    </button>
+                                                    <!-- THE SELECT OPTION -->
+                                                    <select v-model="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color" 
+                                                        id="countries" 
+                                                        class="border-none text-gray-900 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    >
+                                                        <option value="clear" selected>Clear</option>
+                                                        <option value="#E33A3A">Red</option>
+                                                        <option value="#1FAC3C">Green</option>
+                                                        <option value="#3C5393">Blue</option>
+                                                        <option value="#EF5B0C">Orange</option>
+                                                    </select>
+
                                                 </div>
 
-
-                                                <!-- Add answer option button -->
-                                                <button @click="addAnswer('section' + key.toString(), 'question' + qIndex.toString())" v-if="answerType.includes(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type)" class="hover:bg-blue-500 bg-[#3c5393] text-white duration-200 p-2 rounded-md text-sm flex items-center align-center">
-                                                    <svg class="w-4 h-4 mr-2 text-white-800 dark:text-white" aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+                                                <!-- Delete answer option button -->
+                                                <button class="p-3" disabled>
+                                                    <svg class="w-4 h-4 text-gray-400 dark:text-white" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                         viewBox="0 0 20 20">
-                                                        <path stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2"
-                                                            d="M10 5.757v8.486M5.757 10h8.486M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                        <path
+                                                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
                                                     </svg>
-                                                    Add Option
                                                 </button>
+                                            </div>
+                                        </div>
 
+                                        <!-- OPTION || Checkbox -->
+                                        <div class="col-span-2"
+                                            v-if="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type === 'checkbox'">
+                                            <div class="mb-2">
+                                                <p class="text-md">
+                                                    Checkbox Options
+                                                </p>
                                             </div>
 
-                                            <!-- OPTION || Radio-Symbol -->
-                                            <div class="col-span-2" v-if="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type === 'radio-symbol'">
-
-                                                <div class="mb-2">
-                                                    <p class="text-md">
-                                                        Radio Options
-                                                    </p>
-                                                </div>
-
-                                                <!-- Radio Input Label -->
-                                                <div v-for="ansIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].options).length" class="flex">
-                                                    <div class="w-full relative">
-                                                        <input v-model="form_config
+                                            <!-- Checkbox Input Label -->
+                                            <div v-for="ansIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].options).length"
+                                                class="flex">
+                                                <div class="w-full relative">
+                                                    <input type="text" :name="'check' + key" :id="'check' + key"
+                                                        class="mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                        placeholder="Enter answer option here" v-model="form_config
                                                             .form_content['section' + key.toString()]
                                                             .section_content['question' + qIndex.toString()]
-                                                            .options['ans' + ansIndex.toString()]" type="text" :name="'radio' + key" :id="'radio' + key" class="bg-[--disabled] border-[--disabled-outline] mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-sm text-gray-900 rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                            placeholder="Enter answer option here" disabled required/>
-                                                        <label :for="'radio' + key" class="bg-transparent absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Radio
-                                                            Option
-                                                        </label>
+                                                            .options['ans' + ansIndex.toString()].label
+                                                            " required />
+                                                    <label :for="'check' + key"
+                                                        class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Checkbox
+                                                        Option</label>
+                                                </div>
+
+                                                <!-- Color Identifier -->
+                                                <div class="mx-5 md:w-2/6 rounded-full flex">
+
+                                                    <!-- THE COLOR -->
+                                                    <div class="flex items-center">
+                                                        <!-- Clear -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color == 'clear'" 
+                                                        class="rounded-full border p-2 bg-[#FFFFFF]"></div>
+
+                                                        <!-- Red -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color == '#E33A3A'" 
+                                                        class="rounded-full p-2 bg-[#E33A3A]"></div>
+
+                                                        <!-- Green -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color == '#1FAC3C'" 
+                                                        class="rounded-full p-2 bg-[#1FAC3C]"></div>
+
+                                                        <!-- Blue -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color == '#3C5393'" 
+                                                        class="rounded-full p-2 bg-[#3C5393]"></div>
+
+                                                        <!-- Orange -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color == '#EF5B0C'" 
+                                                        class="rounded-full p-2 bg-[#EF5B0C]"></div>
                                                     </div>
 
-                                                    <!-- Delete answer option button -->
-                                                    <button class="p-3" disabled>
-                                                        <svg class="w-4 h-4 text-gray-400 dark:text-white" aria-hidden="true"
-                                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                            viewBox="0 0 20 20">
-                                                            <path
-                                                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
-                                                        </svg>
-                                                    </button>
-                                                </div>
-                                            </div>
 
-                                            <!-- OPTION || Checkbox -->
-                                            <div class="col-span-2" v-if="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type === 'checkbox'">
-                                                <div class="mb-2">
-                                                    <p class="text-md">
-                                                        Checkbox Options
-                                                    </p>
+                                                    <!-- THE SELECT OPTION -->
+                                                    <select v-model="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options['ans' + ansIndex.toString()].color" 
+                                                        id="countries" 
+                                                        class="border-none text-gray-900 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    >
+                                                        <option value="clear" selected>Clear</option>
+                                                        <option value="#E33A3A">Red</option>
+                                                        <option value="#1FAC3C">Green</option>
+                                                        <option value="#3C5393">Blue</option>
+                                                        <option value="#EF5B0C">Orange</option>
+                                                    </select>
+
                                                 </div>
 
-                                                <!-- Checkbox Input Label -->
-                                                <div v-for="ansIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].options).length" class="flex">
-                                                    <div class="w-full relative">
-                                                        <input type="text" :name="'check' + key" :id="'check' + key" class="mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                            placeholder="Enter answer option here" v-model="form_config
-                                                                .form_content['section' + key.toString()]
-                                                                .section_content['question' + qIndex.toString()]
-                                                                .options['ans' + ansIndex.toString()]
-                                                                " required />
-                                                        <label :for="'check' + key" class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Checkbox
-                                                            Option</label>
-                                                    </div>
-
-                                                    <!-- Delete Answer Option Button -->
-                                                    <button @click="removeAnswer('section' + key.toString(), 'question' + qIndex.toString(), 'ans' + ansIndex.toString())" class="p-3 hover:bg-red-100">
-                                                        <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
-                                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                            viewBox="0 0 20 20">
-                                                            <path
-                                                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
-                                                        </svg>
-
-                                                    </button>
-                                                </div>
-
-                                                <button @click="addAnswer('section' + key.toString(), 'question' + qIndex.toString())" class="hover:bg-blue-500 bg-[#3c5393] text-white duration-200 p-2 rounded-md text-sm flex items-center align-center">
-                                                    <svg class="w-4 h-4 mr-2 text-white-800 dark:text-white" aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+                                                <!-- Delete Answer Option Button -->
+                                                <button
+                                                    @click="removeAnswer('section' + key.toString(), 'question' + qIndex.toString(), 'ans' + ansIndex.toString())"
+                                                    class="p-3 hover:bg-red-100">
+                                                    <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                         viewBox="0 0 20 20">
-                                                        <path stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2"
-                                                            d="M10 5.757v8.486M5.757 10h8.486M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                        <path
+                                                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
                                                     </svg>
-                                                    Add Option
                                                 </button>
                                             </div>
 
-                                            <!-- OPTION || Textbox -->
-                                            <div class="col-span-2" v-if="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type === 'text'">
-                                                <div class="">
-                                                    <p class="text-md mb-2">
-                                                        Textbox
-                                                    </p>
-                                                </div>
+                                            <button
+                                                @click="addAnswer('section' + key.toString(), 'question' + qIndex.toString())"
+                                                class="hover:bg-blue-500 bg-[#3c5393] text-white duration-200 p-2 rounded-md text-sm flex items-center align-center">
+                                                <svg class="w-4 h-4 mr-2 text-white-800 dark:text-white" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+                                                    viewBox="0 0 20 20">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="M10 5.757v8.486M5.757 10h8.486M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                </svg>
+                                                Add Option
+                                            </button>
+                                        </div>
 
+                                        <!-- OPTION || Textbox -->
+                                        <div class="col-span-2"
+                                            v-if="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type === 'text'">
+                                            <div class="">
+                                                <p class="text-md mb-2">
+                                                    Textbox
+                                                </p>
+                                            </div>
+
+                                            <div class="flex">
                                                 <!-- Text Input Label -->
-                                                <div class="relative">
-                                                    <input type="text" :name="'text' + key" class="bg-[--disabled] border-[--disabled-outline] block px-2.5 pb-1.5 pt-3 w-5/6 text-sm text-gray-900 rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                <div class="relative w-full">
+                                                    <input type="text" :name="'text' + key"
+                                                        class="bg-[--disabled] border-[--disabled-outline] block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                         placeholder=" " disabled />
-                                                    <label for="section_name" class="bg-[--disabled] absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Type
+                                                    <label for="section_name"
+                                                        class="bg-[--disabled] absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Type
                                                         here...</label>
                                                 </div>
+
+                                                <!-- Color Identifier -->
+                                                <div class="mx-5 md:w-2/6 rounded-full flex">
+
+                                                    <!-- THE COLOR -->
+                                                    <div class="flex items-center">
+
+                                                        <!-- Clear -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options.ans1.color == 'clear'" 
+                                                        class="rounded-full border p-2 bg-[#FFFFFF]"></div>
+
+                                                        <!-- Red -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options.ans1.color == '#E33A3A'" 
+                                                        class="rounded-full p-2 bg-[#E33A3A]"></div>
+
+                                                        <!-- Green -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options.ans1.color == '#1FAC3C'" 
+                                                        class="rounded-full p-2 bg-[#1FAC3C]"></div>
+
+                                                        <!-- Blue -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options.ans1.color == '#3C5393'" 
+                                                        class="rounded-full p-2 bg-[#3C5393]"></div>
+
+                                                        <!-- Orange -->
+                                                        <div v-if="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options.ans1.color == '#EF5B0C'" 
+                                                        class="rounded-full p-2 bg-[#EF5B0C]"></div>
+                                                    </div>
+
+
+                                                    <!-- THE SELECT OPTION -->
+                                                    <select v-model="form_config
+                                                        .form_content['section' + key.toString()]
+                                                        .section_content['question' + qIndex.toString()]
+                                                        .options.ans1.color" 
+                                                        id="countries" 
+                                                        class="border-none text-gray-900 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    >
+                                                        <option value="clear" selected>Clear</option>
+                                                        <option value="#E33A3A">Red</option>
+                                                        <option value="#1FAC3C">Green</option>
+                                                        <option value="#3C5393">Blue</option>
+                                                        <option value="#EF5B0C">Orange</option>
+                                                    </select>
+
+                                                </div>
                                             </div>
+
+                                        </div>
 
                                             <!-- OPTION || Dropdown Options -->
                                             <div class="col-span-2" v-if="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type === 'dropdown'">
@@ -341,18 +589,80 @@ import { reactive } from 'vue';
                                                     </p>
                                                 </div>
 
+                                            {{ 'section' + key.toString() }}
+
                                                 <!-- Dropdown Option Label -->
                                                 <div v-for="ansIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].options).length" class="flex">
                                                     <div class="w-full relative">
                                                         <input v-model="form_config
                                                             .form_content['section' + key.toString()]
                                                             .section_content['question' + qIndex.toString()]
-                                                            .options['ans' + ansIndex.toString()]" type="text" :name="'drop' + key" :id="'drop' + key" class="mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                            .options['ans' + ansIndex.toString()].label" type="text" :name="'drop' + key" :id="'drop' + key" class="mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                             placeholder=" " required />
                                                         <label :for="'drop' + key" class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Dropbox
                                                             Option</label>
                                                     </div>
-                                                    <button @click="removeAnswer('section' + key.toString(), 'question' + qIndex.toString(), 'ans' + ansIndex.toString())" class="p-3 hover:bg-red-100">
+    
+                                                <!-- Color Identifier -->
+                                            <div class="mx-5 md:w-2/6 rounded-full flex">
+
+                                                <!-- THE COLOR -->
+                                                <div class="flex items-center">
+                                                    <!-- Clear -->
+                                                    <div v-if="form_config
+                                                    .form_content['section' + key.toString()]
+                                                    .section_content['question' + qIndex.toString()]
+                                                    .options['ans' + ansIndex.toString()].color == 'clear'" 
+                                                    class="rounded-full border p-2 bg-[#FFFFFF]"></div>
+
+                                                    <!-- Red -->
+                                                    <div v-if="form_config
+                                                    .form_content['section' + key.toString()]
+                                                    .section_content['question' + qIndex.toString()]
+                                                    .options['ans' + ansIndex.toString()].color == '#E33A3A'" 
+                                                    class="rounded-full p-2 bg-[#E33A3A]"></div>
+
+                                                    <!-- Green -->
+                                                    <div v-if="form_config
+                                                    .form_content['section' + key.toString()]
+                                                    .section_content['question' + qIndex.toString()]
+                                                    .options['ans' + ansIndex.toString()].color == '#1FAC3C'" 
+                                                    class="rounded-full p-2 bg-[#1FAC3C]"></div>
+
+                                                    <!-- Blue -->
+                                                    <div v-if="form_config
+                                                    .form_content['section' + key.toString()]
+                                                    .section_content['question' + qIndex.toString()]
+                                                    .options['ans' + ansIndex.toString()].color == '#3C5393'" 
+                                                    class="rounded-full p-2 bg-[#3C5393]"></div>
+
+                                                    <!-- Orange -->
+                                                    <div v-if="form_config
+                                                    .form_content['section' + key.toString()]
+                                                    .section_content['question' + qIndex.toString()]
+                                                    .options['ans' + ansIndex.toString()].color == '#EF5B0C'" 
+                                                    class="rounded-full p-2 bg-[#EF5B0C]"></div>
+                                                </div>
+
+
+                                                <!-- THE SELECT OPTION -->
+                                                <select v-model="form_config
+                                                    .form_content['section' + key.toString()]
+                                                    .section_content['question' + qIndex.toString()]
+                                                    .options['ans' + ansIndex.toString()].color" 
+                                                    id="countries" 
+                                                    class="border-none text-gray-900 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                >
+                                                    <option value="clear" selected>Clear</option>
+                                                    <option value="#E33A3A">Red</option>
+                                                    <option value="#1FAC3C">Green</option>
+                                                    <option value="#3C5393">Blue</option>
+                                                    <option value="#EF5B0C">Orange</option>
+                                                </select>
+
+                                            </div>
+
+                                                <button @click="removeAnswer('section' + key.toString(), 'question' + qIndex.toString(), 'ans' + ansIndex.toString())" class="p-3 hover:bg-red-100">
                                                         <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
                                                             xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                             viewBox="0 0 20 20">
@@ -360,35 +670,40 @@ import { reactive } from 'vue';
                                                                 d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
                                                         </svg>
 
-                                                    </button>
-                                                </div>
-
-                                                <button @click="addAnswer('section' + key.toString(), 'question' + qIndex.toString())" class="hover:bg-blue-500 bg-[#3c5393] text-white duration-200 p-2 rounded-md text-sm flex items-center align-center">
-                                                    <svg class="w-4 h-4 mr-2 text-white-800 dark:text-white" aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
-                                                        viewBox="0 0 20 20">
-                                                        <path stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2"
-                                                            d="M10 5.757v8.486M5.757 10h8.486M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                                    </svg>
-                                                    Add Option
                                                 </button>
                                             </div>
 
-                                            <!-- Is Required? && Delete-->
-                                            <div class="space-x-7 align-center justify-end flex border-t mt-10 pt-5 border-gray-200">
+                                            <button
+                                                @click="addAnswer('section' + key.toString(), 'question' + qIndex.toString())"
+                                                class="hover:bg-blue-500 bg-[#3c5393] text-white duration-200 p-2 rounded-md text-sm flex items-center align-center">
+                                                <svg class="w-4 h-4 mr-2 text-white-800 dark:text-white" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+                                                    viewBox="0 0 20 20">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="M10 5.757v8.486M5.757 10h8.486M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                </svg>
+                                                Add Option
+                                            </button>
+                                        </div>
 
-                                                <!-- Delete Question -->
-                                                <div class="flex items-center align-center">
-                                                    <button @click="removeQuestion('section' + key.toString(), 'question' + qIndex.toString())" class="duration-200 p-2 hover:bg-red-200 rounded-md">
-                                                        <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
-                                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
-                                                            <path stroke="currentColor" stroke-linecap="round"
-                                                                stroke-linejoin="round" stroke-width="2"
-                                                                d="M1 5h16M7 8v8m4-8v8M7 1h4a1 1 0 0 1 1 1v3H6V2a1 1 0 0 1 1-1ZM3 5h12v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5Z" />
-                                                        </svg>
-                                                    </button>
-                                                </div>
+                                        <!-- Is Required? && Delete-->
+                                        <div
+                                            class="space-x-7 align-center justify-end flex border-t mt-10 pt-5 border-gray-200">
+
+                                            <!-- Delete Question -->
+                                            <div class="flex items-center align-center">
+                                                <button
+                                                    @click="removeQuestion('section' + key.toString(), 'question' + qIndex.toString())"
+                                                    class="duration-200 p-2 hover:bg-red-200 rounded-md">
+                                                    <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="M1 5h16M7 8v8m4-8v8M7 1h4a1 1 0 0 1 1 1v3H6V2a1 1 0 0 1 1-1ZM3 5h12v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5Z" />
+                                                    </svg>
+                                                </button>
+                                            </div>
 
                                                 <!-- Is Required Option -->
                                                 <div class="flex space-x-2 align-center items-center">
@@ -536,7 +851,10 @@ let form_config = reactive({
                     type: null,
                     required: false,
                     options: {
-                        ans1: null
+                        ans1: {
+                            label: null,
+                            color: null,
+                        }
                     }
                 }
             }
@@ -548,6 +866,9 @@ export default {
     name: 'App',
     data() {
         return {
+            isDropdownOpen: false,
+            dropdownButtonId: 'dpbtn', // ID of the button that controls the dropdown
+        }
             isDropdownOpen: false,
             dropdownButtonId: 'dpbtn', // ID of the button that controls the dropdown
         }
@@ -685,7 +1006,10 @@ export default {
                     type: null,
                     required: false,
                     options: {
-                        ans1: null
+                        ans1: {
+                        label: null,
+                        color: 'clear',
+                    }
                     }
                 };
 
@@ -719,7 +1043,10 @@ export default {
             form_config
                 .form_content[sectionName]
                 .section_content[questionName]
-                .options['ans' + (questionContentSize + 1)] = null;
+                .options['ans' + (questionContentSize + 1)] = {
+                    label: null,
+                    color: 'clear',
+                };
         },
         resetQuestionContent(sectionName, questionName) {
             // Get question type
@@ -731,14 +1058,26 @@ export default {
             if (questionType == "radio-symbol") {
                 // Re-add options object with predefined answers
                 form_config.form_content[sectionName].section_content[questionName]['options'] = {
-                    ans1: '✔',
-                    ans2: '✘',
-                    ans3: '✔✘',
+                    ans1: {
+                        label: '✔',
+                        color: '#1FAC3C',
+                    },
+                    ans2: {
+                        label: '✘',
+                        color: '#E33A3A',
+                    },
+                    ans3: {
+                        label: '✔✘',
+                        color: '#EF5B0C',
+                    },
                 };
             } else {
                 // Re-add options object
                 form_config.form_content[sectionName].section_content[questionName]['options'] = {
-                    ans1: null
+                    ans1: {
+                        label: null,
+                        color: 'clear',
+                    }
                 };
             }
         },

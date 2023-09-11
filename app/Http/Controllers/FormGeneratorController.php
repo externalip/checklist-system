@@ -134,7 +134,7 @@ class FormGeneratorController extends Controller
                             // Append Text Answer Field
                             Storage::disk('form_path')->append($file_name, '
                                 <div class="">
-                                    <input v-model="form.fieldAnswers.ans'.$answerIndex++.'" type="text" id="ltnum"
+                                    <input v-model="form.fieldAnswers.ans'.$answerIndex++.'.label" type="text" id="ltnum"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 </div>
                             ');
@@ -147,16 +147,16 @@ class FormGeneratorController extends Controller
                         ');
 
                         // Append Radio Options
-                        foreach ($value['section_content'][$qKey]['options'] as $ansKey => $ansLabel) {
+                        foreach ($value['section_content'][$qKey]['options'] as $ansKey => $ansVal) {
                             if ($isRequired) {
                                 Storage::disk('form_path')->append($file_name, '
                                     <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                         <div class="flex items-center pl-3">
                                             <input v-model="form.fieldAnswers.ans'.$answerIndex.'" id="production-checksheet-radio-'.$radioTarget.'" type="radio"
-                                                value="'.$ansLabel.'" name="production-checksheet-radio-'.$value['section_name'].$qKey.'"
+                                                value="'.$ansVal['label'].'" name="production-checksheet-radio-'.$value['section_name'].$qKey.'"
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
                                             <label for="production-checksheet-radio-'.$radioTarget++.'"
-                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">'.$ansLabel.'
+                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">'.$ansVal['label'].'
                                             </label>
                                         </div>
                                     </li>
@@ -166,10 +166,10 @@ class FormGeneratorController extends Controller
                                     <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                         <div class="flex items-center pl-3">
                                             <input v-model="form.fieldAnswers.'.'ans'.$answerIndex.'" id="production-checksheet-radio-'.$radioTarget.'" type="radio"
-                                                value="'.$ansLabel.'" name="production-checksheet-radio-'.$value['section_name'].$qKey.'"
+                                                value="'.$ansVal['label'].'" name="production-checksheet-radio-'.$value['section_name'].$qKey.'"
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                                             <label for="production-checksheet-radio-'.$radioTarget++.'"
-                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">'.$ansLabel.'
+                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">'.$ansVal['label'].'
                                             </label>
                                         </div>
                                     </li>
@@ -199,10 +199,10 @@ class FormGeneratorController extends Controller
                         }
 
                         // Append Dropdown Options
-                        foreach ($value['section_content'][$qKey]['options'] as $ansKey => $ansLabel) {
+                        foreach ($value['section_content'][$qKey]['options'] as $ansKey => $ansVal) {
                             Storage::disk('form_path')->append($file_name, '
-                                <option value="'.$ansLabel.'">
-                                    '.$ansLabel.'
+                                <option value="'.$ansVal['label'].'">
+                                    '.$ansVal['label'].'
                                 </option>
                             ');
                         }
@@ -212,15 +212,15 @@ class FormGeneratorController extends Controller
                     } else {
 
                         // Append Checkbox Options
-                        foreach ($value['section_content'][$qKey]['options'] as $ansKey => $ansLabel) {
+                        foreach ($value['section_content'][$qKey]['options'] as $ansKey => $ansVal) {
                             Storage::disk('form_path')->append($file_name, '
                                 <div class="flex items-center mb-1">
                                     <input v-model="form.fieldAnswers.ans'.$answerIndex.'"
-                                        id="checkbox'.$checkboxTarget.'" type="checkbox" value="'.$ansLabel.'"
+                                        id="checkbox'.$checkboxTarget.'" type="checkbox" value="'.$ansVal['label'].'"
                                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                     <label for="checkbox'.$checkboxTarget++.'"
                                         class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                            >'.$ansLabel.'
+                                            >'.$ansVal['label'].'
                                     </label>
                                 </div>
                                 ');
@@ -294,7 +294,10 @@ class FormGeneratorController extends Controller
                         type: null,
                         required: false,
                         options: {
-                            ans1: null
+                            ans1: {
+                                label: null,
+                                color: 'clear',
+                            }
                         }
                     }
                 }

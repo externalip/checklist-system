@@ -6,8 +6,7 @@
 
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
-import { Link } from '@inertiajs/vue3';
-import { reactive, computed, onMounted, watch } from 'vue';
+import { reactive, onMounted, watch } from 'vue';
 
 const showDiv = (selectedFormName) => {
     // Hide all hidden divs first
@@ -26,14 +25,6 @@ let selectedForm = reactive({
     form_name: null,
 });
 
-let props = defineProps({
-    forms: Array,
-    selectedFormName: Array,
-    data: Array,
-    signatures: Array,
-    counts: Number,
-    formtable: Array
-});
 watch(() => selectedForm.form_name, (newValue) => {
     setTimeout(() => {
         showDiv(newValue);
@@ -50,7 +41,6 @@ onMounted(() => {
     if (formNameFromQuery) {
         selectedForm.form_name = formNameFromQuery;
     }
-
 });
 const parsedArray = (data) => {
     if (Array.isArray(data)) {
@@ -103,7 +93,30 @@ const submit = async (status, id) => {
     }
 };
 
+// Returns color hex string
+function colorCode(question, answer) {
 
+    // Check if question type is text
+    if (question.type == 'text') {
+        return 'border-black text-black text-center';
+    }
+
+    // Loop through all answers
+    for (const optionKey in question.options) {
+        const option = question.options[optionKey];
+
+        if (option.label === answer) {
+
+            // Return corresponding color coding
+            if (option.color == 'clear') {
+                return 'border-black text-black text-center';
+            } else {
+                return 'bg-[' + option.color + '] text-white text-center';
+            }
+        }
+    }
+
+}
 </script>
 
 <template>
@@ -190,7 +203,7 @@ const submit = async (status, id) => {
 
                 <!-- Export Button -->
             </section>
-
+            
             <section id="pending-accordions" class="lg:mx-20">
                 <!-- {{ Number of Pending Reports }} Pending Reports on {{ Checksheet Selected }}-->
 
@@ -233,8 +246,7 @@ const submit = async (status, id) => {
                                     class="bg-gray-100 text-[--blue] p-3 px-12 lg:flex lg:items-center text-center lg:justify-between">
                                     <div id="lot-number" class="">
                                         <label for="" class="text-sm">Lot Number</label>
-                                        <h5 class="font-bold">{{ JSON.parse(row.response).fieldAnswers['Kit Number'] }} {{
-                                            JSON.parse(row.response).fieldAnswers['Lot Number'] }}</h5>
+                                        <h5 class="font-bold">{{ JSON.parse(row.response).fieldAnswers['Lot Number'] }}</h5>
                                     </div>
 
                                     <div id="performed-by" class="">
@@ -282,8 +294,9 @@ const submit = async (status, id) => {
                                                             class="w-full text-[--blue] px-6 py-4 font-medium whitespace-wrap text-gray-900 dark:text-white">
                                                             {{ question.label }}
                                                         </th>
+
                                                         <td
-                                                            :class="(JSON.parse(row.response).fieldAnswers[question.label] === 'OK' || JSON.parse(row.response).fieldAnswers[question.label] === 'PASS' || JSON.parse(row.response).fieldAnswers[question.label] === '✔') ? 'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' : 'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
+                                                            :class="colorCode(question, JSON.parse(row.response).fieldAnswers[question.label])">
                                                             {{
                                                                 parsedArray(JSON.parse(row.response).fieldAnswers[question.label])
                                                             }}
@@ -358,27 +371,27 @@ const submit = async (status, id) => {
                                             disabled></textarea>
                                     </div>
                                 </div>
-                                <div v-if="$page.props.auth.employee.role_id != 1 " class="pb-5">
+                                <div v-if="$page.props.auth.employee.role_id != 1" class="pb-5">
                                     <!-- Button -->
                                     <div id="pending-sign-btn" class="px-5 p-2 w-full flex justify-end">
 
-                                    <!-- Reject Button -->
+                                        <!-- Reject Button -->
 
-                                    <button type="button" href="#" @click="submit('Rejected',row.id)"
-                                        class="focus:outline-none text-white bg-[--red] hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Reject
-                                    </button>
+                                        <button type="button" href="#" @click="submit('Rejected', row.id)"
+                                            class="focus:outline-none text-white bg-[--red] hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Reject
+                                        </button>
 
-                                    <!-- </router-link> -->
+                                        <!-- </router-link> -->
 
-                                    <!-- Approve Button -->
-                                    <button type="button" href="#" @click="submit('OK',row.id)"
-                                        class="text-white bg-[--blue] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Approve
-                                    </button>
+                                        <!-- Approve Button -->
+                                        <button type="button" href="#" @click="submit('OK', row.id)"
+                                            class="text-white bg-[--blue] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Approve
+                                        </button>
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </ul>
+                        </ul>
 
                 </div>
             </div>
@@ -388,3 +401,22 @@ const submit = async (status, id) => {
         </section>
     </div>
 </AppLayout></template>
+
+<script>
+let configs = [];
+export default {
+    props: {
+        forms: Array,
+        selectedFormName: Array,
+        data: Array,
+        signatures: Array,
+        counts: Number,
+        config: Array
+    },
+    created() {
+        let formData = this.config;
+
+        configs = formData;
+    }
+}
+</script>
