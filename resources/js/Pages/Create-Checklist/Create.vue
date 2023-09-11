@@ -1059,7 +1059,7 @@ export default {
                 .section_content[questionName]
                 .options['ans' + (questionContentSize + 1)] = {
                     label: null,
-                    color: null,
+                    color: 'clear',
                 };
         },
         resetQuestionContent(sectionName, questionName) {
