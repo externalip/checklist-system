@@ -144,13 +144,13 @@ class ReportController extends Controller
     {
         // Return user role
         return DB::table('users')
-            ->select('roles.position')
+            ->select('roles.name')
             ->join('employees', 'employees.id', '=', 'users.employee_id')
             ->join('roles', 'roles.id', '=', 'employees.role_id')
             ->where('users.id', '=', $user_id)
             ->get()
             ->first()
-            ->position;
+            ->name;
     }
 
     private function isComplete($response_id): bool

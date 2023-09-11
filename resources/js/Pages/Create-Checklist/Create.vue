@@ -846,7 +846,7 @@ export default {
 
                 if (response.data.status === 'success') {
 
-                    await Swal.fire({
+                  const stat =   await Swal.fire({
                         icon: 'success',
                         title: 'Success',
                         text: 'The form was successfully created!',

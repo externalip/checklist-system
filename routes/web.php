@@ -45,9 +45,18 @@ Route::get('/Login', function () {
 Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
+      Route::middleware(['permission:audit'])->group(function () {
+            Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        });
+        Route::prefix('roles')->group(function(){
+            Route::get('/', [RoleController::class, 'index'])->name('roles.index');
+            Route::post('/', [RoleController::class, 'store'])->name('roles.store');
+            Route::get('/{id}/edit', [RoleController::class, 'edit'])->name('roles.edit');
+            Route::put('/{id}', [RoleController::class, 'update'])->name('roles.update');
+            Route::delete('/', [RoleController::class, 'destroy'])->name('roles.destroy');
+        });
 
-    route::middleware('checkRole:2,3')->group(function () {
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
         // User Manager Page
         Route::prefix('Users')->group(function () {
             Route::get('/', [UserController::class, 'index'])->name('users');
@@ -69,7 +78,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
         // Audit Trail Page
         Route::get('/audit', [AuditController::class, 'index'])->name('audit');
-    });
+
     Route::post('/add-role', [RoleController::class, 'store'])->name('role.store');
     // 5S Checklist Form Page
     Route::get('/5S-Checklist', [UserController::class, 'show5SForm'])->name('5S-Checklist');
@@ -138,4 +147,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
     // Checklist Approval
     Route::get('/ChecklistApproval', [UserController::class, 'showChecklistApproval'])->name('ChecklistApproval');
+
+    Route::group(['middleware' => ['permission:view-dashboard']], function () {
+    });
 });

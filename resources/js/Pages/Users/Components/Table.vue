@@ -68,7 +68,7 @@ const confirmDelete = async (userId) => {
                     <td class="px-6 py-4">{{ user.id }}</td>
                     <td class="px-6 py-4">{{ user.username }}</td>
                     <td class="px-6 py-4">{{ `${user.employee?.first_name} ${user.employee?.last_name}` }} </td>
-                    <td class="px-6 py-4">{{ user.employee?.role?.position }}</td>
+                    <td class="px-6 py-4">{{ user.employee?.role?.name }}</td>
 
                     <td class="px-6 py-4">
                         <Link :href="route('users.edit', user.id)" as="button" class="w-5 mx-4">
