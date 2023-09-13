@@ -547,6 +547,7 @@
         </div>
     </div>
     <main class="p-2 pb-4">
+        <h6>{{ control_no }}</h6>
         <div class="mt-5">
             <h1 class="lg:mx-20 text-center text-[--blue]">{{ title }}</h1>
         </div>
@@ -563,6 +564,7 @@ import { initFlowbite } from "flowbite";
 
 defineProps({
     title: String,
+    control_no: String,
 });
 
 onMounted(() => {
