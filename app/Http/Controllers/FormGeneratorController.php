@@ -305,7 +305,7 @@ class FormGeneratorController extends Controller
                 }
             }
         */
-        
+
         // Checksheet Control Number
         $controlNumber = $config['control_no'];
 
@@ -408,7 +408,7 @@ class FormGeneratorController extends Controller
         </style>
 
         <template>
-            <AppLayout title="'.$form_title.'" control_no="Control No.: '. $controlNumber .'">
+            <AppLayout title="'.$form_title.'" control_no="Control No.: '.$controlNumber.'">
                 <div class="5s lg:mx-[25%]">
                     <form @submit.prevent="submit()" method="post" id="1">
 
