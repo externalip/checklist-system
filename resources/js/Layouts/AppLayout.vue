@@ -546,7 +546,7 @@
             </div>
         </div>
     </div>
-    <main class="p-2 mb-5">
+    <main class="p-2 pb-4">
         <div class="mt-5">
             <h1 class="lg:mx-20 text-center text-[--blue]">{{ title }}</h1>
         </div>
