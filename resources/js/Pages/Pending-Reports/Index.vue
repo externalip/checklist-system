@@ -121,13 +121,13 @@ function colorCode(question, answer) {
 
 <template>
     <AppLayout title="Pending Reports">
-        <div id="pending-reports">
+        <div id="pending-reports" class="2xl:mx-[30%] xl:mx-[25%] lg:mx-[20%]">
 
-            <h4 class="lg:mx-20 text-[--blue]">Filter by:</h4>
-            <section id="pending-filters" class="lg:mx-20 lg:flex lg:space-x-2 py-3">
+            <h4 class="text-[--blue]">Filter by:</h4>
+            <section id="pending-filters" class="lg:flex lg:space-x-2 py-3">
 
                 <!-- Dropdown  Select -->
-                <section id="checklist-dropdown" class="lg:w-6/12 mb-2 rounded-lg">
+                <section id="checklist-dropdown" class="lg:w-full mb-2 rounded-lg">
 
                     <label for="pending-checklists"
                         class="block mb-2 text-sm font-medium text-[--blue] dark:text-white">Choose a
@@ -203,8 +203,8 @@ function colorCode(question, answer) {
 
                 <!-- Export Button -->
             </section>
-            
-            <section id="pending-accordions" class="lg:mx-20">
+
+            <section id="pending-accordions">
                 <!-- {{ Number of Pending Reports }} Pending Reports on {{ Checksheet Selected }}-->
 
                 <!-- First Accordion -->
@@ -243,7 +243,7 @@ function colorCode(question, answer) {
                                 :aria-labelledby="'accordion-flush-heading-' + index.toString()">
                                 <!-- Record Details Lot Number ||  Operator || Type of Checking || Shift -->
                                 <div id="pending-record-details"
-                                    class="bg-gray-100 text-[--blue] p-3 px-12 lg:flex lg:items-center text-center lg:justify-between">
+                                    class="bg-gray-100 text-[--blue] p-3 px-12 grid grid-cols-3 lg:items-center text-center lg:justify-between">
                                     <div id="lot-number" class="">
                                         <label for="" class="text-sm">Lot Number</label>
                                         <h5 class="font-bold">{{ JSON.parse(row.response).fieldAnswers['Lot Number'] }}</h5>
