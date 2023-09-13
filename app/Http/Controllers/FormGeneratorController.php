@@ -25,7 +25,7 @@ class FormGeneratorController extends Controller
     {
 
         $employee_id = auth()->user()->employee_id;
-        $config = $request->only('form_name', 'form_content');
+        $config = $request->only('form_name', 'control_no', 'form_content');
         $form_name = $request->input('form_name');
 
         DB::table('forms')
@@ -283,27 +283,31 @@ class FormGeneratorController extends Controller
             FORM CONFIGURATION REFERENCE:
 
             form_name: null,
+            control_no: null,
             form_content: {
                 section1: {
-                section_name: null,
-                section_type: 'question',
-                section_content: {
-                    question1: {
-                        label: null,
-                        instruction: null,
-                        type: null,
-                        required: false,
-                        options: {
-                            ans1: {
-                                label: null,
-                                color: 'clear',
+                    section_name: null,
+                    section_type: 'question',
+                    section_content: {
+                        question1: {
+                            label: null,
+                            instruction: null,
+                            type: null,
+                            required: false,
+                            options: {
+                                ans1: {
+                                    label: null,
+                                    color: 'clear',
+                                }
                             }
                         }
                     }
                 }
-                }
             }
         */
+
+        // Checksheet Control Number
+        $controlNumber = $config['control_no'];
 
         // Count number of questions in the form
         $fieldCount = 4;
@@ -404,7 +408,7 @@ class FormGeneratorController extends Controller
         </style>
 
         <template>
-            <AppLayout title="'.$form_title.'">
+            <AppLayout title="'.$form_title.'" control_no="Control No.: '.$controlNumber.'">
                 <div class="5s lg:mx-[25%]">
                     <form @submit.prevent="submit()" method="post" id="1">
 

@@ -24,25 +24,50 @@ import { reactive } from 'vue';
                 <form @submit.prevent="submit">
                 <div class="lg:mx-[25%] mb-40">
                     <div class="mx-auto">
+                        
+                        <!-- CHECKSHEET DETAILS -->
+                        <div class="bg-white border-gray-400 rounded-lg border-2 mb-5 p-4">
 
-                        <!-- CHECKSHEET NAME -->
-                        <div class="mb-5">
-                            <div class="relative">
+                            <!-- CHECKSHEET NAME -->
+                            <div class="relative mb-4">
 
                                 <!-- FORM NAME INPUT FIELD -->
                                 <input v-model="form_config.form_name" type="text" id="checksheet-id" name="checksheet-name"
                                     class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                    placeholder=" " required />
+                                    placeholder=" " required 
+                                />
+                                    
+                                <!-- PLACEHOLDER -->
                                 <label for="checksheet-id"
-                                    class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Type
-                                    here the Checksheet name...
+                                    class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+                                    >Type here the Checksheet name...
                                 </label>
+
                             </div>
+
+                            <!-- CONTROL NO. -->
+                            <div class="relative">
+
+                                <!-- SECTION NAME INPUT -->
+                                <input v-model="form_config.control_no"
+                                    type="text" name="control-no" id="control-no"
+                                    class="text-xs block px-2.5 pb-1.5 pt-3 w-full text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                    placeholder=" " required 
+                                />
+                                                
+                                <!-- PLACEHOLDER -->
+                                <label for="control-no"
+                                    class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1"
+                                    >Control No.
+                                </label>
+                                
+                            </div>
+
                         </div>
 
                         <!-- SECTION LOOPER -->
                         <div v-for="key in Object.keys(form_config.form_content).length" :key="key">
-                            <div :name="'section_' + key" class="bg-white border-gray-400 rounded-lg border-2 mb-10 p-4">
+                            <div :name="'section_' + key" class="bg-white border-gray-400 rounded-lg border-2 mb-5 p-4">
                                 <div class="bg-white">
                                     <div class="flex justify-between">
 
@@ -69,15 +94,18 @@ import { reactive } from 'vue';
                                         <div class="lg:col-span-5">
                                             <p class="text-sm font-bold mb-1">Section Name</p>
 
-                                            <!-- SECTION NAME INPUT -->
                                             <div class="relative">
+                                                <!-- SECTION NAME INPUT -->
                                                 <input v-model="form_config.form_content['section' + key.toString()].section_name"
                                                     type="text" :name="'section_name' + key" :id="'section_name' + key"
-                                                    class="text-xs block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                    class="text-xs block px-2.5 pb-1.5 pt-3 w-full text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                     placeholder=" " required />
+                                                
+                                                <!-- PLACEHOLDER -->
                                                 <label :for="'section_name' + key"
                                                     class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Type
-                                                    here the section name...</label>
+                                                    here the section name...
+                                                </label>
                                             </div>
 
                                         </div>
@@ -125,7 +153,7 @@ import { reactive } from 'vue';
                                                             .form_content['section' + key.toString()]
                                                             .section_content['question' + qIndex.toString()].instruction"
                                                             type="text" :name="'instruction' + qIndex" :id="'instruction' + qIndex"
-                                                            class="text-xs block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                            class="text-xs block px-2.5 pb-1.5 pt-3 w-full text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                             placeholder=" " />
                                                         <label :for="'instruction' + qIndex"
                                                             class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Type
@@ -856,7 +884,8 @@ const answerType = ['radio', 'checkbox', 'dropdown'];
 
 // Form JSON Structure
 let form_config = reactive({
-    form_name: null,
+    form_name: 'Untitled Checksheet',
+    control_no: null,
     form_content: {
         section1: {
             section_name: null,
@@ -1101,7 +1130,7 @@ export default {
         async submit() {
             Swal.fire({
                 title: 'Are you sure?',
-                text: `You are about to delete section. This action cannot be undone.`,
+                text: `You are about to create.`,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -1123,14 +1152,14 @@ export default {
 
                             await Swal.fire({
                                 icon: 'error',
-                                title: 'Oops...',
+                                title: 'Caught in ElseIf',
                                 text: 'Something went wrong!',
                             });
                         } else {
 
                             await Swal.fire({
                                 icon: 'error',
-                                title: 'Oops...',
+                                title: 'Caught in Else',
                                 text: 'Something went wrong!',
                             });
                         }
