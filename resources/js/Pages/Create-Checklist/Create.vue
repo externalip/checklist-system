@@ -889,7 +889,7 @@ export default {
     },
     methods: {
         toggleDropdown() {
-      this.isDropdownOpen = !this.isDropdownOpen;
+            this.isDropdownOpen = !this.isDropdownOpen;
         },
         removeSection(sectionName) {
             Swal.fire({
@@ -1099,39 +1099,52 @@ export default {
             router.get('/checksheet');
         },
         async submit() {
-            try {
-                const response = await axios.post(route('generate.store'), form_config);
-                if (response.data.status === 'success') {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: `You are about to delete section. This action cannot be undone.`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    try {
+                        const response = await axios.post(route('generate.store'), form_config);
+                        if (response.data.status === 'success') {
 
-                    await Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: 'The form was successfully created!',
-                        confirmButtonText: 'Okay',
-                    });
-                } else if (response.data.status === 'error') {
+                            await Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: 'The form was successfully created!',
+                                confirmButtonText: 'Okay',
+                            });
+                        } else if (response.data.status === 'error') {
 
-                    await Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                    });
-                } else {
+                            await Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                            });
+                        } else {
 
-                    await Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                    });
+                            await Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                            });
+                        }
+                    } catch (error) {
+                        // Use SweetAlert to show an error message
+                        await Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                        });
+                    }
                 }
-            } catch (error) {
-                // Use SweetAlert to show an error message
-                await Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-                });
-            }
+            });
+            
         }
     },
 };
