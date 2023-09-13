@@ -21,7 +21,7 @@ import { reactive } from 'vue';
 <template>
     <div class="bg-[#FBFCFE]">
         <AppLayout title="Create Checksheet">
-                <form @submit.prevent="submit">
+            <form @submit.prevent="submit">
                 <div class="lg:mx-[25%] mb-40">
                     <div class="mx-auto">
                         
@@ -77,7 +77,9 @@ import { reactive } from 'vue';
                                         <!-- DELETE SECTION BUTTON -->
                                         <div class="flex items-center align-center">
                                             <button @click="removeSection('section' + key)"
-                                                class="duration-200 p-2 hover:bg-red-200 rounded-md">
+                                                type="button"
+                                                class="duration-200 p-2 hover:bg-red-200 rounded-md"
+                                                formnovalidate>
                                                 <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
                                                     <path stroke="red" stroke-linecap="round" stroke-linejoin="round"
@@ -94,12 +96,12 @@ import { reactive } from 'vue';
                                         <div class="lg:col-span-5">
                                             <p class="text-sm font-bold mb-1">Section Name</p>
 
-                                            <div class="relative">
+                                            <div class="relative" ref="sectionRefs">
                                                 <!-- SECTION NAME INPUT -->
                                                 <input v-model="form_config.form_content['section' + key.toString()].section_name"
                                                     type="text" :name="'section_name' + key" :id="'section_name' + key"
                                                     class="text-xs block px-2.5 pb-1.5 pt-3 w-full text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                    placeholder=" " required />
+                                                    placeholder=" " required/>
                                                 
                                                 <!-- PLACEHOLDER -->
                                                 <label :for="'section_name' + key"
@@ -209,7 +211,7 @@ import { reactive } from 'vue';
                                                     <!-- Radio Input Label -->
                                                     <div v-for="ansIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].options).length"
                                                         class="flex mb-2">
-                                                        <div class="w-full relative flex">
+                                                        <div class="w-full relative flex" ref="ansRefs">
                                                             <input v-model="form_config
                                                                 .form_content['section' + key.toString()]
                                                                 .section_content['question' + qIndex.toString()]
@@ -286,8 +288,10 @@ import { reactive } from 'vue';
 
                                                         <!-- Delete answer option button -->
                                                         <button
+                                                            type="button"
                                                             @click="removeAnswer('section' + key.toString(), 'question' + qIndex.toString(), 'ans' + ansIndex.toString())"
-                                                            class="p-3 hover:bg-red-100">
+                                                            class="p-3 hover:bg-red-100"
+                                                            formnovalidate>
                                                             <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
                                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                                 viewBox="0 0 20 20">
@@ -300,9 +304,11 @@ import { reactive } from 'vue';
 
                                                     <!-- Add answer option button -->
                                                     <button
+                                                        type="button"
                                                         @click="addAnswer('section' + key.toString(), 'question' + qIndex.toString())"
                                                         v-if="answerType.includes(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type)"
-                                                        class="hover:bg-blue-500 bg-[#3c5393] text-white duration-200 p-2 rounded-md text-sm flex items-center align-center">
+                                                        class="hover:bg-blue-500 bg-[#3c5393] text-white duration-200 p-2 rounded-md text-sm flex items-center align-center"
+                                                        formnovalidate>
                                                         <svg class="w-4 h-4 mr-2 text-white-800 dark:text-white" aria-hidden="true"
                                                             xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
                                                             viewBox="0 0 20 20">
@@ -328,7 +334,7 @@ import { reactive } from 'vue';
                                                     <!-- Radio Input Label -->
                                                     <div v-for="ansIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].options).length"
                                                         class="flex">
-                                                        <div class="w-full relative">
+                                                        <div class="w-full relative" ref="ansRefs">
                                                             <input v-model="form_config
                                                                 .form_content['section' + key.toString()]
                                                                 .section_content['question' + qIndex.toString()]
@@ -402,7 +408,7 @@ import { reactive } from 'vue';
                                                         </div>
 
                                                         <!-- Delete answer option button -->
-                                                        <button class="p-3" disabled>
+                                                        <button type="button" class="p-3" disabled formnovalidate>
                                                             <svg class="w-4 h-4 text-gray-400 dark:text-white" aria-hidden="true"
                                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                                 viewBox="0 0 20 20">
@@ -425,7 +431,7 @@ import { reactive } from 'vue';
                                                     <!-- Checkbox Input Label -->
                                                     <div v-for="ansIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].options).length"
                                                         class="flex">
-                                                        <div class="w-full relative">
+                                                        <div class="w-full relative" ref="ansRefs">
                                                             <input type="text" :name="'check' + key" :id="'check' + key"
                                                                 class="mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-xs text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                                 placeholder="Enter answer option here" v-model="form_config
@@ -499,8 +505,10 @@ import { reactive } from 'vue';
 
                                                         <!-- Delete Answer Option Button -->
                                                         <button
+                                                            type="button"
                                                             @click="removeAnswer('section' + key.toString(), 'question' + qIndex.toString(), 'ans' + ansIndex.toString())"
-                                                            class="p-3 hover:bg-red-100">
+                                                            class="p-3 hover:bg-red-100"
+                                                            formnovalidate>
                                                             <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
                                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                                 viewBox="0 0 20 20">
@@ -510,9 +518,12 @@ import { reactive } from 'vue';
                                                         </button>
                                                     </div>
 
+                                                    <!-- Add Answer Button -->
                                                     <button
+                                                        type="button"
                                                         @click="addAnswer('section' + key.toString(), 'question' + qIndex.toString())"
-                                                        class="hover:bg-blue-500 bg-[#3c5393] text-white duration-200 p-2 rounded-md text-sm flex items-center align-center">
+                                                        class="hover:bg-blue-500 bg-[#3c5393] text-white duration-200 p-2 rounded-md text-sm flex items-center align-center"
+                                                        formnovalidate>
                                                         <svg class="w-4 h-4 mr-2 text-white-800 dark:text-white" aria-hidden="true"
                                                             xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
                                                             viewBox="0 0 20 20">
@@ -535,7 +546,7 @@ import { reactive } from 'vue';
 
                                                     <div class="flex">
                                                         <!-- Text Input Label -->
-                                                        <div class="relative w-full">
+                                                        <div class="relative w-full" ref="ansRefs">
                                                             <input type="text" :name="'text' + key"
                                                                 class="bg-[--disabled] border-[--disabled-outline] block px-2.5 pb-1.5 pt-3 w-full text-xs text-gray-900 rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                                 placeholder=" " disabled />
@@ -619,7 +630,7 @@ import { reactive } from 'vue';
                                                     <!-- Dropdown Option Label -->
                                                     <div v-for="ansIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].options).length"
                                                         class="flex">
-                                                        <div class="w-full relative">
+                                                        <div class="w-full relative" ref="ansRefs">
                                                             <input v-model="form_config
                                                                 .form_content['section' + key.toString()]
                                                                 .section_content['question' + qIndex.toString()]
@@ -632,7 +643,7 @@ import { reactive } from 'vue';
                                                                 Option</label>
                                                         </div>
 
-                                                        <!-- Color Identifier -->
+                                                    <!-- Color Identifier -->
                                                     <div class="mx-5 md:w-2/6 rounded-full flex">
 
                                                         <!-- THE COLOR -->
@@ -690,10 +701,12 @@ import { reactive } from 'vue';
                                                         </select>
 
                                                     </div>
-
+                                                        <!-- Remove Answer Button -->
                                                         <button
+                                                            type="button"
                                                             @click="removeAnswer('section' + key.toString(), 'question' + qIndex.toString(), 'ans' + ansIndex.toString())"
-                                                            class="p-3 hover:bg-red-100">
+                                                            class="p-3 hover:bg-red-100"
+                                                            formnovalidate>
                                                             <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
                                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                                 viewBox="0 0 20 20">
@@ -705,8 +718,10 @@ import { reactive } from 'vue';
                                                     </div>
 
                                                     <button
+                                                        type="button"
                                                         @click="addAnswer('section' + key.toString(), 'question' + qIndex.toString())"
-                                                        class="hover:bg-blue-500 bg-[#3c5393] text-white duration-200 p-2 rounded-md text-sm flex items-center align-center">
+                                                        class="hover:bg-blue-500 bg-[#3c5393] text-white duration-200 p-2 rounded-md text-sm flex items-center align-center"
+                                                        formnovalidate>
                                                         <svg class="w-4 h-4 mr-2 text-white-800 dark:text-white" aria-hidden="true"
                                                             xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
                                                             viewBox="0 0 20 20">
@@ -725,8 +740,10 @@ import { reactive } from 'vue';
                                                     <!-- Delete Question -->
                                                     <div class="flex items-center align-center">
                                                         <button
+                                                            type="button"
                                                             @click="removeQuestion('section' + key.toString(), 'question' + qIndex.toString())"
-                                                            class="duration-200 p-2 hover:bg-red-200 rounded-md">
+                                                            class="duration-200 p-2 hover:bg-red-200 rounded-md"
+                                                            formnovalidate>
                                                             <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
                                                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
                                                                 <path stroke="currentColor" stroke-linecap="round"
@@ -761,7 +778,8 @@ import { reactive } from 'vue';
                                             <button
                                                 type="button"
                                                 class="pb-1.5 duration-200 border-[#3C5393]-200 border-2 rounded-md hover:bg-[#3C5393] hover:text-white font-bold py-2 px-4 w-[7rem]"
-                                                @click="addQuestion('section' + key.toString())">
+                                                @click="addQuestion('section' + key.toString())"
+                                                formnovalidate>
                                                 +
                                             </button>
                                         </div>
@@ -1035,6 +1053,24 @@ export default {
 
                 }
             };
+
+            // Use $nextTick to ensure the DOM has been updated
+            this.$nextTick(() => {
+                // Get a reference to the last added question
+                const sectionRefs = this.$refs.sectionRefs;
+                const lastSection = sectionRefs[sectionRefs.length - 1];
+                // Scroll to the last added question element
+                if (lastSection) {
+                    lastSection.scrollIntoView({ behavior: 'smooth' });
+                }
+
+                // Focus on the input element of the last question
+                const inputElement = lastSection.querySelector('input');
+                
+                if (inputElement) {
+                    inputElement.focus();
+                }
+            });
         },
         addQuestion(sectionName) {
             // Get number of questions
@@ -1090,6 +1126,23 @@ export default {
                     label: null,
                     color: 'clear',
                 };
+            
+            // Use $nextTick to ensure the DOM has been updated
+            this.$nextTick(() => {
+                // Get a reference to the last added question
+                const answerRefs = this.$refs.ansRefs;
+                const lastAnswer = answerRefs[answerRefs.length - 1];
+                // Scroll to the last added question element
+                if (lastAnswer) {
+                    lastAnswer.scrollIntoView({ behavior: 'smooth' });
+                }
+
+                // Focus on the input element of the last question
+                const inputElement = lastAnswer.querySelector('input');
+                if (inputElement) {
+                    inputElement.focus();
+                }
+            });
         },
         resetQuestionContent(sectionName, questionName) {
             // Get question type
