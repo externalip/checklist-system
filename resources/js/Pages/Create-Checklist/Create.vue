@@ -24,7 +24,7 @@ import { reactive } from 'vue';
                 <form @submit.prevent="submit">
                 <div class="lg:mx-[25%] mb-40">
                     <div class="mx-auto">
-                        {{ form_config }}
+                        
                         <!-- CHECKSHEET DETAILS -->
                         <div class="bg-white border-gray-400 rounded-lg border-2 mb-5 p-4">
 
