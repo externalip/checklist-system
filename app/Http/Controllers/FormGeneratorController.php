@@ -321,7 +321,7 @@ class FormGeneratorController extends Controller
 
                 // Check if question type is checkbox
                 if ($value['type'] == 'checkbox') {
-                    // Checkboxes allow multiple answers, 
+                    // Checkboxes allow multiple answers,
                     // so we declare ans object to contain an array.
                     $fieldAnswersData .= ('ans'.$fieldCount++.': [],');
                 } else {
