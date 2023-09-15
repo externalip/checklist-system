@@ -16,21 +16,21 @@
                             <th scope="col" class="px-6 py-3">Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr v-for="role in  roles" :key="role.id">
-                            <td class="px-6 py-4">{{ role.id }}</td>
-                            <td class="px-6 py-4">{{ role.name }}</td>
-                            <td class="px-6 py-4">{{ role.description ? role.description : 'No Role Description' }}</td>
-                            <td class="px-6 py-4">
+                    <tbody class="text-xs">
+                        <tr v-for="role in  roles" :key="role.id" class="hover:bg-gray-50 duration-200">
+                            <td class="p-2">{{ role.id }}</td>
+                            <td class="p-2 font-bold">{{ role.name }}</td>
+                            <td class="p-2">{{ role.description ? role.description : 'No Role Description' }}</td>
+                            <td class="p-2">
                                 {{ role.permissions ? role.permissions.join(', ') : 'No Permissions' }}
                             </td>
-                            <td class="px-6 py-4">
-                                <Link :href="route('roles.edit', role.id)" as="button" class="w-5 mx-4">
-                                <img src="@/Shared/Icons/edit.svg" alt="Edit" class="w-5 h-5 cursor-pointer" />
+                            <td class="p-2 flex flex-row">
+                                <Link :href="route('roles.edit', role.id)" as="button" class="w-4 mx-4">
+                                    <img src="@/Shared/Icons/edit.svg" alt="Edit" class="w-5 h-5 cursor-pointer" />
                                 </Link>
-                                <button class="w-5" @click="confirmDelete(role.id)">
+                                <button class="w-4" @click="confirmDelete(role.id)">
                                         <img src="@/Shared/Icons/delete.svg" alt="Delete" class="w-5 h-5 cursor-pointer" />
-                                    </button>
+                                </button>
                             </td>
                         </tr>
                     </tbody>
