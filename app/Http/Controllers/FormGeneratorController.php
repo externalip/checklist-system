@@ -90,7 +90,7 @@ class FormGeneratorController extends Controller
             }
         }
 
-        // Append Starting Tags 
+        // Append Starting Tags
         $form_html = '<script setup>
         import AppLayout from \'@/Layouts/AppLayout.vue\';
         import { reactive, computed } from \'vue\'
@@ -476,7 +476,7 @@ class FormGeneratorController extends Controller
         // Create vue form file
         Storage::disk('form_path')->put($file_name, $form_html);
     }
-    
+
     /**
      * Display the specified resource.
      */
