@@ -14,7 +14,6 @@
 
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
-import { Link } from '@inertiajs/vue3';
 import { reactive } from 'vue';
 </script>
 
@@ -788,8 +787,8 @@ import { reactive } from 'vue';
                                 </div>
                             </div>
                         </div>
-
                         <!-- End of Adding Section section -->
+                        
                     </div>
                 </div>
 
