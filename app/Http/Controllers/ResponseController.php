@@ -28,7 +28,7 @@ class ResponseController extends Controller
             'fieldAnswers.Kit Number' => 'Kit Number',
             'fieldAnswers.Model Name' => 'Model Name',
             'fieldAnswers.Working Area' => 'Working Area',
-            'fieldAnswers.Type of Checking' => 'Type of Checking',
+            'fieldAnswers.Type of Check' => 'Type of Check',
             'fieldAnswers.Production Checksheet' => 'Production Checksheet',
             'fieldAnswers.Tools/Jigs Instrument' => 'Tools/Jigs Instrument',
             'fieldAnswers.Procedures/OPL/Work Instructions' => 'Procedures/OPL/Work Instructions',

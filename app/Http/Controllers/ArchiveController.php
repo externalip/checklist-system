@@ -62,7 +62,7 @@ class ArchiveController extends Controller
             ->leftJoin('employees AS qc_employee', 'qc_employee.id', '=', 'qc_user.employee_id')
             ->whereIn('response_fields.status', ['OK', 'Rejected'])
             ->orderByDesc('response_fields.created_at')
-            ->get();
+            ->paginate(10);
 
         $counts = DB::table('response_fields')
             ->select()

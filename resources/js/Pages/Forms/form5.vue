@@ -22,22 +22,44 @@
         })
 
         function submit() {
-            // Get no. of questions based on h5 tags with an id `question#`
-            let questionInputs = document.querySelectorAll('h5[id^="question"]');
-            let questionCount = questionInputs.length;
+            // Show confirmation modal
+            Swal.fire({
+                title: 'Submit response?',
+                text: `You are about to submit your response. This action cannot be undone.`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+            }).then((result) => {
 
-            // Get question text
-            for (let i = 1; i <= questionCount; i++) {
-                let ansKey = "ans".concat(i);
-                let questionLabel = document.getElementById('question' + i).textContent;
+                // If user selects confirm button
+                if (result.isConfirmed) {
+                    // Get no. of questions based on h5 tags with an id `question#`
+                    let questionInputs = document.querySelectorAll('h5[id^="question"]');
+                    let questionCount = questionInputs.length;
 
-                // Store question into object
-                form.fieldAnswers[questionLabel] = form.fieldAnswers[ansKey];
-                delete form.fieldAnswers[ansKey];
-            }
+                    // Get question text
+                    for (let i = 1; i <= questionCount; i++) {
+                        let ansKey = "ans".concat(i);
+                        let questionLabel = document.getElementById('question' + i).textContent;
 
-            // Send user input to ResponseController
-            router.post('/submit', form)
+                        // Store question into object
+                        form.fieldAnswers[questionLabel] = form.fieldAnswers[ansKey];
+                        delete form.fieldAnswers[ansKey];
+                    }
+
+                    // Send user input to ResponseController
+                    router.post('/submit', form)
+
+                    // Show success prompt
+                    Swal.fire(
+                        'Success!',
+                        `Your response has been submitted.`,
+                        'success'
+                    );
+                }
+            });
         }
         </script>
 

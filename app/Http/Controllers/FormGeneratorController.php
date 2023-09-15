@@ -143,7 +143,7 @@ class FormGeneratorController extends Controller
                     }
 
                     // Send user input to ResponseController
-                    router.post(\'/submit\', form)
+                    router.post(\'/submit\', form);
 
                     // Show success prompt
                     Swal.fire(

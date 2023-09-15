@@ -922,7 +922,8 @@ export default {
 
             <!-- Pagination -->
             <div class="mt-4">
-                <Pagination :data="response_fields" />
+                {{ response_fields }}
+                <!-- <Pagination :data="response_fields" /> -->
             </div>
         </div>
     </AppLayout>
