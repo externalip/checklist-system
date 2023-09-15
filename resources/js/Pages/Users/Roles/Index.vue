@@ -22,7 +22,7 @@
                             <td class="px-6 py-4">{{ role.name }}</td>
                             <td class="px-6 py-4">{{ role.description ? role.description : 'No Role Description' }}</td>
                             <td class="px-6 py-4">
-                                {{ role.permissions ? role.permissions : 'No Permissions' }}
+                                {{ role.permissions ? role.permissions.join(', ') : 'No Permissions' }}
                             </td>
                             <td class="px-6 py-4">
                                 <Link :href="route('roles.edit', role.id)" as="button" class="w-5 mx-4">
