@@ -15,19 +15,20 @@
                             <!-- Role Name -->
                             <div class="col-span-1 p-1">
                                 <label for="role_name" class="block mb-1">Role Name</label>
-                                <input v-model="form.name" type="text" id="role_name" class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2" />
+                                <input v-model="form.name" type="text" id="role_name" class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2" required />
                                 <InputError class="mt-2" :message="form.errors.name" />
                             </div>
 
                             <!-- Last Name -->
                             <div class="col-span-1 p-1">
                                 <label for="role_description" class="block mb-1">Role Description</label>
-                                <input v-model="form.description" type="text" id="role_description" class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2" />
+                                <input v-model="form.description" type="text" id="role_description" class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2" required />
                                 <InputError class="mt-2" :message="form.errors.description" />
                             </div>
                         </div>
                             <div>
                                 <multiselect v-model="selectedPermission" :options="permissions" :multiple="true" :close-on-select="false" :clear-on-select="false" placeholder="Select an option" label="name" track-by="id" select-label="id" groupSelect="true" @select="onOptionSelect"></multiselect>
+                                <span v-if="!selectedPermission.length" class="text-red-600 text-sm">Please select at least one option.</span>
                             </div>
                     </div>
                 </div>

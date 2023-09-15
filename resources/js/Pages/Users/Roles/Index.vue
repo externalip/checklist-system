@@ -1,8 +1,11 @@
 <template>
     <AppLayout title="Roles">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <Link :href="route('roles.create')" as="button">
-            Add </Link>
+            <div id="add-role">
+
+                <Link :href="route('roles.create')" type="button" class="text-white bg-[--blue] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-12 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"> Add Role
+                </Link>
+            </div>
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table class="w-full text-sm text-center text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-white uppercase bg-[--blue] dark:bg-gray-700 dark:text-gray-400">
@@ -20,15 +23,15 @@
                             <td class="px-6 py-4">{{ role.role_name }}</td>
                             <td class="px-6 py-4">{{ role.role_description ? role.role_description : 'No Role Description' }}</td>
                             <td class="px-6 py-4">
-                               {{  role.permission_names ? role.permission_names : 'No Permissions'  }}
+                                {{ role.permission_names ? role.permission_names : 'No Permissions' }}
                             </td>
                             <td class="px-6 py-4">
                                 <Link :href="route('roles.edit', role.role_id)" as="button" class="w-5 mx-4">
-                                    <img src="@/Shared/Icons/edit.svg" alt="Edit" class="w-5 h-5 cursor-pointer" />
+                                <img src="@/Shared/Icons/edit.svg" alt="Edit" class="w-5 h-5 cursor-pointer" />
                                 </Link>
                                 <button class="w-5" @click="confirmDelete(role.role_id)">
-                                    <img src="@/Shared/Icons/delete.svg" alt="Delete" class="w-5 h-5 cursor-pointer" />
-                                </button>
+                                        <img src="@/Shared/Icons/delete.svg" alt="Delete" class="w-5 h-5 cursor-pointer" />
+                                    </button>
                             </td>
                         </tr>
                     </tbody>
@@ -45,17 +48,17 @@ import { Link } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 defineProps(['roles', 'permissions']);
 const confirmDelete = async (id) => {
-   const isConfirmed = await Swal.fire({
+    const isConfirmed = await Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Yes, delete it!',
         cancelButtonText: 'No, cancel!',
-   });
-   if (!isConfirmed.isConfirmed) return;
-  const deleteLink = await axios.delete(route('roles.destroy', id), { data: { id } });
-  if (deleteLink.status == 200){
+    });
+    if (!isConfirmed.isConfirmed) return;
+    const deleteLink = await axios.delete(route('roles.destroy', id), { data: { id } });
+    if (deleteLink.status == 200) {
         await Swal.fire({
             title: 'Deleted!',
             text: 'The role has been deleted.',
@@ -65,6 +68,6 @@ const confirmDelete = async (id) => {
         }).then(() => {
             window.location.reload(true);
         });
-  }
+    }
 }
 </script>
