@@ -13,16 +13,15 @@ class RoleController extends Controller
     public function index()
     {
         $roles = DB::table('roles')
-            ->leftJoin('role_has_permissions', 'roles.id', '=', 'role_has_permissions.role_id')
-            ->leftJoin('permissions', 'role_has_permissions.permission_id', '=', 'permissions.id')
-            ->select([
-                'roles.id as role_id',
-                'roles.name as role_name',
-                'roles.description as role_description',
-                DB::raw('GROUP_CONCAT(permissions.name) as permission_names'),
-            ])
-            ->groupBy('roles.id')
-            ->get();
+        ->select([
+            'roles.id as role_id',
+            'roles.name as role_name',
+            'roles.description as role_description',
+        ])
+        ->addSelect(DB::raw('(SELECT GROUP_CONCAT(permissions.name) FROM role_has_permissions
+                         JOIN permissions ON role_has_permissions.permission_id = permissions.id
+                         WHERE role_has_permissions.role_id = roles.id) as permission_names'))
+        ->get();
 
         $rolesData = [];
 
@@ -37,8 +36,8 @@ class RoleController extends Controller
             ];
         }
 
-        return Inertia::Render('Users/Roles/Index', [
-            'roles' => $roles,
+        return Inertia::render('Users/Roles/Index', [
+            'roles' => $rolesData, // Use $rolesData instead of $roles
         ]);
     }
 
