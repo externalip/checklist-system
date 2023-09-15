@@ -2,6 +2,7 @@
     <AppLayout title="Roles">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div id="add-role">
+                <Switch />
                 <Link :href="route('roles.create')" type="button" class="text-white bg-[--blue] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-12 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"> Add Role
                 </Link>
             </div>
@@ -45,6 +46,7 @@
 import { defineProps, ref, onMounted, computed } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
+import Switch from '../Components/Switch.vue';
 defineProps(['roles', 'permissions']);
 const confirmDelete = async (id) => {
     const isConfirmed = await Swal.fire({
@@ -70,3 +72,6 @@ const confirmDelete = async (id) => {
     }
 }
 </script>
+<style scoped>
+
+</style>
