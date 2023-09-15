@@ -13,15 +13,15 @@ class RoleController extends Controller
     public function index()
     {
         $roles = DB::table('roles')
-        ->select([
-            'roles.id as role_id',
-            'roles.name as role_name',
-            'roles.description as role_description',
-        ])
-        ->addSelect(DB::raw('(SELECT GROUP_CONCAT(permissions.name) FROM role_has_permissions
+            ->select([
+                'roles.id as role_id',
+                'roles.name as role_name',
+                'roles.description as role_description',
+            ])
+            ->addSelect(DB::raw('(SELECT GROUP_CONCAT(permissions.name) FROM role_has_permissions
                          JOIN permissions ON role_has_permissions.permission_id = permissions.id
                          WHERE role_has_permissions.role_id = roles.id) as permission_names'))
-        ->get();
+            ->get();
 
         $rolesData = [];
 
