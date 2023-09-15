@@ -58,8 +58,6 @@ class ResponseController extends Controller
 
         // Save response to database
         $this->storeResponse($request);
-
-        return response()->json(['status' => 'success', 'message' => 'Form submitted successfully']);
     }
 
     /**
