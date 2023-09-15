@@ -3,7 +3,7 @@
         <form @submit.prevent="createAccount">
             <div class=" lg:mx-20 rounded-lg grid grid-row-3 gap-5 text-[--blue]">
                 <!-- Employee Info -->
-                <div class="mx-3 border-2 border-gray-300 lg:p-10 p-5 rounded-2xl">
+                <div class="mx-3 border-2 border-gray-200 lg:p-4 p-5 rounded-2xl">
                     <h3 class="text-2xl font-semibold mb-2 md:text-left text-center">
                         Employee Info
                     </h3>
@@ -16,7 +16,7 @@
                             <div class="col-span-1 p-1">
                                 <label for="first_name" class="block mb-1">First Name</label>
                                 <input v-model="form.first_name" type="text" id="first_name"
-                                    class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2" />
+                                    class="text-sm text-gray-900 w-full rounded-lg border-1 border-gray-300 p-2" />
                                 <InputError class="mt-2" :message="form.errors.first_name" />
                             </div>
 
@@ -24,7 +24,7 @@
                             <div class="col-span-1 p-1">
                                 <label for="last_name" class="block mb-1">Last Name</label>
                                 <input v-model="form.last_name" type="text" id="last_name"
-                                    class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2" />
+                                    class="text-sm text-gray-900 w-full rounded-lg border-1 border-gray-300 p-2" />
                                 <InputError class="mt-2" :message="form.errors.last_name" />
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                             <div class="p-1">
                                 <label for="date_of_birth" class="block mb-1">Date of Birth</label>
                                 <input v-model="form.date_of_birth" type="date" id="date_of_birth"
-                                    class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2" />
+                                    class="text-sm text-gray-900 w-full rounded-lg border-1 border-gray-300 p-2" />
                                 <InputError class="mt-2" :message="form.errors.date_of_birth" />
                             </div>
 
@@ -43,7 +43,7 @@
                             <div class="p-1">
                                 <label for="contact" class="block mb-1">Contact</label>
                                 <input v-model="form.contact" type="text" id="contact"
-                                    class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2" />
+                                    class="text-sm text-gray-900 w-full rounded-lg border-1 border-gray-300 p-2" />
                                 <InputError class="mt-2" :message="form.errors.contact" />
                             </div>
 
@@ -51,7 +51,7 @@
                             <div class=" p-1">
                                 <label for="shift" class="block mb-1">Shift</label>
                                 <select v-model="form.shift" type="text" id="shift"
-                                    class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2">
+                                    class="text-sm text-gray-900 w-full rounded-lg border-1 border-gray-300 p-2">
                                     <option value="0">None</option>
                                     <option value="1st">1st</option>
                                     <option value="2nd">2nd</option>
@@ -64,7 +64,7 @@
                             <div class="p-1">
                                 <label for="gender" class="block mb-1">Gender</label>
                                 <select v-model="form.gender" type="text" id="gender"
-                                    class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2">
+                                    class="text-sm text-gray-900 w-full rounded-lg border-1 border-gray-300 p-2">
                                     <option value="" disabled>Gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
@@ -78,7 +78,7 @@
                 </div>
 
                 <!-- Account Details -->
-                <div class="mx-3 border-2 border-gray-300 lg:p-10 p-5 rounded-2xl">
+                <div class="mx-3 border-2 border-gray-200 lg:p-4 p-5 rounded-2xl">
                     <h3 class="text-2xl font-semibold mb-2 md:text-left text-center">
                         Account Details
                     </h3>
@@ -90,7 +90,7 @@
                             <div class="p-1">
                                 <label for="username" class="block mb-1">Username</label>
                                 <input v-model="form.username" type="text" id="username"
-                                    class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2" />
+                                    class="text-sm text-gray-900 w-full rounded-lg border-1 border-gray-300 p-2" />
                                 <InputError class="mt-2" :message="form.errors.username" />
                             </div>
 
@@ -98,7 +98,7 @@
                             <div class="p-1">
                                 <label for="password" class="block mb-1">Password</label>
                                 <input v-model="form.password" type="password" id="password"
-                                    class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2" />
+                                    class="text-sm text-gray-900 w-full rounded-lg border-1 border-gray-300 p-2" />
                                 <InputError class="mt-2" :message="form.errors.password" />
                             </div>
 
@@ -109,7 +109,7 @@
                             <div class="p-1">
                                 <label for="password_confirmation" class="block mb-1">Confirm Password</label>
                                 <input v-model="form.password_confirmation" type="password" id="password_confirmation"
-                                    class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2" />
+                                    class="text-sm text-gray-900 w-full rounded-lg border-1 border-gray-300 p-2" />
                                 <InputError class="mt-2" :message="form.errors.password_confirmation" />
                             </div>
                             <!-- ROLE -->
@@ -123,7 +123,7 @@
                                 </div>
                                 <div class="flex">
                                     <select v-model="form.role_id" type="text" id="role_id"
-                                        class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2">
+                                        class="text-sm text-gray-900 w-full rounded-lg border-1 border-gray-300 p-2">
                                         <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.position }}
                                         </option>
                                         <InputError class="mt-2" :message="form.errors.role_id" />

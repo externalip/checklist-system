@@ -63,14 +63,14 @@ const confirmDelete = async (userId) => {
                     <th scope="col" class="px-6 py-3">Actions</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr v-for="user in  users.data " :key="user.id" :class="{ 'text-gray-300': user.active === 0 }">
-                    <td class="px-6 py-4">{{ user.id }}</td>
-                    <td class="px-6 py-4">{{ user.username }}</td>
-                    <td class="px-6 py-4">{{ `${user.employee?.first_name} ${user.employee?.last_name}` }} </td>
-                    <td class="px-6 py-4">{{ user.employee?.role?.position }}</td>
+            <tbody class="text-xs">
+                <tr v-for="user in  users.data " :key="user.id" :class="{ 'text-gray-300': user.active === 0 }" class="hover:bg-gray-50 duration-200">
+                    <td class="p-2">{{ user.id }}</td>
+                    <td class="p-2">{{ user.username }}</td>
+                    <td class="p-2">{{ `${user.employee?.first_name} ${user.employee?.last_name}` }} </td>
+                    <td class="p-2">{{ user.employee?.role?.position }}</td>
 
-                    <td class="px-6 py-4">
+                    <td class="p-2 flex justify-center">
                         <Link :href="route('users.edit', user.id)" as="button" class="w-5 mx-4">
                         <img src="@/Shared/Icons/edit.svg" alt="Edit" class="w-5 h-5 cursor-pointer" />
                         </Link>
