@@ -116,8 +116,9 @@
                             <div class="col-span-0 p-1">
                                 <label for="role_id" class="block mb-1">Role</label>
                                 <select v-model="form.role_id" type="text" id="role_id"
-                                    class="text-sm text-gray-900 w-full rounded-lg border-1 border-gray-200 p-2">
-                                    <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.position }}
+                                    class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2">
+                                    <option v-for="role in roles" :key="role.id" :value="role.id">
+                                      {{ role.name }}
                                     </option>
                                     <InputError class="mt-2" :message="form.errors.role_id" />
                                 </select>
@@ -170,7 +171,7 @@ const form = useForm({
     date_of_birth: user.employee.date_of_birth,
     contact: user.employee.contact,
     shift: user.employee.shift,
-    role_id: user.employee.role_id,
+    role_id: user.role_id,
     employee_id: user.employee.id,
     active: user.active,
     password: '',
