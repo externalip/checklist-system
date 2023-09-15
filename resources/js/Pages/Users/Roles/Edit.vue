@@ -104,56 +104,6 @@
     </AppLayout>
 </template>
 
-<style>
-.multiselect__tag {
-    color: rgb(48, 48, 48);
-    background-color: rgba(255, 255, 255, 255);
-    border: 1px solid rgba(111, 118, 221, 0.726);
-    font-size: 01rem;
-}
-.multiselect__tag:hover {
-    background-color: var(--blue);
-    transition: all 0.2s ease-in-out;
-    color: aliceblue;
-}
-
-.multiselect__option--disabled {
-    background: rgb(209, 202, 209) !important;
-    color: rgba(var(--vs-primary), 1);
-    font-style: italic;
-}
-
-.multiselect__option--highlight {
-    background-color: var(--blue) !important;
-    color: var(--input) !important;
-    font-size: 0.9rem;
-    height: 1rem;
-    transition: all 0.2s ease-in-out;
-}
-
-.multiselect__content {
-    background: rgb(255, 255, 255);
-    color: #444 !important;
-    font-size: 0.9rem;
-}
-.multiselect__single {
-    height: 0.8rem;
-    font-size: 1rem;
-    color: #444 !important;
-}
-.multiselect__tag {
-    position: relative;
-    display: inline-block;
-    padding: 0.35rem 1.625rem 0.35rem 0.625rem;
-
-    margin-right: 0.625rem;
-
-    line-height: 1;
-
-    margin-bottom: 0.5rem;
-}
-</style>
-
 <script setup>
 import { defineProps, ref } from "vue";
 import { useForm, Link } from "@inertiajs/vue3";
