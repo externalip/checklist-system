@@ -2,101 +2,139 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
-use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
+use Inertia\Inertia;
+use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-        $this->middleware('role:Operator');
-    }
     public function index()
     {
-        $permissions = DB::table('role_has_permissions')
-        ->select([
-            'role_has_permissions.permission_id',
-            'permissions.name as permission_name',
-            'role_has_permissions.role_id',
-            'roles.name as role_name',
-            'roles.description as role_description'
-        ])
-            ->join('permissions', 'role_has_permissions.permission_id', '=', 'permissions.id')
-            ->join('roles', 'role_has_permissions.role_id', '=', 'roles.id')
+        $roles = DB::table('roles')
+            ->leftJoin('role_has_permissions', 'roles.id', '=', 'role_has_permissions.role_id')
+            ->leftJoin('permissions', 'role_has_permissions.permission_id', '=', 'permissions.id')
+            ->select([
+                'roles.id as role_id',
+                'roles.name as role_name',
+                'roles.description as role_description',
+                DB::raw('GROUP_CONCAT(permissions.name) as permission_names'),
+            ])
+            ->groupBy('roles.id')
             ->get();
 
-        $roles = [];
+        $rolesData = [];
 
-        foreach ($permissions->groupBy('role_id') as $role_id => $role) {
-            $roles[] = [
-                'id' => $role_id,
-                'name' => $role->first()->role_name,
-                'description' => $role->first()->role_description,
-                'permissions' => $role->pluck('permission_name')->toArray()
+        foreach ($roles as $role) {
+            $permissions = explode(',', $role->permission_names);
+
+            $rolesData[] = [
+                'id' => $role->role_id,
+                'name' => $role->role_name,
+                'description' => $role->role_description,
+                'permissions' => $permissions,
             ];
         }
 
         return Inertia::Render('Users/Roles/Index', [
-                'roles' => $roles
-            ]);
+            'roles' => $roles,
+        ]);
     }
 
     public function store(Request $request)
     {
-        try {
-            $validatedData = $request->validate([
-                'position' => 'required|string|max:255|unique:roles',
-                'description' => 'required|string|max:255',
-            ]);
-        } catch (ValidationException $e) {
-            return response()->json([
-                'status' => 'error',
-                'errors' => $e->errors(),
-            ], 422);
-        }
-
-        $role = Role::create([
-            'position' => $validatedData['position'],
-            'description' => $validatedData['description'],
+        $validate = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'permissions' => 'required|array',
         ]);
+        $permissions = $request->input('permissions');
 
-        if (! $role) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Role not created',
-            ], 500);
+        $permissions = array_map(function ($permission) {
+            return $permission['id'];
+        }, $permissions);
+
+        if (! $validate) {
+            throw ValidationException::withMessages([
+                'name' => 'Role name is required',
+                'description' => 'Role description is required',
+                'permissions' => 'Role permissions is required',
+            ]);
         }
+        $role = Role::create([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'guard_name' => 'web',
+        ]);
+        $role->syncPermissions($permissions);
 
         return response()->json([
             'status' => 'success',
             'message' => 'Role created successfully',
-            'data' => $role,
         ], 201);
     }
-    public function create(){
+
+    public function create()
+    {
         $roles = Role::all();
-        $permissions = DB::table('permissions')->get();
+        $permissions = DB::table('permissions')->select('id', 'name')->get();
+
         return Inertia::Render('Users/Roles/Create', [
             'roles' => $roles,
-            'permissions' => $permissions
+            'permissions' => $permissions,
         ]);
     }
-    public function edit($id){
-        $role = Role::find($id);
-        $permissions = DB::table('role_has_permissions')
-        ->where('role_id', $id)
-        ->join('permissions', 'role_has_permissions.permission_id', '=', 'permissions.id')
-        ->select('permissions.id', 'permissions.name')
-        ->get();
 
+    public function destroy($id)
+    {
+        $role = Role::find($id);
+        $role->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Role deleted successfully',
+        ], 200);
+    }
+
+    public function edit($id)
+    {
+        $role = Role::find($id);
+        $permission_options = DB::table('permissions')->select('id', 'name')->get();
+        $permissions = DB::table('role_has_permissions')
+            ->where('role_id', $id)
+            ->join('permissions', 'role_has_permissions.permission_id', '=', 'permissions.id')
+            ->select('permissions.id', 'permissions.name')
+            ->get();
 
         return Inertia::Render('Users/Roles/Edit', [
             'role' => $role,
-            'permissions' => $permissions
+            'permissions' => $permissions,
+            'permission_options' => $permission_options,
         ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $role = Role::find($id);
+        $validate = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'permissions' => 'required|array',
+        ]);
+        $permissions = $request->input('permissions');
+        $permissions = array_map(function ($permission) {
+            return $permission['id'];
+        }, $permissions);
+        $role->update([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+        ]);
+        $role->syncPermissions($permissions);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Role updated successfully',
+        ], 200);
     }
 }

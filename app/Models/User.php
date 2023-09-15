@@ -18,6 +18,7 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
     use HasRoles;
+
     protected $guard_name = 'web';
     //guarded
 
@@ -30,6 +31,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'employee_id',
+        'role_id',
         'username',
         'password',
         'active',
@@ -44,10 +46,12 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
     public function role()
     {
         return $this->belongsTo(Role::class);
     }
+
     public function employee()
     {
         return $this->belongsTo(Employee::class, 'employee_id');

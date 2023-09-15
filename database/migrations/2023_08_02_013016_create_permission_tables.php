@@ -1,11 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use Spatie\Permission\PermissionRegistrar;
-use Spatie\Permission\Models\Role;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
+
 class CreatePermissionTables extends Migration
 {
     /**
@@ -41,14 +42,14 @@ class CreatePermissionTables extends Migration
                 $table->unsignedBigInteger($columnNames['team_foreign_key'])->nullable();
                 $table->index($columnNames['team_foreign_key'], 'roles_team_foreign_key_index');
             }
-            $table->string('name');       // For MySQL 8.0 use string('name', 125);
+            $table->string('name')->default('');       // For MySQL 8.0 use string('name', 125);
             $table->string('description')->nullable();
-            $table->string('guard_name'); // For MySQL 8.0 use string('guard_name', 125);
+            $table->string('guard_name')->default('web'); // For MySQL 8.0 use string('guard_name', 125);
             $table->timestamps();
             if ($teams || config('permission.testing')) {
                 $table->unique([$columnNames['team_foreign_key'], 'name', 'guard_name']);
             } else {
-                $table->unique(['name', 'guard_name']);
+                $table->unique(['name']);
             }
         });
 
@@ -115,9 +116,9 @@ class CreatePermissionTables extends Migration
 
             $table->primary([PermissionRegistrar::$pivotPermission, PermissionRegistrar::$pivotRole], 'role_has_permissions_permission_id_role_id_primary');
         });
-        # roles
+        // roles
         $roles = ['Operator', 'Line Leader', 'Quality Control'];
-        $permissions = ['dashboard', 'users', 'manage-checksheet', 'pending-reports', 'view-checklist', 'archives', 'audit', 'models', 'user-manual' ];
+        $permissions = ['dashboard', 'users', 'manage-checksheet', 'pending-reports', 'view-checklist', 'archives', 'audit', 'models', 'user-manual'];
         foreach ($roles as $role) {
             Role::create(['name' => $role]);
         }
@@ -125,10 +126,9 @@ class CreatePermissionTables extends Migration
             Permission::create(['name' => $permission]);
         }
         $role = Role::findByName('Operator');
-        $role->givePermissionTo('dashboard');
-        $role->givePermissionTo('pending-reports');
-        $role->givePermissionTo('view-checklist');
-        $role->givePermissionTo('audit');
+        foreach ($permissions as $permission) {
+            $role->givePermissionTo($permission);
+        }
         $role = Role::findByName('Line Leader');
         foreach ($permissions as $permission) {
             $role->givePermissionTo($permission);

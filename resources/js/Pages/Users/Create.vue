@@ -124,7 +124,7 @@
                                 <div class="flex">
                                     <select v-model="form.role_id" type="text" id="role_id"
                                         class="text-gray-900 w-full rounded-lg border-2 border-gray-300 p-2">
-                                        <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.position }}
+                                        <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.name }}
                                         </option>
                                         <InputError class="mt-2" :message="form.errors.role_id" />
                                     </select>

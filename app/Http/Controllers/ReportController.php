@@ -146,7 +146,7 @@ class ReportController extends Controller
         return DB::table('users')
             ->select('roles.name')
             ->join('employees', 'employees.id', '=', 'users.employee_id')
-            ->join('roles', 'roles.id', '=', 'employees.role_id')
+            ->join('roles', 'roles.id', '=', 'users.role_id')
             ->where('users.id', '=', $user_id)
             ->get()
             ->first()

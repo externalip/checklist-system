@@ -1,6 +1,8 @@
 <template>
     <AppLayout title="Roles">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <Link :href="route('roles.create')" as="button">
+            Add </Link>
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                 <table class="w-full text-sm text-center text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-white uppercase bg-[--blue] dark:bg-gray-700 dark:text-gray-400">
@@ -13,18 +15,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="role in  roles" :key="role.id">
-                            <td class="px-6 py-4">{{ role.id }}</td>
-                            <td class="px-6 py-4">{{ role.name }}</td>
-                            <td class="px-6 py-4">{{ role.description ? role.description : 'No Role Description' }}</td>
+                        <tr v-for="role in  roles" :key="role.role_id">
+                            <td class="px-6 py-4">{{ role.role_id }}</td>
+                            <td class="px-6 py-4">{{ role.role_name }}</td>
+                            <td class="px-6 py-4">{{ role.role_description ? role.role_description : 'No Role Description' }}</td>
                             <td class="px-6 py-4">
-                                {{ role.permissions.join(', ') ? role.permissions.join(', ') : 'No Permissions'}}
+                               {{  role.permission_names ? role.permission_names : 'No Permissions'  }}
                             </td>
                             <td class="px-6 py-4">
-                                <Link :href="route('roles.edit', role.id)" as="button" class="w-5 mx-4">
+                                <Link :href="route('roles.edit', role.role_id)" as="button" class="w-5 mx-4">
                                     <img src="@/Shared/Icons/edit.svg" alt="Edit" class="w-5 h-5 cursor-pointer" />
                                 </Link>
-                                <button class="w-5" @click="confirmDelete(role.id)">
+                                <button class="w-5" @click="confirmDelete(role.role_id)">
                                     <img src="@/Shared/Icons/delete.svg" alt="Delete" class="w-5 h-5 cursor-pointer" />
                                 </button>
                             </td>
@@ -52,6 +54,17 @@ const confirmDelete = async (id) => {
         cancelButtonText: 'No, cancel!',
    });
    if (!isConfirmed.isConfirmed) return;
-
+  const deleteLink = await axios.delete(route('roles.destroy', id), { data: { id } });
+  if (deleteLink.status == 200){
+        await Swal.fire({
+            title: 'Deleted!',
+            text: 'The role has been deleted.',
+            icon: 'success',
+            timer: 1500,
+            showConfirmButton: true
+        }).then(() => {
+            window.location.reload(true);
+        });
+  }
 }
 </script>

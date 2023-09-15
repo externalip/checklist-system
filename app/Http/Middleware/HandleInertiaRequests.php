@@ -40,11 +40,21 @@ class HandleInertiaRequests extends Middleware
         // Return shared props
         return array_merge(parent::share($request), [
             'auth.user' => fn () => $request->user()
-                ? $request->user()->only('id', 'username', 'role_id')
+                ? $request->user()->only('id', 'username')
+                : null,
+            'auth.user.role_id' => fn () => $request->user()
+                ? optional($request->user()->employee)->role_id
                 : null,
             'auth.employee' => fn () => $request->user()
                 ? $request->user()->employee
                 : null,
+            'auth.user.roles' => fn () => $request->user()
+                ? $request->user()->getRoleNames()
+                : null,
+            'auth.user.permissions' => fn () => $request->user()
+                ? $request->user()->getAllPermissions()
+                : null,
+
             'sharedForms' => $forms,
         ]);
     }
