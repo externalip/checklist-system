@@ -51,6 +51,8 @@ import { defineProps, ref } from 'vue';
 import { useForm, Link } from '@inertiajs/vue3';
 import Multiselect from 'vue-multiselect';
 import AppLayout from '@/Layouts/AppLayout.vue';
+import 'vue-multiselect/dist/vue-multiselect.css';
+
 defineProps({ permissions: Array });
 
 const form = useForm({

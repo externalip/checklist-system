@@ -30,7 +30,7 @@
                         <!-- DOB, CONTACT, SHIFT, GENDER -->
                         <div class="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
                             <!-- DATE OF BIRTH -->
-                            <div class="p-1">
+                            <div >
                                 <multiselect v-model="selectedPermission" :options="permission_options" :multiple="true" :close-on-select="false" :clear-on-select="false" placeholder="Select an option" label="name" track-by="id" select-label="id" groupSelect="true" @select="onOptionSelect"></multiselect>
                                 <span v-if="!selectedPermission.length" class="text-red-600 text-sm">Please select at least one option.</span>
 
@@ -57,6 +57,7 @@ import { defineProps, ref } from 'vue';
 import { useForm, Link } from '@inertiajs/vue3';
 import Multiselect from 'vue-multiselect';
 import AppLayout from '@/Layouts/AppLayout.vue';
+import 'vue-multiselect/dist/vue-multiselect.css';
 const { permissions, role } = defineProps({ permissions: Array, role: Array, permission_options: Array });
 
 const form = useForm({
