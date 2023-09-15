@@ -1,6 +1,6 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
-import { reactive,computed } from "vue";
+import { reactive,computed, ref } from "vue";
 import { router } from "@inertiajs/vue3";
 
 const props = defineProps({
@@ -24,12 +24,13 @@ let form = reactive({
         ans10: null,
     },
 });
-
+const errorDisplay = ref({});
 const submit = async () => {
     // Show a confirmation dialog before submitting
     const confirmResult = await Swal.fire({
         title: 'Before Submitting',
-        text: 'Please confirm that every field is filled up and correct before submitting. After submitting, it will now be sent to the Pending Reviews for the Line Leader and QC.',
+        text: 'Please confirm that every field is filled up and correct before submitting. \
+                After submitting, it will be reviewed by a Line Leader and QC.',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonText: 'Submit',
@@ -58,8 +59,7 @@ const submit = async () => {
                     text: 'The form was successfully submitted.',
                     icon: 'success',
                 });
-                //reset form
-                form.reset();
+                
                 errorDisplay.value = {};
             } else if (status === 'error') {
                 errorDisplay.value = response.data.errors;
@@ -79,7 +79,13 @@ const filteredModels = computed(() => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+    .required::after {
+        content: " *";
+        color: red;
+        font-size: 1em;
+    }
+</style>
 
 <template>
     <AppLayout title="5S Checklist">
@@ -107,7 +113,7 @@ const filteredModels = computed(() => {
                             <h5 id="question1">Model Name</h5>
                             <label
                                 for="models"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                class="required block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                             >
                                 Select a model
                             </label>
@@ -115,7 +121,7 @@ const filteredModels = computed(() => {
                             <select
                             id="models"
                             v-model="form.fieldAnswers.ans1"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             required
                         >
                             <option
@@ -139,7 +145,7 @@ const filteredModels = computed(() => {
                                 <div class="">
                                     <label
                                         for="models"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                        class="required block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                         required
                                     >
                                         Input the Lot Number
@@ -161,7 +167,7 @@ const filteredModels = computed(() => {
                                 <div class="">
                                     <label
                                         for="models"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                        class="required block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                         required
                                     >
                                         Input the Kit Number
@@ -192,7 +198,7 @@ const filteredModels = computed(() => {
                         <h5 id="question4">Type of Checking</h5>
 
                         <label
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            class="required block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                         >
                             Select a type of checking
                         </label>
@@ -276,7 +282,7 @@ const filteredModels = computed(() => {
                         id="question"
                         class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md"
                     >
-                        <h5 id="question5">Production Checksheet</h5>
+                        <h5 id="question5" class="required">Production Checksheet</h5>
 
                         <div id="accordion-collapse" data-accordion="collapse">
                             <h2 id="accordion-collapse-heading-1">
@@ -412,8 +418,10 @@ const filteredModels = computed(() => {
                         id="question"
                         class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md"
                     >
-                        <h5 id="question6">Procedures/OPL/Work Instructions</h5>
+                        <!-- Question Label -->
+                        <h5 id="question6" class="required">Procedures/OPL/Work Instructions</h5>
 
+                        <!-- Instructions -->
                         <div id="accordion-collapse" data-accordion="collapse">
                             <h2 id="accordion-collapse-heading-2">
                                 <button
@@ -486,6 +494,7 @@ const filteredModels = computed(() => {
                             </div>
                         </div>
 
+                        <!-- Radio Answers -->
                         <ul
                             class="bottom-0 items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         >
@@ -557,9 +566,11 @@ const filteredModels = computed(() => {
                     <div
                         id="question"
                         class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md"
-                    >
-                        <h5 id="question7">Working Area</h5>
+                    >   
+                        <!-- Question Label -->
+                        <h5 id="question7" class="required">Working Area</h5>
 
+                        <!-- Instructions -->
                         <div id="accordion-collapse" data-accordion="collapse">
                             <h2 id="accordion-collapse-heading-3">
                                 <button
@@ -638,6 +649,7 @@ const filteredModels = computed(() => {
                             </div>
                         </div>
 
+                        <!-- Radio Answers -->
                         <ul
                             class="bottom-0 items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         >
@@ -710,8 +722,10 @@ const filteredModels = computed(() => {
                         id="question"
                         class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md"
                     >
-                        <h5 id="question8">Materials</h5>
+                        <!-- Question Label -->
+                        <h5 id="question8" class="required">Materials</h5>
 
+                        <!-- Instructions -->
                         <div id="accordion-collapse" data-accordion="collapse">
                             <h2 id="accordion-collapse-heading-4">
                                 <button
@@ -789,6 +803,7 @@ const filteredModels = computed(() => {
                             </div>
                         </div>
 
+                        <!-- Radio Answers -->
                         <ul
                             class="bottom-0 items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         >
@@ -861,8 +876,10 @@ const filteredModels = computed(() => {
                         id="question"
                         class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md"
                     >
-                        <h5 id="question9">Tools/Jigs Instrument</h5>
+                        <!-- Question Label -->
+                        <h5 id="question9" class="required">Tools/Jigs Instrument</h5>
 
+                        <!-- Instructions -->
                         <div id="accordion-collapse" data-accordion="collapse">
                             <h2 id="accordion-collapse-heading-5">
                                 <button
@@ -944,6 +961,7 @@ const filteredModels = computed(() => {
                             </div>
                         </div>
 
+                        <!-- Radio Answers -->
                         <ul
                             class="bottom-0 items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                         >
