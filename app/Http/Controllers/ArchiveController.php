@@ -31,6 +31,7 @@ class ArchiveController extends Controller
         $response_fields = DB::table('response_fields')
             ->select(
                 'forms.form_name',
+                'forms.form_data',
                 'employees.first_name',
                 'employees.last_name',
                 'employees.shift',
@@ -61,7 +62,7 @@ class ArchiveController extends Controller
             ->leftJoin('employees AS qc_employee', 'qc_employee.id', '=', 'qc_user.employee_id')
             ->whereIn('response_fields.status', ['OK', 'Rejected'])
             ->orderByDesc('response_fields.created_at')
-            ->paginate(10);
+            ->get();
 
         $counts = DB::table('response_fields')
             ->select()
@@ -79,7 +80,7 @@ class ArchiveController extends Controller
             ->get();
 
         return Inertia::render('Archives/Index', [
-            'response_fields' => $response_fields,
+            'data' => $response_fields,
             'counts' => $counts,
             'forms' => $forms,
             'employees' => $employees,
