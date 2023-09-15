@@ -75,6 +75,7 @@ export default {
             <div v-for="(row, index) in formdata" :key="index" class="rounded-xl relative overflow-x-auto shadow-md">
                 <div v-if="selectedOption === row.id">
                     <table class="w-full text-sm text-center text-gray-500 dark:text-gray-400">
+                        <!-- Post Header of checksheet data -->
                         <thead style="background-color: #3c5393" class="text-xs text-white">
                             <tr>
                                 <th class="border-r-[2px] border-blue-900 whitespace-nowrap px-3 py-3" colspan="1"
@@ -85,6 +86,7 @@ export default {
                                     rowspan="2">Model Name</th>
                                 <th class="border-r-[2px] border-blue-900 whitespace-nowrap px-3 py-3" colspan="1"
                                     rowspan="2">Lot No.</th>
+                                    <!-- Loop for Dynamic Header -->
                                 <th class="border-r-[2px] border-b-[2px] border-blue-900 px-1 py-1"
                                     v-for="(section, sectionIndex) in JSON.parse(row.form_data)?.form_content"
                                     :key="sectionIndex" :colspan="getQuestionCount(section)">
@@ -118,6 +120,7 @@ export default {
                                 </th>
                             </tr>
                         </thead>
+                        <!-- Post OK or Rejected checksheet data -->
                         <tbody v-for="response_field in data">
                             <tr v-if="(response_field.form_id === selectedOption &&
                                 selectedUser === 'default' && selectedStatus === 'default') ||
@@ -139,8 +142,8 @@ export default {
                                 <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{ JSON.parse(response_field.response).fieldAnswers["Model Name"] }}
                                 </td>
-                                <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{ JSON.parse(response_field.response).fieldAnswers["Lot Number"] }}
+                                <td class="font-medium text-gray-900 whitespace-nowrap dark:text-white px-3">
+                                    {{ JSON.parse(response_field.response).fieldAnswers["Kit Number"] }} {{ JSON.parse(response_field.response).fieldAnswers["Lot Number"] }}
                                 </td>
                                 <template
                                     v-for="(section, sectionIndex) in JSON.parse(response_field.form_data)?.form_content">

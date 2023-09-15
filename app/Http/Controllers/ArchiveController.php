@@ -78,13 +78,17 @@ class ArchiveController extends Controller
         $formdata = DB::table('forms')
             ->select(
                 'forms.*',
-                'response_fields.form_id AS rf_id'
             )
-            ->join('response_fields', 'forms.id', '=', 'response_fields.id')
+
             ->get();
 
         $employees = DB::table('users')
-            ->select()
+            ->select(
+                'users.*',
+                'employees.first_name',
+                'employees.last_name'
+            )
+            ->join('employees', 'employees.id', '=', 'users.employee_id')
             ->where('role_id', '=', '1')
             ->get();
 
@@ -93,7 +97,7 @@ class ArchiveController extends Controller
             'counts' => $counts,
             'forms' => $forms,
             'employees' => $employees,
-            'formdata' => $formdata,
+            'formdata' => $formdata
         ]);
     }
 }
