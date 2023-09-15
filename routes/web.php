@@ -45,9 +45,20 @@ Route::get('/Login', function () {
 Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
-
-    route::middleware('checkRole:2,3')->group(function () {
+    Route::middleware(['permission:dashboard'])->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    });
+
+    Route::middleware(['permission:users'])->group(function () {
+        Route::prefix('roles')->group(function () {
+            Route::get('/', [RoleController::class, 'index'])->name('roles.index');
+            Route::get('/create', [RoleController::class, 'create'])->name('roles.create');
+            Route::post('/', [RoleController::class, 'store'])->name('roles.store');
+            Route::get('/{id}/edit', [RoleController::class, 'edit'])->name('roles.edit');
+            Route::put('/{id}', [RoleController::class, 'update'])->name('roles.update');
+            Route::delete('/{id}', [RoleController::class, 'destroy'])->name('roles.destroy');
+        });
+
         // User Manager Page
         Route::prefix('Users')->group(function () {
             Route::get('/', [UserController::class, 'index'])->name('users');
@@ -57,7 +68,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
             Route::put('/{user}', [UserController::class, 'update'])->name('users.update');
             Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
         });
+    });
 
+    Route::middleware(['permission:models'])->group(function () {
         // Model Manager Page
         Route::prefix('Models')->group(function () {
             Route::get('/', [ModelController::class, 'index'])->name('models.index');
@@ -66,76 +79,83 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
             Route::put('/{id}', [ModelController::class, 'update'])->name('models.update');
             Route::delete('/', [ModelController::class, 'destroy'])->name('models.destroy');
         });
+    });
 
-        // Audit Trail Page
+    // Audit Trail Page
+    Route::middleware(['permission:audit'])->group(function () {
         Route::get('/audit', [AuditController::class, 'index'])->name('audit');
     });
-    Route::post('/add-role', [RoleController::class, 'store'])->name('role.store');
-    // 5S Checklist Form Page
-    Route::get('/5S-Checklist', [UserController::class, 'show5SForm'])->name('5S-Checklist');
 
-    // Form Creator/Generator
-    Route::prefix('/generate')->group(function () {
-        Route::get('/', [FormGeneratorController::class, 'index'])->name('generate');
-        Route::post('/', [FormGeneratorController::class, 'store'])->name('generate.store');
+    Route::middleware(['permission:view-checklist'])->group(function () {
+        // 5S Checklist Form Page
+        Route::get('/5S-Checklist', [UserController::class, 'show5SForm'])->name('5S-Checklist');
+
+        // P-Touch Solder Form Page
+        Route::get('/PTouch-Solder', [UserController::class, 'showPTouchForm'])->name('PTouch-Solder');
+
+        // P-Touch-ICT Form Page
+        Route::get('/PTouch-ICT', [UserController::class, 'showICTForm'])->name('PTouch-ICT');
+
+        //Forms
+        Route::get('Forms/{id}', function ($form_id) {
+            // Get form path
+            $path = 'Forms/form'.$form_id;
+
+            // Get all models
+            $models = DB::table('tags')
+                ->join('models', 'tags.model_id', '=', 'models.id')
+                ->join('forms', 'tags.form_id', '=', 'forms.id')
+                ->select('models.model_name', 'forms.form_name', 'tags.*')
+                ->get();
+
+            // Send list of models to url
+            return Inertia::render($path, [
+                'models' => $models,
+            ]);
+        })->name('showForm');
+        // Form Submission Function
+        Route::post('/submit-response', [ResponseController::class, 'store']);
+        Route::post('/submit', [ResponseController::class, 'storeResponse']);
     });
 
-    // Form Editor
-    Route::prefix('/checksheet')->group(function () {
+    Route::middleware(['permission:manage-checksheet'])->group(function () {
+        // Form Creator/Generator
+        Route::prefix('/generate')->group(function () {
+            Route::get('/', [FormGeneratorController::class, 'index'])->name('generate');
+            Route::post('/', [FormGeneratorController::class, 'store'])->name('generate.store');
+        });
 
-        // Show Check Sheets Table
-        Route::get('/', [CheckSheetController::class, 'index'])->name('checksheet');
+        // Form Editor
+        Route::prefix('/checksheet')->group(function () {
+            // Show Check Sheets Table
+            Route::get('/', [CheckSheetController::class, 'index'])->name('checksheet');
 
-        // Save Form Changes
-        Route::put('/edit', [CheckSheetController::class, 'update'])->name('checksheet.update');
+            // Save Form Changes
+            Route::put('/edit', [CheckSheetController::class, 'update'])->name('checksheet.update');
 
-        //edit based on id
-        Route::get('/edit/{id}', [CheckSheetController::class, 'edit'])->name('checksheet.edit');
+            //edit based on id
+            Route::get('/edit/{id}', [CheckSheetController::class, 'edit'])->name('checksheet.edit');
 
-        // Delete Check Sheet
-        Route::delete('/delete', [CheckSheetController::class, 'destroy'])->name('checksheet.delete');
+            // Delete Check Sheet
+            Route::delete('/delete', [CheckSheetController::class, 'destroy'])->name('checksheet.delete');
+        });
     });
 
-    // Pending Reports Page
-    Route::prefix('/Pending-Reports')->group(function () {
-        Route::get('/', [ReportController::class, 'index'])->name('Pending-Reports');
-        Route::put('/{status}/{id}', [ReportController::class, 'update'])->name('Pending-Reports.update');
+    Route::middleware(['permission:pending-reports'])->group(function () {
+        // Pending Reports Page
+        Route::prefix('/Pending-Reports')->group(function () {
+            Route::get('/', [ReportController::class, 'index'])->name('Pending-Reports');
+            Route::put('/{status}/{id}', [ReportController::class, 'update'])->name('Pending-Reports.update');
+        });
     });
 
-    // Form Submission Function
-    Route::post('/submit-response', [ResponseController::class, 'store']);
-    Route::post('/submit', [ResponseController::class, 'storeResponse']);
+    Route::middleware(['permission:archives'])->group(function () {
+        //Archives
+        Route::get('/Archives', [ArchiveController::class, 'index'])->name('archives');
+    });
 
-    //Archives
-    Route::get('/Archives', [ArchiveController::class, 'index'])->name('archives');
-
-    // P-Touch Solder Form Page
-    Route::get('/PTouch-Solder', [UserController::class, 'showPTouchForm'])->name('PTouch-Solder');
-
-    // P-Touch-ICT Form Page
-    Route::get('/PTouch-ICT', [UserController::class, 'showICTForm'])->name('PTouch-ICT');
-
-    //Forms
-    Route::get('Forms/{id}', function ($form_id) {
-        // Get form path
-        $path = 'Forms/form'.$form_id;
-
-        // Get all models
-        $models = DB::table('tags')
-            ->join('models', 'tags.model_id', '=', 'models.id')
-            ->join('forms', 'tags.form_id', '=', 'forms.id')
-            ->select('models.model_name', 'forms.form_name', 'tags.*')
-            ->get();
-
-        // Send list of models to url
-        return Inertia::render($path, [
-            'models' => $models,
-        ]);
-    })->name('showForm');
-
-    // User Manual
-    Route::get('/UserManual', [UserController::class, 'showUserManual'])->name('UserManual');
-
-    // Checklist Approval
-    Route::get('/ChecklistApproval', [UserController::class, 'showChecklistApproval'])->name('ChecklistApproval');
+    Route::middleware(['permission:user-manual'])->group(function () {
+        // User Manual
+        Route::get('/UserManual', [UserController::class, 'showUserManual'])->name('UserManual');
+    });
 });

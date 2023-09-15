@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Employee;
+use App\Models\Role;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
@@ -78,12 +80,13 @@ class EmployeeSeeder extends Seeder
             '2nd',
             '3rd',
         ];
+
         $roleIds = DB::table('roles')->pluck('id')->toArray();
 
         // Run Seeder 50 times
         for ($i = 0; $i < 50; $i++) {
-            DB::table('employees')->insert([
-                'role_id' => Arr::random($roleIds),
+            Employee::create([
+                // 'role_id' => Arr::random($roleIds),
                 'first_name' => Arr::random($firstName),
                 'last_name' => Arr::random($lastName),
                 'gender' => Arr::random($gender),
@@ -93,6 +96,10 @@ class EmployeeSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
+            // $role = Role::find($employee->role_id);
+            // if ($role) {
+            //     $employee->assignRole($role->name);
+            // }
         }
     }
 }

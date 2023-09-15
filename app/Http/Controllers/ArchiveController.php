@@ -74,7 +74,7 @@ class ArchiveController extends Controller
             ->orderBy('form_name')
             ->get();
 
-        $employees = DB::table('employees')
+        $employees = DB::table('users')
             ->select()
             ->where('role_id', '=', '1')
             ->get();

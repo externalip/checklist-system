@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('employee_id')->unsigned();
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
+            $table->foreignId('role_id')->references('id')->on('roles')->onDelete('cascade');
             $table->string('username')->unique();
             $table->boolean('active')->default(true);
             $table->string('password');

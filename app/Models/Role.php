@@ -17,8 +17,9 @@ class Role extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'position',
+        'name',
         'description',
+        'guard_name',
     ];
 
     public function role()
