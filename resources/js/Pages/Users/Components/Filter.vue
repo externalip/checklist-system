@@ -125,6 +125,12 @@ watch([searchUsername, selectedAccountStatus, searchName, FilterRole], ([usernam
                 <Link :href="route('users.create')" type="button" class="text-white bg-[--blue] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-12 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">+
                 </Link>
             </div>
+
+            <div id="user-add-role-btn">
+                    <label for="user-add-role-btn" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Add Role</label>
+                    <Link :href="route('roles.index')" type="button" class="text-white bg-[--blue] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-12 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">+
+                    </Link>
+                </div>
         </section>
 
 
