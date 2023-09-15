@@ -43,7 +43,7 @@ class ReportController extends Controller
             ->get();
 
         $formtable = DB::table('forms')
-            ->select('forms.form_data')
+            ->select('form_data')
             ->get();
 
         // Get signature status per response
@@ -57,12 +57,14 @@ class ReportController extends Controller
             ->where('status', '=', 'pending')
             ->count();
 
+        // dd($formtable);
+
         return Inertia::render('Pending-Reports/Index', [
             'forms' => $forms,
             'data' => $responses,
             'signatures' => $signature_status,
             'counts' => $counts,
-            'formtable' => $formtable,
+            'config' => $formtable,
         ]);
     }
 

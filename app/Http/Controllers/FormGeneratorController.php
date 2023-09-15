@@ -25,7 +25,7 @@ class FormGeneratorController extends Controller
     {
 
         $employee_id = auth()->user()->employee_id;
-        $config = $request->only('form_name', 'form_content');
+        $config = $request->only('form_name', 'control_no', 'form_content');
         $form_name = $request->input('form_name');
 
         DB::table('forms')
@@ -134,7 +134,7 @@ class FormGeneratorController extends Controller
                             // Append Text Answer Field
                             Storage::disk('form_path')->append($file_name, '
                                 <div class="">
-                                    <input v-model="form.fieldAnswers.ans'.$answerIndex++.'" type="text" id="ltnum"
+                                    <input v-model="form.fieldAnswers.ans'.$answerIndex++.'.label" type="text" id="ltnum"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 </div>
                             ');
@@ -147,16 +147,16 @@ class FormGeneratorController extends Controller
                         ');
 
                         // Append Radio Options
-                        foreach ($value['section_content'][$qKey]['options'] as $ansKey => $ansLabel) {
+                        foreach ($value['section_content'][$qKey]['options'] as $ansKey => $ansVal) {
                             if ($isRequired) {
                                 Storage::disk('form_path')->append($file_name, '
                                     <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                         <div class="flex items-center pl-3">
                                             <input v-model="form.fieldAnswers.ans'.$answerIndex.'" id="production-checksheet-radio-'.$radioTarget.'" type="radio"
-                                                value="'.$ansLabel.'" name="production-checksheet-radio-'.$value['section_name'].$qKey.'"
+                                                value="'.$ansVal['label'].'" name="production-checksheet-radio-'.$value['section_name'].$qKey.'"
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
                                             <label for="production-checksheet-radio-'.$radioTarget++.'"
-                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">'.$ansLabel.'
+                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">'.$ansVal['label'].'
                                             </label>
                                         </div>
                                     </li>
@@ -166,10 +166,10 @@ class FormGeneratorController extends Controller
                                     <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                         <div class="flex items-center pl-3">
                                             <input v-model="form.fieldAnswers.'.'ans'.$answerIndex.'" id="production-checksheet-radio-'.$radioTarget.'" type="radio"
-                                                value="'.$ansLabel.'" name="production-checksheet-radio-'.$value['section_name'].$qKey.'"
+                                                value="'.$ansVal['label'].'" name="production-checksheet-radio-'.$value['section_name'].$qKey.'"
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
                                             <label for="production-checksheet-radio-'.$radioTarget++.'"
-                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">'.$ansLabel.'
+                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">'.$ansVal['label'].'
                                             </label>
                                         </div>
                                     </li>
@@ -199,10 +199,10 @@ class FormGeneratorController extends Controller
                         }
 
                         // Append Dropdown Options
-                        foreach ($value['section_content'][$qKey]['options'] as $ansKey => $ansLabel) {
+                        foreach ($value['section_content'][$qKey]['options'] as $ansKey => $ansVal) {
                             Storage::disk('form_path')->append($file_name, '
-                                <option value="'.$ansLabel.'">
-                                    '.$ansLabel.'
+                                <option value="'.$ansVal['label'].'">
+                                    '.$ansVal['label'].'
                                 </option>
                             ');
                         }
@@ -212,15 +212,15 @@ class FormGeneratorController extends Controller
                     } else {
 
                         // Append Checkbox Options
-                        foreach ($value['section_content'][$qKey]['options'] as $ansKey => $ansLabel) {
+                        foreach ($value['section_content'][$qKey]['options'] as $ansKey => $ansVal) {
                             Storage::disk('form_path')->append($file_name, '
                                 <div class="flex items-center mb-1">
                                     <input v-model="form.fieldAnswers.ans'.$answerIndex.'"
-                                        id="checkbox'.$checkboxTarget.'" type="checkbox" value="'.$ansLabel.'"
+                                        id="checkbox'.$checkboxTarget.'" type="checkbox" value="'.$ansVal['label'].'"
                                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                     <label for="checkbox'.$checkboxTarget++.'"
                                         class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                            >'.$ansLabel.'
+                                            >'.$ansVal['label'].'
                                     </label>
                                 </div>
                                 ');
@@ -283,24 +283,31 @@ class FormGeneratorController extends Controller
             FORM CONFIGURATION REFERENCE:
 
             form_name: null,
+            control_no: null,
             form_content: {
                 section1: {
-                section_name: null,
-                section_type: 'question',
-                section_content: {
-                    question1: {
-                        label: null,
-                        instruction: null,
-                        type: null,
-                        required: false,
-                        options: {
-                            ans1: null
+                    section_name: null,
+                    section_type: 'question',
+                    section_content: {
+                        question1: {
+                            label: null,
+                            instruction: null,
+                            type: null,
+                            required: false,
+                            options: {
+                                ans1: {
+                                    label: null,
+                                    color: 'clear',
+                                }
+                            }
                         }
                     }
                 }
-                }
             }
         */
+
+        // Checksheet Control Number
+        $controlNumber = $config['control_no'];
 
         // Count number of questions in the form
         $fieldCount = 4;
@@ -314,6 +321,8 @@ class FormGeneratorController extends Controller
 
                 // Check if question type is checkbox
                 if ($value['type'] == 'checkbox') {
+                    // Checkboxes allow multiple answers,
+                    // so we declare ans object to contain an array.
                     $fieldAnswersData .= ('ans'.$fieldCount++.': [],');
                 } else {
                     $fieldAnswersData .= ('ans'.$fieldCount++.': null,');
@@ -346,22 +355,44 @@ class FormGeneratorController extends Controller
         })
 
         function submit() {
-            // Get no. of questions based on h5 tags with an id `question#`
-            let questionInputs = document.querySelectorAll(\'h5[id^="question"]\');
-            let questionCount = questionInputs.length;
+            // Show confirmation modal
+            Swal.fire({
+                title: \'Submit response?\',
+                text: `You are about to submit your response. This action cannot be undone.`,
+                icon: \'warning\',
+                showCancelButton: true,
+                confirmButtonColor: \'#3085d6\',
+                cancelButtonColor: \'#d33\',
+                confirmButtonText: \'Yes\'
+            }).then((result) => {
 
-            // Get question text
-            for (let i = 1; i <= questionCount; i++) {
-                let ansKey = "ans".concat(i);
-                let questionLabel = document.getElementById(\'question\' + i).textContent;
+                // If user selects confirm button
+                if (result.isConfirmed) {
+                    // Get no. of questions based on h5 tags with an id `question#`
+                    let questionInputs = document.querySelectorAll(\'h5[id^="question"]\');
+                    let questionCount = questionInputs.length;
 
-                // Store question into object
-                form.fieldAnswers[questionLabel] = form.fieldAnswers[ansKey];
-                delete form.fieldAnswers[ansKey];
-            }
+                    // Get question text
+                    for (let i = 1; i <= questionCount; i++) {
+                        let ansKey = "ans".concat(i);
+                        let questionLabel = document.getElementById(\'question\' + i).textContent;
 
-            // Send user input to ResponseController
-            router.post(\'/submit\', form)
+                        // Store question into object
+                        form.fieldAnswers[questionLabel] = form.fieldAnswers[ansKey];
+                        delete form.fieldAnswers[ansKey];
+                    }
+
+                    // Send user input to ResponseController
+                    router.post(\'/submit\', form)
+
+                    // Show success prompt
+                    Swal.fire(
+                        \'Success!\',
+                        `Your response has been submitted.`,
+                        \'success\'
+                    );
+                }
+            });
         }
         const filteredModels = computed(() => {
             return props.models.filter((model) => model.form_id === form.form_id);
@@ -377,7 +408,7 @@ class FormGeneratorController extends Controller
         </style>
 
         <template>
-            <AppLayout title="'.$form_title.'">
+            <AppLayout title="'.$form_title.'" control_no="Control No.: '.$controlNumber.'">
                 <div class="5s lg:mx-[25%]">
                     <form @submit.prevent="submit()" method="post" id="1">
 

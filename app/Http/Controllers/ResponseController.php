@@ -18,7 +18,7 @@ class ResponseController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store premade checksheet response.
      */
     public function store(Request $request)
     {
@@ -62,6 +62,9 @@ class ResponseController extends Controller
         return response()->json(['status' => 'success', 'message' => 'Form submitted successfully']);
     }
 
+    /**
+     * Store generated checksheet's response.
+     */
     public function storeResponse(Request $request)
     {
         $submittedBy = auth()->user()->id;
@@ -85,9 +88,6 @@ class ResponseController extends Controller
 
         // Assign required signatures for the submitted data
         $this->requireSign($row_id);
-
-        // Success prompt
-        return response()->json(['status' => 'success', 'message' => 'Form submitted successfully']);
     }
 
     private function requireSign($row_id)
