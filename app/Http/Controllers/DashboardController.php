@@ -35,7 +35,6 @@ class DashboardController extends Controller
         //     ->limit(10)
         //     ->get();
 
-
         $users = DB::table('users')
             ->select(
                 'users.id'

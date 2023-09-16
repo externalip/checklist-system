@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
-use Spatie\Permission\Traits\HasRoles;
 use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Permission\Traits\HasRoles;
 
 class Employee extends User implements Auditable
 {
     use HasRoles;
     use \OwenIt\Auditing\Auditable;
+
     /**
      * The attributes that are mass assignable.
      *

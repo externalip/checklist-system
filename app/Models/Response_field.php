@@ -8,8 +8,8 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class Response_field extends Model implements Auditable
 {
-    use \OwenIt\Auditing\Auditable;
     use HasFactory;
+    use \OwenIt\Auditing\Auditable;
 
     protected $table = 'response_fields';
 

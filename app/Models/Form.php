@@ -8,8 +8,8 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class Form extends Model implements Auditable
 {
-    use \OwenIt\Auditing\Auditable;
     use HasFactory;
+    use \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
         'created_by',
