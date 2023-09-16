@@ -43,7 +43,7 @@ class ReportController extends Controller
             ->get();
 
         $formtable = DB::table('forms')
-            ->select('forms.form_data')
+            ->select('form_data')
             ->get();
 
         // Get signature status per response
@@ -57,12 +57,14 @@ class ReportController extends Controller
             ->where('status', '=', 'pending')
             ->count();
 
+        // dd($formtable);
+
         return Inertia::render('Pending-Reports/Index', [
             'forms' => $forms,
             'data' => $responses,
             'signatures' => $signature_status,
             'counts' => $counts,
-            'formtable' => $formtable,
+            'config' => $formtable,
         ]);
     }
 
@@ -144,13 +146,13 @@ class ReportController extends Controller
     {
         // Return user role
         return DB::table('users')
-            ->select('roles.position')
+            ->select('roles.name')
             ->join('employees', 'employees.id', '=', 'users.employee_id')
-            ->join('roles', 'roles.id', '=', 'employees.role_id')
+            ->join('roles', 'roles.id', '=', 'users.role_id')
             ->where('users.id', '=', $user_id)
             ->get()
             ->first()
-            ->position;
+            ->name;
     }
 
     private function isComplete($response_id): bool

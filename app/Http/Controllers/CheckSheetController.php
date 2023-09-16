@@ -72,7 +72,7 @@ class CheckSheetController extends Controller
         $form_config = $request->input('new_config');
         $form_name = $form_config['form_name'];
 
-        $result = DB::table('forms')
+        DB::table('forms')
             ->where('id', $form_id)
             ->update([
                 'form_data' => $form_config,

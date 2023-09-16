@@ -63,14 +63,15 @@ const confirmDelete = async (userId) => {
                     <th scope="col" class="px-6 py-3">Actions</th>
                 </tr>
             </thead>
+
             <tbody>
                 <tr v-for="user in  users.data " :key="user.id" :class="{ 'text-gray-300': user.active === 0 }">
                     <td class="px-6 py-4">{{ user.id }}</td>
                     <td class="px-6 py-4">{{ user.username }}</td>
                     <td class="px-6 py-4">{{ `${user.employee?.first_name} ${user.employee?.last_name}` }} </td>
-                    <td class="px-6 py-4">{{ user.employee?.role?.position }}</td>
+                    <td class="px-6 py-4">{{ user.role?.name }}</td>
 
-                    <td class="px-6 py-4">
+                    <td class="p-2 flex justify-center">
                         <Link :href="route('users.edit', user.id)" as="button" class="w-5 mx-4">
                         <img src="@/Shared/Icons/edit.svg" alt="Edit" class="w-5 h-5 cursor-pointer" />
                         </Link>
@@ -78,7 +79,6 @@ const confirmDelete = async (userId) => {
                         <button  v-if="user.active != 0" @click="confirmDelete(user.id)" class="w-5">
                             <img src="@/Shared/Icons/delete.svg" alt="Delete" class="w-5 h-5 cursor-pointer" />
                         </button>
-
                     </td>
                 </tr>
             </tbody>

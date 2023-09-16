@@ -1,5 +1,5 @@
 <template>
-    <div v-if="data.last_page > 1" class="flex items-center justify-between p-3 bg-white border-t border-gray-200 sm:px-6">
+    <div v-if="data.last_page >= 1" class="flex items-center justify-between p-3 bg-white border-t border-gray-200 sm:px-6">
         <!-- Previous Button (hidden on mobile) -->
         <button @click="gotoPage(data.current_page - 1)"
             :class="['pagination-button', 'hidden', 'sm:block', { 'disabled': data.current_page <= 1 }]">
@@ -48,7 +48,7 @@ export default {
             return Math.min(this.data.current_page * this.data.per_page, this.data.total);
         },
        visiblePages() {
-            const range = 2;
+            const range = 10;
             const start = Math.max(1, this.data.current_page - range);
             const end = Math.min(this.data.last_page, this.data.current_page + range);
 

@@ -9,14 +9,17 @@ class Role extends Authenticatable
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'position',
+        'name',
         'description',
+        'guard_name',
     ];
 
     public function role()

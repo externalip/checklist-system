@@ -114,7 +114,7 @@ watch([searchUsername, selectedAccountStatus, searchName, FilterRole], ([usernam
                         <select v-model="FilterRole" id="filter-user-role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option value="">Select Role</option>
                             <option v-for="role in roles" :key="role.id" :value="role.id">
-                                {{ role.position }}
+                                {{ role.name }}
                             </option>
                         </select>
                     </div>
@@ -125,6 +125,12 @@ watch([searchUsername, selectedAccountStatus, searchName, FilterRole], ([usernam
                 <Link :href="route('users.create')" type="button" class="text-white bg-[--blue] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-12 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">+
                 </Link>
             </div>
+
+            <div id="user-add-role-btn">
+                    <label for="user-add-role-btn" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Add Role</label>
+                    <Link :href="route('roles.index')" type="button" class="text-white bg-[--blue] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-12 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">+
+                    </Link>
+                </div>
         </section>
 
 

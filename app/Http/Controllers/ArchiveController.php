@@ -31,13 +31,17 @@ class ArchiveController extends Controller
         $response_fields = DB::table('response_fields')
             ->select(
                 'forms.form_name',
+                'forms.form_data',
                 'employees.first_name',
                 'employees.last_name',
+                'employees.shift',
                 'response_fields.*',
                 'line_leader_signature.user_id AS line_leader_user_id',
                 'qc_signature.user_id AS qc_user_id',
                 'line_leader_employee.first_name AS line_leader_first_name',
                 'qc_employee.first_name AS qc_first_name',
+                'line_leader_employee.last_name AS line_leader_last_name',
+                'qc_employee.last_name AS qc_last_name',
                 'employees.id AS operator_employee_id'
 
             )
@@ -56,7 +60,7 @@ class ArchiveController extends Controller
             ->leftJoin('users AS qc_user', 'qc_user.id', '=', 'qc_signature.user_id')
             ->leftJoin('employees AS line_leader_employee', 'line_leader_employee.id', '=', 'line_leader_user.employee_id')
             ->leftJoin('employees AS qc_employee', 'qc_employee.id', '=', 'qc_user.employee_id')
-            ->whereIn('response_fields.status', ['OK','Rejected'])
+            ->whereIn('response_fields.status', ['OK', 'Rejected'])
             ->orderByDesc('response_fields.created_at')
             ->paginate(10);
 
@@ -70,13 +74,13 @@ class ArchiveController extends Controller
             ->orderBy('form_name')
             ->get();
 
-        $employees = DB::table('employees')
+        $employees = DB::table('users')
             ->select()
             ->where('role_id', '=', '1')
             ->get();
 
         return Inertia::render('Archives/Index', [
-            'response_fields' => $response_fields,
+            'data' => $response_fields,
             'counts' => $counts,
             'forms' => $forms,
             'employees' => $employees,

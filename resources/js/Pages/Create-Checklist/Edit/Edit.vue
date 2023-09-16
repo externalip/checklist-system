@@ -68,7 +68,7 @@ const confirmDelete = async (formID) => {
 
             <section id="checksheet-registered-table">
                 <section id="checksheet-table-section">
-                    <div class="relative overflow-x-auto">
+                    <div class="rounded-lg relative overflow-x-auto">
                         <!-- Table -->
                         <table
                             class="rounded-lg w-full text-sm text-center text-gray-500 dark:text-gray-400"
@@ -100,10 +100,10 @@ const confirmDelete = async (formID) => {
                             </thead>
 
                             <!-- Table Content -->
-                            <tbody>
+                            <tbody class="text-xs">
                                 <tr
                                     v-for="form in forms.data"
-                                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 transition ease-in-out duration-200"
+                                    class="text-gray-700 bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 transition ease-in-out duration-200"
                                 >
                                     <td
                                         scope="row"
@@ -125,7 +125,29 @@ const confirmDelete = async (formID) => {
                                     </td>
 
                                     <!-- Action Buttons -->
-                                    <td class="px-6 flex justify-center mx-10">
+                                    <td
+                                        class=" flex justify-center align-center items-center mx-10"
+                                    >
+                                        <!-- DCC Redirect Button -->
+                                        <button
+                                            class="hover:bg-gray-200 transition duration-200 ease-in-out p-4"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24"
+                                                class="w-4 h-4"
+                                            >
+                                                <g fill="none">
+                                                    <path
+                                                        d="M24 0v24H0V0h24ZM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018Zm.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022Zm-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01l-.184-.092Z"
+                                                    />
+                                                    <path
+                                                        fill="currentColor"
+                                                        d="M11 6a1 1 0 1 1 0 2H5v11h11v-6a1 1 0 1 1 2 0v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6Zm9-3a1 1 0 0 1 1 1v5a1 1 0 1 1-2 0V6.414l-8.293 8.293a1 1 0 0 1-1.414-1.414L17.586 5H15a1 1 0 1 1 0-2Z"
+                                                    />
+                                                </g>
+                                            </svg>
+                                        </button>
                                         <!-- Edit Button -->
                                         <Link
                                             type="button"
@@ -138,7 +160,7 @@ const confirmDelete = async (formID) => {
                                             class="hover:bg-gray-200 transition duration-200 ease-in-out p-4"
                                         >
                                             <svg
-                                                class="w-5 h-5 text-gray-800 dark:text-white"
+                                                class="w-4 h-4 text-gray-800 dark:text-white"
                                                 aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 fill="none"
@@ -167,7 +189,7 @@ const confirmDelete = async (formID) => {
                                             class="hover:bg-gray-200 transition duration-200 ease-in-out p-4"
                                         >
                                             <svg
-                                                class="w-5 h-5 text-gray-800 dark:text-white"
+                                                class="w-4 h-4 text-gray-800 dark:text-white"
                                                 aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 fill="none"

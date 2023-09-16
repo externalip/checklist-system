@@ -8,16 +8,20 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
+    use HasRoles;
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+    protected $guard_name = 'web';
     //guarded
+
     protected $guarded = [];
 
     /**
@@ -27,6 +31,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'employee_id',
+        'role_id',
         'username',
         'password',
         'active',
@@ -41,6 +46,11 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 
     public function employee()
     {

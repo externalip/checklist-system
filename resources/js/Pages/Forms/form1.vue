@@ -40,6 +40,7 @@ const submit = async () => {
         // Get no. of questions based on h5 tags with an id `question#`
         let questionInputs = document.querySelectorAll('h5[id^="question"]');
         let questionCount = questionInputs.length;
+
         // Get question text
         for (let i = 1; i <= questionCount; i++) {
             let ansKey = "ans".concat(i);
@@ -48,27 +49,16 @@ const submit = async () => {
             form.fieldAnswers[questionLabel] = form.fieldAnswers[ansKey];
             delete form.fieldAnswers[ansKey];
         }
+
         try {
-            const response = await axios.post('/submit-response', form);
-            console.log(response.data);
-            const status = response.data.status;
-            if (status === 'success') {
-                console.log()
-                await Swal.fire({
-                    title: 'Success',
-                    text: 'The form was successfully submitted.',
-                    icon: 'success',
-                });
-                
-                errorDisplay.value = {};
-            } else if (status === 'error') {
-                errorDisplay.value = response.data.errors;
-                await Swal.fire({
-                    title: 'Submission Error',
-                    text: 'Please check the form fields for errors before submitting.',
-                    icon: 'error',
-                });
-            }
+            const response = await axios.post('/submit', form);
+
+            Swal.fire({
+                title: 'Success',
+                text: 'The form was successfully submitted.',
+                icon: 'success',
+            });
+
         } catch (error) {
             console.error('Form submission error', error);
         }
@@ -119,24 +109,24 @@ const filteredModels = computed(() => {
                             </label>
 
                             <select
-                            id="models"
-                            v-model="form.fieldAnswers.ans1"
-                            class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            required
-                        >
-                            <option
-                                v-for="model in filteredModels"
-                                :value="model.model_name"
-                                :key="model.id"
+                                id="models"
+                                v-model="form.fieldAnswers.ans1"
+                                class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                required
                             >
-                                {{ model.model_name }}
-                            </option>
-                        </select>
+                                <option
+                                    v-for="model in filteredModels"
+                                    :value="model.model_name"
+                                    :key="model.id"
+                                >
+                                    {{ model.model_name }}
+                                </option>
+                            </select>
                         </div>
-                        </div>
+                    </div>
 
-                        <!-- Lot Number -->
-                        <div id="model-identification" class="grid lg:grid-cols-2 lg:gap-3">
+                    <!-- Lot Number -->
+                    <div id="model-identification" class="grid lg:grid-cols-2 lg:gap-3">
                             <div
                                 id="question"
                                 class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md"
@@ -195,7 +185,7 @@ const filteredModels = computed(() => {
                         id="question"
                         class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md"
                     >
-                        <h5 id="question4">Type of Checking</h5>
+                        <h5 id="question4">Type of Check</h5>
 
                         <label
                             class="required block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -214,7 +204,7 @@ const filteredModels = computed(() => {
                                         v-model="form.fieldAnswers.ans4"
                                         id="production-checksheet-radio-1"
                                         type="radio"
-                                        value="Start-up"
+                                        value="Start-Up"
                                         name="production-checksheet-radio-Type of Checkingquestion1"
                                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                                         required
@@ -235,7 +225,7 @@ const filteredModels = computed(() => {
                                         v-model="form.fieldAnswers.ans4"
                                         id="production-checksheet-radio-2"
                                         type="radio"
-                                        value="Re-startup"
+                                        value="Re-Start Up"
                                         name="production-checksheet-radio-Type of Checkingquestion1"
                                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                                         required
@@ -243,7 +233,7 @@ const filteredModels = computed(() => {
                                     <label
                                         for="production-checksheet-radio-2"
                                         class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                        >Re-startup
+                                        >Re-Start Up
                                     </label>
                                 </div>
                             </li>
@@ -399,7 +389,7 @@ const filteredModels = computed(() => {
                                         v-model="form.fieldAnswers.ans5"
                                         id="production-checksheet-radio-6"
                                         type="radio"
-                                        value="NA"
+                                        value="N/A"
                                         name="production-checksheet-radio-Checking Itemsquestion1"
                                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                                         required
@@ -407,7 +397,7 @@ const filteredModels = computed(() => {
                                     <label
                                         for="production-checksheet-radio-6"
                                         class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                        >NA
+                                        >N/A
                                     </label>
                                 </div>
                             </li>
@@ -548,7 +538,7 @@ const filteredModels = computed(() => {
                                         v-model="form.fieldAnswers.ans6"
                                         id="production-checksheet-radio-9"
                                         type="radio"
-                                        value="NA"
+                                        value="N/A"
                                         name="production-checksheet-radio-Checking Itemsquestion2"
                                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                                         required
@@ -556,7 +546,7 @@ const filteredModels = computed(() => {
                                     <label
                                         for="production-checksheet-radio-9"
                                         class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                        >NA
+                                        >N/A
                                     </label>
                                 </div>
                             </li>
@@ -703,7 +693,7 @@ const filteredModels = computed(() => {
                                         v-model="form.fieldAnswers.ans7"
                                         id="production-checksheet-radio-12"
                                         type="radio"
-                                        value="NA"
+                                        value="N/A"
                                         name="production-checksheet-radio-Checking Itemsquestion3"
                                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                                         required
@@ -711,7 +701,7 @@ const filteredModels = computed(() => {
                                     <label
                                         for="production-checksheet-radio-12"
                                         class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                        >NA
+                                        >N/A
                                     </label>
                                 </div>
                             </li>
@@ -857,7 +847,7 @@ const filteredModels = computed(() => {
                                         v-model="form.fieldAnswers.ans8"
                                         id="production-checksheet-radio-15"
                                         type="radio"
-                                        value="NA"
+                                        value="N/A"
                                         name="production-checksheet-radio-Checking Itemsquestion4"
                                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                                         required
@@ -865,7 +855,7 @@ const filteredModels = computed(() => {
                                     <label
                                         for="production-checksheet-radio-15"
                                         class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                        >NA
+                                        >N/A
                                     </label>
                                 </div>
                             </li>
@@ -1015,7 +1005,7 @@ const filteredModels = computed(() => {
                                         v-model="form.fieldAnswers.ans9"
                                         id="production-checksheet-radio-18"
                                         type="radio"
-                                        value="NA"
+                                        value="N/A"
                                         name="production-checksheet-radio-Checking Itemsquestion5"
                                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                                         required
@@ -1023,7 +1013,7 @@ const filteredModels = computed(() => {
                                     <label
                                         for="production-checksheet-radio-18"
                                         class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                        >NA
+                                        >N/A
                                     </label>
                                 </div>
                             </li>

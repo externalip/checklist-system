@@ -18,24 +18,27 @@ class ResponseController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store premade checksheet response.
      */
     public function store(Request $request)
     {
         $attributeLabels = [
             'fieldAnswers.Materials' => 'Materials',
             'fieldAnswers.Lot Number' => 'Lot Number',
+            'fieldAnswers.Kit Number' => 'Kit Number',
             'fieldAnswers.Model Name' => 'Model Name',
             'fieldAnswers.Working Area' => 'Working Area',
-            'fieldAnswers.Type of Checking' => 'Type of Checking',
+            'fieldAnswers.Type of Check' => 'Type of Check',
             'fieldAnswers.Production Checksheet' => 'Production Checksheet',
             'fieldAnswers.Tools/Jigs Instrument' => 'Tools/Jigs Instrument',
             'fieldAnswers.Procedures/OPL/Work Instructions' => 'Procedures/OPL/Work Instructions',
+
         ];
 
         $validator = Validator::make($request->all(), [
             'fieldAnswers.Materials' => 'required',
             'fieldAnswers.Lot Number' => 'required',
+            'fieldAnswers.Kit Number' => 'required',
             'fieldAnswers.Model Name' => 'required',
             'fieldAnswers.Working Area' => 'required',
             'fieldAnswers.Type of Checking' => 'required',
@@ -55,10 +58,11 @@ class ResponseController extends Controller
 
         // Save response to database
         $this->storeResponse($request);
-
-        return response()->json(['status' => 'success', 'message' => 'Form submitted successfully']);
     }
 
+    /**
+     * Store generated checksheet's response.
+     */
     public function storeResponse(Request $request)
     {
         $submittedBy = auth()->user()->id;
@@ -82,9 +86,6 @@ class ResponseController extends Controller
 
         // Assign required signatures for the submitted data
         $this->requireSign($row_id);
-
-        // Success prompt
-        return response()->json(['status' => 'success', 'message' => 'Form submitted successfully']);
     }
 
     private function requireSign($row_id)

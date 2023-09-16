@@ -127,7 +127,7 @@ export default {
                     </thead>
                     <tbody v-for="response_field in response_fields.data">
                         <tr v-if="(response_field.form_id === 1 &&
-                                selectedUser === 'default') ||
+                            selectedUser === 'default') ||
                             (response_field.form_id === 1 &&
                                 response_field.operator_employee_id ===
                                 selectedUser)
@@ -227,10 +227,10 @@ export default {
                                 {{ response_field.first_name }} {{ response_field.last_name }}
                             </td>
                             <td class="border-solid whitespace-nowrap border-2 border-black px-1 py-1">
-                                {{ response_field.line_leader_first_name }}
+                                {{ response_field.line_leader_first_name }} {{ response_field.line_leader_last_name }}
                             </td>
                             <td class="border-solid whitespace-nowrap border-2 border-black px-1 py-1">
-                                {{ response_field.qc_first_name }}
+                                {{ response_field.qc_first_name }} {{ response_field.qc_last_name }}
                             </td>
                             <!-- Remarks -->
                             <td class="border-solid border-2 border-black px-1 py-1">
@@ -355,7 +355,7 @@ export default {
                     </thead>
                     <tbody v-for="response_field in response_fields.data">
                         <tr v-if="(response_field.form_id === 2 &&
-                                selectedUser === 'default') ||
+                            selectedUser === 'default') ||
                             (response_field.form_id === 2 &&
                                 response_field.submitted_by ===
                                 selectedUser)
@@ -555,10 +555,10 @@ export default {
                                 {{ response_field.first_name }}
                             </td>
                             <td class="border-solid whitespace-nowrap border-2 border-black px-1 py-1">
-                                {{ response_field.line_leader_first_name }}
+                                {{ response_field.line_leader_first_name }} {{ response_field.line_leader_last_name }}
                             </td>
                             <td class="border-solid whitespace-nowrap border-2 border-black px-1 py-1">
-                                {{ response_field.qc_first_name }}
+                                {{ response_field.qc_first_name }} {{ response_field.qc_last_name }}
                             </td>
                             <!-- Remarks -->
                             <td class="border-solid border-2 border-black px-1 py-1">
@@ -689,7 +689,7 @@ export default {
                     </thead>
                     <tbody v-for="response_field in response_fields.data">
                         <tr v-if="(response_field.form_id === 3 &&
-                                selectedUser === 'default') ||
+                            selectedUser === 'default') ||
                             (response_field.form_id === 3 &&
                                 response_field.submitted_by ===
                                 selectedUser)
@@ -902,10 +902,10 @@ export default {
                                 {{ response_field.submitted_by }}
                             </td>
                             <td class="border-solid whitespace-nowrap border-2 border-black px-1 py-1">
-                                {{ response_field.line_leader_first_name }}
+                                {{ response_field.line_leader_first_name }} {{ response_field.line_leader_last_name }}
                             </td>
                             <td class="border-solid whitespace-nowrap border-2 border-black px-1 py-1">
-                                {{ response_field.qc_first_name }}
+                                {{ response_field.qc_first_name }} {{ response_field.qc_last_name }}
                             </td>
 
                             <!-- Remarks -->
@@ -922,7 +922,8 @@ export default {
 
             <!-- Pagination -->
             <div class="mt-4">
-                <Pagination :data="response_fields" />
+                {{ response_fields }}
+                <!-- <Pagination :data="response_fields" /> -->
             </div>
         </div>
     </AppLayout>
