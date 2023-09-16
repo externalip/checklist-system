@@ -21,17 +21,17 @@ class LogSuccessfulLogout
      */
     public function handle(Logout $event): void
     {
-        // Get User ID
-        $userId = $event->user->id;
-        // Get Logout Datetime
-        $logout_datetime = Carbon::now();
+        // // Get User ID
+        // $userId = $event->user->id;
+        // // Get Logout Datetime
+        // $logout_datetime = Carbon::now();
 
-        // Insert log into `audits` table
-        DB::table('audits')->insert([
-            'user_id' => $userId,
-            'action_type' => 'Logout',
-            'action_details' => 'Logged out',
-            'action_date' => $logout_datetime,
-        ]);
+        // // Insert log into `audits` table
+        // DB::table('audits')->insert([
+        //     'user_id' => $userId,
+        //     'action_type' => 'Logout',
+        //     'action_details' => 'Logged out',
+        //     'action_date' => $logout_datetime,
+        // ]);
     }
 }

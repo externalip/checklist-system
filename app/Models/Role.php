@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Role extends Authenticatable
+class Role extends Authenticatable implements Auditable
 {
     use HasFactory;
+    use \OwenIt\Auditing\Auditable;
 
     public $timestamps = false;
 

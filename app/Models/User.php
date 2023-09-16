@@ -9,8 +9,9 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements Auditable
 {
     use HasApiTokens;
     use HasFactory;
@@ -18,6 +19,7 @@ class User extends Authenticatable
     use HasRoles;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use \OwenIt\Auditing\Auditable;
 
     protected $guard_name = 'web';
     //guarded

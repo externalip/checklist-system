@@ -21,17 +21,17 @@ class LogSuccessfulLogin
      */
     public function handle(Login $event): void
     {
-        // Get User ID
-        $userId = $event->user->id;
-        // Get Login Datetime
-        $login_datetime = Carbon::now();
+        // // Get User ID
+        // $userId = $event->user->id;
+        // // Get Login Datetime
+        // $login_datetime = Carbon::now();
 
-        // Insert log into `audits` table
-        DB::table('audits')->insert([
-            'user_id' => $userId,
-            'action_type' => 'Login',
-            'action_details' => 'Logged in',
-            'action_date' => $login_datetime,
-        ]);
+        // // Insert log into `audits` table
+        // DB::table('audits')->insert([
+        //     'user_id' => $userId,
+        //     'action_type' => 'Login',
+        //     'action_details' => 'Logged in',
+        //     'action_date' => $login_datetime,
+        // ]);
     }
 }

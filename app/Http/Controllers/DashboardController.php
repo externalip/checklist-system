@@ -20,20 +20,21 @@ class DashboardController extends Controller
             ->groupBy('forms.id', 'forms.form_name')
             ->get();
 
-        $audits = DB::table('audits')
-            ->select(
-                'audits.user_id',
-                'employees.first_name',
-                'employees.last_name',
-                'audits.action_date',
-                'audits.action_type',
-                'audits.action_details'
-            )
-            ->join('users', 'audits.user_id', '=', 'users.id')
-            ->join('employees', 'users.employee_id', '=', 'employees.id')
-            ->orderBy('audits.action_date', 'desc')
-            ->limit(10)
-            ->get();
+        // $audits = DB::table('audits')
+        //     ->select(
+        //         'audits.user_id',
+        //         'employees.first_name',
+        //         'employees.last_name',
+        //         'audits.action_date',
+        //         'audits.action_type',
+        //         'audits.action_details'
+        //     )
+        //     ->join('users', 'audits.user_id', '=', 'users.id')
+        //     ->join('employees', 'users.employee_id', '=', 'employees.id')
+        //     ->orderBy('audits.action_date', 'desc')
+        //     ->limit(10)
+        //     ->get();
+
 
         $users = DB::table('users')
             ->select(
@@ -63,7 +64,7 @@ class DashboardController extends Controller
 
         return Inertia::render('Dashboard', [
             'forms' => $forms,
-            'audits' => $audits,
+            // 'audits' => $audits,
             'users' => $users,
             'models' => $models,
             'checksheets' => $checksheets,
