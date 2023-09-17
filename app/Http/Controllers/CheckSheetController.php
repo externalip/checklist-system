@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use App\Models\Form;
 
 class CheckSheetController extends Controller
 {
@@ -72,14 +73,18 @@ class CheckSheetController extends Controller
         $form_config = $request->input('new_config');
         $form_name = $form_config['form_name'];
 
-        DB::table('forms')
-            ->where('id', $form_id)
-            ->update([
-                'form_data' => $form_config,
-                'form_name' => $form_name,
-                'updated_at' => Carbon::now(),
-            ]);
-
+        // DB::table('forms')
+        //     ->where('id', $form_id)
+        //     ->update([
+        //         'form_data' => $form_config,
+        //         'form_name' => $form_name,
+        //         'updated_at' => Carbon::now(),
+        //     ]);
+        Form::find($form_id)->update([
+            'form_data' => $form_config,
+            'form_name' => $form_name,
+            'updated_at' => Carbon::now(),
+        ]);
         $form_generator->generateForm($form_id, $form_name, $form_config);
 
         // if ($result) {
@@ -107,7 +112,7 @@ class CheckSheetController extends Controller
     {
         $id = $request->input('id');
 
-        Storage::disk('form_path')->delete('form'.$id.'.vue');
+        Storage::disk('form_path')->delete('form' . $id . '.vue');
         $result = DB::table('forms')
             ->where('id', $id)
             ->delete();

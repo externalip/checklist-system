@@ -5,6 +5,7 @@ namespace App\Listeners;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Spatie\Activitylog\Models\Activity;
 
 class LogSuccessfulLogout
 {
@@ -21,17 +22,10 @@ class LogSuccessfulLogout
      */
     public function handle(Logout $event): void
     {
-        // Get User ID
-        $userId = $event->user->id;
-        // Get Logout Datetime
-        $logout_datetime = Carbon::now();
-
-        // Insert log into `audits` table
-        DB::table('audits')->insert([
-            'user_id' => $userId,
-            'action_type' => 'Logout',
-            'action_details' => 'Logged out',
-            'action_date' => $logout_datetime,
-        ]);
+        activity()
+            ->useLog('User logout')
+            ->event('logout')
+            ->causedBy($event->user->id)
+            ->log('User logged out');
     }
 }

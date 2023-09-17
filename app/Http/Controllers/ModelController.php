@@ -24,7 +24,7 @@ class ModelController extends Controller
 
         $modelNameFilter = $request->input('modelName');
         if ($modelNameFilter) {
-            $query->where('Models.model_name', 'LIKE', '%'.$modelNameFilter.'%');
+            $query->where('Models.model_name', 'LIKE', '%' . $modelNameFilter . '%');
         }
         $selectedCheckSheets = $request->input('SelectedCheckSheet');
         if ($selectedCheckSheets) {
@@ -65,17 +65,22 @@ class ModelController extends Controller
         $validate = $request->validate([
             'model_name' => ['required', 'string', 'unique:models'],
         ]);
-        if (! $validate) {
+        if (!$validate) {
             return response()->json(['message' => 'Model Name is required']);
         }
+
         $model = Models::create([
             'model_name' => $request->input('model_name'),
         ]);
-        foreach ($submissionIDs as $id) {
-            Tags::create([
-                'form_id' => $id,
-                'model_id' => $model->id,
-            ]);
+        if ($submissionIDs) {
+            $tags = [];
+            foreach ($submissionIDs as $id) {
+                $tags[] = [
+                    'form_id' => $id,
+                    'model_id' => $model->id,
+                ];
+            }
+            Tags::insert($tags);
         }
     }
 
