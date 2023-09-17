@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Spatie\Permission\Traits\HasRoles;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Permission\Traits\HasRoles;
 
 class Employee extends User
 {
@@ -25,7 +25,6 @@ class Employee extends User
             ->useLogName('Employee log');
     }
 
-
     // Only grab the changes
     protected static $logOnlyDirty = true;
 
@@ -41,6 +40,7 @@ class Employee extends User
         } elseif ($eventName == 'deleted') {
             return "Employee  $this->id was Deleted";
         }
+
         return "Employee  $this->id was Created";
     }
 

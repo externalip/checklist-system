@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Inertia\Inertia;
 use App\Models\Signature;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Spatie\Activitylog\Models\Activity;
+use Inertia\Inertia;
 
 class ReportController extends Controller
 {
@@ -187,6 +186,7 @@ class ReportController extends Controller
         $progressCount = Signature::where('response_id', $response_id)
             ->where('status', 'Rejected')
             ->count();
+
         // If a response is rejected by either QC or Line Lead
         return ($progressCount >= 1) ? true : false;
     }

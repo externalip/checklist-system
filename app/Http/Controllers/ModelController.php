@@ -24,7 +24,7 @@ class ModelController extends Controller
 
         $modelNameFilter = $request->input('modelName');
         if ($modelNameFilter) {
-            $query->where('Models.model_name', 'LIKE', '%' . $modelNameFilter . '%');
+            $query->where('Models.model_name', 'LIKE', '%'.$modelNameFilter.'%');
         }
         $selectedCheckSheets = $request->input('SelectedCheckSheet');
         if ($selectedCheckSheets) {
@@ -65,7 +65,7 @@ class ModelController extends Controller
         $validate = $request->validate([
             'model_name' => ['required', 'string', 'unique:models'],
         ]);
-        if (!$validate) {
+        if (! $validate) {
             return response()->json(['message' => 'Model Name is required']);
         }
 

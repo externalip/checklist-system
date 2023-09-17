@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Form;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
-use App\Models\Form;
 
 class FormGeneratorController extends Controller
 {
@@ -62,7 +62,7 @@ class FormGeneratorController extends Controller
     public function generateForm($form_id, $form_title, $config)
     {
         // Set directory, file name, and file extension type
-        $file_name = 'form' . $form_id . '.vue';
+        $file_name = 'form'.$form_id.'.vue';
 
         // Add response submission script to form
         // Checksheet Control Number
@@ -82,9 +82,9 @@ class FormGeneratorController extends Controller
                 if ($value['type'] == 'checkbox') {
                     // Checkboxes allow multiple answers,
                     // so we declare ans object to contain an array.
-                    $fieldAnswersData .= ('ans' . $fieldCount++ . ': [],');
+                    $fieldAnswersData .= ('ans'.$fieldCount++.': [],');
                 } else {
-                    $fieldAnswersData .= ('ans' . $fieldCount++ . ': null,');
+                    $fieldAnswersData .= ('ans'.$fieldCount++.': null,');
                 }
             }
         }
@@ -102,14 +102,14 @@ class FormGeneratorController extends Controller
 
         let form = reactive({
             // Form identifier
-            form_id: ' . $form_id . ',
+            form_id: '.$form_id.',
             // Answers storage
             fieldAnswers: {
                 ans1: null,
                 ans2: null,
                 ans3: null,
-                ' . $fieldAnswersData . '
-                ans' . $fieldCount . ': null,
+                '.$fieldAnswersData.'
+                ans'.$fieldCount.': null,
             }
         });
 
@@ -167,7 +167,7 @@ class FormGeneratorController extends Controller
         </style>
 
         <template>
-            <AppLayout title="' . $form_title . '" control_no="Control No.: ' . $controlNumber . '">
+            <AppLayout title="'.$form_title.'" control_no="Control No.: '.$controlNumber.'">
                 <div class="5s lg:mx-[25%]">
                     <form @submit.prevent="submit()" method="post" id="1">
 
@@ -280,7 +280,7 @@ class FormGeneratorController extends Controller
             $form_html .= '<section id="form-section" class="p-10 mt-5 mb-5 border-2 rounded-lg">';
 
             // Append Section Title
-            $form_html .= '<h2 id="section-name" class="mb-2">' . $value['section_name'] . '</h2>';
+            $form_html .= '<h2 id="section-name" class="mb-2">'.$value['section_name'].'</h2>';
 
             // Check Section Type
             if (str_contains($value['section_type'], 'question')) {
@@ -299,18 +299,18 @@ class FormGeneratorController extends Controller
                     if ($isRequired) {
                         // Append Question Label w/ Required Indicator
                         $form_html .= '
-                            <h5 id="' . 'question' . $questionIndex++ . '" class="required">' . $value['section_content'][$qKey]['label'] . '</h5>
+                            <h5 id="'.'question'.$questionIndex++.'" class="required">'.$value['section_content'][$qKey]['label'].'</h5>
                         ';
                     } else {
                         // Append Question Label
                         $form_html .= '
-                            <h5 id="' . 'question' . $questionIndex++ . '">' . $value['section_content'][$qKey]['label'] . '</h5>
+                            <h5 id="'.'question'.$questionIndex++.'">'.$value['section_content'][$qKey]['label'].'</h5>
                         ';
                     }
                     // Append Question Instruction (if any)
                     $form_html .= '
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                            ' . $value['section_content'][$qKey]['instruction'] . '
+                            '.$value['section_content'][$qKey]['instruction'].'
                         </label>
                     ';
 
@@ -321,7 +321,7 @@ class FormGeneratorController extends Controller
                             // Append Text Answer Field
                             $form_html .= '
                                 <div class="">
-                                    <input v-model="form.fieldAnswers.ans' . $answerIndex++ . '" type="text" id="ltnum"
+                                    <input v-model="form.fieldAnswers.ans'.$answerIndex++.'" type="text" id="ltnum"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                                 </div>
                             ';
@@ -330,7 +330,7 @@ class FormGeneratorController extends Controller
                             // Append Text Answer Field
                             $form_html .= '
                                 <div class="">
-                                    <input v-model="form.fieldAnswers.ans' . $answerIndex++ . '.label" type="text" id="ltnum"
+                                    <input v-model="form.fieldAnswers.ans'.$answerIndex++.'.label" type="text" id="ltnum"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 </div>
                             ';
@@ -348,11 +348,11 @@ class FormGeneratorController extends Controller
                                 $form_html .= '
                                     <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                         <div class="flex items-center pl-3">
-                                            <input v-model="form.fieldAnswers.ans' . $answerIndex . '" id="production-checksheet-radio-' . $radioTarget . '" type="radio"
-                                                value="' . $ansVal['label'] . '" name="production-checksheet-radio-' . $value['section_name'] . $qKey . '"
+                                            <input v-model="form.fieldAnswers.ans'.$answerIndex.'" id="production-checksheet-radio-'.$radioTarget.'" type="radio"
+                                                value="'.$ansVal['label'].'" name="production-checksheet-radio-'.$value['section_name'].$qKey.'"
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
-                                            <label for="production-checksheet-radio-' . $radioTarget++ . '"
-                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">' . $ansVal['label'] . '
+                                            <label for="production-checksheet-radio-'.$radioTarget++.'"
+                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">'.$ansVal['label'].'
                                             </label>
                                         </div>
                                     </li>
@@ -361,11 +361,11 @@ class FormGeneratorController extends Controller
                                 $form_html .= '
                                     <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                         <div class="flex items-center pl-3">
-                                            <input v-model="form.fieldAnswers.' . 'ans' . $answerIndex . '" id="production-checksheet-radio-' . $radioTarget . '" type="radio"
-                                                value="' . $ansVal['label'] . '" name="production-checksheet-radio-' . $value['section_name'] . $qKey . '"
+                                            <input v-model="form.fieldAnswers.'.'ans'.$answerIndex.'" id="production-checksheet-radio-'.$radioTarget.'" type="radio"
+                                                value="'.$ansVal['label'].'" name="production-checksheet-radio-'.$value['section_name'].$qKey.'"
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                                            <label for="production-checksheet-radio-' . $radioTarget++ . '"
-                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">' . $ansVal['label'] . '
+                                            <label for="production-checksheet-radio-'.$radioTarget++.'"
+                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">'.$ansVal['label'].'
                                             </label>
                                         </div>
                                     </li>
@@ -384,21 +384,21 @@ class FormGeneratorController extends Controller
 
                             // Append Opening Dropdown Group
                             $form_html .= '
-                                <select id="models" v-model="form.fieldAnswers.ans' . $answerIndex . '" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                <select id="models" v-model="form.fieldAnswers.ans'.$answerIndex.'" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                             ';
                         } else {
 
                             // Append Opening Dropdown Group
                             $form_html .= '
-                                <select id="models" v-model="form.fieldAnswers.ans' . $answerIndex . '" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <select id="models" v-model="form.fieldAnswers.ans'.$answerIndex.'" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             ';
                         }
 
                         // Append Dropdown Options
                         foreach ($value['section_content'][$qKey]['options'] as $ansKey => $ansVal) {
                             $form_html .= '
-                                <option value="' . $ansVal['label'] . '">
-                                    ' . $ansVal['label'] . '
+                                <option value="'.$ansVal['label'].'">
+                                    '.$ansVal['label'].'
                                 </option>
                             ';
                         }
@@ -411,12 +411,12 @@ class FormGeneratorController extends Controller
                         foreach ($value['section_content'][$qKey]['options'] as $ansKey => $ansVal) {
                             $form_html .= '
                                 <div class="flex items-center mb-1">
-                                    <input v-model="form.fieldAnswers.ans' . $answerIndex . '"
-                                        id="checkbox' . $checkboxTarget . '" type="checkbox" value="' . $ansVal['label'] . '"
+                                    <input v-model="form.fieldAnswers.ans'.$answerIndex.'"
+                                        id="checkbox'.$checkboxTarget.'" type="checkbox" value="'.$ansVal['label'].'"
                                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="checkbox' . $checkboxTarget++ . '"
+                                    <label for="checkbox'.$checkboxTarget++.'"
                                         class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                            >' . $ansVal['label'] . '
+                                            >'.$ansVal['label'].'
                                     </label>
                                 </div>
                             ';
@@ -442,11 +442,11 @@ class FormGeneratorController extends Controller
                 <section id="form-section" class="p-10 mt-5 mb-5 border-2 rounded-lg">
                     <h2 class="mb-2">Remarks</h2>
                     <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
-                        <h5 id="question' . $questionIndex++ . '">Remarks on the Model</h5>
+                        <h5 id="question'.$questionIndex++.'">Remarks on the Model</h5>
                         <label for="message" class="block mb-2 text-sm font-medium dark:text-white">Please
                                     type
                                     possible problems regarding with the machine.</label>
-                        <textarea v-model="form.fieldAnswers.ans' . $answerIndex . '" id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        <textarea v-model="form.fieldAnswers.ans'.$answerIndex.'" id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Write here...">
                         </textarea>
                     </div>

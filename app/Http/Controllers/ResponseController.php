@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Response_field;
 use App\Models\Signature;
 use Illuminate\Http\Request;
-use App\Models\Response_field;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use Spatie\Activitylog\Models\Activity;
 use Illuminate\Support\Facades\Validator;
 
 class ResponseController extends Controller
@@ -115,7 +113,7 @@ class ResponseController extends Controller
         $timestamp = now()->format('ymdHis');
         $userId = auth()->user()->id;
 
-        $responseNo = $timestamp . '-' . $userId;
+        $responseNo = $timestamp.'-'.$userId;
 
         return $responseNo;
     }

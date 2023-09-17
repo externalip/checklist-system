@@ -3,15 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Response_field extends User
 {
     use HasFactory;
 
     protected $table = 'response_fields';
+
     use LogsActivity;
 
     //only grab the changes
@@ -40,14 +40,16 @@ class Response_field extends User
     public function getDescriptionForEvent(string $eventName): string
     {
         if ($eventName == 'created') {
-            return "Response was Created";
+            return 'Response was Created';
         } elseif ($eventName == 'updated') {
-            return "Response was Updated";
+            return 'Response was Updated';
         } elseif ($eventName == 'deleted') {
-            return "Response was Deleted";
+            return 'Response was Deleted';
         }
-        return "Response was Created";
+
+        return 'Response was Created';
     }
+
     /**
      * The attributes that are mass assignable.
      *

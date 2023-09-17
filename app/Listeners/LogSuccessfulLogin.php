@@ -3,9 +3,6 @@
 namespace App\Listeners;
 
 use Illuminate\Auth\Events\Login;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
-use Spatie\Activitylog\Models\Activity;
 
 class LogSuccessfulLogin
 {

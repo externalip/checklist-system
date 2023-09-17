@@ -72,13 +72,13 @@ class AuditController extends Controller
             $query->whereBetween('activity_log.created_at', $request->date);
         }
         $audits = $query->paginate(10);
+
         return Inertia::render('Audit/Index', [
             'audits' => $audits,
             'users' => $users,
             'events' => $events,
         ]);
     }
-
 
     /**
      * Store a newly created resource in storage.

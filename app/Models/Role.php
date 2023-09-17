@@ -3,9 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Role extends User
 {
@@ -40,6 +39,7 @@ class Role extends User
         } elseif ($eventName == 'deleted') {
             return "Role $this->id was Deleted";
         }
+
         return "Role $this->id was Created";
     }
 

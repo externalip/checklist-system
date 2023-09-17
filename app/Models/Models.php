@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Models extends User
 {
@@ -33,13 +33,14 @@ class Models extends User
     public function getDescriptionForEvent(string $eventName): string
     {
         if ($eventName == 'created') {
-            return "Models was Created";
+            return 'Models was Created';
         } elseif ($eventName == 'updated') {
-            return "Models was Updated";
+            return 'Models was Updated';
         } elseif ($eventName == 'deleted') {
-            return "Models was Deleted";
+            return 'Models was Deleted';
         }
-        return "Models was Created";
+
+        return 'Models was Created';
     }
 
     public $timestamps = false;

@@ -36,14 +36,14 @@ class UserController extends Controller
 
         if ($request->filled('username')) {
             $searchUsername = $request->input('username');
-            $query->where('username', 'like', '%' . $searchUsername . '%');
+            $query->where('username', 'like', '%'.$searchUsername.'%');
         }
 
         // searchName (First Name, Last Name) filter
         if ($request->filled('name')) {
             $searchName = $request->input('name');
             $query->whereHas('employee', function ($q) use ($searchName) {
-                $q->where(DB::raw('CONCAT(first_name, " ", last_name)'), 'like', '%' . $searchName . '%');
+                $q->where(DB::raw('CONCAT(first_name, " ", last_name)'), 'like', '%'.$searchName.'%');
             });
         }
         if ($request->filled('role')) {
@@ -121,6 +121,7 @@ class UserController extends Controller
         ]);
 
         $user->assignRole($input['role_id']);
+
         return response()->json(['status' => 'success'], 200);
     }
 
@@ -191,7 +192,7 @@ class UserController extends Controller
 
         $user->syncRoles($input['role_id']);
 
-        if (!empty($input['password'])) {
+        if (! empty($input['password'])) {
             $user->update([
                 'password' => Hash::make($input['password']),
             ]);
@@ -264,7 +265,7 @@ class UserController extends Controller
 
     public function showForm($id)
     {
-        $path = 'Forms/form' . $id;
+        $path = 'Forms/form'.$id;
 
         return Inertia::render($path);
     }

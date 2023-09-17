@@ -3,12 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 
 class Form extends User
 {
     use HasFactory;
+
     //only grab the changes
     protected static $logOnlyDirty = true;
 

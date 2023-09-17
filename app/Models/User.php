@@ -8,9 +8,9 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -18,9 +18,9 @@ class User extends Authenticatable
     use HasFactory;
     use HasProfilePhoto;
     use HasRoles;
+    use LogsActivity;
     use Notifiable;
     use TwoFactorAuthenticatable;
-    use LogsActivity;
 
     //only grab the changes
     protected static $logOnlyDirty = true;
@@ -56,10 +56,12 @@ class User extends Authenticatable
             } elseif ($this->active === 1) {
                 return "User $this->id was activated";
             }
+
             return "User $this->id was Updated";
         } elseif ($eventName == 'deleted') {
             return "User $this->id was Deleted";
         }
+
         return "User $this->id was Created";
     }
 
@@ -89,8 +91,6 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
-
 
     public function role()
     {
