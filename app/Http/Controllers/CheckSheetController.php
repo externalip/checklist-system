@@ -112,7 +112,7 @@ class CheckSheetController extends Controller
     {
         $id = $request->input('id');
 
-        Storage::disk('form_path')->delete('form' . $id . '.vue');
+        Storage::disk('form_path')->delete('form'.$id.'.vue');
         $result = Form::find($id)->delete();
 
         if ($result) {
