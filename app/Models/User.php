@@ -38,6 +38,7 @@ class User extends Authenticatable
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs()
             ->logFillable()
+            ->logExcept(['password'])
             ->useLogName('User log');
     }
 
