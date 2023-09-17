@@ -41,7 +41,8 @@ class AuditController extends Controller
         $query = DB::table('activity_log')
             ->leftJoin('users', 'activity_log.causer_id', '=', 'users.id')
             ->leftJoin('employees', 'users.employee_id', '=', 'employees.id')
-            ->select('activity_log.*', DB::raw("CONCAT(employees.first_name, ' ', employees.last_name) AS causer_name"));
+            ->select('activity_log.*', DB::raw("CONCAT(employees.first_name, ' ', employees.last_name) AS causer_name"))
+            ->orderBy('activity_log.created_at', 'desc');
 
         $events = DB::table('activity_log')
             ->select('event')

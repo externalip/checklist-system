@@ -24,7 +24,7 @@ class ModelController extends Controller
 
         $modelNameFilter = $request->input('modelName');
         if ($modelNameFilter) {
-            $query->where('Models.model_name', 'LIKE', '%'.$modelNameFilter.'%');
+            $query->where('Models.model_name', 'LIKE', '%' . $modelNameFilter . '%');
         }
         $selectedCheckSheets = $request->input('SelectedCheckSheet');
         if ($selectedCheckSheets) {
@@ -65,7 +65,7 @@ class ModelController extends Controller
         $validate = $request->validate([
             'model_name' => ['required', 'string', 'unique:models'],
         ]);
-        if (! $validate) {
+        if (!$validate) {
             return response()->json(['message' => 'Model Name is required']);
         }
 
@@ -141,10 +141,12 @@ class ModelController extends Controller
     public function destroy(Request $request)
     {
         $ids = $request->input('id') ? [$request->input('id')] : $request->input('ids');
-        Tags::whereIn('model_id', $ids)->delete();
-        Models::whereIn('id', $ids)->delete();
+        $tags = Tags::whereIn('model_id', $ids);
+        $models = Models::whereIn('id', $ids);
 
-        return response()->json(['message' => 'Models Deleted']);
+        if ($models->delete() && $tags->delete()) {
+            return response()->json(['message' => 'Model Deleted']);
+        }
     }
 
     public function TableView()

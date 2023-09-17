@@ -95,6 +95,9 @@
                                Log Description
                             </th>
                             <th scope="col" class="px-6 py-3">
+                               Action
+                            </th>
+                            <th scope="col" class="px-6 py-3">
                                Properties
                             </th>
                             <th scope="col" class="px-6 py-3">
@@ -115,6 +118,9 @@
                             </td>
                             <td class="px-6 py-4">
                                 {{ audit.description }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ audit.event }}
                             </td>
                             <td class="px-6 py-4">
                                 {{ audit.properties }}
