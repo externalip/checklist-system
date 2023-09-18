@@ -20,20 +20,13 @@ class DashboardController extends Controller
             ->groupBy('forms.id', 'forms.form_name')
             ->get();
 
-        $audits = DB::table('audits')
-            ->select(
-                'audits.user_id',
-                'employees.first_name',
-                'employees.last_name',
-                'audits.action_date',
-                'audits.action_type',
-                'audits.action_details'
-            )
-            ->join('users', 'audits.user_id', '=', 'users.id')
-            ->join('employees', 'users.employee_id', '=', 'employees.id')
-            ->orderBy('audits.action_date', 'desc')
-            ->limit(10)
-            ->get();
+        $audits = DB::table('activity_log')
+        ->leftJoin('users', 'activity_log.causer_id', '=', 'users.id')
+        ->leftJoin('employees', 'users.employee_id', '=', 'employees.id')
+        ->select('activity_log.*', DB::raw("CONCAT(employees.first_name, ' ', employees.last_name) AS causer_name"))
+        ->orderBy('activity_log.created_at', 'desc')
+        ->limit(10)
+        ->get();
 
         $users = DB::table('users')
             ->select(
