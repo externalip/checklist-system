@@ -150,6 +150,14 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('/UserManual', [UserController::class, 'showUserManual'])->name('UserManual');
     });
 
+    Route::middleware(['permission:revision'])->group(function () {
+        // Revision History
+        Route::get('/revision', [UserController::class, 'showAmendment'])->name('revision');
+
+        // DCC
+        Route::get('/dcc', [UserController::class, 'showPendingApproval'])->name('dcc');
+    });
+
     Route::get('/audit/{auditId}/view', [AuditController::class, 'viewDataProperties'])->name('audit.data.view');
 
 });
