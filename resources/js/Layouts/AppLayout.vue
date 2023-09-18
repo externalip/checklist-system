@@ -180,39 +180,6 @@
                                 id="dropdown-example"
                                 class="hidden py-2 space-y-2 max-h-60 overflow-y-auto"
                             >
-                                <li>
-                                    <Link
-                                        :href="route('5S-Checklist')"
-                                        :class="{
-                                            active: $page.url.startsWith('/5S-Checklist'),
-                                        }"
-                                        class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11"
-                                    >
-                                        5s Checklist
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        :href="route('PTouch-Solder')"
-                                        :class="{
-                                            active: $page.url.startsWith('/PTouch-Solder'),
-                                        }"
-                                        class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11"
-                                    >
-                                        P-Touch Soldering
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        :href="route('PTouch-ICT')"
-                                        :class="{
-                                            active: $page.url.startsWith('/PTouch-ICT'),
-                                        }"
-                                        class="flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11"
-                                    >
-                                        P-Touch ICT
-                                    </Link>
-                                </li>
                                 <li v-for="form in $page.props.sharedForms">
                                     <Link
                                         :href="route('showForm', form.id)"

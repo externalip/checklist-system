@@ -106,7 +106,7 @@ function colorCode(question, answer) {
         const option = question.options[optionKey];
 
         if (option.label === answer) {
-
+            console.log("Answer and Color code found!");
             // Return corresponding color coding
             if (option.color == 'clear') {
                 return 'border-black text-black text-center';
