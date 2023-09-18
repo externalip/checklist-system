@@ -52,6 +52,7 @@ const confirmDelete = async (userId) => {
 </script>
 
 <template>
+    <!-- USERS TABLE -->
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-center text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-white uppercase bg-[--blue] dark:bg-gray-700 dark:text-gray-400">
