@@ -246,12 +246,13 @@ function colorCode(question, answer) {
                                     class="bg-gray-100 text-[--blue] p-3 px-12 grid grid-cols-3 lg:items-center text-center lg:justify-between">
                                     <div id="lot-number" class="">
                                         <label for="" class="text-sm">Lot Number</label>
-                                        <h5 class="font-bold">{{ JSON.parse(row.response).fieldAnswers['Lot Number'] }}</h5>
+                                        <h5 class="font-bold">{{ JSON.parse(row.response).fieldAnswers['Kit Number'] }} {{
+                                            JSON.parse(row.response).fieldAnswers['Lot Number'] }}</h5>
                                     </div>
 
                                     <div id="performed-by" class="">
                                         <label for="" class="text-sm">Performed by</label>
-                                        <h5 class="font-bold">{{ row.first_name }}</h5>
+                                        <h5 class="font-bold">{{ row.first_name }} {{ row.last_name }}</h5>
                                     </div>
 
                                     <div id="shift" class="">
@@ -340,10 +341,9 @@ function colorCode(question, answer) {
                                                         class="w-full text-[--blue] px-6 py-4 font-medium text-gray-900 whitespace-wrap dark:text-white">
                                                         {{ sign.required_sign_role }}
                                                     </th>
-                                                    <td v-if="sign.response_id == row.id"
-                                                        :class="(sign.status == 'OK') ?
-                                                            'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
-                                                            'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
+                                                    <td v-if="sign.response_id == row.id" :class="(sign.status == 'OK') ?
+                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#1FAC3C]' :
+                                                        'px-6 py-4 text-center text-[#FFFFFF] bg-[#E33A3A]'">
                                                         {{ sign.status }}
                                                     </td>
                                                 </tr>
@@ -393,14 +393,15 @@ function colorCode(question, answer) {
                             </div>
                         </ul>
 
+                    </div>
                 </div>
-            </div>
 
-            <!-- Pagination -->
+                <!-- Pagination -->
 
-        </section>
-    </div>
-</AppLayout></template>
+            </section>
+        </div>
+    </AppLayout>
+</template>
 
 <script>
 let configs = [];

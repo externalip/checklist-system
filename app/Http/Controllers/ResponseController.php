@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Response_field;
+use App\Models\Signature;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -58,6 +59,9 @@ class ResponseController extends Controller
 
         // Save response to database
         $this->storeResponse($request);
+
+        // Return success response
+        return response()->json(['status' => 'success']);
     }
 
     /**
@@ -71,21 +75,16 @@ class ResponseController extends Controller
         $responseNo = $this->generateUniqueResponseNo();
 
         // Insert data into the response_fields table using DB::table
-        DB::table('response_fields')->insert([
+        $response = Response_field::create([
             'response_no' => $responseNo,
             'form_id' => $formId,
             'submitted_by' => $submittedBy,
             'response' => json_encode($response), // Store answer in field_value column
             'status' => 'pending',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
         ]);
 
-        // Get inserted data's ID for referencing
-        $row_id = DB::getPdo()->lastInsertId();
-
         // Assign required signatures for the submitted data
-        $this->requireSign($row_id);
+        $this->requireSign($response->id);
     }
 
     private function requireSign($row_id)
@@ -98,12 +97,10 @@ class ResponseController extends Controller
 
         // Insert n rows of required signatures
         for ($index = 0; $index < count($signatory_role); $index++) {
-            DB::table('signatures')->insert([
+            Signature::create([
                 'response_id' => $row_id,
                 'required_sign_role' => $signatory_role[$index],
                 'status' => 'Pending',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
             ]);
         }
     }

@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tags', function (Blueprint $table) {
-            $table->id();
             $table->unsignedBigInteger('form_id');
             $table->unsignedBigInteger('model_id');
             $table->foreign('form_id')->references('id')->on('forms');

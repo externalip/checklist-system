@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Form;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -27,16 +28,14 @@ class FormGeneratorController extends Controller
         $employee_id = auth()->user()->employee_id;
         $config = $request->only('form_name', 'control_no', 'form_content');
         $form_name = $request->input('form_name');
-
-        DB::table('forms')
-            ->insert([
-                'created_by' => $employee_id,
-                'form_name' => $form_name,
-                'completed' => 1,
-                'form_data' => json_encode($config),
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ]);
+        Form::create([
+            'created_by' => $employee_id,
+            'form_name' => $form_name,
+            'completed' => 1,
+            'form_data' => json_encode($config),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
 
         // Get new form ID
         $row_id = DB::getPdo()->lastInsertId();
@@ -488,9 +487,8 @@ class FormGeneratorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
     }
 
     /**

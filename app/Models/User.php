@@ -8,6 +8,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -16,11 +18,54 @@ class User extends Authenticatable
     use HasFactory;
     use HasProfilePhoto;
     use HasRoles;
+    use LogsActivity;
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+    //only grab the changes
+    protected static $logOnlyDirty = true;
+
+    //log all except the password
+    protected static $ignoreChangedAttributes = ['password'];
+
+    /**
+     * Get activity log options.
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults('User')
+            ->logOnly(['role_id', 'username', 'active'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs()
+            ->logFillable()
+            ->logExcept(['password'])
+            ->useLogName('User log');
+    }
+
+    /**
+     * Get event description.
+     */
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        if ($eventName == 'created') {
+            return "User $this->id was Created";
+        } elseif ($eventName == 'updated') {
+            // Check if 'active' attribute changed to false
+            if ($this->active === 0) {
+                return "User $this->id was deactivated";
+            } elseif ($this->active === 1) {
+                return "User $this->id was activated";
+            }
+
+            return "User $this->id was Updated";
+        } elseif ($eventName == 'deleted') {
+            return "User $this->id was Deleted";
+        }
+
+        return "User $this->id was Created";
+    }
+
     protected $guard_name = 'web';
-    //guarded
 
     protected $guarded = [];
 

@@ -26,7 +26,7 @@ const props = defineProps({
 
             </div>
 
-            <section id="pending-review-checklist" class="my-3">
+            <section v-if="$page.props.auth.user.permissions.some(permission => permission.name === 'pending-reports')"  id="pending-review-checklist" class="my-3">
                 <!-- Pending Review Header -->
                 <div>
                     <h2 class="text-2xl text-[--blue]">Pending Reviews</h2>
@@ -51,7 +51,7 @@ const props = defineProps({
 
             </section>
 
-            <section id="system-status-track" class="my-3">
+            <section v-if="$page.props.auth.user.permissions.some(permission => permission.name === 'users')"  id="system-status-track" class="my-3">
                 <!-- System Status Tracking Header -->
                 <div>
                     <h2 class="text-2xl text-[--blue]">System Tracking</h2>
@@ -134,7 +134,7 @@ const props = defineProps({
 
             </section>
 
-            <section id="recent-actions" class="my-3">
+            <section v-if="$page.props.auth.user.permissions.some(permission => permission.name === 'audit')"  id="recent-actions" class="my-3">
                 <!-- Recent Actions Header  -->
                 <div>
                     <h2 class="text-2xl text-[--blue]">Recent Actions</h2>
