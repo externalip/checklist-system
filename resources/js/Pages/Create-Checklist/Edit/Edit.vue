@@ -112,7 +112,9 @@ const confirmDelete = async (formID) => {
                                         {{ form.id }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ form.form_name }}
+                                        <a href="/revision">
+                                            {{ form.form_name }}
+                                        </a>
                                     </td>
                                     <td class="px-6 py-4">
                                         {{ form.created_by_name }}

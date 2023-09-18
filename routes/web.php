@@ -149,4 +149,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         // User Manual
         Route::get('/UserManual', [UserController::class, 'showUserManual'])->name('UserManual');
     });
+
+    Route::middleware(['permission:revision'])->group(function () {
+        // Revision History
+        Route::get('/revision', [UserController::class, 'showAmendment'])->name('revision');
+    });
 });
