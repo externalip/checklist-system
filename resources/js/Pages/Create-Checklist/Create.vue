@@ -23,7 +23,7 @@ import { reactive } from 'vue';
             <form @submit.prevent="submit">
                 <div class="lg:mx-[25%] mb-40">
                     <div class="mx-auto">
-                        
+
                         <!-- CHECKSHEET DETAILS -->
                         <div class="bg-white border-gray-400 rounded-lg border-2 mb-5 p-4">
 
@@ -33,13 +33,12 @@ import { reactive } from 'vue';
                                 <!-- FORM NAME INPUT FIELD -->
                                 <input v-model="form_config.form_name" type="text" id="checksheet-id" name="checksheet-name"
                                     class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                    placeholder=" " required 
-                                />
-                                    
+                                    placeholder=" " required />
+
                                 <!-- PLACEHOLDER -->
                                 <label for="checksheet-id"
-                                    class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-                                    >Type here the Checksheet name...
+                                    class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Type
+                                    here the Checksheet name...
                                 </label>
 
                             </div>
@@ -48,18 +47,16 @@ import { reactive } from 'vue';
                             <div class="relative">
 
                                 <!-- SECTION NAME INPUT -->
-                                <input v-model="form_config.control_no"
-                                    type="text" name="control-no" id="control-no"
+                                <input v-model="form_config.control_no" type="text" name="control-no" id="control-no"
                                     class="text-xs block px-2.5 pb-1.5 pt-3 w-full text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                    placeholder=" " required 
-                                />
-                                                
+                                    placeholder=" " required />
+
                                 <!-- PLACEHOLDER -->
                                 <label for="control-no"
-                                    class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1"
-                                    >Control No.
+                                    class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Control
+                                    No.
                                 </label>
-                                
+
                             </div>
 
                         </div>
@@ -75,10 +72,8 @@ import { reactive } from 'vue';
 
                                         <!-- DELETE SECTION BUTTON -->
                                         <div class="flex items-center align-center">
-                                            <button @click="removeSection('section' + key)"
-                                                type="button"
-                                                class="duration-200 p-2 hover:bg-red-200 rounded-md"
-                                                formnovalidate>
+                                            <button @click="removeSection('section' + key)" type="button"
+                                                class="duration-200 p-2 hover:bg-red-200 rounded-md" formnovalidate>
                                                 <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
                                                     <path stroke="red" stroke-linecap="round" stroke-linejoin="round"
@@ -91,17 +86,19 @@ import { reactive } from 'vue';
                                     </div>
 
                                     <!-- TOP SECTION (Section Name) -->
-                                    <div class="grid grid-rows lg:grid-cols-5 gap-3 p-3 rounded-lg border-gray-200 border-2">
+                                    <div
+                                        class="grid grid-rows lg:grid-cols-5 gap-3 p-3 rounded-lg border-gray-200 border-2">
                                         <div class="lg:col-span-5">
                                             <p class="text-sm font-bold mb-1">Section Name</p>
 
                                             <div class="relative" ref="sectionRefs">
                                                 <!-- SECTION NAME INPUT -->
-                                                <input v-model="form_config.form_content['section' + key.toString()].section_name"
+                                                <input
+                                                    v-model="form_config.form_content['section' + key.toString()].section_name"
                                                     type="text" :name="'section_name' + key" :id="'section_name' + key"
                                                     class="text-xs block px-2.5 pb-1.5 pt-3 w-full text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                    placeholder=" " required/>
-                                                
+                                                    placeholder=" " required />
+
                                                 <!-- PLACEHOLDER -->
                                                 <label :for="'section_name' + key"
                                                     class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Type
@@ -129,12 +126,12 @@ import { reactive } from 'vue';
 
                                                         <input v-model="form_config
                                                             .form_content['section' + key.toString()]
-                                                            .section_content['question' + qIndex.toString()].label" type="text"
-                                                            :id="'question' + qIndex" class="block px-2.5 pb-1.5 pt-3 w-full text-xs text-gray-900 bg-transparent
+                                                            .section_content['question' + qIndex.toString()].label"
+                                                            type="text" :id="'question' + qIndex" class="block px-2.5 pb-1.5 pt-3 w-full text-xs text-gray-900 bg-transparent
                                                                 rounded-lg border-1 border-gray-300 appearance-none dark:text-white
                                                                 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none
-                                                                focus:ring-0 focus:border-blue-600 peer" placeholder=" "
-                                                            required />
+                                                                focus:ring-0 focus:border-blue-600 peer"
+                                                            placeholder=" " required />
 
                                                         <label :id="'question' + qIndex" :for="'question' + qIndex"
                                                             class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Type
@@ -150,10 +147,12 @@ import { reactive } from 'vue';
 
                                                     <!-- INSTRUCTION LABEL INPUT -->
                                                     <div class="relative">
-                                                        <input v-model="form_config
-                                                            .form_content['section' + key.toString()]
-                                                            .section_content['question' + qIndex.toString()].instruction"
-                                                            type="text" :name="'instruction' + qIndex" :id="'instruction' + qIndex"
+                                                        <input
+                                                            v-model="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()].instruction"
+                                                            type="text" :name="'instruction' + qIndex"
+                                                            :id="'instruction' + qIndex"
                                                             class="text-xs block px-2.5 pb-1.5 pt-3 w-full text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                             placeholder=" " />
                                                         <label :for="'instruction' + qIndex"
@@ -214,8 +213,8 @@ import { reactive } from 'vue';
                                                             <input v-model="form_config
                                                                 .form_content['section' + key.toString()]
                                                                 .section_content['question' + qIndex.toString()]
-                                                                .options['ans' + ansIndex.toString()].label" type="text"
-                                                                :name="'radio' + key" :id="'radio' + key"
+                                                                .options['ans' + ansIndex.toString()].label"
+                                                                type="text" :name="'radio' + key" :id="'radio' + key"
                                                                 class="mb-2 block px-2.5 pb-1.5 pt-3 w-full text-xs text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                                 placeholder="Enter answer option here" required />
 
@@ -232,38 +231,38 @@ import { reactive } from 'vue';
                                                             <div class="flex items-center">
                                                                 <!-- Clear -->
                                                                 <div v-if="form_config
-                                                                .form_content['section' + key.toString()]
-                                                                .section_content['question' + qIndex.toString()]
-                                                                .options['ans' + ansIndex.toString()].color == 'clear'"
-                                                                class="rounded-full border p-2 bg-[#FFFFFF]"></div>
+                                                                    .form_content['section' + key.toString()]
+                                                                    .section_content['question' + qIndex.toString()]
+                                                                    .options['ans' + ansIndex.toString()].color == 'clear'"
+                                                                    class="rounded-full border p-2 bg-[#FFFFFF]"></div>
 
                                                                 <!-- Red -->
                                                                 <div v-if="form_config
-                                                                .form_content['section' + key.toString()]
-                                                                .section_content['question' + qIndex.toString()]
-                                                                .options['ans' + ansIndex.toString()].color == '#E33A3A'"
-                                                                class="rounded-full p-2 bg-[#E33A3A]"></div>
+                                                                    .form_content['section' + key.toString()]
+                                                                    .section_content['question' + qIndex.toString()]
+                                                                    .options['ans' + ansIndex.toString()].color == '#E33A3A'"
+                                                                    class="rounded-full p-2 bg-[#E33A3A]"></div>
 
                                                                 <!-- Green -->
                                                                 <div v-if="form_config
-                                                                .form_content['section' + key.toString()]
-                                                                .section_content['question' + qIndex.toString()]
-                                                                .options['ans' + ansIndex.toString()].color == '#1FAC3C'"
-                                                                class="rounded-full p-2 bg-[#1FAC3C]"></div>
+                                                                    .form_content['section' + key.toString()]
+                                                                    .section_content['question' + qIndex.toString()]
+                                                                    .options['ans' + ansIndex.toString()].color == '#1FAC3C'"
+                                                                    class="rounded-full p-2 bg-[#1FAC3C]"></div>
 
                                                                 <!-- Blue -->
                                                                 <div v-if="form_config
-                                                                .form_content['section' + key.toString()]
-                                                                .section_content['question' + qIndex.toString()]
-                                                                .options['ans' + ansIndex.toString()].color == '#3C5393'"
-                                                                class="rounded-full p-2 bg-[#3C5393]"></div>
+                                                                    .form_content['section' + key.toString()]
+                                                                    .section_content['question' + qIndex.toString()]
+                                                                    .options['ans' + ansIndex.toString()].color == '#3C5393'"
+                                                                    class="rounded-full p-2 bg-[#3C5393]"></div>
 
                                                                 <!-- Orange -->
                                                                 <div v-if="form_config
-                                                                .form_content['section' + key.toString()]
-                                                                .section_content['question' + qIndex.toString()]
-                                                                .options['ans' + ansIndex.toString()].color == '#EF5B0C'"
-                                                                class="rounded-full p-2 bg-[#EF5B0C]"></div>
+                                                                    .form_content['section' + key.toString()]
+                                                                    .section_content['question' + qIndex.toString()]
+                                                                    .options['ans' + ansIndex.toString()].color == '#EF5B0C'"
+                                                                    class="rounded-full p-2 bg-[#EF5B0C]"></div>
                                                             </div>
 
 
@@ -273,8 +272,7 @@ import { reactive } from 'vue';
                                                                 .section_content['question' + qIndex.toString()]
                                                                 .options['ans' + ansIndex.toString()].color"
                                                                 id="countries"
-                                                                class="border-none text-gray-900 rounded-lg text-xs focus-none block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                            >
+                                                                class="border-none text-gray-900 rounded-lg text-xs focus-none block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                                 <option value="clear" selected>Clear</option>
                                                                 <option value="#E33A3A">Red</option>
                                                                 <option value="#1FAC3C">Green</option>
@@ -286,14 +284,12 @@ import { reactive } from 'vue';
 
 
                                                         <!-- Delete answer option button -->
-                                                        <button
-                                                            type="button"
+                                                        <button type="button"
                                                             @click="removeAnswer('section' + key.toString(), 'question' + qIndex.toString(), 'ans' + ansIndex.toString())"
-                                                            class="p-3 hover:bg-red-100"
-                                                            formnovalidate>
-                                                            <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
-                                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                                viewBox="0 0 20 20">
+                                                            class="p-3 hover:bg-red-100" formnovalidate>
+                                                            <svg class="w-4 h-4 text-gray-800 dark:text-white"
+                                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                                fill="currentColor" viewBox="0 0 20 20">
                                                                 <path
                                                                     d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
                                                             </svg>
@@ -302,15 +298,14 @@ import { reactive } from 'vue';
 
 
                                                     <!-- Add answer option button -->
-                                                    <button
-                                                        type="button"
+                                                    <button type="button"
                                                         @click="addAnswer('section' + key.toString(), 'question' + qIndex.toString())"
                                                         v-if="answerType.includes(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type)"
                                                         class="hover:bg-blue-500 bg-[#3c5393] text-white duration-200 p-2 rounded-md text-sm flex items-center align-center"
                                                         formnovalidate>
-                                                        <svg class="w-4 h-4 mr-2 text-white-800 dark:text-white" aria-hidden="true"
-                                                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
-                                                            viewBox="0 0 20 20">
+                                                        <svg class="w-4 h-4 mr-2 text-white-800 dark:text-white"
+                                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20"
+                                                            height="20" fill="none" viewBox="0 0 20 20">
                                                             <path stroke="currentColor" stroke-linecap="round"
                                                                 stroke-linejoin="round" stroke-width="2"
                                                                 d="M10 5.757v8.486M5.757 10h8.486M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
@@ -337,10 +332,10 @@ import { reactive } from 'vue';
                                                             <input v-model="form_config
                                                                 .form_content['section' + key.toString()]
                                                                 .section_content['question' + qIndex.toString()]
-                                                                .options['ans' + ansIndex.toString()].label" type="text"
-                                                                :name="'radio' + key" :id="'radio' + key"
+                                                                .options['ans' + ansIndex.toString()].label"
+                                                                type="text" :name="'radio' + key" :id="'radio' + key"
                                                                 class="bg-[--disabled] border-[--disabled-outline] mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-xs text-gray-900 rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                                placeholder="Enter answer option here" disabled required/>
+                                                                placeholder="Enter answer option here" disabled required />
                                                             <label :for="'radio' + key"
                                                                 class="bg-transparent absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Radio
                                                                 Option
@@ -354,38 +349,38 @@ import { reactive } from 'vue';
                                                             <div class="flex items-center">
                                                                 <!-- Clear -->
                                                                 <div v-if="form_config
-                                                                .form_content['section' + key.toString()]
-                                                                .section_content['question' + qIndex.toString()]
-                                                                .options['ans' + ansIndex.toString()].color == 'clear'"
-                                                                class="rounded-full border p-2 bg-[#FFFFFF]"></div>
+                                                                    .form_content['section' + key.toString()]
+                                                                    .section_content['question' + qIndex.toString()]
+                                                                    .options['ans' + ansIndex.toString()].color == 'clear'"
+                                                                    class="rounded-full border p-2 bg-[#FFFFFF]"></div>
 
                                                                 <!-- Red -->
                                                                 <div v-if="form_config
-                                                                .form_content['section' + key.toString()]
-                                                                .section_content['question' + qIndex.toString()]
-                                                                .options['ans' + ansIndex.toString()].color == '#E33A3A'"
-                                                                class="rounded-full p-2 bg-[#E33A3A]"></div>
+                                                                    .form_content['section' + key.toString()]
+                                                                    .section_content['question' + qIndex.toString()]
+                                                                    .options['ans' + ansIndex.toString()].color == '#E33A3A'"
+                                                                    class="rounded-full p-2 bg-[#E33A3A]"></div>
 
                                                                 <!-- Green -->
                                                                 <div v-if="form_config
-                                                                .form_content['section' + key.toString()]
-                                                                .section_content['question' + qIndex.toString()]
-                                                                .options['ans' + ansIndex.toString()].color == '#1FAC3C'"
-                                                                class="rounded-full p-2 bg-[#1FAC3C]"></div>
+                                                                    .form_content['section' + key.toString()]
+                                                                    .section_content['question' + qIndex.toString()]
+                                                                    .options['ans' + ansIndex.toString()].color == '#1FAC3C'"
+                                                                    class="rounded-full p-2 bg-[#1FAC3C]"></div>
 
                                                                 <!-- Blue -->
                                                                 <div v-if="form_config
-                                                                .form_content['section' + key.toString()]
-                                                                .section_content['question' + qIndex.toString()]
-                                                                .options['ans' + ansIndex.toString()].color == '#3C5393'"
-                                                                class="rounded-full p-2 bg-[#3C5393]"></div>
+                                                                    .form_content['section' + key.toString()]
+                                                                    .section_content['question' + qIndex.toString()]
+                                                                    .options['ans' + ansIndex.toString()].color == '#3C5393'"
+                                                                    class="rounded-full p-2 bg-[#3C5393]"></div>
 
                                                                 <!-- Orange -->
                                                                 <div v-if="form_config
-                                                                .form_content['section' + key.toString()]
-                                                                .section_content['question' + qIndex.toString()]
-                                                                .options['ans' + ansIndex.toString()].color == '#EF5B0C'"
-                                                                class="rounded-full p-2 bg-[#EF5B0C]"></div>
+                                                                    .form_content['section' + key.toString()]
+                                                                    .section_content['question' + qIndex.toString()]
+                                                                    .options['ans' + ansIndex.toString()].color == '#EF5B0C'"
+                                                                    class="rounded-full p-2 bg-[#EF5B0C]"></div>
                                                             </div>
 
 
@@ -395,8 +390,7 @@ import { reactive } from 'vue';
                                                                 .section_content['question' + qIndex.toString()]
                                                                 .options['ans' + ansIndex.toString()].color"
                                                                 id="countries"
-                                                                class="border-none text-gray-900 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                            >
+                                                                class="border-none text-gray-900 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                                 <option value="clear" selected>Clear</option>
                                                                 <option value="#E33A3A">Red</option>
                                                                 <option value="#1FAC3C">Green</option>
@@ -408,9 +402,9 @@ import { reactive } from 'vue';
 
                                                         <!-- Delete answer option button -->
                                                         <button type="button" class="p-3" disabled formnovalidate>
-                                                            <svg class="w-4 h-4 text-gray-400 dark:text-white" aria-hidden="true"
-                                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                                viewBox="0 0 20 20">
+                                                            <svg class="w-4 h-4 text-gray-400 dark:text-white"
+                                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                                fill="currentColor" viewBox="0 0 20 20">
                                                                 <path
                                                                     d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
                                                             </svg>
@@ -450,38 +444,38 @@ import { reactive } from 'vue';
                                                             <div class="flex items-center">
                                                                 <!-- Clear -->
                                                                 <div v-if="form_config
-                                                                .form_content['section' + key.toString()]
-                                                                .section_content['question' + qIndex.toString()]
-                                                                .options['ans' + ansIndex.toString()].color == 'clear'"
-                                                                class="rounded-full border p-2 bg-[#FFFFFF]"></div>
+                                                                    .form_content['section' + key.toString()]
+                                                                    .section_content['question' + qIndex.toString()]
+                                                                    .options['ans' + ansIndex.toString()].color == 'clear'"
+                                                                    class="rounded-full border p-2 bg-[#FFFFFF]"></div>
 
                                                                 <!-- Red -->
                                                                 <div v-if="form_config
-                                                                .form_content['section' + key.toString()]
-                                                                .section_content['question' + qIndex.toString()]
-                                                                .options['ans' + ansIndex.toString()].color == '#E33A3A'"
-                                                                class="rounded-full p-2 bg-[#E33A3A]"></div>
+                                                                    .form_content['section' + key.toString()]
+                                                                    .section_content['question' + qIndex.toString()]
+                                                                    .options['ans' + ansIndex.toString()].color == '#E33A3A'"
+                                                                    class="rounded-full p-2 bg-[#E33A3A]"></div>
 
                                                                 <!-- Green -->
                                                                 <div v-if="form_config
-                                                                .form_content['section' + key.toString()]
-                                                                .section_content['question' + qIndex.toString()]
-                                                                .options['ans' + ansIndex.toString()].color == '#1FAC3C'"
-                                                                class="rounded-full p-2 bg-[#1FAC3C]"></div>
+                                                                    .form_content['section' + key.toString()]
+                                                                    .section_content['question' + qIndex.toString()]
+                                                                    .options['ans' + ansIndex.toString()].color == '#1FAC3C'"
+                                                                    class="rounded-full p-2 bg-[#1FAC3C]"></div>
 
                                                                 <!-- Blue -->
                                                                 <div v-if="form_config
-                                                                .form_content['section' + key.toString()]
-                                                                .section_content['question' + qIndex.toString()]
-                                                                .options['ans' + ansIndex.toString()].color == '#3C5393'"
-                                                                class="rounded-full p-2 bg-[#3C5393]"></div>
+                                                                    .form_content['section' + key.toString()]
+                                                                    .section_content['question' + qIndex.toString()]
+                                                                    .options['ans' + ansIndex.toString()].color == '#3C5393'"
+                                                                    class="rounded-full p-2 bg-[#3C5393]"></div>
 
                                                                 <!-- Orange -->
                                                                 <div v-if="form_config
-                                                                .form_content['section' + key.toString()]
-                                                                .section_content['question' + qIndex.toString()]
-                                                                .options['ans' + ansIndex.toString()].color == '#EF5B0C'"
-                                                                class="rounded-full p-2 bg-[#EF5B0C]"></div>
+                                                                    .form_content['section' + key.toString()]
+                                                                    .section_content['question' + qIndex.toString()]
+                                                                    .options['ans' + ansIndex.toString()].color == '#EF5B0C'"
+                                                                    class="rounded-full p-2 bg-[#EF5B0C]"></div>
                                                             </div>
 
 
@@ -491,8 +485,7 @@ import { reactive } from 'vue';
                                                                 .section_content['question' + qIndex.toString()]
                                                                 .options['ans' + ansIndex.toString()].color"
                                                                 id="countries"
-                                                                class="border-none text-gray-900 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                            >
+                                                                class="border-none text-gray-900 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                                 <option value="clear" selected>Clear</option>
                                                                 <option value="#E33A3A">Red</option>
                                                                 <option value="#1FAC3C">Green</option>
@@ -503,14 +496,12 @@ import { reactive } from 'vue';
                                                         </div>
 
                                                         <!-- Delete Answer Option Button -->
-                                                        <button
-                                                            type="button"
+                                                        <button type="button"
                                                             @click="removeAnswer('section' + key.toString(), 'question' + qIndex.toString(), 'ans' + ansIndex.toString())"
-                                                            class="p-3 hover:bg-red-100"
-                                                            formnovalidate>
-                                                            <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
-                                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                                viewBox="0 0 20 20">
+                                                            class="p-3 hover:bg-red-100" formnovalidate>
+                                                            <svg class="w-4 h-4 text-gray-800 dark:text-white"
+                                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                                fill="currentColor" viewBox="0 0 20 20">
                                                                 <path
                                                                     d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
                                                             </svg>
@@ -518,14 +509,13 @@ import { reactive } from 'vue';
                                                     </div>
 
                                                     <!-- Add Answer Button -->
-                                                    <button
-                                                        type="button"
+                                                    <button type="button"
                                                         @click="addAnswer('section' + key.toString(), 'question' + qIndex.toString())"
                                                         class="hover:bg-blue-500 bg-[#3c5393] text-white duration-200 p-2 rounded-md text-sm flex items-center align-center"
                                                         formnovalidate>
-                                                        <svg class="w-4 h-4 mr-2 text-white-800 dark:text-white" aria-hidden="true"
-                                                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
-                                                            viewBox="0 0 20 20">
+                                                        <svg class="w-4 h-4 mr-2 text-white-800 dark:text-white"
+                                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20"
+                                                            height="20" fill="none" viewBox="0 0 20 20">
                                                             <path stroke="currentColor" stroke-linecap="round"
                                                                 stroke-linejoin="round" stroke-width="2"
                                                                 d="M10 5.757v8.486M5.757 10h8.486M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
@@ -562,38 +552,38 @@ import { reactive } from 'vue';
 
                                                                 <!-- Clear -->
                                                                 <div v-if="form_config
-                                                                .form_content['section' + key.toString()]
-                                                                .section_content['question' + qIndex.toString()]
-                                                                .options.ans1.color == 'clear'"
-                                                                class="rounded-full border p-2 bg-[#FFFFFF]"></div>
+                                                                    .form_content['section' + key.toString()]
+                                                                    .section_content['question' + qIndex.toString()]
+                                                                    .options.ans1.color == 'clear'"
+                                                                    class="rounded-full border p-2 bg-[#FFFFFF]"></div>
 
                                                                 <!-- Red -->
                                                                 <div v-if="form_config
-                                                                .form_content['section' + key.toString()]
-                                                                .section_content['question' + qIndex.toString()]
-                                                                .options.ans1.color == '#E33A3A'"
-                                                                class="rounded-full p-2 bg-[#E33A3A]"></div>
+                                                                    .form_content['section' + key.toString()]
+                                                                    .section_content['question' + qIndex.toString()]
+                                                                    .options.ans1.color == '#E33A3A'"
+                                                                    class="rounded-full p-2 bg-[#E33A3A]"></div>
 
                                                                 <!-- Green -->
                                                                 <div v-if="form_config
-                                                                .form_content['section' + key.toString()]
-                                                                .section_content['question' + qIndex.toString()]
-                                                                .options.ans1.color == '#1FAC3C'"
-                                                                class="rounded-full p-2 bg-[#1FAC3C]"></div>
+                                                                    .form_content['section' + key.toString()]
+                                                                    .section_content['question' + qIndex.toString()]
+                                                                    .options.ans1.color == '#1FAC3C'"
+                                                                    class="rounded-full p-2 bg-[#1FAC3C]"></div>
 
                                                                 <!-- Blue -->
                                                                 <div v-if="form_config
-                                                                .form_content['section' + key.toString()]
-                                                                .section_content['question' + qIndex.toString()]
-                                                                .options.ans1.color == '#3C5393'"
-                                                                class="rounded-full p-2 bg-[#3C5393]"></div>
+                                                                    .form_content['section' + key.toString()]
+                                                                    .section_content['question' + qIndex.toString()]
+                                                                    .options.ans1.color == '#3C5393'"
+                                                                    class="rounded-full p-2 bg-[#3C5393]"></div>
 
                                                                 <!-- Orange -->
                                                                 <div v-if="form_config
-                                                                .form_content['section' + key.toString()]
-                                                                .section_content['question' + qIndex.toString()]
-                                                                .options.ans1.color == '#EF5B0C'"
-                                                                class="rounded-full p-2 bg-[#EF5B0C]"></div>
+                                                                    .form_content['section' + key.toString()]
+                                                                    .section_content['question' + qIndex.toString()]
+                                                                    .options.ans1.color == '#EF5B0C'"
+                                                                    class="rounded-full p-2 bg-[#EF5B0C]"></div>
                                                             </div>
 
 
@@ -601,10 +591,8 @@ import { reactive } from 'vue';
                                                             <select v-model="form_config
                                                                 .form_content['section' + key.toString()]
                                                                 .section_content['question' + qIndex.toString()]
-                                                                .options.ans1.color"
-                                                                id="countries"
-                                                                class="border-none text-gray-900 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                            >
+                                                                .options.ans1.color" id="countries"
+                                                                class="border-none text-gray-900 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                                 <option value="clear" selected>Clear</option>
                                                                 <option value="#E33A3A">Red</option>
                                                                 <option value="#1FAC3C">Green</option>
@@ -633,8 +621,8 @@ import { reactive } from 'vue';
                                                             <input v-model="form_config
                                                                 .form_content['section' + key.toString()]
                                                                 .section_content['question' + qIndex.toString()]
-                                                                .options['ans' + ansIndex.toString()].label" type="text"
-                                                                :name="'drop' + key" :id="'drop' + key"
+                                                                .options['ans' + ansIndex.toString()].label"
+                                                                type="text" :name="'drop' + key" :id="'drop' + key"
                                                                 class="mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-xs text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                                 placeholder=" " required />
                                                             <label :for="'drop' + key"
@@ -642,73 +630,69 @@ import { reactive } from 'vue';
                                                                 Option</label>
                                                         </div>
 
-                                                    <!-- Color Identifier -->
-                                                    <div class="mx-5 md:w-2/6 rounded-full flex">
+                                                        <!-- Color Identifier -->
+                                                        <div class="mx-5 md:w-2/6 rounded-full flex">
 
-                                                        <!-- THE COLOR -->
-                                                        <div class="flex items-center">
-                                                            <!-- Clear -->
-                                                            <div v-if="form_config
-                                                            .form_content['section' + key.toString()]
-                                                            .section_content['question' + qIndex.toString()]
-                                                            .options['ans' + ansIndex.toString()].color == 'clear'"
-                                                            class="rounded-full border p-2 bg-[#FFFFFF]"></div>
+                                                            <!-- THE COLOR -->
+                                                            <div class="flex items-center">
+                                                                <!-- Clear -->
+                                                                <div v-if="form_config
+                                                                    .form_content['section' + key.toString()]
+                                                                    .section_content['question' + qIndex.toString()]
+                                                                    .options['ans' + ansIndex.toString()].color == 'clear'"
+                                                                    class="rounded-full border p-2 bg-[#FFFFFF]"></div>
 
-                                                            <!-- Red -->
-                                                            <div v-if="form_config
-                                                            .form_content['section' + key.toString()]
-                                                            .section_content['question' + qIndex.toString()]
-                                                            .options['ans' + ansIndex.toString()].color == '#E33A3A'"
-                                                            class="rounded-full p-2 bg-[#E33A3A]"></div>
+                                                                <!-- Red -->
+                                                                <div v-if="form_config
+                                                                    .form_content['section' + key.toString()]
+                                                                    .section_content['question' + qIndex.toString()]
+                                                                    .options['ans' + ansIndex.toString()].color == '#E33A3A'"
+                                                                    class="rounded-full p-2 bg-[#E33A3A]"></div>
 
-                                                            <!-- Green -->
-                                                            <div v-if="form_config
-                                                            .form_content['section' + key.toString()]
-                                                            .section_content['question' + qIndex.toString()]
-                                                            .options['ans' + ansIndex.toString()].color == '#1FAC3C'"
-                                                            class="rounded-full p-2 bg-[#1FAC3C]"></div>
+                                                                <!-- Green -->
+                                                                <div v-if="form_config
+                                                                    .form_content['section' + key.toString()]
+                                                                    .section_content['question' + qIndex.toString()]
+                                                                    .options['ans' + ansIndex.toString()].color == '#1FAC3C'"
+                                                                    class="rounded-full p-2 bg-[#1FAC3C]"></div>
 
-                                                            <!-- Blue -->
-                                                            <div v-if="form_config
-                                                            .form_content['section' + key.toString()]
-                                                            .section_content['question' + qIndex.toString()]
-                                                            .options['ans' + ansIndex.toString()].color == '#3C5393'"
-                                                            class="rounded-full p-2 bg-[#3C5393]"></div>
+                                                                <!-- Blue -->
+                                                                <div v-if="form_config
+                                                                    .form_content['section' + key.toString()]
+                                                                    .section_content['question' + qIndex.toString()]
+                                                                    .options['ans' + ansIndex.toString()].color == '#3C5393'"
+                                                                    class="rounded-full p-2 bg-[#3C5393]"></div>
 
-                                                            <!-- Orange -->
-                                                            <div v-if="form_config
-                                                            .form_content['section' + key.toString()]
-                                                            .section_content['question' + qIndex.toString()]
-                                                            .options['ans' + ansIndex.toString()].color == '#EF5B0C'"
-                                                            class="rounded-full p-2 bg-[#EF5B0C]"></div>
+                                                                <!-- Orange -->
+                                                                <div v-if="form_config
+                                                                    .form_content['section' + key.toString()]
+                                                                    .section_content['question' + qIndex.toString()]
+                                                                    .options['ans' + ansIndex.toString()].color == '#EF5B0C'"
+                                                                    class="rounded-full p-2 bg-[#EF5B0C]"></div>
+                                                            </div>
+
+
+                                                            <!-- THE SELECT OPTION -->
+                                                            <select v-model="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options['ans' + ansIndex.toString()].color" id="countries"
+                                                                class="border-none text-gray-900 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                                <option value="clear" selected>Clear</option>
+                                                                <option value="#E33A3A">Red</option>
+                                                                <option value="#1FAC3C">Green</option>
+                                                                <option value="#3C5393">Blue</option>
+                                                                <option value="#EF5B0C">Orange</option>
+                                                            </select>
+
                                                         </div>
-
-
-                                                        <!-- THE SELECT OPTION -->
-                                                        <select v-model="form_config
-                                                            .form_content['section' + key.toString()]
-                                                            .section_content['question' + qIndex.toString()]
-                                                            .options['ans' + ansIndex.toString()].color"
-                                                            id="countries"
-                                                            class="border-none text-gray-900 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                        >
-                                                            <option value="clear" selected>Clear</option>
-                                                            <option value="#E33A3A">Red</option>
-                                                            <option value="#1FAC3C">Green</option>
-                                                            <option value="#3C5393">Blue</option>
-                                                            <option value="#EF5B0C">Orange</option>
-                                                        </select>
-
-                                                    </div>
                                                         <!-- Remove Answer Button -->
-                                                        <button
-                                                            type="button"
+                                                        <button type="button"
                                                             @click="removeAnswer('section' + key.toString(), 'question' + qIndex.toString(), 'ans' + ansIndex.toString())"
-                                                            class="p-3 hover:bg-red-100"
-                                                            formnovalidate>
-                                                            <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
-                                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                                viewBox="0 0 20 20">
+                                                            class="p-3 hover:bg-red-100" formnovalidate>
+                                                            <svg class="w-4 h-4 text-gray-800 dark:text-white"
+                                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                                fill="currentColor" viewBox="0 0 20 20">
                                                                 <path
                                                                     d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
                                                             </svg>
@@ -716,14 +700,13 @@ import { reactive } from 'vue';
                                                         </button>
                                                     </div>
 
-                                                    <button
-                                                        type="button"
+                                                    <button type="button"
                                                         @click="addAnswer('section' + key.toString(), 'question' + qIndex.toString())"
                                                         class="hover:bg-blue-500 bg-[#3c5393] text-white duration-200 p-2 rounded-md text-sm flex items-center align-center"
                                                         formnovalidate>
-                                                        <svg class="w-4 h-4 mr-2 text-white-800 dark:text-white" aria-hidden="true"
-                                                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
-                                                            viewBox="0 0 20 20">
+                                                        <svg class="w-4 h-4 mr-2 text-white-800 dark:text-white"
+                                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20"
+                                                            height="20" fill="none" viewBox="0 0 20 20">
                                                             <path stroke="currentColor" stroke-linecap="round"
                                                                 stroke-linejoin="round" stroke-width="2"
                                                                 d="M10 5.757v8.486M5.757 10h8.486M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
@@ -738,13 +721,13 @@ import { reactive } from 'vue';
 
                                                     <!-- Delete Question -->
                                                     <div class="flex items-center align-center">
-                                                        <button
-                                                            type="button"
+                                                        <button type="button"
                                                             @click="removeQuestion('section' + key.toString(), 'question' + qIndex.toString())"
                                                             class="duration-200 p-2 hover:bg-red-200 rounded-md"
                                                             formnovalidate>
-                                                            <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
-                                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                                                            <svg class="w-4 h-4 text-gray-800 dark:text-white"
+                                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                                fill="none" viewBox="0 0 18 20">
                                                                 <path stroke="currentColor" stroke-linecap="round"
                                                                     stroke-linejoin="round" stroke-width="2"
                                                                     d="M1 5h16M7 8v8m4-8v8M7 1h4a1 1 0 0 1 1 1v3H6V2a1 1 0 0 1 1-1ZM3 5h12v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5Z" />
@@ -759,7 +742,8 @@ import { reactive } from 'vue';
                                                             <input v-model="form_config
                                                                 .form_content['section' + key.toString()]
                                                                 .section_content['question' + qIndex.toString()]
-                                                                .required" type="checkbox" value="" class="sr-only peer" />
+                                                                .required" type="checkbox" value=""
+                                                                class="sr-only peer" />
                                                             <div
                                                                 class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
                                                             </div>
@@ -774,11 +758,9 @@ import { reactive } from 'vue';
                                         <div class="p-5 flex flex-col items-center justify-center"
                                             v-if="form_config.form_content['section' + key.toString()].section_type == 'question'">
                                             <p class="text-md mb-1">Add a Question</p>
-                                            <button
-                                                type="button"
+                                            <button type="button"
                                                 class="pb-1.5 duration-200 border-[#3C5393]-200 border-2 rounded-md hover:bg-[#3C5393] hover:text-white font-bold py-2 px-4 w-[7rem]"
-                                                @click="addQuestion('section' + key.toString())"
-                                                formnovalidate>
+                                                @click="addQuestion('section' + key.toString())" formnovalidate>
                                                 +
                                             </button>
                                         </div>
@@ -788,7 +770,7 @@ import { reactive } from 'vue';
                             </div>
                         </div>
                         <!-- End of Adding Section section -->
-                        
+
                     </div>
                 </div>
 
@@ -800,8 +782,8 @@ import { reactive } from 'vue';
                     <div class="grid h-full max-w-lg grid-cols-3 mx-auto">
                         <button type="button" @click="redirectBack"
                             class="inline-flex flex-col items-center justify-center px-5 rounded-l-full hover:bg-gray-50 dark:hover:bg-gray-800 group">
-                            <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="none" viewBox="0 0 16 16">
+                            <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M4 8h11m0 0-4-4m4 4-4 4m-5 3H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h3" />
                             </svg>
@@ -811,10 +793,10 @@ import { reactive } from 'vue';
                         <div class="flex items-center justify-center">
                             <button data-tooltip-target="tooltip-new" type="button" href="#" @click="addSection"
                                 class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
-                                <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 18 18">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 1v16M1 9h16" />
+                                <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 18 18">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="M9 1v16M1 9h16" />
                                 </svg>
                                 <span class="sr-only">New item</span>
                             </button>
@@ -822,12 +804,14 @@ import { reactive } from 'vue';
 
                         <!-- Confirm and Save -->
                         <div class="flex items-center justify-center">
-                            <button type="submit" data-tooltip-target="tooltip-save" class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
-                            <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M1 5.917 5.724 10.5 15 1.5" />
-                                        </svg>
-                            <span class="sr-only">New item</span>
+                            <button type="submit" data-tooltip-target="tooltip-save"
+                                class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
+                                <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 16 12">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5" />
+                                </svg>
+                                <span class="sr-only">New item</span>
                             </button>
                         </div>
 
@@ -842,8 +826,8 @@ import { reactive } from 'vue';
                         <!-- Back Button -->
                         <button type="button" @click="redirectBack"
                             class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
-                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="none" viewBox="0 0 16 16">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M4 8h11m0 0-4-4m4 4-4 4m-5 3H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h3" />
                             </svg>
@@ -854,10 +838,10 @@ import { reactive } from 'vue';
                         <div class="flex items-center justify-center">
                             <button @click="addSection" data-tooltip-target="tooltip-new" type="button" href="#"
                                 class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
-                                <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 18 18">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 1v16M1 9h16" />
+                                <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 18 18">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="M9 1v16M1 9h16" />
                                 </svg>
                                 <span class="sr-only">New item</span>
                             </button>
@@ -871,13 +855,15 @@ import { reactive } from 'vue';
 
                         <!-- Confirm and Save -->
                         <div class="flex items-center justify-center">
-                            <button type="submit" class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800" data-tooltip-target="tooltip-save">
-                                    <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 16 12">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M1 5.917 5.724 10.5 15 1.5" />
-                                    </svg>
-                                    <span class="sr-only">New item</span>
+                            <button type="submit"
+                                class="inline-flex items-center justify-center w-10 h-10 font-medium bg-blue-600 rounded-full hover:bg-blue-700 group focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800"
+                                data-tooltip-target="tooltip-save">
+                                <svg class="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 16 12">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5" />
+                                </svg>
+                                <span class="sr-only">New item</span>
                             </button>
                         </div>
 
@@ -892,7 +878,6 @@ import { reactive } from 'vue';
             </form>
         </AppLayout>
     </div>
-
 </template>
 
 <script>
@@ -1065,7 +1050,7 @@ export default {
 
                 // Focus on the input element of the last question
                 const inputElement = lastSection.querySelector('input');
-                
+
                 if (inputElement) {
                     inputElement.focus();
                 }
@@ -1122,10 +1107,10 @@ export default {
                 .form_content[sectionName]
                 .section_content[questionName]
                 .options['ans' + (questionContentSize + 1)] = {
-                    label: null,
-                    color: 'clear',
-                };
-            
+                label: null,
+                color: 'clear',
+            };
+
             // Use $nextTick to ensure the DOM has been updated
             this.$nextTick(() => {
                 // Get a reference to the last added question
@@ -1182,12 +1167,12 @@ export default {
         async submit() {
             Swal.fire({
                 title: 'Are you sure?',
-                text: `You are about to create.`,
-                icon: 'warning',
+                text: `You are about to create a new checksheet.`,
+                icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: 'Yes, create it!'
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     try {
@@ -1204,14 +1189,14 @@ export default {
 
                             await Swal.fire({
                                 icon: 'error',
-                                title: 'Caught in ElseIf',
+                                title: 'Error',
                                 text: 'Something went wrong!',
                             });
                         } else {
 
                             await Swal.fire({
                                 icon: 'error',
-                                title: 'Caught in Else',
+                                title: 'Error',
                                 text: 'Something went wrong!',
                             });
                         }
@@ -1225,7 +1210,7 @@ export default {
                     }
                 }
             });
-            
+
         }
     },
 };

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Signature;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -57,10 +58,19 @@ class ReportController extends Controller
             ->where('status', '=', 'pending')
             ->count();
 
-        // dd($formtable);
+        $formcount = DB::table('forms')
+            ->select('forms.id', 'forms.form_name')
+            ->selectRaw('COUNT(response_fields.status) AS pending_count')
+            ->leftJoin('response_fields', function ($join) {
+                $join->on('forms.id', '=', 'response_fields.form_id')
+                    ->where('response_fields.status', '=', 'pending');
+            })
+            ->groupBy('forms.id', 'forms.form_name')
+            ->get();
 
         return Inertia::render('Pending-Reports/Index', [
             'forms' => $forms,
+            'formcount' => $formcount,
             'data' => $responses,
             'signatures' => $signature_status,
             'counts' => $counts,
@@ -95,28 +105,22 @@ class ReportController extends Controller
         // Get user role
         $user_role = $this->getUserRole($user_id);
 
+        $signature = Signature::where('response_id', $response_id)
+            ->where('required_sign_role', $user_role)
+            ->first();
+
         if ($status == 'Rejected') {
             // Update signature status as 'Rejected'
-            DB::table('signatures')
-                ->where('response_id', '=', $response_id)
-                ->where('required_sign_role', '=', $user_role)
-                ->update(
-                    [
-                        'status' => 'Rejected',
-                        'user_id' => $user_id,
-                    ]
-                );
+            $signature->update([
+                'status' => 'Rejected',
+                'user_id' => $user_id,
+            ]);
         } else {
             // Update signature status as 'OK'
-            DB::table('signatures')
-                ->where('response_id', '=', $response_id)
-                ->where('required_sign_role', '=', $user_role)
-                ->update(
-                    [
-                        'status' => 'OK',
-                        'user_id' => $user_id,
-                    ]
-                );
+            $signature->update([
+                'status' => 'OK',
+                'user_id' => $user_id,
+            ]);
         }
 
         // Check if response is rejected by at least one signee
@@ -165,9 +169,8 @@ class ReportController extends Controller
             WHERE `response_id` = id_no
             AND `status` = 'OK';
         */
-        $progressCount = DB::table('signatures')
-            ->where('response_id', '=', $response_id)
-            ->where('status', '=', 'OK')
+        $progressCount = Signature::where('response_id', $response_id)
+            ->where('status', 'Ok')
             ->count();
 
         // A form requires 2 signatures (QC & Line Leader)
@@ -184,9 +187,13 @@ class ReportController extends Controller
             WHERE `response_id` = id_no
             AND `status` = 'Rejected';
         */
-        $progressCount = DB::table('signatures')
-            ->where('response_id', '=', $response_id)
-            ->where('status', '=', 'Rejected')
+        // $progressCount = DB::table('signatures')
+        //     ->where('response_id', '=', $response_id)
+        //     ->where('status', '=', 'Rejected')
+        //     ->count();
+
+        $progressCount = Signature::where('response_id', $response_id)
+            ->where('status', 'Rejected')
             ->count();
 
         // If a response is rejected by either QC or Line Lead

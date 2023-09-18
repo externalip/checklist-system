@@ -87,14 +87,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     });
 
     Route::middleware(['permission:view-checklist'])->group(function () {
-        // 5S Checklist Form Page
-        Route::get('/5S-Checklist', [UserController::class, 'show5SForm'])->name('5S-Checklist');
-
-        // P-Touch Solder Form Page
-        Route::get('/PTouch-Solder', [UserController::class, 'showPTouchForm'])->name('PTouch-Solder');
-
-        // P-Touch-ICT Form Page
-        Route::get('/PTouch-ICT', [UserController::class, 'showICTForm'])->name('PTouch-ICT');
 
         //Forms
         Route::get('Forms/{id}', function ($form_id) {
@@ -114,7 +106,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
             ]);
         })->name('showForm');
         // Form Submission Function
-        Route::post('/submit-response', [ResponseController::class, 'store']);
         Route::post('/submit', [ResponseController::class, 'storeResponse']);
     });
 
@@ -162,5 +153,15 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     // Exports
     Route::get('users/export/', [UserController::class, 'exportUsers']);
     Route::get('models/export/', [UserController::class, 'exportModels']);
+
+    Route::middleware(['permission:revision'])->group(function () {
+        // Revision History
+        Route::get('/revision', [UserController::class, 'showAmendment'])->name('revision');
+
+        // DCC
+        Route::get('/dcc', [UserController::class, 'showPendingApproval'])->name('dcc');
+    });
+
+    Route::get('/audit/{auditId}/view', [AuditController::class, 'viewDataProperties'])->name('audit.data.view');
 
 });

@@ -3,14 +3,48 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use OwenIt\Auditing\Auditable as AuditingAuditable;
-use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Activitylog\LogOptions;
 
-class Form extends Model implements Auditable
+class Form extends User
 {
-    use AuditingAuditable;
     use HasFactory;
+
+    //only grab the changes
+    protected static $logOnlyDirty = true;
+
+    /**
+     * Get activity log options.
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults('Form')
+            ->logOnly([
+                'created_by',
+                'form_name',
+                'completed',
+                'form_data',
+            ])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs()
+            ->logFillable()
+            ->useLogName('Form Log');
+    }
+
+    /**
+     * Get event description.
+     */
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        if ($eventName == 'created') {
+            return "Form $this->id was Created ";
+        } elseif ($eventName == 'updated') {
+            return "Form $this->id was Updated ";
+        } elseif ($eventName == 'deleted') {
+            return "Form $this->id was Deleted ";
+        }
+
+        return "Form $this->id was Created";
+    }
 
     protected $fillable = [
         'created_by',

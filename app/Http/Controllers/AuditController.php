@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Audit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
 use Inertia\Inertia;
 
 class AuditController extends Controller
@@ -19,10 +20,10 @@ class AuditController extends Controller
             FROM `audits`
             ORDER BY `action_type`
         */
-        $events = Audit::select('action_type')
-            ->distinct()
-            ->orderBy('action_type')
-            ->get();
+        // $events = Audit::select('action_type')
+        //     ->distinct()
+        //     ->orderBy('action_type')
+        //     ->get();
 
         /*
             SELECT
@@ -38,53 +39,68 @@ class AuditController extends Controller
             JOIN employees
               ON users.employee_id = employees.id;
         */
-        $query = DB::table('audits')
-            ->join('users', 'audits.user_id', '=', 'users.id')
+        $query = DB::table('activity_log')
+            ->leftJoin('users', 'activity_log.causer_id', '=', 'users.id')
+            ->leftJoin('employees', 'users.employee_id', '=', 'employees.id')
+            ->select('activity_log.*', DB::raw("CONCAT(employees.first_name, ' ', employees.last_name) AS causer_name"))
+            ->orderBy('activity_log.created_at', 'desc');
+
+        $events = DB::table('activity_log')
+            ->select('event')
+            ->distinct()
+            ->orderBy('event')
+            ->get();
+        $users = DB::table('activity_log')
+            ->join('users', 'activity_log.causer_id', '=', 'users.id')
             ->join('employees', 'users.employee_id', '=', 'employees.id')
-            ->select(
-                'audits.user_id',
-                'employees.first_name',
-                'employees.last_name',
-                'audits.action_date',
-                'audits.action_type',
-                'audits.action_details'
-            )
-            ->orderByDesc('audits.action_date');
-
-        // Apply filters if provided in the request
-        if ($request->has('user')) {
-            $query->where('audits.user_id', $request->user);
-        }
-
-        if ($request->has('action')) {
-            $query->where('audits.action_type', $request->action);
-        }
-
-        if ($request->has('date')) {
-            $query->whereBetween('audits.action_date', $request->date);
-        }
-
-        $audits = $query->paginate(10);
-        //get all users with employee using db::table
-        $users = DB::table('users')
-            ->join('employees', 'users.employee_id', '=', 'employees.id')
-            ->join('audits', 'users.id', '=', 'audits.user_id')
             ->select(
                 'users.id',
                 'employees.first_name',
                 'employees.last_name',
             )
-            ->whereNotNull('audits.user_id')
+            ->whereNotNull('activity_log.causer_id')
             ->orderBy('employees.first_name')
             ->distinct()
             ->get();
-        // dd($users);
+        if ($request->has('user')) {
+            $query->where('activity_log.causer_id', $request->user);
+        }
+
+        if ($request->has('action')) {
+            $query->where('activity_log.event', $request->action);
+        }
+
+        if ($request->has('date')) {
+            $query->whereBetween('activity_log.created_at', $request->date);
+        }
+        $audits = $query->paginate(10);
 
         return Inertia::render('Audit/Index', [
             'audits' => $audits,
             'users' => $users,
             'events' => $events,
         ]);
+    }
+
+    public function viewDataProperties($auditId)
+    {
+        // Fetch the audit by ID (replace 'Audit' with your actual model name)
+        $audit = DB::table('activity_log')
+            ->where('id', $auditId)
+            ->first();
+
+        // Get the audit properties as text
+        $propertiesText = $audit->properties;
+
+        // Define the file name with the audit ID
+        $fileName = "audit_properties_{$auditId}.txt";
+
+        // Create a response with the properties as a downloadable TXT file
+        $response = Response::make($propertiesText);
+        $response->header('Content-Disposition', "attachment; filename={$fileName}");
+
+        // dd($propertiesText);
+        return $response;
     }
 
     /**

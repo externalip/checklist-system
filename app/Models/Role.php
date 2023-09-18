@@ -3,11 +3,42 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Permission\Models\Role as SpatieRole;
 
-class Role extends Authenticatable
+class Role extends SpatieRole
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
+
+    /**
+     * Get activity log options.
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults('Role')
+            ->logOnly(['*'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs()
+            ->logFillable()
+            ->useLogName('Role log');
+    }
+
+    /**
+     * Get event description.
+     */
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        if ($eventName == 'created') {
+            return "Role $this->id was Created";
+        } elseif ($eventName == 'updated') {
+            return "Role $this->id was Updated";
+        } elseif ($eventName == 'deleted') {
+            return "Role $this->id was Deleted";
+        }
+
+        return "Role $this->id was Created";
+    }
 
     public $timestamps = false;
 
@@ -21,9 +52,4 @@ class Role extends Authenticatable
         'description',
         'guard_name',
     ];
-
-    public function role()
-    {
-        return $this->belongsTo(Role::class, 'role_id');
-    }
 }

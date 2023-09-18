@@ -27,10 +27,10 @@
                         <label for="filter-action-select" class="block mb-2 text-sm font-medium  dark:text-white">Filter by action</label>
                         <select id="filter-action-select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             v-model="selectedAction">
-                                    <option value="">Choose a User
+                                    <option value="">Choose a action
                                     </option>
-                                    <option v-for="event in events" :value="event.action_type" :key="event.id">{{
-                                        event.action_type
+                                    <option v-for="event in events" :value="event.event" :key="event.id">{{
+                                        event.event
                                     }}</option>
                                 </select>
 
@@ -87,33 +87,48 @@
                             <th scope="col" class="px-6 py-3">
                                 User Name
                             </th>
+
+                            <th scope="col" class="px-6 py-3">
+                               Log Name
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                               Log Description
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                               Action
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                               Properties
+                            </th>
                             <th scope="col" class="px-6 py-3">
                                 Date and Time
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Action
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Action Details
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="audit in audits.data" :key="audit.id" class="text-xs bg-white border-b dark:bg-gray-800 dark:border-gray-700 duration-200 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ audit.user_id }}
+                                {{ audit.causer_id  ?? 'No ID'}}
                             </th>
                             <td class="px-6 py-4">
-                                {{ audit.first_name + '. ' + audit.last_name }}
+                                {{ audit.causer_name ?? 'N/A' }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ audit.action_date }}
+                                {{ audit.log_name }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ audit.action_type }}
+                                {{ audit.description }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ audit.action_details }}
+                                {{ audit.event }}
+                            </td>
+                            <td class="px-6 py-4">
+                                   <Link :href="route('audit.data.view', audit.id)" class="text-blue-500 hover:underline">View Data</Link>
+
+                            </td>
+
+                            <td class="px-6 py-4">
+                                {{ audit.created_at }}
                             </td>
                         </tr>
                     </tbody>
@@ -155,6 +170,7 @@ watch([selectedUser, selectedAction, selectedDateRange], ([user, action, date]) 
     }
     if (action) {
         filter.action = action;
+        console.log(action);
     }
     if (date) {
         filter.date = date;

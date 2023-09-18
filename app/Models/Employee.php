@@ -2,11 +2,47 @@
 
 namespace App\Models;
 
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Traits\HasRoles;
 
 class Employee extends User
 {
     use HasRoles;
+    use LogsActivity;
+    //
+
+    /**
+     * Get activity log options.
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults('Employee')
+            ->logOnly(['first_name', 'last_name', 'contact', 'shift', 'gender'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs()
+            ->logFillable()
+            ->useLogName('Employee log');
+    }
+
+    // Only grab the changes
+    protected static $logOnlyDirty = true;
+
+    /**
+     * Get event description.
+     */
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        if ($eventName == 'created') {
+            return "Employee $this->id was Created";
+        } elseif ($eventName == 'updated') {
+            return "Employee  $this->id was Updated";
+        } elseif ($eventName == 'deleted') {
+            return "Employee  $this->id was Deleted";
+        }
+
+        return "Employee  $this->id was Created";
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +52,6 @@ class Employee extends User
     protected $guard_name = 'web';
 
     protected $fillable = [
-        'role_id',
         'first_name',
         'last_name',
         'gender',

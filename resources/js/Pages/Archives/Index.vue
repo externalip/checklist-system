@@ -121,7 +121,7 @@ export default {
                             </tr>
                         </thead>
                         <!-- Post OK or Rejected checksheet data -->
-                        <tbody v-for="response_field in data">
+                        <tbody v-for="response_field in data.data">
                             <tr v-if="(response_field.form_id === selectedOption &&
                                 selectedUser === 'default' && selectedStatus === 'default') ||
                                 (response_field.form_id === selectedOption &&
@@ -179,7 +179,7 @@ export default {
 
             <!-- Pagination -->
             <div class="mt-4">
-
+                <Pagination :data="data" />
             </div>
         </div>
     </AppLayout>
@@ -187,7 +187,7 @@ export default {
 
 <script setup>
 import { ref, computed, reactive } from "vue";
-
+import Pagination from "@/Shared/Pagination.vue";
 import { Link } from "@inertiajs/vue3";
 import AppLayout from "@/Layouts/AppLayout.vue";
 

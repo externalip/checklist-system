@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ModelsExport;
+use App\Exports\UsersExport;
 use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -11,11 +13,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
-use Spatie\Permission\Models\Role;
-use App\Exports\UsersExport;
-use App\Exports\ModelsExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -226,47 +226,6 @@ class UserController extends Controller
         ]);
     }
 
-    public function show5SForm()
-    {
-        // Get all models
-        $models = DB::table('tags')
-            ->join('models', 'tags.model_id', '=', 'models.id')
-            ->join('forms', 'tags.form_id', '=', 'forms.id')
-            ->select('models.model_name', 'forms.form_name', 'tags.*')
-            ->get();
-
-        // Send list of models to url
-        return Inertia::render('5S-Checklist/Index', [
-            'models' => $models,
-        ]);
-    }
-
-    public function showPTouchForm()
-    {
-        // Get all models
-        $models = DB::table('models')
-            ->select('model_name')
-            ->get();
-
-        // Send list of models to url
-        return Inertia::render('PTouch-Solder/Index', [
-            'models' => $models,
-        ]);
-    }
-
-    public function showICTForm()
-    {
-        // Get all models
-        $models = DB::table('models')
-            ->select('model_name')
-            ->get();
-
-        // Send list of models to url
-        return Inertia::render('PTouch-ICT/Index', [
-            'models' => $models,
-        ]);
-    }
-
     public function showForm($id)
     {
         $path = 'Forms/form'.$id;
@@ -305,5 +264,4 @@ class UserController extends Controller
         $fileName = 'model-data_' . Carbon::now()->format('Ymd_His') . '.xlsx';
         return Excel::download(new ModelsExport, $fileName);
     }
-
 }

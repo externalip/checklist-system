@@ -2,33 +2,29 @@
 
 namespace App\Exports;
 
-use App\Models\Models;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
-use Maatwebsite\Excel\Concerns\WithEvents;
-use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Concerns\WithStyles;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Concerns\AutoSize;
+use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class ModelsExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithEvents
+class ModelsExport implements FromCollection, WithEvents, WithHeadings, WithMapping, WithStyles
 {
     /**
-    * @return \Illuminate\Support\Collection
-    */
+     * @return \Illuminate\Support\Collection
+     */
     public function collection()
     {
-        $query =  DB::table('Models')
+        $query = DB::table('Models')
             ->leftJoin('Tags', 'Tags.model_id', '=', 'Models.id')
             ->leftJoin('forms', 'Tags.form_id', '=', 'forms.id')
             ->groupBy('models.id', 'Models.model_name')
             ->select('models.id AS model_id', 'Models.model_name', DB::raw("IFNULL(GROUP_CONCAT(forms.form_name SEPARATOR ', '), '') AS checksheet_appearance"))
             ->get();
-
-
 
         // ->join('employees', 'users.employee_id', '=', 'employees.id')
         // ->join('roles', 'users.role_id', '=', 'roles.id')
@@ -40,9 +36,6 @@ class ModelsExport implements FromCollection, WithHeadings, WithMapping, WithSty
 
     }
 
-    /**
-    * @return array
-    */
     public function headings(): array
     {
         return [
@@ -52,7 +45,8 @@ class ModelsExport implements FromCollection, WithHeadings, WithMapping, WithSty
         ];
     }
 
-    public function registerEvents(): array{
+    public function registerEvents(): array
+    {
         return [
             AfterSheet::class => function (AfterSheet $event) {
                 $event->sheet->autoSize();
@@ -61,10 +55,8 @@ class ModelsExport implements FromCollection, WithHeadings, WithMapping, WithSty
     }
 
     /**
-    * @param mixed $row
-    *
-    * @return array
-    */
+     * @param  mixed  $row
+     */
     public function map($row): array
     {
         return [
@@ -88,5 +80,4 @@ class ModelsExport implements FromCollection, WithHeadings, WithMapping, WithSty
             ],
         ];
     }
-
 }
