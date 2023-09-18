@@ -1,5 +1,5 @@
 <template>
-    <div v-if="data.last_page > 1" class="flex items-center justify-between p-3 bg-white border-t border-gray-200 sm:px-6">
+    <div v-if="data.last_page >= 1" class="flex items-center justify-between p-3 bg-white border-t border-gray-200 sm:px-6">
         <!-- Previous Button (hidden on mobile) -->
         <button @click="gotoPage(data.current_page - 1)"
             :class="['pagination-button', 'hidden', 'sm:block', { 'disabled': data.current_page <= 1 }]">

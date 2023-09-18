@@ -1102,12 +1102,18 @@ export default {
         },
         async submit() {
             try {
-                const response = await axios.put(route('checksheet.update'), {
-                    form_id: this.form_id,
-                    new_config: form_config,
-                });
+                // Remove these code's comment to enable checksheet overwrite
+                // const response = await axios.put(route('checksheet.update'), {
+                //     form_id: this.form_id,
+                //     new_config: form_config,
+                // });
+                
+                // Create new form (does not overwrite edited form)
+                const response = await axios.post(
+                    route('generate.store'), form_config
+                );
 
-                if (response.status === 200) {
+                if (response.data.status === 'success') {
                     Swal.fire({
                         icon: 'success',
                         title: 'Updated successfully!',
