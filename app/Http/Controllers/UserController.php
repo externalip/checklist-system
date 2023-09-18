@@ -12,6 +12,9 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Role;
+use App\Exports\UsersExport;
+use App\Exports\ModelsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -289,4 +292,15 @@ class UserController extends Controller
     {
         return Inertia::render('Create-Checklist/ChecklistApproval/Index');
     }
+
+    public function exportUsers()
+    {
+        return Excel::download(new UsersExport, 'users.xlsx');
+    }
+
+    public function exportModels()
+    {
+        return Excel::download(new ModelsExport, 'models.xlsx');
+    }
+
 }

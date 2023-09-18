@@ -158,4 +158,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         // User Manual
         Route::get('/UserManual', [UserController::class, 'showUserManual'])->name('UserManual');
     });
+
+    // Exports
+    Route::get('users/export/', [UserController::class, 'exportUsers']);
+    Route::get('models/export/', [UserController::class, 'exportModels']);
+
 });

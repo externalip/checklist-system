@@ -44,7 +44,7 @@ watch([searchUsername, selectedAccountStatus, searchName, FilterRole], ([usernam
         <Switch />
 
         <!-- MANAGE PERSONNEL FILTER SECTION -->
-        <section id="user-filters"  class="mb-5 grid lg:grid-cols-5 sm:grid-cols-2 grid-cols-2 gap-3">
+        <section id="user-filters"  class="mb-5 grid lg:grid-cols-7 sm:grid-cols-2 grid-cols-2 gap-3">
 
             <!-- filter (active & inactive) account states -->
             <div>
@@ -84,7 +84,7 @@ watch([searchUsername, selectedAccountStatus, searchName, FilterRole], ([usernam
             </div>
 
             <!-- filter (username) -->
-            <div>
+            <div class="col-span-2">
                 <form>
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Search by Username
@@ -106,7 +106,7 @@ watch([searchUsername, selectedAccountStatus, searchName, FilterRole], ([usernam
             </div>
 
             <!-- filter (personnel name)-->
-            <div>
+            <div class="col-span-2">
                 <label for="filter-user-select" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Search by Name</label>
 
                 <!-- filter personnel name textbox -->
@@ -124,7 +124,7 @@ watch([searchUsername, selectedAccountStatus, searchName, FilterRole], ([usernam
             </div>
 
             <!-- filter (role) -->
-            <div>
+            <div class="lg:col-span-1 col-span-2">
                 <label for="filter-user-role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Filter by Role</label>
 
                 <!-- filter role textbox -->
@@ -139,7 +139,7 @@ watch([searchUsername, selectedAccountStatus, searchName, FilterRole], ([usernam
             </div>
 
             <!-- filter (add personnel) -->
-            <div id="user-add-btn">
+            <div class="col-span-1">
                 <label for="filter-user-select" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     Click to Add User
                 </label>
@@ -147,6 +147,33 @@ watch([searchUsername, selectedAccountStatus, searchName, FilterRole], ([usernam
                 <Link :href="route('users.create')" type="button" class="text-white bg-[--blue] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-12 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">+
                 </Link>
             </div>
+
+            <!-- Export button -->
+            <div>
+                <label
+                    for="filter-user-select"
+                    class="block mb-2 text-sm font-medium dark:text-white"
+                    >Export Table</label
+                >
+                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-[--blue] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Export
+                    <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                    </svg>
+                </button>
+                <!-- Dropdown menu -->
+                <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                        <li>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">to PDF</a>
+                        </li>
+                        <li>
+                            <a href="/users/export" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">to Excel</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </section>
     </div>
 </template>
+
+

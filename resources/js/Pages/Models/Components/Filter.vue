@@ -1,4 +1,5 @@
 <template>
+    <!-- MODEL PAGE FILTER -->
     <section id="model-filter-section">
         <div class="model-filter-header">
             <h4>Filter by:</h4>
@@ -6,10 +7,10 @@
 
         <section
             id="model-filters"
-            class="text-[--blue] mb-5 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-3"
+            class="text-[--blue] mb-5 grid lg:grid-cols-5 sm:grid-cols-2 grid-cols-1 gap-3"
         >
-            <!-- Search Model Filter -->
-            <div id="model-filter-name-search" class="lg:col-span-2">
+            <!-- Search Model Name Filter -->
+            <div class="lg:col-span-2">
                 <form>
                     <label
                         for="filter-user-select"
@@ -49,7 +50,7 @@
             </div>
 
             <!-- Checksheet appearance filter -->
-            <div id="model-filter-checksheet-select">
+            <div>
                 <label
                     for="countries"
                     class="block mb-2 text-sm font-medium dark:text-white"
@@ -111,20 +112,45 @@
             </div>
 
             <!-- Add Models button -->
-            <div id="model-add-btn">
+            <div>
                 <label
                     for="filter-user-select"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    class="block mb-2 text-sm font-medium dark:text-white"
                     >Click to add models</label
                 >
                 <button
                     type="button"
-                    class="duration-200 text-white bg-[--blue] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-12 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                    class="w-full duration-200 text-white bg-[--blue] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-12 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                     data-modal-target="add-model-modal"
                     data-modal-toggle="add-model-modal"
                 >
                     Add Model
                 </button>
+            </div>
+
+            <!-- Export button -->
+            <div>
+                <label
+                    for="filter-user-select"
+                    class="block mb-2 text-sm font-medium dark:text-white"
+                    >Export Table</label
+                >
+                <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-[--blue] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Export
+                    <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                    </svg>
+                </button>
+                <!-- Dropdown menu -->
+                <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                        <li>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">to PDF</a>
+                        </li>
+                        <li>
+                            <a href="/models/export" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">to Excel</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </section>
     </section>
