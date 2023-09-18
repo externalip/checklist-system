@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Inertia\Inertia;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Models\Role;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
+use Inertia\Inertia;
 
 class RoleController extends Controller
 {
@@ -57,7 +56,7 @@ class RoleController extends Controller
             return $permission['id'];
         }, $permissions);
 
-        if (!$validate) {
+        if (! $validate) {
             throw ValidationException::withMessages([
                 'name' => 'Role name is required',
                 'description' => 'Role description is required',
@@ -74,17 +73,18 @@ class RoleController extends Controller
         $perms = $role->syncPermissions($permissions);
 
         //log role permissions create
-        if($perms){
+        if ($perms) {
             activity()
-            ->useLog('Permission log')
-            ->causedBy(Auth::user())
-            ->performedOn($role)
-            ->event('created')
-            ->withProperties([
-                'permissions' => $permissions,
-            ])
-            ->log('Role permissions given');
+                ->useLog('Permission log')
+                ->causedBy(Auth::user())
+                ->performedOn($role)
+                ->event('created')
+                ->withProperties([
+                    'permissions' => $permissions,
+                ])
+                ->log('Role permissions given');
         }
+
         return response()->json([
             'status' => 'success',
             'message' => 'Role created successfully',
@@ -152,17 +152,18 @@ class RoleController extends Controller
         $perms = $role->syncPermissions($permissions);
 
         //log role permissions update
-        if($perms){
+        if ($perms) {
             activity()
-            ->useLog('Permission log')
-            ->causedBy(Auth::user())
-            ->performedOn($role)
-            ->event('updated')
-            ->withProperties([
-                'permissions' => $permissions,
-            ])
-            ->log('Role permissions updated');
+                ->useLog('Permission log')
+                ->causedBy(Auth::user())
+                ->performedOn($role)
+                ->event('updated')
+                ->withProperties([
+                    'permissions' => $permissions,
+                ])
+                ->log('Role permissions updated');
         }
+
         return response()->json([
             'status' => 'success',
             'message' => 'Role updated successfully',
