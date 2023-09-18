@@ -29,7 +29,6 @@ class FormSeeder extends Seeder
             'SMT' => '{}',
         ];
 
-
         for ($i = 0; $i < 5; $i++) {
             DB::table('forms')->insert([
                 'form_name' => $forms[$i],
