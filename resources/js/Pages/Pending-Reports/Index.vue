@@ -206,7 +206,7 @@ function colorCode(question, answer) {
             <!-- Pending reports section -->
             <section id="pending-accordions">
                 <div :id="selectedForm.form_name" class="hidden_div accordions">
-                    <div v-for="formcount in formcount">
+                    <div v-for="formcount in formcount" :key="formcount.id">
                         <div v-if="formcount.form_name === selectedForm.form_name">
                             <h4 class="font-bold"><span class="text-[--overdue] font-bold">{{ formcount.pending_count
                             }}</span> Pending Reports on {{ selectedForm.form_name }}</h4>
@@ -374,7 +374,10 @@ function colorCode(question, answer) {
                                             disabled></textarea>
                                     </div>
                                 </div>
-                                <div v-if="$page.props.auth.employee.role_id != 1" class="pb-5">
+
+                                <div
+                               v-if="!$page.props.auth.user.roles.includes('Operator')"
+                                class="pb-5">
                                     <!-- Button -->
                                     <div id="pending-sign-btn" class="px-5 p-2 w-full flex justify-end">
 
