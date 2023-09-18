@@ -58,10 +58,19 @@ class ReportController extends Controller
             ->where('status', '=', 'pending')
             ->count();
 
-        // dd($formtable);
+            $formcount = DB::table('forms')
+            ->select('forms.id', 'forms.form_name')
+            ->selectRaw('COUNT(response_fields.status) AS pending_count')
+            ->leftJoin('response_fields', function ($join) {
+                $join->on('forms.id', '=', 'response_fields.form_id')
+                    ->where('response_fields.status', '=', 'pending');
+            })
+            ->groupBy('forms.id', 'forms.form_name')
+            ->get();
 
         return Inertia::render('Pending-Reports/Index', [
             'forms' => $forms,
+            'formcount' => $formcount,
             'data' => $responses,
             'signatures' => $signature_status,
             'counts' => $counts,

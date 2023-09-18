@@ -49,7 +49,7 @@ const parsedArray = (data) => {
         return data;
     }
 };
-
+//Validation
 const submit = async (status, id) => {
     if (status === 'OK' || status === 'Rejected') {
         const { isConfirmed } = await Swal.fire({
@@ -106,7 +106,7 @@ function colorCode(question, answer) {
         const option = question.options[optionKey];
 
         if (option.label === answer) {
-            console.log("Answer and Color code found!");
+
             // Return corresponding color coding
             if (option.color == 'clear') {
                 return 'border-black text-black text-center';
@@ -203,19 +203,21 @@ function colorCode(question, answer) {
 
                 <!-- Export Button -->
             </section>
-
+            <!-- Pending reports section -->
             <section id="pending-accordions">
-                <!-- {{ Number of Pending Reports }} Pending Reports on {{ Checksheet Selected }}-->
-
-                <!-- First Accordion -->
                 <div :id="selectedForm.form_name" class="hidden_div accordions">
-                    <!-- Pending Counts -->
+                    <div v-for="formcount in formcount">
+                        <div v-if="formcount.form_name === selectedForm.form_name">
+                            <h4 class="font-bold"><span class="text-[--overdue] font-bold">{{ formcount.pending_count
+                            }}</span> Pending Reports on {{ selectedForm.form_name }}</h4>
+                        </div>
+                    </div>
 
+                    <!-- Loop to display all pending reports -->
                     <div v-for="(row, index) in data" :key="index" id="accordion-flush" data-accordion="collapse"
                         data-active-classes="bg-white dark:bg-gray-900 text-blue-500 dark:text-white"
                         data-inactive-classes="text-gray-500 dark:text-gray-400" class="border-lg">
                         <ul v-show="row.form_name === selectedForm.form_name">
-
                             <h2 :id="'accordion-flush-heading-' + index.toString()">
                                 <button type="button"
                                     class="flex items-center justify-between w-full py-5 text-lg font-regular antialiased text-left border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
@@ -287,6 +289,7 @@ function colorCode(question, answer) {
                                                         </th>
                                                     </tr>
                                                 </thead>
+                                                <!-- Displays pending reports data -->
                                                 <tbody>
                                                     <tr v-for="(question, questionIndex) in section.section_content"
                                                         :key="questionIndex"
@@ -408,6 +411,7 @@ let configs = [];
 export default {
     props: {
         forms: Array,
+        formcount: Array,
         selectedFormName: Array,
         data: Array,
         signatures: Array,
