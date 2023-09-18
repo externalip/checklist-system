@@ -15,6 +15,7 @@ use Spatie\Permission\Models\Role;
 use App\Exports\UsersExport;
 use App\Exports\ModelsExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -295,12 +296,14 @@ class UserController extends Controller
 
     public function exportUsers()
     {
-        return Excel::download(new UsersExport, 'users.xlsx');
+        $fileName = 'user-data_' . Carbon::now()->format('Ymd_His') . '.xlsx';
+        return Excel::download(new UsersExport, $fileName);
     }
 
     public function exportModels()
     {
-        return Excel::download(new ModelsExport, 'models.xlsx');
+        $fileName = 'model-data_' . Carbon::now()->format('Ymd_His') . '.xlsx';
+        return Excel::download(new ModelsExport, $fileName);
     }
 
 }
