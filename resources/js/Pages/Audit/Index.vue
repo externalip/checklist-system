@@ -123,7 +123,8 @@
                                 {{ audit.event }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ audit.properties }}
+                                   <Link :href="route('audit.data.view', audit.id)" class="text-blue-500 hover:underline">View Data</Link>
+
                             </td>
 
                             <td class="px-6 py-4">
