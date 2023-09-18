@@ -154,7 +154,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         // Revision History
         Route::get('/revision', [UserController::class, 'showAmendment'])->name('revision');
     });
-    
+
     Route::get('/audit/{auditId}/view', [AuditController::class, 'viewDataProperties'])->name('audit.data.view');
 
 });
