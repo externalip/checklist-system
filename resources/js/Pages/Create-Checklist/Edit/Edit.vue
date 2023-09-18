@@ -102,7 +102,7 @@ const confirmDelete = async (formID) => {
                             <!-- Table Content -->
                             <tbody class="text-xs">
                                 <tr
-                                    v-for="form in forms.data"
+                                    v-for="form in forms.data" :key="form.id"
                                     class="text-gray-700 bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 transition ease-in-out duration-200"
                                 >
                                     <td
