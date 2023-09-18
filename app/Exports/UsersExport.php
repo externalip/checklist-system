@@ -2,26 +2,21 @@
 
 namespace App\Exports;
 
-use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
-use Maatwebsite\Excel\Concerns\WithEvents;
-use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Concerns\WithStyles;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Concerns\AutoSize;
+use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-
-
-
-class UsersExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithEvents
+class UsersExport implements FromCollection, WithEvents, WithHeadings, WithMapping, WithStyles
 {
     /**
-    * @return \Illuminate\Support\Collection
-    */
+     * @return \Illuminate\Support\Collection
+     */
     public function collection()
     {
         $query = DB::table('users')
@@ -40,8 +35,10 @@ class UsersExport implements FromCollection, WithHeadings, WithMapping, WithStyl
         return $query;
 
     }
+
     //auto size
-    public function registerEvents(): array{
+    public function registerEvents(): array
+    {
         return [
             AfterSheet::class => function (AfterSheet $event) {
                 $event->sheet->autoSize();
@@ -49,9 +46,6 @@ class UsersExport implements FromCollection, WithHeadings, WithMapping, WithStyl
         ];
     }
 
-    /**
-    * @return array
-    */
     public function headings(): array
     {
         return [
@@ -67,10 +61,8 @@ class UsersExport implements FromCollection, WithHeadings, WithMapping, WithStyl
     }
 
     /**
-    * @param mixed $row
-    *
-    * @return array
-    */
+     * @param  mixed  $row
+     */
     public function map($row): array
     {
         return [
