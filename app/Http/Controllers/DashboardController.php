@@ -21,12 +21,12 @@ class DashboardController extends Controller
             ->get();
 
         $audits = DB::table('activity_log')
-        ->leftJoin('users', 'activity_log.causer_id', '=', 'users.id')
-        ->leftJoin('employees', 'users.employee_id', '=', 'employees.id')
-        ->select('activity_log.*', DB::raw("CONCAT(employees.first_name, ' ', employees.last_name) AS causer_name"))
-        ->orderBy('activity_log.created_at', 'desc')
-        ->limit(10)
-        ->get();
+            ->leftJoin('users', 'activity_log.causer_id', '=', 'users.id')
+            ->leftJoin('employees', 'users.employee_id', '=', 'employees.id')
+            ->select('activity_log.*', DB::raw("CONCAT(employees.first_name, ' ', employees.last_name) AS causer_name"))
+            ->orderBy('activity_log.created_at', 'desc')
+            ->limit(10)
+            ->get();
 
         $users = DB::table('users')
             ->select(
