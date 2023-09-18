@@ -17,7 +17,7 @@
                                     stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                             </svg>
                         </div>  
-                        <VueMultiselect v-model="modelName" :options="modelOptions" :optionsLimit="10" :show-labels="false" @searchChange="limitedModelNames" id="default-search-name" placeholder="Search Model Name" class="" required></VueMultiselect>
+                        <VueMultiselect v-model="modelName" :options="modelOptions" :show-labels="false" @searchChange="limitedModelNames" id="default-search-name" placeholder="Search Model Name" class="" required></VueMultiselect>
                     </div>
                 </form>
             </div>
@@ -68,16 +68,12 @@ import VueMultiselect from 'vue-multiselect';
 let modelName = ref('');
 let SelectedForms = ref([]);
 let modelOptions = ref([]);
-let allModelOptions = ref([]);
-let userData = ref("");
+
 
 let props  = defineProps({
     Forms: {
         type: Array,
         required: true
-    },
-    modelNames: {
-        type: Array,
     },
 });
 
@@ -101,14 +97,11 @@ const limitedModelNames = async (searchInput) => {
             const data = await response.json();
             
             // Set the fetched model names as options
-            allModelOptions.value = data.modelNames;
-            modelOptions.value = allModelOptions.value;
+            modelOptions.value = data.modelNames;
         } catch (error) {
             console.error('Error fetching model names:', error);
         } 
     }
-    
-
 };
 
 watch([modelName, SelectedForms], ([modelName, SelectedForms]) => {
@@ -140,7 +133,7 @@ export default {
 }
 </script>
 
-<style src="vue-multiselect/dist/vue-multiselect.css">
+<style src="">
 </style>
 
 

@@ -154,12 +154,13 @@ class ModelController extends Controller
         return response()->json($results);
     }
 
-    public function limitedModelNames($name)
+    public function limitedModelNames($query)
     {
         // Retrieve the model names from your database
         $limitedModelNames = DB::table('Models')
-        ->where('model_name', 'LIKE', '%'.$name.'%')
+        ->where('model_name', 'LIKE', '%'.$query.'%')
         ->pluck('model_name') 
+        ->take(10)
         ->toArray();
 
         // Return the model names as JSON response
@@ -171,7 +172,8 @@ class ModelController extends Controller
     {
         // Retrieve the model names from your database
         $modelNames = DB::table('Models')
-        ->pluck('model_name') 
+        ->pluck('model_name')
+        ->take(10) 
         ->toArray();
 
         // Return the model names as JSON response
