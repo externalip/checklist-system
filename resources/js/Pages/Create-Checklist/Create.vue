@@ -1167,12 +1167,12 @@ export default {
         async submit() {
             Swal.fire({
                 title: 'Are you sure?',
-                text: `You are about to create.`,
-                icon: 'warning',
+                text: `You are about to create a new checksheet.`,
+                icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: 'Yes'
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     try {
@@ -1189,14 +1189,14 @@ export default {
 
                             await Swal.fire({
                                 icon: 'error',
-                                title: 'Caught in ElseIf',
+                                title: 'Error',
                                 text: 'Something went wrong!',
                             });
                         } else {
 
                             await Swal.fire({
                                 icon: 'error',
-                                title: 'Caught in Else',
+                                title: 'Error',
                                 text: 'Something went wrong!',
                             });
                         }

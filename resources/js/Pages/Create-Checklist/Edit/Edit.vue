@@ -132,6 +132,7 @@ const confirmDelete = async (formID) => {
                                     >
                                         <!-- DCC Redirect Button -->
                                         <button
+                                            @click="callDCC()"
                                             class="hover:bg-gray-200 transition duration-200 ease-in-out p-4"
                                         >
                                             <svg
@@ -228,6 +229,9 @@ export default {
         callCreator() {
             router.get("/generate");
         },
+        callDCC() {
+            router.get("/dcc");
+        }
     },
 };
 </script>

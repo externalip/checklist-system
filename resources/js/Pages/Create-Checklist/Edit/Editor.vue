@@ -1102,12 +1102,16 @@ export default {
         },
         async submit() {
             try {
-                const response = await axios.put(route('checksheet.update'), {
-                    form_id: this.form_id,
-                    new_config: form_config,
-                });
+                // const response = await axios.put(route('checksheet.update'), {
+                //     form_id: this.form_id,
+                //     new_config: form_config,
+                // });
 
-                if (response.status === 200) {
+                const response = await axios.post(
+                    route('generate.store'), form_config
+                );
+
+                if (response.data.status === 'success') {
                     Swal.fire({
                         icon: 'success',
                         title: 'Updated successfully!',
