@@ -39,15 +39,15 @@ class Signature extends Model
     public function getDescriptionForEvent(string $eventName): string
     {
         if ($eventName == 'created') {
-            return 'Signaturee was Created';
+            return "Signature $this->id was Created";
         } elseif ($eventName == 'updated') {
             if ($this->status == 'OK') {
-                return 'Signature was Approved';
+                return "Signature $this->id was Approved by $this->required_sign_role";
             } elseif ($this->status == 'Rejected') {
-                return 'Signature was Rejected';
+                return "Signature $this->id was Rejected by $this->required_sign_role";
             }
 
-            return 'Signature was Updated';
+            return "Signature $this->id was Updated";
         } elseif ($eventName == 'deleted') {
             return 'Signature was Deleted';
         }
