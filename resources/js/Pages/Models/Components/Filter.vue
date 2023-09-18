@@ -16,8 +16,8 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                             </svg>
-                        </div>
-                        <VueMultiselect v-model="modelName" :options="displayedOptions" id="default-search-name" placeholder="Search Model Name" class="" required></VueMultiselect>
+                        </div>  
+                        <VueMultiselect v-model="modelName" :options="modelOptions" :optionsLimit="10" :show-labels="false" @searchChange="limitedModelNames" id="default-search-name" placeholder="Search Model Name" class="" required></VueMultiselect>
                     </div>
                 </form>
             </div>
@@ -61,52 +61,55 @@
     </section>
 </template>
 <script setup>
-import {ref, watch, onMounted, computed} from 'vue';
+import {ref, watch, onMounted} from 'vue';
 import {router} from '@inertiajs/vue3';
 import VueMultiselect from 'vue-multiselect';
 
 let modelName = ref('');
 let SelectedForms = ref([]);
 let modelOptions = ref([]);
+let allModelOptions = ref([]);
+let userData = ref("");
 
 let props  = defineProps({
-    model: {
-        type: Object,
-        required: true
-    },
     Forms: {
         type: Array,
         required: true
     },
-    filters: {
-        type: Object,
-        required: true
-    }
+    modelNames: {
+        type: Array,
+    },
 });
 
 // Fetch model names from your database
-const fetchModelNames = async () => {
-    try {
-        // Fetch model names from your Laravel API endpoint
-        const response = await fetch('/api/model-names');
-        const data = await response.json();
-        
-        // Set the fetched model names as options
-        modelOptions.value = data.modelNames; 
-    } catch (error) {
-        console.error('Error fetching model names:', error);
-    }
-};
+const limitedModelNames = async (searchInput) => {
 
-const displayedOptions = computed(() => {
-    const input = modelName.value.toLowerCase().trim();
-    if (!input) {
-        return modelOptions.value.slice(0, 10); // Display first 10 options when no input
+    if (searchInput) {
+        try {
+            const response = await fetch(`/api/model-names/${searchInput}`);
+            const data = await response.json();
+            
+            // Set the fetched model names as options
+            modelOptions.value = data.limitedModelNames;
+        } catch (error) {
+            console.error('Error fetching model names:', error);
+        }
+    }else{
+        try {
+            // Fetch model names from your Laravel API endpoint
+            const response = await fetch(`/api/model-names`);
+            const data = await response.json();
+            
+            // Set the fetched model names as options
+            allModelOptions.value = data.modelNames;
+            modelOptions.value = allModelOptions.value;
+        } catch (error) {
+            console.error('Error fetching model names:', error);
+        } 
     }
-    return modelOptions.value
-        .filter(option => option.model_name.toLowerCase().includes(input))
-        .slice(0, 10); // Display first 10 filtered options
-});
+    
+
+};
 
 watch([modelName, SelectedForms], ([modelName, SelectedForms]) => {
     const filters = {...props.filters};
@@ -124,7 +127,7 @@ watch([modelName, SelectedForms], ([modelName, SelectedForms]) => {
     });
 });
 
-onMounted(fetchModelNames);
+onMounted(limitedModelNames);
 </script>
 
 <script>
@@ -132,12 +135,12 @@ export default {
   components: { VueMultiselect },
   data () {
     return {
-      selected: null,
-      options: []
     }
   }
 }
 </script>
 
-<style src="vue-multiselect/dist/vue-multiselect.css"></style>
+<style src="vue-multiselect/dist/vue-multiselect.css">
+</style>
+
 

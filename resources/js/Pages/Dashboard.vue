@@ -34,19 +34,23 @@ const props = defineProps({
 
                 <div id="pending-review-cards" class="grid 2xl:grid-cols-5 lg:grid-cols-3 md:grid-cols-2 grid-cols-2 gap-4">
         <!-- Dynamic Card -->
+                
                 <div v-for="form in forms" :key="form.id" class="hover:bg-gray-50 duration-200 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
-                    <div class="p-4 px-6 h-full flex flex-col">
-                        <span class="text-[--blue] font-bold bg-clip-text text-2xl flex md:justify-end justify-center">{{ form.pending_count }}</span>
-                        <Link href="/Pending-Reports" :data="{ form_name: form.form_name }" preserve-state >
-                            <h5 class="mb-2 truncate text-lg font-bold tracking-tight text-[--blue] dark:text-white">
-                                {{ form.form_name }}
-                            </h5>
-                        </Link>
-                        <p class="mb-3 flex-grow font-normal text-sm text-[--blue] dark:text-gray-400 overflow-hidden overflow-ellipsis">
-                            You have {{ form.pending_count }} pending reviews on this check sheet.
-                        </p>
-                    </div>
+                    <Link href="/Pending-Reports" :data="{ form_name: form.form_name }" preserve-state >
+                        <div class="p-4 px-6 h-full flex flex-col">
+                            <span class="text-[--blue] font-bold bg-clip-text text-2xl flex md:justify-end justify-center">{{ form.pending_count }}</span>
+                            
+                                <h5 class="mb-2 truncate text-lg font-bold tracking-tight text-[--blue] dark:text-white">
+                                    {{ form.form_name }}
+                                </h5>
+
+                            <p class="mb-3 flex-grow font-normal text-sm text-[--blue] dark:text-gray-400 overflow-hidden overflow-ellipsis">
+                                You have {{ form.pending_count }} pending reviews on this check sheet.
+                            </p>
+                        </div>
+                    </Link>
                 </div>
+
             </div>
 
             </section>

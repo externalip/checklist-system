@@ -24,3 +24,6 @@ Route::get('/audit', [\App\Http\Controllers\AuditController::class, 'index'])
 
 Route::get('/TableView', [\App\Http\Controllers\ModelController::class, 'TableView'])
     ->name('TableView');
+
+Route::get('/model-names/{name}', [\App\Http\Controllers\ModelController::class, 'limitedModelNames'])->name('api.limited-model-names');
+Route::get('/model-names', [\App\Http\Controllers\ModelController::class, 'getModelNames'])->name('api.model-names');
