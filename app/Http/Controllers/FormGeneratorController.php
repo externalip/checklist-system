@@ -39,7 +39,7 @@ class FormGeneratorController extends Controller
 
         // Get new form ID
         $row_id = $form->id;
-
+        
         // Create vue component based on form config
         $this->generateForm($row_id, $form_name, $config);
 
