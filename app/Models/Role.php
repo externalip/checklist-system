@@ -5,14 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Permission\Models\Role as SpatieRole;
 
-class Role extends User
+class Role extends SpatieRole
 {
-    use HasFactory;
-    use LogsActivity;
-
-    //only grab the changes
-    protected static $logOnlyDirty = true;
+    use HasFactory, LogsActivity;
 
     /**
      * Get activity log options.
@@ -20,7 +17,7 @@ class Role extends User
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults('Role')
-            ->logOnly(['name', 'description'])
+            ->logOnly(['*'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs()
             ->logFillable()

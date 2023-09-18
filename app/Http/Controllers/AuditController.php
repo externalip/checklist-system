@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Audit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
 use Inertia\Inertia;
 
 class AuditController extends Controller
@@ -79,6 +80,27 @@ class AuditController extends Controller
             'users' => $users,
             'events' => $events,
         ]);
+    }
+
+    public function viewDataProperties($auditId)
+    {
+        // Fetch the audit by ID (replace 'Audit' with your actual model name)
+        $audit = DB::table('activity_log')
+            ->where('id', $auditId)
+            ->first();
+
+        // Get the audit properties as text
+        $propertiesText = $audit->properties;
+
+        // Define the file name with the audit ID
+        $fileName = "audit_properties_{$auditId}.txt";
+
+        // Create a response with the properties as a downloadable TXT file
+        $response = Response::make($propertiesText);
+        $response->header('Content-Disposition', "attachment; filename={$fileName}");
+
+        // dd($propertiesText);
+        return $response;
     }
 
     /**

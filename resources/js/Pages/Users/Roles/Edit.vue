@@ -45,6 +45,7 @@
                                     type="text"
                                     id="role_description"
                                     class="text-sm text-gray-900 w-full rounded-lg border-1 border-gray-300 p-2"
+                                    required
                                 />
                                 <InputError
                                     class="mt-2"

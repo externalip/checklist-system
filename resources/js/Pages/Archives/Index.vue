@@ -179,7 +179,7 @@ export default {
 
             <!-- Pagination -->
             <div class="mt-4">
-                <Pagination :data="response_fields" />
+                <Pagination :data="data" />
             </div>
         </div>
     </AppLayout>
@@ -187,7 +187,7 @@ export default {
 
 <script setup>
 import { ref, computed, reactive } from "vue";
-
+import Pagination from "@/Shared/Pagination.vue";
 import { Link } from "@inertiajs/vue3";
 import AppLayout from "@/Layouts/AppLayout.vue";
 

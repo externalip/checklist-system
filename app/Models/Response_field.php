@@ -40,11 +40,11 @@ class Response_field extends User
     public function getDescriptionForEvent(string $eventName): string
     {
         if ($eventName == 'created') {
-            return 'Response was Created';
+            return "Response $this->id was Created";
         } elseif ($eventName == 'updated') {
-            return 'Response was Updated';
+            return "Response $this->id was Updated";
         } elseif ($eventName == 'deleted') {
-            return 'Response was Deleted';
+            return "Response $this->id was Deleted";
         }
 
         return 'Response was Created';
