@@ -1,22 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 [x-cloak] {
     display: none;
 }
 
 :root {
-    font-family: 'Nunito', sans-serif;
-    --blue: #3C5393;
-    --navbar: #CCCDCF;
-    --complete: #1FAC3C;
-    --red: #E33A3A;
+    font-family: "Nunito", sans-serif;
+    --blue: #3c5393;
+    --navbar: #cccdcf;
+    --complete: #1fac3c;
+    --red: #e33a3a;
     --input: #fff;
     --outline-input: #414141;
-    --disabled: #E5E5E5;
-    --disabled-outline: #B2B2B2;
-    --overdue: #EF5B0C;
+    --disabled: #e5e5e5;
+    --disabled-outline: #b2b2b2;
+    --overdue: #ef5b0c;
 }
 
 ::-webkit-scrollbar {
@@ -32,7 +31,7 @@
 }
 
 * {
-    font-family: 'Nunito', sans-serif;
+    font-family: "Nunito", sans-serif;
 }
 
 button {
@@ -66,7 +65,7 @@ h4 {
 h5 {
     font-size: 1.25rem;
     font-weight: 500;
-    letter-spacing: -.7px;
+    letter-spacing: -0.7px;
 }
 
 h6 {
@@ -77,4 +76,52 @@ h6 {
 p {
     font-size: 1rem;
     font-weight: 400;
+}
+
+.multiselect__tag {
+    color: rgb(48, 48, 48) !important;
+    background-color: rgba(255, 255, 255, 255) !important;
+    border: 1px solid rgba(111, 118, 221, 0.726);
+    font-size: 01rem;
+}
+.multiselect__tag:hover {
+    background-color: var(--blue) !important;
+    transition: all 0.2s ease-in-out;
+    color: var(--input) !important;
+}
+
+.multiselect__option--disabled {
+    background: rgb(209, 202, 209) !important;
+    color: rgba(var(--vs-primary), 1) !important;
+    font-style: italic;
+}
+
+.multiselect__option--highlight {
+    background-color: var(--blue) !important;
+    color: var(--input) !important;
+    font-size: 0.9rem;
+    height: 1rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.multiselect__content {
+    background: rgb(255, 255, 255) !important;
+    color: #444 !important;
+    font-size: 0.9rem;
+}
+.multiselect__single {
+    height: 0.8rem;
+    font-size: 1rem;
+    color: #444 !important;
+}
+.multiselect__tag {
+    position: relative;
+    display: inline-block;
+    padding: 0.35rem 1.625rem 0.35rem 0.625rem;
+
+    margin-right: 0.625rem;
+
+    line-height: 1;
+
+    margin-bottom: 0.5rem;
 }
