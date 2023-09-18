@@ -58,7 +58,7 @@ class ReportController extends Controller
             ->where('status', '=', 'pending')
             ->count();
 
-            $formcount = DB::table('forms')
+        $formcount = DB::table('forms')
             ->select('forms.id', 'forms.form_name')
             ->selectRaw('COUNT(response_fields.status) AS pending_count')
             ->leftJoin('response_fields', function ($join) {
