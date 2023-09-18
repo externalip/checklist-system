@@ -1102,11 +1102,13 @@ export default {
         },
         async submit() {
             try {
+                // Remove these code's comment to enable checksheet overwrite
                 // const response = await axios.put(route('checksheet.update'), {
                 //     form_id: this.form_id,
                 //     new_config: form_config,
                 // });
-
+                
+                // Create new form (does not overwrite edited form)
                 const response = await axios.post(
                     route('generate.store'), form_config
                 );
