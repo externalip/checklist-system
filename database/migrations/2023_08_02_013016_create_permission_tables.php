@@ -125,7 +125,7 @@ class CreatePermissionTables extends Migration
         });
         // roles
         $roles = ['Operator', 'Line Leader', 'Quality Control'];
-        $permissions = ['dashboard', 'users', 'manage-checksheet', 'pending-reports', 'view-checklist', 'archives', 'audit', 'models', 'user-manual'];
+        $permissions = ['dashboard', 'users', 'manage-checksheet', 'pending-reports', 'view-checklist', 'archives', 'audit', 'models', 'user-manual', 'revision'];
         foreach ($roles as $role) {
             Role::create(['name' => $role]);
         }

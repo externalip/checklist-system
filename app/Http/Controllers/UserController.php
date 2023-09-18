@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ModelsExport;
+use App\Exports\UsersExport;
 use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -11,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -247,5 +250,15 @@ class UserController extends Controller
     public function showPendingApproval()
     {
         return Inertia::render('Create-Checklist/ChecklistApproval/Index');
+    }
+
+    public function exportUsers()
+    {
+        return Excel::download(new UsersExport, 'users.xlsx');
+    }
+
+    public function exportModels()
+    {
+        return Excel::download(new ModelsExport, 'models.xlsx');
     }
 }
