@@ -14,7 +14,6 @@
 
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
-import { Link } from '@inertiajs/vue3';
 </script>
 
 <template>
@@ -24,24 +23,49 @@ import { Link } from '@inertiajs/vue3';
                 <div class="lg:mx-[25%] mb-40">
                     <div class="mx-auto">
 
-                        <!-- CHECKSHEET NAME -->
-                        <div class="mb-5">
-                            <div class="relative">
+                        <!-- CHECKSHEET DETAILS -->
+                        <div class="bg-white border-gray-400 rounded-lg border-2 mb-5 p-4">
+
+                            <!-- CHECKSHEET NAME -->
+                            <div class="relative mb-4">
 
                                 <!-- FORM NAME INPUT FIELD -->
                                 <input v-model="form_config.form_name" type="text" id="checksheet-id" name="checksheet-name"
                                     class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                    placeholder=" " required />
+                                    placeholder=" " required 
+                                />
+                                    
+                                <!-- PLACEHOLDER -->
                                 <label for="checksheet-id"
-                                    class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Type
-                                    here the Checksheet name...
+                                    class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
+                                    >Type here the Checksheet name...
                                 </label>
+
                             </div>
+
+                            <!-- CONTROL NO. -->
+                            <div class="relative">
+
+                                <!-- SECTION NAME INPUT -->
+                                <input v-model="form_config.control_no"
+                                    type="text" name="control-no" id="control-no"
+                                    class="text-xs block px-2.5 pb-1.5 pt-3 w-full text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                    placeholder=" " required 
+                                />
+                                                
+                                <!-- PLACEHOLDER -->
+                                <label for="control-no"
+                                    class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1"
+                                    >Control No.
+                                </label>
+                                
+                            </div>
+
                         </div>
 
                         <!-- SECTION LOOPER -->
                         <div v-for="key in Object.keys(form_config.form_content).length" :key="key">
-                            <div :name="'section_' + key" class="border-gray-400 rounded-lg border-2 mb-10 p-4">
+                            <div :name="'section_' + key" class="bg-white border-gray-400 rounded-lg border-2 mb-5 p-4">
                                 <div class="bg-white">
                                     <div class="flex justify-between">
 
@@ -51,7 +75,9 @@ import { Link } from '@inertiajs/vue3';
                                         <!-- DELETE SECTION BUTTON -->
                                         <div class="flex items-center align-center">
                                             <button @click="removeSection('section' + key)"
-                                                class="duration-200 p-2 hover:bg-red-200 rounded-md">
+                                                type="button"
+                                                class="duration-200 p-2 hover:bg-red-200 rounded-md"
+                                                formnovalidate>
                                                 <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
                                                     <path stroke="red" stroke-linecap="round" stroke-linejoin="round"
@@ -68,19 +94,21 @@ import { Link } from '@inertiajs/vue3';
                                         <div class="lg:col-span-5">
                                             <p class="text-sm font-bold mb-1">Section Name</p>
 
-                                            <!-- SECTION NAME INPUT -->
-                                            <div class="relative">
+                                            <div class="relative" ref="sectionRefs">
+                                                <!-- SECTION NAME INPUT -->
                                                 <input v-model="form_config.form_content['section' + key.toString()].section_name"
                                                     type="text" :name="'section_name' + key" :id="'section_name' + key"
-                                                    class="block px-2.5 pb-1.5 pt-3 w-full text-xs text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                    placeholder=" " required />
+                                                    class="text-xs block px-2.5 pb-1.5 pt-3 w-full text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                    placeholder=" " required/>
+                                                
+                                                <!-- PLACEHOLDER -->
                                                 <label :for="'section_name' + key"
                                                     class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Type
-                                                    here the section name...</label>
+                                                    here the section name...
+                                                </label>
                                             </div>
 
                                         </div>
-
                                     </div>
                                     <!--End of Top Section (Section Name)-->
 
@@ -101,13 +129,13 @@ import { Link } from '@inertiajs/vue3';
                                                         <input v-model="form_config
                                                             .form_content['section' + key.toString()]
                                                             .section_content['question' + qIndex.toString()].label" type="text"
-                                                            :name="'question' + qIndex" :id="'question' + qIndex" class="block px-2.5 pb-1.5 pt-3 w-full text-xs text-gray-900 bg-transparent
+                                                            :id="'question' + qIndex" class="block px-2.5 pb-1.5 pt-3 w-full text-xs text-gray-900 bg-transparent
                                                                 rounded-lg border-1 border-gray-300 appearance-none dark:text-white
                                                                 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none
                                                                 focus:ring-0 focus:border-blue-600 peer" placeholder=" "
                                                             required />
 
-                                                        <label :for="'question' + qIndex"
+                                                        <label :id="'question' + qIndex" :for="'question' + qIndex"
                                                             class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Type
                                                             here the question...</label>
                                                     </div>
@@ -125,7 +153,7 @@ import { Link } from '@inertiajs/vue3';
                                                             .form_content['section' + key.toString()]
                                                             .section_content['question' + qIndex.toString()].instruction"
                                                             type="text" :name="'instruction' + qIndex" :id="'instruction' + qIndex"
-                                                            class="block px-2.5 pb-1.5 pt-3 w-full text-xs text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                            class="text-xs block px-2.5 pb-1.5 pt-3 w-full text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                             placeholder=" " />
                                                         <label :for="'instruction' + qIndex"
                                                             class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Type
@@ -143,7 +171,7 @@ import { Link } from '@inertiajs/vue3';
                                                         @change="resetQuestionContent('section' + key.toString(), 'question' + qIndex.toString())"
                                                         v-model="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type"
                                                         :name="'v'"
-                                                        class="border-1 border-gray-300 text-gray-900 text-xs rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                        class="text-xs required border-1 border-gray-300 text-gray-900 text-m rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                         required>
                                                         <option disabled>
                                                             Choose a type
@@ -151,8 +179,11 @@ import { Link } from '@inertiajs/vue3';
                                                         <option :value="'radio'">
                                                             Multiple Choice
                                                         </option>
+                                                        <option :value="'radio-symbol'">
+                                                            Multiple Choice (✔, ✘, ✔✘)
+                                                        </option>
                                                         <option :value="'checkbox'">
-                                                            Check
+                                                            Checkbox
                                                         </option>
                                                         <option :value="'text'">
                                                             Text
@@ -177,40 +208,105 @@ import { Link } from '@inertiajs/vue3';
 
                                                     <!-- Radio Input Label -->
                                                     <div v-for="ansIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].options).length"
-                                                        class="flex">
-                                                        <div class="w-full relative">
+                                                        class="flex mb-2">
+                                                        <div class="w-full relative flex" ref="ansRefs">
                                                             <input v-model="form_config
                                                                 .form_content['section' + key.toString()]
                                                                 .section_content['question' + qIndex.toString()]
-                                                                .options['ans' + ansIndex.toString()]" type="text"
+                                                                .options['ans' + ansIndex.toString()].label" type="text"
                                                                 :name="'radio' + key" :id="'radio' + key"
-                                                                class="mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-xs text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                                class="mb-2 block px-2.5 pb-1.5 pt-3 w-full text-xs text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                                 placeholder="Enter answer option here" required />
+
                                                             <label :for="'radio' + key"
                                                                 class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Radio
                                                                 Option
                                                             </label>
                                                         </div>
 
+                                                        <!-- Color Identifier -->
+                                                        <div class="mx-5 md:w-2/6 rounded-full flex">
+
+                                                            <!-- THE COLOR -->
+                                                            <div class="flex items-center">
+                                                                <!-- Clear -->
+                                                                <div v-if="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options['ans' + ansIndex.toString()].color == 'clear'"
+                                                                class="rounded-full border p-2 bg-[#FFFFFF]"></div>
+
+                                                                <!-- Red -->
+                                                                <div v-if="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options['ans' + ansIndex.toString()].color == '#E33A3A'"
+                                                                class="rounded-full p-2 bg-[#E33A3A]"></div>
+
+                                                                <!-- Green -->
+                                                                <div v-if="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options['ans' + ansIndex.toString()].color == '#1FAC3C'"
+                                                                class="rounded-full p-2 bg-[#1FAC3C]"></div>
+
+                                                                <!-- Blue -->
+                                                                <div v-if="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options['ans' + ansIndex.toString()].color == '#3C5393'"
+                                                                class="rounded-full p-2 bg-[#3C5393]"></div>
+
+                                                                <!-- Orange -->
+                                                                <div v-if="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options['ans' + ansIndex.toString()].color == '#EF5B0C'"
+                                                                class="rounded-full p-2 bg-[#EF5B0C]"></div>
+                                                            </div>
+
+
+                                                            <!-- THE SELECT OPTION -->
+                                                            <select v-model="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options['ans' + ansIndex.toString()].color"
+                                                                id="countries"
+                                                                class="border-none text-gray-900 rounded-lg text-xs focus-none block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                            >
+                                                                <option value="clear" selected>Clear</option>
+                                                                <option value="#E33A3A">Red</option>
+                                                                <option value="#1FAC3C">Green</option>
+                                                                <option value="#3C5393">Blue</option>
+                                                                <option value="#EF5B0C">Orange</option>
+                                                            </select>
+
+                                                        </div>
+
+
                                                         <!-- Delete answer option button -->
                                                         <button
+                                                            type="button"
                                                             @click="removeAnswer('section' + key.toString(), 'question' + qIndex.toString(), 'ans' + ansIndex.toString())"
-                                                            class="p-3 hover:bg-red-100">
+                                                            class="p-3 hover:bg-red-100"
+                                                            formnovalidate>
                                                             <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
                                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                                 viewBox="0 0 20 20">
                                                                 <path
                                                                     d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
                                                             </svg>
-
                                                         </button>
                                                     </div>
 
+
                                                     <!-- Add answer option button -->
                                                     <button
+                                                        type="button"
                                                         @click="addAnswer('section' + key.toString(), 'question' + qIndex.toString())"
                                                         v-if="answerType.includes(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type)"
-                                                        class="hover:bg-blue-500 bg-[#3c5393] text-white duration-200 p-2 rounded-md text-sm flex items-center align-center">
+                                                        class="hover:bg-blue-500 bg-[#3c5393] text-white duration-200 p-2 rounded-md text-sm flex items-center align-center"
+                                                        formnovalidate>
                                                         <svg class="w-4 h-4 mr-2 text-white-800 dark:text-white" aria-hidden="true"
                                                             xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
                                                             viewBox="0 0 20 20">
@@ -221,6 +317,104 @@ import { Link } from '@inertiajs/vue3';
                                                         Add Option
                                                     </button>
 
+                                                </div>
+
+                                                <!-- OPTION || Radio-Symbol -->
+                                                <div class="col-span-2"
+                                                    v-if="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type === 'radio-symbol'">
+
+                                                    <div class="mb-2">
+                                                        <p class="text-sm font-bold">
+                                                            Radio Options
+                                                        </p>
+                                                    </div>
+
+                                                    <!-- Radio Input Label -->
+                                                    <div v-for="ansIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].options).length"
+                                                        class="flex">
+                                                        <div class="w-full relative" ref="ansRefs">
+                                                            <input v-model="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options['ans' + ansIndex.toString()].label" type="text"
+                                                                :name="'radio' + key" :id="'radio' + key"
+                                                                class="bg-[--disabled] border-[--disabled-outline] mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-xs text-gray-900 rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                                placeholder="Enter answer option here" disabled required/>
+                                                            <label :for="'radio' + key"
+                                                                class="bg-transparent absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Radio
+                                                                Option
+                                                            </label>
+                                                        </div>
+
+                                                        <!-- Color Identifier -->
+                                                        <div class="mx-5 md:w-2/6 rounded-full flex">
+
+                                                            <!-- THE COLOR -->
+                                                            <div class="flex items-center">
+                                                                <!-- Clear -->
+                                                                <div v-if="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options['ans' + ansIndex.toString()].color == 'clear'"
+                                                                class="rounded-full border p-2 bg-[#FFFFFF]"></div>
+
+                                                                <!-- Red -->
+                                                                <div v-if="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options['ans' + ansIndex.toString()].color == '#E33A3A'"
+                                                                class="rounded-full p-2 bg-[#E33A3A]"></div>
+
+                                                                <!-- Green -->
+                                                                <div v-if="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options['ans' + ansIndex.toString()].color == '#1FAC3C'"
+                                                                class="rounded-full p-2 bg-[#1FAC3C]"></div>
+
+                                                                <!-- Blue -->
+                                                                <div v-if="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options['ans' + ansIndex.toString()].color == '#3C5393'"
+                                                                class="rounded-full p-2 bg-[#3C5393]"></div>
+
+                                                                <!-- Orange -->
+                                                                <div v-if="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options['ans' + ansIndex.toString()].color == '#EF5B0C'"
+                                                                class="rounded-full p-2 bg-[#EF5B0C]"></div>
+                                                            </div>
+
+
+                                                            <!-- THE SELECT OPTION -->
+                                                            <select v-model="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options['ans' + ansIndex.toString()].color"
+                                                                id="countries"
+                                                                class="border-none text-gray-900 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                            >
+                                                                <option value="clear" selected>Clear</option>
+                                                                <option value="#E33A3A">Red</option>
+                                                                <option value="#1FAC3C">Green</option>
+                                                                <option value="#3C5393">Blue</option>
+                                                                <option value="#EF5B0C">Orange</option>
+                                                            </select>
+
+                                                        </div>
+
+                                                        <!-- Delete answer option button -->
+                                                        <button type="button" class="p-3" disabled formnovalidate>
+                                                            <svg class="w-4 h-4 text-gray-400 dark:text-white" aria-hidden="true"
+                                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                                viewBox="0 0 20 20">
+                                                                <path
+                                                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
                                                 </div>
 
                                                 <!-- OPTION || Checkbox -->
@@ -235,36 +429,99 @@ import { Link } from '@inertiajs/vue3';
                                                     <!-- Checkbox Input Label -->
                                                     <div v-for="ansIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].options).length"
                                                         class="flex">
-                                                        <div class="w-full relative">
+                                                        <div class="w-full relative" ref="ansRefs">
                                                             <input type="text" :name="'check' + key" :id="'check' + key"
                                                                 class="mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-xs text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                                 placeholder="Enter answer option here" v-model="form_config
                                                                     .form_content['section' + key.toString()]
                                                                     .section_content['question' + qIndex.toString()]
-                                                                    .options['ans' + ansIndex.toString()]
+                                                                    .options['ans' + ansIndex.toString()].label
                                                                     " required />
                                                             <label :for="'check' + key"
                                                                 class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Checkbox
                                                                 Option</label>
                                                         </div>
 
+                                                        <!-- Color Identifier -->
+                                                        <div class="mx-5 md:w-2/6 rounded-full flex">
+
+                                                            <!-- THE COLOR -->
+                                                            <div class="flex items-center">
+                                                                <!-- Clear -->
+                                                                <div v-if="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options['ans' + ansIndex.toString()].color == 'clear'"
+                                                                class="rounded-full border p-2 bg-[#FFFFFF]"></div>
+
+                                                                <!-- Red -->
+                                                                <div v-if="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options['ans' + ansIndex.toString()].color == '#E33A3A'"
+                                                                class="rounded-full p-2 bg-[#E33A3A]"></div>
+
+                                                                <!-- Green -->
+                                                                <div v-if="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options['ans' + ansIndex.toString()].color == '#1FAC3C'"
+                                                                class="rounded-full p-2 bg-[#1FAC3C]"></div>
+
+                                                                <!-- Blue -->
+                                                                <div v-if="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options['ans' + ansIndex.toString()].color == '#3C5393'"
+                                                                class="rounded-full p-2 bg-[#3C5393]"></div>
+
+                                                                <!-- Orange -->
+                                                                <div v-if="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options['ans' + ansIndex.toString()].color == '#EF5B0C'"
+                                                                class="rounded-full p-2 bg-[#EF5B0C]"></div>
+                                                            </div>
+
+
+                                                            <!-- THE SELECT OPTION -->
+                                                            <select v-model="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options['ans' + ansIndex.toString()].color"
+                                                                id="countries"
+                                                                class="border-none text-gray-900 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                            >
+                                                                <option value="clear" selected>Clear</option>
+                                                                <option value="#E33A3A">Red</option>
+                                                                <option value="#1FAC3C">Green</option>
+                                                                <option value="#3C5393">Blue</option>
+                                                                <option value="#EF5B0C">Orange</option>
+                                                            </select>
+
+                                                        </div>
+
                                                         <!-- Delete Answer Option Button -->
                                                         <button
+                                                            type="button"
                                                             @click="removeAnswer('section' + key.toString(), 'question' + qIndex.toString(), 'ans' + ansIndex.toString())"
-                                                            class="p-3 hover:bg-red-100">
+                                                            class="p-3 hover:bg-red-100"
+                                                            formnovalidate>
                                                             <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
                                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                                 viewBox="0 0 20 20">
                                                                 <path
                                                                     d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
                                                             </svg>
-
                                                         </button>
                                                     </div>
 
+                                                    <!-- Add Answer Button -->
                                                     <button
+                                                        type="button"
                                                         @click="addAnswer('section' + key.toString(), 'question' + qIndex.toString())"
-                                                        class="hover:bg-blue-500 bg-[#3c5393] text-white duration-200 p-2 rounded-md text-sm flex items-center align-center">
+                                                        class="hover:bg-blue-500 bg-[#3c5393] text-white duration-200 p-2 rounded-md text-sm flex items-center align-center"
+                                                        formnovalidate>
                                                         <svg class="w-4 h-4 mr-2 text-white-800 dark:text-white" aria-hidden="true"
                                                             xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
                                                             viewBox="0 0 20 20">
@@ -280,28 +537,90 @@ import { Link } from '@inertiajs/vue3';
                                                 <div class="col-span-2"
                                                     v-if="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type === 'text'">
                                                     <div class="">
-                                                        <p class="text-sm font-bold mb-2">
+                                                        <p class="text-sm mb-2 font-bold">
                                                             Textbox
                                                         </p>
                                                     </div>
 
-                                                    <!-- Text Input Label -->
-                                                    <div class="relative">
-                                                        <input type="text" :name="'text' + key"
-                                                            class="bg-[--disabled] border-[--disabled-outline] block px-2.5 pb-1.5 pt-3 w-5/6 text-sm text-gray-900 rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                                            placeholder=" " disabled />
-                                                        <label for="section_name"
-                                                            class="bg-[--disabled] absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">
-                                                            Answer here...
-                                                        </label>
+                                                    <div class="flex">
+                                                        <!-- Text Input Label -->
+                                                        <div class="relative w-full" ref="ansRefs">
+                                                            <input type="text" :name="'text' + key"
+                                                                class="bg-[--disabled] border-[--disabled-outline] block px-2.5 pb-1.5 pt-3 w-full text-xs text-gray-900 rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                                                placeholder=" " disabled />
+                                                            <label for="section_name"
+                                                                class="bg-[--disabled] absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Type
+                                                                here...</label>
+                                                        </div>
+
+                                                        <!-- Color Identifier -->
+                                                        <div class="mx-5 md:w-2/6 rounded-full flex">
+
+                                                            <!-- THE COLOR -->
+                                                            <div class="flex items-center">
+
+                                                                <!-- Clear -->
+                                                                <div v-if="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options.ans1.color == 'clear'"
+                                                                class="rounded-full border p-2 bg-[#FFFFFF]"></div>
+
+                                                                <!-- Red -->
+                                                                <div v-if="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options.ans1.color == '#E33A3A'"
+                                                                class="rounded-full p-2 bg-[#E33A3A]"></div>
+
+                                                                <!-- Green -->
+                                                                <div v-if="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options.ans1.color == '#1FAC3C'"
+                                                                class="rounded-full p-2 bg-[#1FAC3C]"></div>
+
+                                                                <!-- Blue -->
+                                                                <div v-if="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options.ans1.color == '#3C5393'"
+                                                                class="rounded-full p-2 bg-[#3C5393]"></div>
+
+                                                                <!-- Orange -->
+                                                                <div v-if="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options.ans1.color == '#EF5B0C'"
+                                                                class="rounded-full p-2 bg-[#EF5B0C]"></div>
+                                                            </div>
+
+
+                                                            <!-- THE SELECT OPTION -->
+                                                            <select v-model="form_config
+                                                                .form_content['section' + key.toString()]
+                                                                .section_content['question' + qIndex.toString()]
+                                                                .options.ans1.color"
+                                                                id="countries"
+                                                                class="border-none text-gray-900 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                            >
+                                                                <option value="clear" selected>Clear</option>
+                                                                <option value="#E33A3A">Red</option>
+                                                                <option value="#1FAC3C">Green</option>
+                                                                <option value="#3C5393">Blue</option>
+                                                                <option value="#EF5B0C">Orange</option>
+                                                            </select>
+
+                                                        </div>
                                                     </div>
+
                                                 </div>
 
                                                 <!-- OPTION || Dropdown Options -->
                                                 <div class="col-span-2"
                                                     v-if="form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].type === 'dropdown'">
                                                     <div class="">
-                                                        <p class="text-sm font-bold mb-2">
+                                                        <p class="text-sm mb-2 font-bold">
                                                             Dropdown Options
                                                         </p>
                                                     </div>
@@ -309,11 +628,11 @@ import { Link } from '@inertiajs/vue3';
                                                     <!-- Dropdown Option Label -->
                                                     <div v-for="ansIndex in Object.keys(form_config.form_content['section' + key.toString()].section_content['question' + qIndex.toString()].options).length"
                                                         class="flex">
-                                                        <div class="w-full relative">
+                                                        <div class="w-full relative" ref="ansRefs">
                                                             <input v-model="form_config
                                                                 .form_content['section' + key.toString()]
                                                                 .section_content['question' + qIndex.toString()]
-                                                                .options['ans' + ansIndex.toString()]" type="text"
+                                                                .options['ans' + ansIndex.toString()].label" type="text"
                                                                 :name="'drop' + key" :id="'drop' + key"
                                                                 class="mb-2 block px-2.5 pb-1.5 pt-3 w-5/6 text-xs text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                                 placeholder=" " required />
@@ -321,9 +640,71 @@ import { Link } from '@inertiajs/vue3';
                                                                 class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-75 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-0 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Dropbox
                                                                 Option</label>
                                                         </div>
+
+                                                    <!-- Color Identifier -->
+                                                    <div class="mx-5 md:w-2/6 rounded-full flex">
+
+                                                        <!-- THE COLOR -->
+                                                        <div class="flex items-center">
+                                                            <!-- Clear -->
+                                                            <div v-if="form_config
+                                                            .form_content['section' + key.toString()]
+                                                            .section_content['question' + qIndex.toString()]
+                                                            .options['ans' + ansIndex.toString()].color == 'clear'"
+                                                            class="rounded-full border p-2 bg-[#FFFFFF]"></div>
+
+                                                            <!-- Red -->
+                                                            <div v-if="form_config
+                                                            .form_content['section' + key.toString()]
+                                                            .section_content['question' + qIndex.toString()]
+                                                            .options['ans' + ansIndex.toString()].color == '#E33A3A'"
+                                                            class="rounded-full p-2 bg-[#E33A3A]"></div>
+
+                                                            <!-- Green -->
+                                                            <div v-if="form_config
+                                                            .form_content['section' + key.toString()]
+                                                            .section_content['question' + qIndex.toString()]
+                                                            .options['ans' + ansIndex.toString()].color == '#1FAC3C'"
+                                                            class="rounded-full p-2 bg-[#1FAC3C]"></div>
+
+                                                            <!-- Blue -->
+                                                            <div v-if="form_config
+                                                            .form_content['section' + key.toString()]
+                                                            .section_content['question' + qIndex.toString()]
+                                                            .options['ans' + ansIndex.toString()].color == '#3C5393'"
+                                                            class="rounded-full p-2 bg-[#3C5393]"></div>
+
+                                                            <!-- Orange -->
+                                                            <div v-if="form_config
+                                                            .form_content['section' + key.toString()]
+                                                            .section_content['question' + qIndex.toString()]
+                                                            .options['ans' + ansIndex.toString()].color == '#EF5B0C'"
+                                                            class="rounded-full p-2 bg-[#EF5B0C]"></div>
+                                                        </div>
+
+
+                                                        <!-- THE SELECT OPTION -->
+                                                        <select v-model="form_config
+                                                            .form_content['section' + key.toString()]
+                                                            .section_content['question' + qIndex.toString()]
+                                                            .options['ans' + ansIndex.toString()].color"
+                                                            id="countries"
+                                                            class="border-none text-gray-900 rounded-lg text-xs focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                        >
+                                                            <option value="clear" selected>Clear</option>
+                                                            <option value="#E33A3A">Red</option>
+                                                            <option value="#1FAC3C">Green</option>
+                                                            <option value="#3C5393">Blue</option>
+                                                            <option value="#EF5B0C">Orange</option>
+                                                        </select>
+
+                                                    </div>
+                                                        <!-- Remove Answer Button -->
                                                         <button
+                                                            type="button"
                                                             @click="removeAnswer('section' + key.toString(), 'question' + qIndex.toString(), 'ans' + ansIndex.toString())"
-                                                            class="p-3 hover:bg-red-100">
+                                                            class="p-3 hover:bg-red-100"
+                                                            formnovalidate>
                                                             <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
                                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
                                                                 viewBox="0 0 20 20">
@@ -335,8 +716,10 @@ import { Link } from '@inertiajs/vue3';
                                                     </div>
 
                                                     <button
+                                                        type="button"
                                                         @click="addAnswer('section' + key.toString(), 'question' + qIndex.toString())"
-                                                        class="hover:bg-blue-500 bg-[#3c5393] text-white duration-200 p-2 rounded-md text-sm flex items-center align-center">
+                                                        class="hover:bg-blue-500 bg-[#3c5393] text-white duration-200 p-2 rounded-md text-sm flex items-center align-center"
+                                                        formnovalidate>
                                                         <svg class="w-4 h-4 mr-2 text-white-800 dark:text-white" aria-hidden="true"
                                                             xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
                                                             viewBox="0 0 20 20">
@@ -355,8 +738,10 @@ import { Link } from '@inertiajs/vue3';
                                                     <!-- Delete Question -->
                                                     <div class="flex items-center align-center">
                                                         <button
+                                                            type="button"
                                                             @click="removeQuestion('section' + key.toString(), 'question' + qIndex.toString())"
-                                                            class="duration-200 p-2 hover:bg-red-200 rounded-md">
+                                                            class="duration-200 p-2 hover:bg-red-200 rounded-md"
+                                                            formnovalidate>
                                                             <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
                                                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
                                                                 <path stroke="currentColor" stroke-linecap="round"
@@ -384,22 +769,25 @@ import { Link } from '@inertiajs/vue3';
                                             </div>
                                             <!-- End of Question Block Section -->
                                         </div>
-
                                         <!-- ADD QUESTION BUTTON -->
                                         <div class="p-5 flex flex-col items-center justify-center"
                                             v-if="form_config.form_content['section' + key.toString()].section_type == 'question'">
                                             <p class="text-md mb-1">Add a Question</p>
-                                            <button type="button"
+                                            <button
+                                                type="button"
                                                 class="pb-1.5 duration-200 border-[#3C5393]-200 border-2 rounded-md hover:bg-[#3C5393] hover:text-white font-bold py-2 px-4 w-[7rem]"
-                                                @click="addQuestion('section' + key.toString())">
+                                                @click="addQuestion('section' + key.toString())"
+                                                formnovalidate>
                                                 +
                                             </button>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <!-- End of Adding Section section -->
+
                     </div>
                 </div>
 
@@ -714,12 +1102,18 @@ export default {
         },
         async submit() {
             try {
-                const response = await axios.put(route('checksheet.update'), {
-                    form_id: this.form_id,
-                    new_config: form_config,
-                });
+                // Remove these code's comment to enable checksheet overwrite
+                // const response = await axios.put(route('checksheet.update'), {
+                //     form_id: this.form_id,
+                //     new_config: form_config,
+                // });
+                
+                // Create new form (does not overwrite edited form)
+                const response = await axios.post(
+                    route('generate.store'), form_config
+                );
 
-                if (response.status === 200) {
+                if (response.data.status === 'success') {
                     Swal.fire({
                         icon: 'success',
                         title: 'Updated successfully!',

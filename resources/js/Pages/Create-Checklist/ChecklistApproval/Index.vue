@@ -72,7 +72,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
                                 <label for="" class="text-sm"
                                     >Date Created</label
                                 >
-                                <h5 class="font-bold">09-05-2023:12:12:12</h5>
+                                <h5 class="font-bold">05 - SEPT - 2023</h5>
                             </div>
 
                             <!-- Prepared by Form -->
@@ -103,8 +103,9 @@ import AppLayout from "@/Layouts/AppLayout.vue";
                                                     fill="currentColor"
                                                     d="M11 6a1 1 0 1 1 0 2H5v11h11v-6a1 1 0 1 1 2 0v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6Zm9-3a1 1 0 0 1 1 1v5a1 1 0 1 1-2 0V6.414l-8.293 8.293a1 1 0 0 1-1.414-1.414L17.586 5H15a1 1 0 1 1 0-2Z"
                                                 />
-                                            </g></svg
-                                    ></span>
+                                            </g>
+                                        </svg>
+                                    </span>
                                 </a>
                             </div>
                         </div>
@@ -160,7 +161,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
                                             </td>
                                             <td class="px-6 py-3">Signed</td>
                                             <td class="px-6 py-3">
-                                                09-05-2023:12:12:12
+                                                05 - SEPT - 2023
                                             </td>
                                         </tr>
 
@@ -183,7 +184,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
                                             </td>
                                             <td class="px-6 py-3">Signed</td>
                                             <td class="px-6 py-3">
-                                                09-05-2023:12:12:12
+                                                05 - SEPT - 2023
                                             </td>
                                         </tr>
 
@@ -206,7 +207,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
                                             </td>
                                             <td class="px-6 py-3">Signed</td>
                                             <td class="px-6 py-3">
-                                                09-05-2023:12:12:12
+                                                05 - SEPT - 2023
                                             </td>
                                         </tr>
 
@@ -229,7 +230,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
                                             </td>
                                             <td class="px-6 py-3">Signed</td>
                                             <td class="px-6 py-3">
-                                                09-05-2023:12:12:12
+                                                05 - SEPT - 2023
                                             </td>
                                         </tr>
                                     </tbody>

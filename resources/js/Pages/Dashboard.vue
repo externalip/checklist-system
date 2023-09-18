@@ -12,8 +12,6 @@ const props = defineProps({
     checksheets: Number,
     archives: Number,
 });
-
-
 </script>
 
 <template>
@@ -26,7 +24,7 @@ const props = defineProps({
 
             </div>
 
-            <section id="pending-review-checklist" class="my-3">
+            <section v-if="$page.props.auth.user.permissions.some(permission => permission.name === 'pending-reports')" id="pending-review-checklist" class="my-3">
                 <!-- Pending Review Header -->
                 <div>
                     <h2 class="text-2xl text-[--blue]">Pending Reviews</h2>
@@ -55,7 +53,7 @@ const props = defineProps({
 
             </section>
 
-            <section id="system-status-track" class="my-3">
+            <section v-if="$page.props.auth.user.permissions.some(permission => permission.name === 'users')" id="system-status-track" class="my-3">
                 <!-- System Status Tracking Header -->
                 <div>
                     <h2 class="text-2xl text-[--blue]">System Tracking</h2>
@@ -65,14 +63,12 @@ const props = defineProps({
 
                     <div id="reg-personnel">
 
-                        <div
-                            class="flex items-center flex-col block max-w-sm p-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                            <svg class="w-12 h-12 mb-5 text-gray-400 dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="0.9"
-                                    d="M4.333 6.764a3 3 0 1 1 3.141-5.023M2.5 16H1v-2a4 4 0 0 1 4-4m7.379-8.121a3 3 0 1 1 2.976 5M15 10a4 4 0 0 1 4 4v2h-1.761M13 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-4 6h2a4 4 0 0 1 4 4v2H5v-2a4 4 0 0 1 4-4Z" />
-                            </svg>
+                        <div class="flex items-center flex-col block max-w-sm p-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                            <svg class="w-12 h-12 mb-5 text-gray-400 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="0.9"
+                                        d="M4.333 6.764a3 3 0 1 1 3.141-5.023M2.5 16H1v-2a4 4 0 0 1 4-4m7.379-8.121a3 3 0 1 1 2.976 5M15 10a4 4 0 0 1 4 4v2h-1.761M13 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-4 6h2a4 4 0 0 1 4 4v2H5v-2a4 4 0 0 1 4-4Z" />
+                                </svg>
                             <h5 class="text-center text-xl tracking-tight text-[--blue] dark:text-white">
                                 Personnel
                                 <span class="block text-2xl font-bold">{{ users }}</span>
@@ -83,14 +79,12 @@ const props = defineProps({
 
                     <div id="reg-models">
 
-                        <div
-                            class="flex items-center flex-col block max-w-sm p-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                            <svg class="w-12 h-12 mb-5 text-gray-400 dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="0.9"
-                                    d="M4 12.25V1m0 11.25a2.25 2.25 0 0 0 0 4.5m0-4.5a2.25 2.25 0 0 1 0 4.5M4 19v-2.25m6-13.5V1m0 2.25a2.25 2.25 0 0 0 0 4.5m0-4.5a2.25 2.25 0 0 1 0 4.5M10 19V7.75m6 4.5V1m0 11.25a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5ZM16 19v-2" />
-                            </svg>
+                        <div class="flex items-center flex-col block max-w-sm p-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                            <svg class="w-12 h-12 mb-5 text-gray-400 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="0.9"
+                                        d="M4 12.25V1m0 11.25a2.25 2.25 0 0 0 0 4.5m0-4.5a2.25 2.25 0 0 1 0 4.5M4 19v-2.25m6-13.5V1m0 2.25a2.25 2.25 0 0 0 0 4.5m0-4.5a2.25 2.25 0 0 1 0 4.5M10 19V7.75m6 4.5V1m0 11.25a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5ZM16 19v-2" />
+                                </svg>
                             <h5 class="text-center text-xl tracking-tight text-[--blue] dark:text-white">
                                 Models
                                 <span class="block text-2xl font-bold">{{ models }}</span>
@@ -101,13 +95,11 @@ const props = defineProps({
 
                     <div id="reg-checksheets">
 
-                        <div
-                            class="flex items-center flex-col block max-w-sm p-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                            <svg class="w-12 h-12 mb-5 text-gray-400 dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" width="18" height="20" fill="none" viewBox="0 0 18 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-width="0.9"
-                                    d="M12 2h4a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h4m6 0v3H6V2m6 0a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1M5 5h8m-5 5h5m-8 0h.01M5 14h.01M8 14h5" />
-                            </svg>
+                        <div class="flex items-center flex-col block max-w-sm p-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                            <svg class="w-12 h-12 mb-5 text-gray-400 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="20" fill="none" viewBox="0 0 18 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-width="0.9"
+                                        d="M12 2h4a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h4m6 0v3H6V2m6 0a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1M5 5h8m-5 5h5m-8 0h.01M5 14h.01M8 14h5" />
+                                </svg>
                             <h5 class="text-center text-xl tracking-tight text-[--blue] dark:text-white">
                                 Check Sheets
                                 <span class="block text-2xl font-bold">{{ checksheets }}</span>
@@ -118,13 +110,11 @@ const props = defineProps({
 
                     <div id="reg-archives">
 
-                        <div
-                            class="flex items-center flex-col block max-w-sm p-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                            <svg class="w-12 h-12 text-gray-400 mb-5 dark:text-white" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                <path stroke="currentColor" stroke-linejoin="round" stroke-width="0.9"
-                                    d="M8 8v1h4V8m4 7H4a1 1 0 0 1-1-1V5h14v9a1 1 0 0 1-1 1ZM2 1h16a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1Z" />
-                            </svg>
+                        <div class="flex items-center flex-col block max-w-sm p-3 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                            <svg class="w-12 h-12 text-gray-400 mb-5 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                    <path stroke="currentColor" stroke-linejoin="round" stroke-width="0.9"
+                                        d="M8 8v1h4V8m4 7H4a1 1 0 0 1-1-1V5h14v9a1 1 0 0 1-1 1ZM2 1h16a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1Z" />
+                                </svg>
                             <h5 class="text-center text-xl tracking-tight text-[--blue] dark:text-white">
                                 Archives
                                 <span class="block text-2xl font-bold">{{ archives }}</span>
@@ -138,17 +128,16 @@ const props = defineProps({
 
             </section>
 
-            <section id="recent-actions" class="my-3">
+            <section v-if="$page.props.auth.user.permissions.some(permission => permission.name === 'audit')" id="recent-actions" class="my-3">
                 <!-- Recent Actions Header  -->
                 <div>
                     <h2 class="text-2xl text-[--blue]">Recent Actions</h2>
                 </div>
 
                 <!-- Recent Actions Table -->
-
-                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                    <table id="myTable" class="w-full text-sm text-left text-gray-500 dark:text-gray-400 text-center">
-                        <thead class="bg-[--blue] text-xs text-white uppercase dark:bg-gray-700 dark:text-gray-400">
+                <div class="relative overflow-x-auto rounded-lg">
+                    <table id="audit-table" class="w-full text-sm text-center text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-white uppercase bg-[--blue] dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
                                     User ID
@@ -156,27 +145,49 @@ const props = defineProps({
                                 <th scope="col" class="px-6 py-3">
                                     User Name
                                 </th>
+
                                 <th scope="col" class="px-6 py-3">
-                                    Date & Time
+                                    Log Name
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Log Description
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Action
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Extra Details
+                                    Properties
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Date and Time
                                 </th>
                             </tr>
                         </thead>
-                        <tbody class="text-xs">
-                            <tr v-for="audit in audits" :key="audit.id"
-                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 duration-200 dark:hover:bg-gray-600">
-                                <th scope="row"
-                                    class="px-3 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{
-                                        audit.user_id }}</th>
-                                <td class="px-3 py-2">{{ audit.first_name[0] + '. ' + audit.last_name }}</td>
-                                <td class="px-3 py-2">{{ audit.action_date }}</td>
-                                <td class="px-3 py-2">{{ audit.action_type }}</td>
-                                <td class="px-3 py-2">{{ audit.action_details }}</td>
+                        <tbody>
+                            <tr v-for="audit in audits" :key="audit.id" class="text-xs bg-white border-b dark:bg-gray-800 dark:border-gray-700 duration-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    {{ audit.causer_id ?? 'No ID' }}
+                                </th>
+                                <td class="px-6 py-4">
+                                    {{ audit.causer_name ?? 'N/A' }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ audit.log_name }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ audit.description }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ audit.event }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <Link :href="route('audit.data.view', audit.id)" class="text-blue-500 hover:underline">View Data</Link>
+
+                                </td>
+
+                                <td class="px-6 py-4">
+                                    {{ audit.created_at }}
+                                </td>
                             </tr>
                         </tbody>
                     </table>

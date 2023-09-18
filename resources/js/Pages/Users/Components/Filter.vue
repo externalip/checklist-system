@@ -20,10 +20,10 @@ let props = defineProps({
     selectedAccountStatus: Array,
     roles: Array,
 });
-watch([searchUsername, selectedAccountStatus, searchName, FilterRole], ([username, accountStatus, searchName, FilterRole ]) => {
-   const filter = { ...props.filters};
+watch([searchUsername, selectedAccountStatus, searchName, FilterRole], ([username, accountStatus, searchName, FilterRole]) => {
+    const filter = { ...props.filters };
     if (username) {
-         filter.username = username;
+        filter.username = username;
     }
     if (accountStatus.length > 0) {
         filter.accountStatus = accountStatus.join(',');
@@ -105,22 +105,20 @@ const fetchNameOptions = async (searchInput) => {
 onMounted(fetchUsernameOptions);
 onMounted(fetchNameOptions);
 </script>
+
 <template>
     <div class="pl-2 mb-2">
-        <div class="user-filter-header">
-            <h4>Filter by:</h4>
-        </div>
-
-        <section id="user-filters" class="mb-5 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-3">
+        <Switch />
+        <section id="user-filters"  class="mb-5 grid lg:grid-cols-5 sm:grid-cols-2 grid-cols-2 gap-3">
 
             <div id="user-filter-checksheet-select">
 
                 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select
-                                                            an option</label>
-                <button id="dropdownBgHoverButton" data-dropdown-toggle="dropdownBgHover" class="w-full flex justify-center text-white bg-[--blue] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-20 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                                                an option</label>
+                <button id="dropdownBgHoverButton" data-dropdown-toggle="dropdownBgHover" class="w-full flex justify-center text-white bg-[--blue] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-20  text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     type="button">Account status<svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                                    </svg></button>
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                                        </svg></button>
 
 
                 <div id="dropdownBgHover" class="z-10 hidden w-48 bg-white rounded-lg shadow dark:bg-gray-700">
@@ -149,9 +147,9 @@ onMounted(fetchNameOptions);
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                            </svg>
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                </svg>
                         </div>
                         <VueMultiselect v-model="searchUsername" :options="usernameOptions" :show-labels="false" @searchChange="fetchUsernameOptions" id="default-search-name" placeholder="Search Username" class="" required></VueMultiselect>
                     </div>
@@ -164,34 +162,31 @@ onMounted(fetchNameOptions);
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                        </svg>
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                            </svg>
                     </div>
                     <VueMultiselect v-model="searchName" :options="nameOptions" :show-labels="false" @searchChange="fetchNameOptions" id="default-search-name" placeholder="Search Name" class="" required></VueMultiselect>
                 </div>
 
             </div>
-
-                <div id="user-filter-role-">
-                    <label for="filter-user-role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Filter by Role</label>
-                    <div class="relative">
-                        <select v-model="FilterRole" id="filter-user-role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option value="">Select Role</option>
-                            <option v-for="role in roles" :key="role.id" :value="role.id">
-                                {{ role.position }}
-                            </option>
-                        </select>
-                    </div>
-
+            <div id="user-filter-role-">
+                <label for="filter-user-role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Filter by Role</label>
+                <div class="relative">
+                    <select v-model="FilterRole" id="filter-user-role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option value="">Select Role</option>
+                                <option v-for="role in roles" :key="role.id" :value="role.id">
+                                    {{ role.name }}
+                                </option>
+                            </select>
                 </div>
+
+            </div>
             <div id="user-add-btn">
                 <label for="filter-user-select" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Click to Add User</label>
                 <Link :href="route('users.create')" type="button" class="text-white bg-[--blue] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-12 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">+
                 </Link>
             </div>
         </section>
-
-
     </div>
 </template>

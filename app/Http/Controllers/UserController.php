@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -20,7 +20,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $query = User::with('employee.role');
+        $query = User::with('employee', 'role');
         if ($request->filled('accountStatus')) {
             $accountStatusArray = explode(',', $request->input('accountStatus'));
 
@@ -52,7 +52,7 @@ class UserController extends Controller
                 $selectedRoles = explode(',', $selectedRoles);
             }
 
-            $query->whereHas('employee.role', function ($q) use ($selectedRoles) {
+            $query->whereHas('role', function ($q) use ($selectedRoles) {
                 $q->whereIn('role_id', $selectedRoles);
             });
         }
@@ -103,7 +103,6 @@ class UserController extends Controller
         }
 
         $employee = Employee::create([
-            'role_id' => $input['role_id'], // Associate the role_id with the user
             'first_name' => $input['first_name'],
             'last_name' => $input['last_name'],
             'gender' => $input['gender'],
@@ -113,12 +112,15 @@ class UserController extends Controller
 
         ]);
 
-        User::create([
+        $user = User::create([
             'employee_id' => $employee->id,
+            'role_id' => $input['role_id'],
             'username' => $input['username'],
             'password' => Hash::make($input['password']),
             'active' => 1,
         ]);
+
+        $user->assignRole($input['role_id']);
 
         return response()->json(['status' => 'success'], 200);
     }
@@ -180,13 +182,15 @@ class UserController extends Controller
             'date_of_birth' => $input['date_of_birth'],
             'contact' => $input['contact'],
             'shift' => $input['shift'],
-            'role_id' => $input['role_id'],
         ]);
 
         $user->update([
             'username' => $input['username'],
             'active' => $input['active'],
+            'role_id' => $input['role_id'],
         ]);
+
+        $user->syncRoles($input['role_id']);
 
         if (! empty($input['password'])) {
             $user->update([
@@ -215,47 +219,6 @@ class UserController extends Controller
 
         return Inertia::render('Auth/Register', [
             'roles' => $roles,
-        ]);
-    }
-
-    public function show5SForm()
-    {
-        // Get all models
-        $models = DB::table('tags')
-            ->join('models', 'tags.model_id', '=', 'models.id')
-            ->join('forms', 'tags.form_id', '=', 'forms.id')
-            ->select('models.model_name', 'forms.form_name', 'tags.*')
-            ->get();
-
-        // Send list of models to url
-        return Inertia::render('5S-Checklist/Index', [
-            'models' => $models,
-        ]);
-    }
-
-    public function showPTouchForm()
-    {
-        // Get all models
-        $models = DB::table('models')
-            ->select('model_name')
-            ->get();
-
-        // Send list of models to url
-        return Inertia::render('PTouch-Solder/Index', [
-            'models' => $models,
-        ]);
-    }
-
-    public function showICTForm()
-    {
-        // Get all models
-        $models = DB::table('models')
-            ->select('model_name')
-            ->get();
-
-        // Send list of models to url
-        return Inertia::render('PTouch-ICT/Index', [
-            'models' => $models,
         ]);
     }
 

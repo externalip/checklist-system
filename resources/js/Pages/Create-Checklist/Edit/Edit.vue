@@ -102,7 +102,7 @@ const confirmDelete = async (formID) => {
                             <!-- Table Content -->
                             <tbody class="text-xs">
                                 <tr
-                                    v-for="form in forms.data"
+                                    v-for="form in forms.data" :key="form.id"
                                     class="text-gray-700 bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 transition ease-in-out duration-200"
                                 >
                                     <td
@@ -112,7 +112,9 @@ const confirmDelete = async (formID) => {
                                         {{ form.id }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        {{ form.form_name }}
+                                        <a href="/revision">
+                                            {{ form.form_name }}
+                                        </a>
                                     </td>
                                     <td class="px-6 py-4">
                                         {{ form.created_by_name }}
@@ -130,6 +132,7 @@ const confirmDelete = async (formID) => {
                                     >
                                         <!-- DCC Redirect Button -->
                                         <button
+                                            @click="callDCC()"
                                             class="hover:bg-gray-200 transition duration-200 ease-in-out p-4"
                                         >
                                             <svg
@@ -226,6 +229,9 @@ export default {
         callCreator() {
             router.get("/generate");
         },
+        callDCC() {
+            router.get("/dcc");
+        }
     },
 };
 </script>

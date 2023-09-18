@@ -2,29 +2,56 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Fortify\TwoFactorAuthenticatable;
-use Laravel\Jetstream\HasProfilePhoto;
-use Laravel\Sanctum\HasApiTokens;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Permission\Traits\HasRoles;
 
-class Employee extends Authenticatable
+class Employee extends User
 {
-    use HasApiTokens;
-    use HasFactory;
-    use HasFactory;
-    use HasProfilePhoto;
-    use Notifiable;
-    use TwoFactorAuthenticatable;
+    use HasRoles;
+    use LogsActivity;
+    //
+
+    /**
+     * Get activity log options.
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults('Employee')
+            ->logOnly(['first_name', 'last_name', 'contact', 'shift', 'gender'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs()
+            ->logFillable()
+            ->useLogName('Employee log');
+    }
+
+    // Only grab the changes
+    protected static $logOnlyDirty = true;
+
+    /**
+     * Get event description.
+     */
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        if ($eventName == 'created') {
+            return "Employee $this->id was Created";
+        } elseif ($eventName == 'updated') {
+            return "Employee  $this->id was Updated";
+        } elseif ($eventName == 'deleted') {
+            return "Employee  $this->id was Deleted";
+        }
+
+        return "Employee  $this->id was Created";
+    }
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
+    protected $guard_name = 'web';
+
     protected $fillable = [
-        'role_id',
         'first_name',
         'last_name',
         'gender',
@@ -35,6 +62,6 @@ class Employee extends Authenticatable
 
     public function role()
     {
-        return $this->belongsTo(Role::class, 'role_id');
+        return $this->belongsTo(Role::class);
     }
 }

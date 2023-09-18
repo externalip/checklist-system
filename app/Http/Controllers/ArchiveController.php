@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
@@ -10,27 +9,13 @@ class ArchiveController extends Controller
 {
     public function index()
     {
-        // $audits = DB::table('audits')
-        //     ->join('users', 'audits.user_id', '=', 'users.id')
-        //     ->join('employees', 'users.employee_id', '=', 'employees.id')
-        //     ->select(
-        //         'audits.user_id',
-        //         'employees.first_name',
-        //         'employees.last_name',
-        //         'audits.action_date',
-        //         'audits.action_type',
-        //         'audits.action_details',
-        //     )
-        //     ->orderByDesc('audits.action_date')
-        //     ->paginate(10);
 
-        // return Inertia::render('Archives/Index', [
-        //     'audits' => $audits,
-        // ]);
-
+        //get pending reports for all checksheets
         $response_fields = DB::table('response_fields')
             ->select(
                 'forms.form_name',
+                'forms.form_data',
+                'forms.id',
                 'employees.first_name',
                 'employees.last_name',
                 'employees.shift',
@@ -69,20 +54,33 @@ class ArchiveController extends Controller
             ->count();
 
         $forms = DB::table('forms')
-            ->select('form_name')
+            ->select('form_name', 'id')
             ->orderBy('form_name')
             ->get();
 
-        $employees = DB::table('employees')
-            ->select()
+        $formdata = DB::table('forms')
+            ->select(
+                'forms.*',
+            )
+
+            ->get();
+
+        $employees = DB::table('users')
+            ->select(
+                'users.*',
+                'employees.first_name',
+                'employees.last_name'
+            )
+            ->join('employees', 'employees.id', '=', 'users.employee_id')
             ->where('role_id', '=', '1')
             ->get();
 
         return Inertia::render('Archives/Index', [
-            'response_fields' => $response_fields,
+            'data' => $response_fields,
             'counts' => $counts,
             'forms' => $forms,
             'employees' => $employees,
+            'formdata' => $formdata,
         ]);
     }
 }

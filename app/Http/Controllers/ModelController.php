@@ -68,14 +68,19 @@ class ModelController extends Controller
         if (! $validate) {
             return response()->json(['message' => 'Model Name is required']);
         }
+
         $model = Models::create([
             'model_name' => $request->input('model_name'),
         ]);
-        foreach ($submissionIDs as $id) {
-            Tags::create([
-                'form_id' => $id,
-                'model_id' => $model->id,
-            ]);
+        if ($submissionIDs) {
+            $tags = [];
+            foreach ($submissionIDs as $id) {
+                $tags[] = [
+                    'form_id' => $id,
+                    'model_id' => $model->id,
+                ];
+            }
+            Tags::insert($tags);
         }
     }
 
@@ -136,10 +141,12 @@ class ModelController extends Controller
     public function destroy(Request $request)
     {
         $ids = $request->input('id') ? [$request->input('id')] : $request->input('ids');
-        Tags::whereIn('model_id', $ids)->delete();
-        Models::whereIn('id', $ids)->delete();
+        $tags = Tags::whereIn('model_id', $ids);
+        $models = Models::whereIn('id', $ids);
 
-        return response()->json(['message' => 'Models Deleted']);
+        if ($models->delete() && $tags->delete()) {
+            return response()->json(['message' => 'Model Deleted']);
+        }
     }
 
     public function TableView()

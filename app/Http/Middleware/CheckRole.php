@@ -16,14 +16,15 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        $user = Auth::user();
-        $userRole = $user->employee->role_id;
-        $rolesContainUserRole = in_array($userRole, $roles);
+        // $user = Auth::user();
+        // $userRole = $user->employee->role_id;
+        // $rolesContainUserRole = in_array($userRole, $roles);
 
-        if (Auth::check() && $user->employee && $rolesContainUserRole) {
-            return $next($request);
-        }
+        // if (Auth::check() && $user->employee && $rolesContainUserRole) {
+        //     return $next($request);
+        // }
 
-        return redirect()->route('Pending-Reports');
+        // return redirect()->route('Pending-Reports');
+        return $next($request);
     }
 }
