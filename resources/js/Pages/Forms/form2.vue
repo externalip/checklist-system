@@ -150,7 +150,7 @@ const filteredModels = computed(() => {
                     <div id="type-of-checking" class="grid grid-cols-1">
                         <!-- Type of Checking -->
                         <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 sm:py-5 rounded-md sm:rounded-md">
-                            <h5 id="question3">Type of Check</h5>
+                            <h5 id="question4">Type of Check</h5>
                             <ul
                                 class="items-center w-full text-sm font-medium bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                 <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
@@ -193,7 +193,7 @@ const filteredModels = computed(() => {
 
                     <!-- Question || Soldering Iron Set -->
                     <div class="border-2 mb-3 py-5 px-10 md:px-10 sm:py-5 rounded-md sm:rounded-md">
-                        <h5 id="question" class="mb-2">Machine is working and the light is ON. LCD is working after turning
+                        <h5 id="question5" class="mb-2">Machine is working and the light is ON. LCD is working after turning
                             ON
                             the machine.
                         </h5>
@@ -275,7 +275,7 @@ const filteredModels = computed(() => {
 
                     <!-- Question || Soldering Iron Set -->
                     <div class="border-2 mb-3 py-5 px-10 md:px-10 sm:py-5 rounded-md sm:rounded-md">
-                        <h5 id="question" class="mb-2">Switch must be in correct place. LCD is shown "LOAD".
+                        <h5 id="question6" class="mb-2">Switch must be in correct place. LCD is shown "LOAD".
                         </h5>
 
                         <!-- Instruction || Soldering Iron Set -->
@@ -353,7 +353,7 @@ const filteredModels = computed(() => {
 
                     <!-- Question || Soldering Iron Set -->
                     <div class="border-2 mb-3 py-5 px-10 md:px-10 sm:py-5 rounded-md sm:rounded-md">
-                        <h5 id="question" class="mb-2">Solder wire diameter is 0.80mm. Solder wire amount can be assume to
+                        <h5 id="question7" class="mb-2">Solder wire diameter is 0.80mm. Solder wire amount can be assume to
                             be
                             anough for the daily plan.
                         </h5>
@@ -434,7 +434,7 @@ const filteredModels = computed(() => {
 
                     <!-- Question || Soldering Iron Set -->
                     <div class="border-2 mb-3 py-5 px-10 md:px-10 sm:py-5 rounded-md sm:rounded-md">
-                        <h5 id="question" class="mb-2">Expiration Date Label is attached on the solder wire spool or holder.
+                        <h5 id="question8" class="mb-2">Expiration Date Label is attached on the solder wire spool or holder.
                             Not
                             beyond the declared expiration date.
                         </h5>
@@ -515,7 +515,7 @@ const filteredModels = computed(() => {
 
                     <!-- Question || Soldering Iron Set -->
                     <div class="border-2 mb-3 py-5 px-10 md:px-10 sm:py-5 rounded-md sm:rounded-md">
-                        <h5 id="question" class="mb-2">Write actual tip type.
+                        <h5 id="question9" class="mb-2">Write actual tip type.
                         </h5>
 
                         <!-- Instruction || Soldering Iron Set -->
@@ -583,7 +583,7 @@ const filteredModels = computed(() => {
 
                     <!-- Question || Soldering Iron Set -->
                     <div class="border-2 mb-3 py-5 px-10 md:px-10 sm:py-5 rounded-md sm:rounded-md">
-                        <h5 id="question" class="mb-2">Have no damage or deformation.
+                        <h5 id="question10" class="mb-2">Have no damage or deformation.
                         </h5>
 
                         <!-- Instruction || Soldering Iron Set -->
@@ -662,7 +662,7 @@ const filteredModels = computed(() => {
 
                     <!-- Question || Soldering Iron Set -->
                     <div class="border-2 mb-3 py-5 px-10 md:px-10 sm:py-5 rounded-md sm:rounded-md">
-                        <h5 id="question" class="mb-2">Measure the actual solder tip temperature using Hakko Thermometer
+                        <h5 id="question11" class="mb-2">Measure the actual solder tip temperature using Hakko Thermometer
                             with
                             melted lead. Temperature is within the specific range of 350-398℃.
                         </h5>
@@ -686,7 +686,7 @@ const filteredModels = computed(() => {
 
                     <!-- Question || Soldering Iron Set -->
                     <div class="border-2 mb-3 py-5 px-10 md:px-10 sm:py-5 rounded-md sm:rounded-md">
-                        <h5 id="question" class="mb-2">Measure the tip-to-ground resistance using the Hakko Thermometer.
+                        <h5 id="question12" class="mb-2">Measure the tip-to-ground resistance using the Hakko Thermometer.
                             <span
                                 class="font-bold underline underline-offset-3 decoration-3 decoration-blue-400 dark:decoration-blue-600">Required
                                 Value:</span> Maximum of 40
@@ -715,7 +715,7 @@ const filteredModels = computed(() => {
 
                     <!-- Question || Soldering Iron Set -->
                     <div class="border-2 mb-3 py-5 px-10 md:px-10 sm:py-5 rounded-md sm:rounded-md">
-                        <h5 id="question" class="mb-2">Measure the leak voltage using the Hakko Thermometer.
+                        <h5 id="question13" class="mb-2">Measure the leak voltage using the Hakko Thermometer.
                             <span
                                 class="font-bold underline underline-offset-3 decoration-3 decoration-blue-400 dark:decoration-blue-600">Required
                                 Value:</span> Maximum of 2mV
@@ -745,7 +745,7 @@ const filteredModels = computed(() => {
 
                     <!-- Question || Soldering Iron Set -->
                     <div class="border-2 mb-3 py-5 px-10 md:px-10 sm:py-5 rounded-md sm:rounded-md">
-                        <h5 id="question" class="mb-2">Sponge bin must be clea. Sponge is demped with water.
+                        <h5 id="question14" class="mb-2">Sponge bin must be clea. Sponge is demped with water.
                         </h5>
 
                         <!-- Instruction || Soldering Iron Set -->
@@ -811,7 +811,7 @@ const filteredModels = computed(() => {
 
                     <!-- Question || Soldering Iron Set -->
                     <div class="border-2 mb-3 py-5 px-10 md:px-10 sm:py-5 rounded-md sm:rounded-md">
-                        <h5 id="question" class="mb-2">Write soldering ID no.
+                        <h5 id="question15" class="mb-2">Write soldering ID no.
                         </h5>
 
                         <!-- Instruction || Soldering Iron Set -->
@@ -834,7 +834,7 @@ const filteredModels = computed(() => {
 
                     <!-- Question || Soldering Iron Set -->
                     <div class="border-2 mb-3 py-5 px-10 md:px-10 sm:py-5 rounded-md sm:rounded-md">
-                        <h5 id="question" class="mb-2">Soldering jig is clean and free from solder lead stains and flux. Use
+                        <h5 id="question16" class="mb-2">Soldering jig is clean and free from solder lead stains and flux. Use
                             IPA, brush or savina to clean it.
                         </h5>
 
@@ -915,7 +915,7 @@ const filteredModels = computed(() => {
 
                     <!-- Question || Soldering Iron Set -->
                     <div class="border-2 mb-3 py-5 px-10 md:px-10 sm:py-5 rounded-md sm:rounded-md">
-                        <h5 id="question" class="mb-2">Component's reference must be correct and complete.
+                        <h5 id="question17" class="mb-2">Component's reference must be correct and complete.
                         </h5>
 
                         <!-- Instruction || Soldering Iron Set -->
@@ -993,7 +993,7 @@ const filteredModels = computed(() => {
 
                     <!-- Question || Soldering Iron Set -->
                     <div class="border-2 mb-3 py-5 px-10 md:px-10 sm:py-5 rounded-md sm:rounded-md">
-                        <h5 id="question" class="mb-2">Applicable for Harness Soldering on Main PCB Available and must be in
+                        <h5 id="question18" class="mb-2">Applicable for Harness Soldering on Main PCB Available and must be in
                             good condition.
                         </h5>
 
@@ -1071,7 +1071,7 @@ const filteredModels = computed(() => {
 
                     <!-- Question || Soldering Iron Set -->
                     <div class="border-2 mb-3 py-5 px-10 md:px-10 sm:py-5 rounded-md sm:rounded-md">
-                        <h5 id="question" class="mb-2">Available in the station and is properly working.
+                        <h5 id="question19" class="mb-2">Available in the station and is properly working.
                         </h5>
 
                         <!-- Instruction || Soldering Iron Set -->
@@ -1149,7 +1149,7 @@ const filteredModels = computed(() => {
 
                     <!-- Question || D02484-D01 (D460 MAIN) -->
                     <div class="border-2 mb-3 py-5 px-10 md:px-10 sm:py-5 rounded-md sm:rounded-md">
-                        <h5 id="question19" class="mb-2">D02484-D01 (D460 MAIN)</h5>
+                        <h5 id="question20" class="mb-2">D02484-D01 (D460 MAIN)</h5>
 
                         <!-- Instruction || Soldering Iron Set -->
                         <h6 id="instruction" class="mb-2">Writing Methods are Check(✓), Wrong(x) or NA</h6>
@@ -1220,7 +1220,7 @@ const filteredModels = computed(() => {
 
                     <!-- Question || D027CR-001 (D610 MAIN) -->
                     <div class="border-2 mb-3 py-5 px-10 md:px-10 sm:py-5 rounded-md sm:rounded-md">
-                        <h5 id="question20" class="mb-2">D027CR-001 (D610 MAIN)</h5>
+                        <h5 id="question21" class="mb-2">D027CR-001 (D610 MAIN)</h5>
 
                         <!-- Instruction || Soldering Iron Set -->
                         <h6 id="instruction" class="mb-2">Writing Methods are Check(✓), Wrong(x) or NA</h6>
@@ -1295,7 +1295,7 @@ const filteredModels = computed(() => {
                 <section id="form-section" class="p-5 mt-5 mb-5 border-2 rounded-lg">
                     <h2 id="question" class="mb-2 text-center md:text-left">Remarks</h2>
                     <div class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
-                        <h5 id="question21">Remarks on the Model</h5>
+                        <h5 id="question22">Remarks on the Model</h5>
                         <label for="message" class="block mb-2 text-sm font-medium dark:text-white">Please
                             type
                             possible problems regarding with the machine.</label>
