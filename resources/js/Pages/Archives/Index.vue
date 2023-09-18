@@ -121,7 +121,7 @@ export default {
                             </tr>
                         </thead>
                         <!-- Post OK or Rejected checksheet data -->
-                        <tbody v-for="response_field in data">
+                        <tbody v-for="response_field in data.data">
                             <tr v-if="(response_field.form_id === selectedOption &&
                                 selectedUser === 'default' && selectedStatus === 'default') ||
                                 (response_field.form_id === selectedOption &&
@@ -179,8 +179,7 @@ export default {
 
             <!-- Pagination -->
             <div class="mt-4">
-                {{ response_fields }}
-                <!-- <Pagination :data="response_fields" /> -->
+                <Pagination :data="response_fields" />
             </div>
         </div>
     </AppLayout>

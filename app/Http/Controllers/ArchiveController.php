@@ -10,24 +10,8 @@ class ArchiveController extends Controller
 {
     public function index()
     {
-        // $audits = DB::table('audits')
-        //     ->join('users', 'audits.user_id', '=', 'users.id')
-        //     ->join('employees', 'users.employee_id', '=', 'employees.id')
-        //     ->select(
-        //         'audits.user_id',
-        //         'employees.first_name',
-        //         'employees.last_name',
-        //         'audits.action_date',
-        //         'audits.action_type',
-        //         'audits.action_details',
-        //     )
-        //     ->orderByDesc('audits.action_date')
-        //     ->paginate(10);
-
-        // return Inertia::render('Archives/Index', [
-        //     'audits' => $audits,
-        // ]);
-
+ 
+        //get pending reports for all checksheets
         $response_fields = DB::table('response_fields')
             ->select(
                 'forms.form_name',

@@ -50,7 +50,7 @@
                     }
 
                     // Send user input to ResponseController
-                    router.post('/submit', form)
+                    router.post('/submit', form);
 
                     // Show success prompt
                     Swal.fire(
@@ -75,7 +75,7 @@
         </style>
 
         <template>
-            <AppLayout title="P-Touch ICT Start-Up Check Sheet" control_no="Control No.: QR-BIPH-103027FR1">
+            <AppLayout title="P-Touch ICT Start-Up Check Sheet" control_no="Control No.: QR-BIPH-103027FR4">
                 <div class="5s lg:mx-[25%]">
                     <form @submit.prevent="submit()" method="post" id="1">
 
