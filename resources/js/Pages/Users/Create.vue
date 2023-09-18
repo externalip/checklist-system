@@ -1,8 +1,9 @@
 <template>
     <AppLayout title="Add User">
         <form @submit.prevent="createAccount">
+            <!-- ADD USER LAYOUT -->
             <div class=" lg:mx-20 rounded-lg grid grid-row-3 gap-5 text-[--blue]">
-                <!-- Employee Info -->
+                <!-- First Section (Employee Info) -->
                 <div class="mx-3 border-2 border-gray-200 lg:p-4 p-5 rounded-2xl">
                     <h3 class="text-2xl font-semibold mb-2 md:text-left text-center">
                         Employee Info
@@ -71,7 +72,7 @@
                     </div>
                 </div>
 
-                <!-- Account Details -->
+                <!-- Second Section (Account Details) -->
                 <div class="mx-3 border-2 border-gray-200 lg:p-4 p-5 rounded-2xl">
                     <h3 class="text-2xl font-semibold mb-2 md:text-left text-center">
                         Account Details
@@ -103,6 +104,7 @@
                                 <input v-model="form.password_confirmation" type="password" id="password_confirmation" class="text-sm text-gray-900 w-full rounded-lg border-1 border-gray-300 p-2" />
                                 <InputError class="mt-2" :message="form.errors.password_confirmation" />
                             </div>
+
                             <!-- ROLE -->
                             <div class="p-1">
                                 <label for="password_confirmation" class="block mb-1">Role</label>
@@ -118,11 +120,16 @@
 
                 </div>
 
-                <!-- BUTTONS -->
+                <!-- Third Section (Buttons) -->
                 <div class="flex justify-center p-10">
-                    <button type="submit" class="duration-200 text-white bg-[#3C5393] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create
-                            Account</button>
-                    <Link :href="route('users')" type="button" class="duration-200 py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"> Back
+                    <!-- create account button -->
+                    <button type="submit" class="duration-200 text-white bg-[#3C5393] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                        Create Account
+                    </button>
+
+                    <!-- back button -->
+                    <Link :href="route('users')" type="button" class="duration-200 py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                        Back
                     </Link>
                 </div>
 
