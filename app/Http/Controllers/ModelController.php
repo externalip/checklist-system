@@ -167,7 +167,7 @@ class ModelController extends Controller
         $limitedModelNames = DB::table('Models')
         ->where('model_name', 'LIKE', '%'.$query.'%')
         ->pluck('model_name') 
-        ->take(10)
+        ->take(5)
         ->toArray();
 
         // Return the model names as JSON response
@@ -180,7 +180,7 @@ class ModelController extends Controller
         // Retrieve the model names from your database
         $modelNames = DB::table('Models')
         ->pluck('model_name')
-        ->take(10) 
+        ->take(5) 
         ->toArray();
 
         // Return the model names as JSON response

@@ -293,7 +293,7 @@ class UserController extends Controller
         $limitedNames = DB::table('employees')
         ->where(DB::raw("CONCAT(`first_name`, ' ' ,`last_name`)"), 'LIKE', '%'.$query.'%')
         ->pluck(DB::raw("CONCAT(`first_name`, ' ' ,`last_name`) AS full_name"))
-        ->take(10)  
+        ->take(5)  
         ->toArray();
     
         // Return the model names as JSON response
@@ -307,7 +307,7 @@ class UserController extends Controller
         // Retrieve the model names from your database
         $names = DB::table('employees')
         ->pluck(DB::raw("CONCAT(`first_name`, ' ' ,`last_name`) AS full_name"))
-        ->take(10) 
+        ->take(5) 
         ->toArray();
     
         // Return the model names as JSON response
