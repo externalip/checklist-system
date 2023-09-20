@@ -268,6 +268,10 @@ class FormGeneratorController extends Controller
         ';
 
         // Read Form JSON Config
+        /*
+            Indexing starts at 4, since we have 3 predefined questions:
+            Model Name, Kit No., & Lot No.
+        */
         $questionIndex = 4;
         $answerIndex = 4;
         $radioTarget = 1;
