@@ -136,7 +136,7 @@ function colorCode(question, answer) {
                         class="bg-gray-50 border border-gray-300 text-[#3182ce] text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         @change="showDiv(selectedForm.form_name)">
                         <option value="">Select a Form</option>
-                        <option v-for="form in forms" :key="form.id" :value="form.form_name">{{ form.form_name }}</option>
+                        <option v-for="form in forms" :key="form.id" :value="form.id">{{ form.form_name }}</option>
                     </select>
                 </section>
 
@@ -207,9 +207,9 @@ function colorCode(question, answer) {
             <section id="pending-accordions">
                 <div :id="selectedForm.form_name" class="hidden_div accordions">
                     <div v-for="formcount in formcount" :key="formcount.id">
-                        <div v-if="formcount.form_name === selectedForm.form_name">
+                        <div v-if="formcount.id == selectedForm.form_name">
                             <h4 class="font-bold"><span class="text-[--overdue] font-bold">{{ formcount.pending_count
-                            }}</span> Pending Reports on {{ selectedForm.form_name }}</h4>
+                            }}</span> Pending Reports on {{ formcount.form_name }}</h4>
                         </div>
                     </div>
 
@@ -217,7 +217,7 @@ function colorCode(question, answer) {
                     <div v-for="(row, index) in data" :key="index" id="accordion-flush" data-accordion="collapse"
                         data-active-classes="bg-white dark:bg-gray-900 text-blue-500 dark:text-white"
                         data-inactive-classes="text-gray-500 dark:text-gray-400" class="border-lg">
-                        <ul v-show="row.form_name === selectedForm.form_name">
+                        <ul v-show="row.form_id == selectedForm.form_name">
                             <h2 :id="'accordion-flush-heading-' + index.toString()">
                                 <button type="button"
                                     class="flex items-center justify-between w-full py-5 text-lg font-regular antialiased text-left border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
