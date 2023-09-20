@@ -112,7 +112,7 @@ const confirmDelete = async (formID) => {
                                         {{ form.id }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        <a href="/revision">
+                                        <a href="/revision" class="font-bold text-[--blue] hover:text-black underline">
                                             {{ form.form_name }}
                                         </a>
                                     </td>
