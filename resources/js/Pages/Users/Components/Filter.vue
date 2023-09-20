@@ -51,7 +51,7 @@ const fetchUsernameOptions = async (searchInput) => {
 	    // Fetch model names from your Laravel API endpoint
             const response = await fetch(`/api/user-usernames/${searchInput}`); //change route
             const data = await response.json();
-            
+
             // Set the fetched model names as options
             usernameOptions.value = data.limitedUsernames;
         } catch (error) {
@@ -64,12 +64,12 @@ const fetchUsernameOptions = async (searchInput) => {
             // Fetch model names from your Laravel API endpoint
             const response = await fetch(`/api/user-usernames`); //change route
             const data = await response.json();
-            
+
             // Set the fetched model names as options
             usernameOptions.value = data.usernames;
         } catch (error) {
             console.error('Error fetching usernames:', error);
-        } 
+        }
     }
 };
 // Fetch model names from your database
@@ -80,7 +80,7 @@ const fetchNameOptions = async (searchInput) => {
 	    // Fetch model names from your Laravel API endpoint
             const response = await fetch(`/api/user-names/${searchInput}`); //change route
             const data = await response.json();
-            
+
             // Set the fetched model names as options
             nameOptions.value = data.limitedNames;
         } catch (error) {
@@ -93,12 +93,12 @@ const fetchNameOptions = async (searchInput) => {
             // Fetch model names from your Laravel API endpoint
             const response = await fetch(`/api/user-names`); //change route
             const data = await response.json();
-            
+
             // Set the fetched model names as options
             nameOptions.value = data.names;
         } catch (error) {
             console.error('Error fetching names:', error);
-        } 
+        }
     }
 };
 //Call function on page render
