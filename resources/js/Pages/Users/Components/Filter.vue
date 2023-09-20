@@ -1,7 +1,13 @@
 <script setup >
 import { ref, watch, onMounted } from 'vue';
 import {  Link, router } from '@inertiajs/vue3';
+<script setup >
+import { ref, watch, onMounted } from 'vue';
+import {  Link, router } from '@inertiajs/vue3';
 import Switch from './Switch.vue';
+import VueMultiselect from 'vue-multiselect';
+
+
 import VueMultiselect from 'vue-multiselect';
 
 
@@ -9,6 +15,9 @@ let searchUsername = ref('');
 const selectedAccountStatus = ref([]);
 let searchName = ref('');
 const FilterRole = ref('');
+
+let usernameOptions = ref([]); //Initialize Options ref
+let nameOptions = ref([]); //Initialize Options ref
 
 let usernameOptions = ref([]); //Initialize Options ref
 let nameOptions = ref([]); //Initialize Options ref
@@ -166,6 +175,7 @@ onMounted(fetchNameOptions);
                             </svg>
                         </div>
                         <VueMultiselect v-model="searchUsername" :options="usernameOptions" :show-labels="false" @searchChange="fetchUsernameOptions" id="default-search-name" placeholder="Search Username" class="" required></VueMultiselect>
+                        <VueMultiselect v-model="searchUsername" :options="usernameOptions" :show-labels="false" @searchChange="fetchUsernameOptions" id="default-search-name" placeholder="Search Username" class="" required></VueMultiselect>
                     </div>
                 </form>
 
@@ -182,6 +192,7 @@ onMounted(fetchNameOptions);
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"  stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                         </svg>
                     </div>
+                    <VueMultiselect v-model="searchName" :options="nameOptions" :show-labels="false" @searchChange="fetchNameOptions" id="default-search-name" placeholder="Search Name" class="" required></VueMultiselect>
                     <VueMultiselect v-model="searchName" :options="nameOptions" :show-labels="false" @searchChange="fetchNameOptions" id="default-search-name" placeholder="Search Name" class="" required></VueMultiselect>
                 </div>
 
