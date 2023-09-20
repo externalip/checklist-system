@@ -262,7 +262,7 @@ class UserController extends Controller
     {
         // Retrieve the model names from your database
         $limitedUsernames = DB::table('users')
-            ->where('username', 'LIKE', '%' . $name . '%')
+            ->where('username', 'LIKE', '%' . $query . '%')
             ->pluck('username')
             ->take(5)
             ->toArray();
@@ -332,5 +332,20 @@ class UserController extends Controller
     public function exportModels()
     {
         return Excel::download(new ModelsExport, 'models.xlsx');
+    }
+    public function test($id)
+    {
+        $formdata = Form::findOrFail($id);
+
+        $models = DB::table('models')
+            ->join('tags', 'models.id', '=', 'tags.model_id')
+            ->where('tags.form_id', $id)
+            ->select('models.*')
+            ->get();
+
+        return Inertia::render('test', [
+            'formData' => $formdata,
+            'models' => $models,
+        ]);
     }
 }
