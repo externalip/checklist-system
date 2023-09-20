@@ -407,6 +407,9 @@ class FormGeneratorController extends Controller
                             ';
                         }
 
+                        // Increment answer index
+                        $answerIndex++;
+
                         // Append Closing Dropdown Group
                         $form_html .= '</select>';
                     } else {
