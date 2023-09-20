@@ -96,8 +96,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::middleware(['permission:manage-checksheet'])->group(function () {
         // Form Creator/Generator
         Route::prefix('/generate')->group(function () {
-            Route::get('/', [FormGeneratorController::class, 'index'])->name('generate');
-            Route::post('/', [FormGeneratorController::class, 'store'])->name('generate.store');
+            Route::get('/', [CheckSheetController::class, 'create'])->name('generate');
+            Route::post('/', [CheckSheetController::class, 'store'])->name('generate.store');
         });
 
         // Form Editor

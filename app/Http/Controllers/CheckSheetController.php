@@ -70,8 +70,25 @@ class CheckSheetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $employee_id = auth()->user()->employee_id;
+        $config = $request->only('form_name', 'control_no', 'form_content');
+        $form_name = $request->input('form_name');
+        Form::create([
+            'created_by' => $employee_id,
+            'form_name' => $form_name,
+            'completed' => 1,
+            'form_data' => json_encode($config),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Form added',
+        ], 200);
     }
+
 
     /**
      * Display the specified resource.
@@ -172,5 +189,9 @@ class CheckSheetController extends Controller
             'formData' => $formdata,
             'models' => $models,
         ]);
+    }
+    public function create()
+    {
+        return Inertia::render('Create-Checklist/Create');
     }
 }
