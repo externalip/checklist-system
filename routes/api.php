@@ -26,11 +26,15 @@ Route::get('/TableView', [\App\Http\Controllers\ModelController::class, 'TableVi
     ->name('TableView');
 
 //Model Manager Multiselect Autocomplete
-Route::get('/model-names/{query}', [\App\Http\Controllers\ModelController::class, 'limitedModelNames'])->name('api.limited-model-names');
-Route::get('/model-names', [\App\Http\Controllers\ModelController::class, 'getModelNames'])->name('api.model-names');
+Route::get('/model-names/{query}', [\App\Http\Controllers\ModelController::class, 'limitedModelNames'])->name('api.model-limitedModelNames');
+Route::get('/model-names', [\App\Http\Controllers\ModelController::class, 'getModelNames'])->name('api.model-ModelNames');
 
 //Personnel Manager Multiselect Autocomplete
-Route::get('/user-usernames/{query}', [\App\Http\Controllers\UserController::class, 'limitedUsernameOptions'])->name('api.limited-usernames');
-Route::get('/user-usernames', [\App\Http\Controllers\UserController::class, 'usernameOptions'])->name('api.usernames');
-Route::get('/user-names/{query}', [\App\Http\Controllers\UserController::class, 'limitedNameOptions'])->name('api.limited-names');
-Route::get('/user-names', [\App\Http\Controllers\UserController::class, 'nameOptions'])->name('api.names');
+Route::get('/user-usernames/{query}', [\App\Http\Controllers\UserController::class, 'limitedUsernameOptions'])->name('api.user-limitedUsernames');
+Route::get('/user-usernames', [\App\Http\Controllers\UserController::class, 'usernameOptions'])->name('api.user-Usernames');
+Route::get('/user-names/{query}', [\App\Http\Controllers\UserController::class, 'limitedNameOptions'])->name('api.user-limitedNames');
+Route::get('/user-names', [\App\Http\Controllers\UserController::class, 'nameOptions'])->name('api.user-Names');
+
+//Checksheet Manager Multiselect Autocomplete
+Route::get('/checksheet-names/{query}', [\App\Http\Controllers\CheckSheetController::class, 'limitedChecksheetOptions'])->name('api.checksheet-limitedChecksheet');
+Route::get('/checksheet-names', [\App\Http\Controllers\CheckSheetController::class, 'checksheetOptions'])->name('api.checksheet');

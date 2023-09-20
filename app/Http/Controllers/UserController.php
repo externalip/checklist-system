@@ -252,19 +252,18 @@ class UserController extends Controller
     {
         return Inertia::render('Create-Checklist/ChecklistApproval/Index');
     }
-
     /*
     Username Autocomplete
     */
 
     //Fetch only the data corresponding to user input
-    public function limitedUsernameOptions($name)
+    public function limitedUsernameOptions($query)
     {
         // Retrieve the model names from your database
         $limitedUsernames = DB::table('users')
-            ->where('username', 'LIKE', '%'.$name.'%')
+            ->where('username', 'LIKE', '%'.$query.'%')
             ->pluck('username')
-            ->take(10)
+            ->take(5)
             ->toArray();
 
         // Return the model names as JSON response
@@ -279,7 +278,7 @@ class UserController extends Controller
         // Retrieve the model names from your database
         $usernames = DB::table('users')
             ->pluck('username')
-            ->take(10)
+            ->take(5)
             ->toArray();
 
         // Return the model names as JSON response
@@ -307,7 +306,7 @@ class UserController extends Controller
         ]);
     }
 
-    //take only first 10 data from database
+    //take only first 5 data from database
     public function nameOptions()
     {
         // Retrieve the model names from your database
