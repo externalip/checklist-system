@@ -41,14 +41,14 @@ class UserController extends Controller
 
         if ($request->filled('username')) {
             $searchUsername = $request->input('username');
-            $query->where('username', 'like', '%' . $searchUsername . '%');
+            $query->where('username', 'like', '%'.$searchUsername.'%');
         }
 
         // searchName (First Name, Last Name) filter
         if ($request->filled('name')) {
             $searchName = $request->input('name');
             $query->whereHas('employee', function ($q) use ($searchName) {
-                $q->where(DB::raw('CONCAT(first_name, " ", last_name)'), 'like', '%' . $searchName . '%');
+                $q->where(DB::raw('CONCAT(first_name, " ", last_name)'), 'like', '%'.$searchName.'%');
             });
         }
         if ($request->filled('role')) {
@@ -197,7 +197,7 @@ class UserController extends Controller
 
         $user->syncRoles($input['role_id']);
 
-        if (!empty($input['password'])) {
+        if (! empty($input['password'])) {
             $user->update([
                 'password' => Hash::make($input['password']),
             ]);
@@ -229,7 +229,7 @@ class UserController extends Controller
 
     public function showForm($id)
     {
-        $path = 'Forms/form' . $id;
+        $path = 'Forms/form'.$id;
 
         return Inertia::render($path);
     }
@@ -262,7 +262,7 @@ class UserController extends Controller
     {
         // Retrieve the model names from your database
         $limitedUsernames = DB::table('users')
-            ->where('username', 'LIKE', '%' . $query . '%')
+            ->where('username', 'LIKE', '%'.$query.'%')
             ->pluck('username')
             ->take(5)
             ->toArray();
@@ -296,7 +296,7 @@ class UserController extends Controller
     {
         // Retrieve the model names from your database
         $limitedNames = DB::table('employees')
-            ->where(DB::raw("CONCAT(`first_name`, ' ' ,`last_name`)"), 'LIKE', '%' . $query . '%')
+            ->where(DB::raw("CONCAT(`first_name`, ' ' ,`last_name`)"), 'LIKE', '%'.$query.'%')
             ->pluck(DB::raw("CONCAT(`first_name`, ' ' ,`last_name`) AS full_name"))
             ->take(5)
             ->toArray();
@@ -324,7 +324,7 @@ class UserController extends Controller
 
     public function exportUsers()
     {
-        $fileName = 'user-data_' . Carbon::now()->format('Ymd_His') . '.xlsx';
+        $fileName = 'user-data_'.Carbon::now()->format('Ymd_His').'.xlsx';
 
         return Excel::download(new UsersExport, $fileName);
     }
@@ -333,6 +333,7 @@ class UserController extends Controller
     {
         return Excel::download(new ModelsExport, 'models.xlsx');
     }
+
     public function test($id)
     {
         $formdata = Form::findOrFail($id);

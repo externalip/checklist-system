@@ -41,7 +41,7 @@ Route::get('/Login', function () {
     ]);
 });
 
-Route::get('/test/{id}',[UserController::class, 'test']);
+Route::get('/test/{id}', [UserController::class, 'test']);
 // Registration Page
 Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
 
