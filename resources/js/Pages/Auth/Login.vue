@@ -41,11 +41,14 @@ const submit = () => {
             {{ status }}
         </div>
 
+        <!-- LOGIN PAGE TITLE -->
         <div class="text-center border-b-2 p-3">
-            <h3 class="font-bold text-gray-800">Production Plan Checklist</h3>
+            <h3 class="font-bold text-gray-800">Production Plant Checklist</h3>
         </div>
 
+        <!-- LOGIN PAGE INPUTS -->
         <form @submit.prevent="submit" class="p-6">
+            <!-- username -->
             <div>
                 <InputLabel for="username" value="Username" />
                 <TextInput
@@ -60,6 +63,7 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.username" />
             </div>
 
+            <!-- password -->
             <div class="mt-4">
                 <InputLabel for="password" value="Password" />
                 <TextInput
@@ -73,6 +77,7 @@ const submit = () => {
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
 
+            <!-- remember me button + login button-->
             <div class="block mt-4 flex justify-between">
                 <label class="flex items-center">
                     <Checkbox v-model:checked="form.remember" name="remember" />

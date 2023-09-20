@@ -2,7 +2,7 @@
     <AppLayout title="Edit User">
         <form @submit.prevent="updateAccount">
             <div class=" lg:mx-20 rounded-lg grid grid-row-3 gap-5 text-[--blue]">
-                <!-- Employee Info -->
+                <!-- First Section (Employee Info) -->
                 <div class="mx-3 border-2 border-gray-200 lg:p-10 p-5 rounded-2xl">
                     <h3 class="text-2xl font-semibold mb-2 md:text-left text-center">
                         Employee Info
@@ -31,7 +31,7 @@
 
                         <!-- DOB, CONTACT, SHIFT, GENDER -->
                         <div class="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1">
-                            <!-- DATE OF BIRTH -->
+                            <!-- Date of Birth -->
                             <div class="p-1">
                                 <label for="date_of_birth" class="block mb-1">Date of Birth</label>
                                 <input v-model="form.date_of_birth" type="date" id="date_of_birth"
@@ -39,7 +39,7 @@
                                 <InputError class="mt-2" :message="form.errors.date_of_birth" />
                             </div>
 
-                            <!-- CONTACT -->
+                            <!-- Contact -->
                             <div class="p-1">
                                 <label for="contact" class="block mb-1">Contact</label>
                                 <input v-model="form.contact" type="text" id="contact"
@@ -47,7 +47,7 @@
                                 <InputError class="mt-2" :message="form.errors.contact" />
                             </div>
 
-                            <!-- SHIFT -->
+                            <!-- Shift -->
                             <div class=" p-1">
                                 <label for="shift" class="block mb-1">Shift</label>
                                 <select v-model="form.shift" type="text" id="shift"
@@ -60,7 +60,7 @@
                                 <InputError class="mt-2" :message="form.errors.shift" />
                             </div>
 
-                            <!-- GENDER -->
+                            <!-- Gender -->
                             <div class="p-1">
                                 <label for="gender" class="block mb-1">Gender</label>
                                 <select v-model="form.gender" type="text" id="gender"
@@ -71,13 +71,11 @@
                                 </select>
                                 <InputError class="mt-2" :message="form.errors.gender" />
                             </div>
-
-
                         </div>
                     </div>
                 </div>
 
-                <!-- Account Details -->
+                <!-- Second Section (Account Details) -->
                 <div class="mx-3 border-2 border-gray-200 lg:p-10 p-5 rounded-2xl">
                     <h3 class="text-2xl font-semibold mb-2 md:text-left text-center">
                         Account Details
@@ -85,8 +83,9 @@
 
                     <!-- INPUTS -->
                     <div class="space-y-4">
+                        <!-- USERNAME & PASSWORD -->
                         <div class="grid lg:grid-cols-2 md:grid-cols-2">
-                            <!-- USERNAME -->
+                            <!-- Username -->
                             <div class="p-1">
                                 <label for="username" class="block mb-1">Username</label>
                                 <input v-model="form.username" type="text" id="username"
@@ -94,25 +93,26 @@
                                 <InputError class="mt-2" :message="form.errors.username" />
                             </div>
 
-                            <!-- PASSWORD -->
+                            <!-- Password -->
                             <div class="p-1">
                                 <label for="password" class="block mb-1">Password</label>
                                 <input v-model="form.password" type="password" id="password"
                                     class="text-sm text-gray-900 w-full rounded-lg border-1 border-gray-200 p-2" />
                                 <InputError class="mt-2" :message="form.errors.password" />
                             </div>
-
                         </div>
 
+                        <!-- CONFIRM PASSWORD, ROLE, ACCOUNT STATUS -->
                         <div class="grid lg:grid-cols-2 md:grid-cols-2">
-                            <!-- CONFIRM PASSWORD -->
+                            <!-- Confirm Password -->
                             <div class="p-1">
                                 <label for="password_confirmation" class="block mb-1">Confirm Password</label>
                                 <input v-model="form.password_confirmation" type="password" id="password_confirmation"
                                     class="text-sm text-gray-900 w-full rounded-lg border-1 border-gray-200 p-2" />
                                 <InputError class="mt-2" :message="form.errors.password_confirmation" />
                             </div>
-                            <!-- ROLE -->
+
+                            <!-- Role -->
                             <div class="col-span-0 p-1">
                                 <label for="role_id" class="block mb-1">Role</label>
                                 <select v-model="form.role_id" type="text" id="role_id"
@@ -123,7 +123,8 @@
                                     <InputError class="mt-2" :message="form.errors.role_id" />
                                 </select>
                             </div>
-                            <!-- Active -->
+
+                            <!-- Account Status -->
                             <div class="col-span-0 p-1">
                                 <label for="active" class="block mb-1">Active</label>
                                 <select v-model="form.active" type="text" id="active"
@@ -139,9 +140,9 @@
 
                 </div>
 
-                <!-- BUTTONS -->
+                <!-- Third Section (BUTTONS) -->
                 <div class="flex justify-center p-10">
-                     <button type="submit"
+                    <button type="submit"
                         class="text-white bg-[#3C5393] hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Update
                         Account</button>
                     <Link :href="route('users')" type="button"
