@@ -67,7 +67,7 @@
                             <h5 class="text-lg bold" v-if="question.instruction != null">Instruction: {{
                                 question.instruction }}</h5>
                             <template v-if="question.type === 'text'">
-                                <input type="text" v-model="question.answer"
+                                <input type="text" v-model="form.fieldAnswers[question.label]"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     :required="question.required" />
                             </template>
@@ -81,6 +81,7 @@
                                             <input
                                                 :id="'production-checksheet-radio-symbol-' + sectionIndex + '-' + questionNumber + '-' + optionIndex"
                                                 :name="'production-checksheet-radio-symbol' + sectionIndex + '-' + questionNumber"
+                                                v-model="form.fieldAnswers[question.label]"
                                                 :value="option.label" type="radio"
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                                                 :required="question.required" />
@@ -104,6 +105,7 @@
                                             <input
                                                 :id="'production-checksheet-radio-' + sectionIndex + '-' + questionNumber + '-' + optionIndex"
                                                 :name="'production-checksheet-radio-' + sectionIndex + '-' + questionNumber"
+                                                v-model="form.fieldAnswers[question.label]"
                                                 :value="option.label" type="radio"
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                                                 :required="question.required" />
@@ -123,6 +125,8 @@
                                 <div v-for="(option, optionIndex) in question.options" :key="optionIndex"
                                     class="flex items-center mb-1">
                                     <input :id="'checkbox' + optionIndex" type="checkbox" :value="option.label"
+                                               :checked="form.fieldAnswers[question.label] && form.fieldAnswers[question.label].includes(option.label)"
+                    @change="toggleCheckbox(option.label, question.label)"
                                         class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                                     <label :for="'checkbox' + optionIndex"
                                         class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
@@ -132,11 +136,14 @@
 
      <template v-if="question.type === 'dropdown'">
             <!-- Dropdown (select) rendering -->
-            <select  :id="'dropdown-' + questionNumber"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value=""></option>
-              <option v-for="(option, optionName) in question.options" :key="optionName" :value="option.label">{{ option.label }}</option>
-            </select>
+            <select
+        :id="'production-checksheet-select-' + sectionIndex + '-' + questionNumber + '-' + optionIndex"
+        :name="'production-checksheet-select-' + sectionIndex + '-' + questionNumber + '-' + optionIndex"
+        v-model="form.fieldAnswers[section.label]"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option value=""></option>
+        <option v-for="(option, optionName) in question.options" :key="optionName" :value="option.label">{{ option.label }}</option>
+    </select>
           </template>
 
                         </div>
@@ -176,10 +183,39 @@
 </template>
 
 <script setup>
-import { ref, toRefs, onMounted } from "vue";
-import { watch } from "vue";
+import { ref, toRefs, onMounted, reactive } from "vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 const { formData } = defineProps({
     formData: Object,
 });
+let form = reactive({
+    form_id: formData.id,
+    fieldAnswers:{}
+});
+const submit = async ()=> {
+    console.log(form);
+}
+onMounted(() => {
+    // Initialize fieldAnswers for checkbox questions
+    for (const section of JSON.parse(formData.form_data).form_content) {
+        for (const question of Object.values(section.section_content)) {
+            if (question.type === 'checkbox') {
+                form.fieldAnswers[question.label] = [];
+            }
+        }
+    }
+});
+
+const toggleCheckbox = (optionLabel, questionLabel) => {
+    const selectedOptions = form.fieldAnswers[questionLabel];
+    const optionIndex = selectedOptions.indexOf(optionLabel);
+
+    if (optionIndex === -1) {
+        // If not found in the array, add it
+        selectedOptions.push(optionLabel);
+    } else {
+        // If found in the array, remove it
+        selectedOptions.splice(optionIndex, 1);
+    }
+};
 </script>
