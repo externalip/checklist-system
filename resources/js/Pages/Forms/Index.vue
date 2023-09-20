@@ -13,7 +13,7 @@
                     <div id="model-identification" class="grid grid-cols-1">
                         <!-- Model Name -->
                         <div
-                            id="question"
+                            id="model-identification"
                             class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md"
                         >
                             <h5 id="question1">Model Name</h5>
@@ -49,10 +49,10 @@
                         class="grid lg:grid-cols-2 lg:gap-3"
                     >
                         <div
-                            id="question"
+                            id="Lot Number"
                             class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md"
                         >
-                            <h5 id="question2" class="required">Lot Number</h5>
+                            <h5 id="Lot Number" class="required">Lot Number</h5>
                             <div class="">
                                 <label
                                     for="models"
@@ -75,10 +75,10 @@
                             </div>
                         </div>
                         <div
-                            id="question"
+                            id="Kit Number"
                             class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md"
                         >
-                            <h5 id="question3" class="required">Kit Number</h5>
+                            <h5 id="Kit Number" class="required">Kit Number</h5>
                             <div class="">
                                 <label
                                     for="models"
@@ -383,11 +383,11 @@
 </template>
 
 <script setup>
-import { ref, toRefs, onMounted, reactive, watch } from "vue";
+import {  onMounted, reactive } from "vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 const { formData, models } = defineProps({
     formData: Object,
-    models: Array, // Add models prop here
+    models: Array,
 });
 let form = reactive({
     form_id: formData.id,
@@ -407,11 +407,22 @@ const submit = async () => {
     if (confirmResult.isConfirmed) {
         try {
             const response = await axios.post("/submit", form);
-            Swal.fire({
-                title: "Success",
-                text: "The form was successfully submitted.",
-                icon: "success",
-            });
+
+            if (response.status == 200) {
+                const success = await Swal.fire({
+                    title: "Success",
+                    text: "The form was successfully submitted.",
+                    icon: "success",
+                    confirmResultText: "OK",
+                });
+            } else {
+                const error = await Swal.fire({
+                    title: "Error",
+                    text: "There was an error submitting the form.",
+                    icon: "error",
+                    confirmResultText: "OK",
+                });
+            }
 
             form.fieldAnswers = {};
         } catch (error) {
