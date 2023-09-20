@@ -6,6 +6,7 @@ use App\Exports\ModelsExport;
 use App\Exports\UsersExport;
 use App\Models\Employee;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +15,6 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 use Maatwebsite\Excel\Facades\Excel;
-use Carbon\Carbon;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -253,7 +253,6 @@ class UserController extends Controller
         return Inertia::render('Create-Checklist/ChecklistApproval/Index');
     }
 
-
     /*
     Username Autocomplete
     */
@@ -323,16 +322,17 @@ class UserController extends Controller
         ]);
     }
 
-
     public function exportUsers()
     {
-        $fileName = 'user-data_' . Carbon::now()->format('Ymd_His') . '.xlsx';
+        $fileName = 'user-data_'.Carbon::now()->format('Ymd_His').'.xlsx';
+
         return Excel::download(new UsersExport, $fileName);
     }
 
     public function exportModels()
     {
-        $fileName = 'model-data_' . Carbon::now()->format('Ymd_His') . '.xlsx';
+        $fileName = 'model-data_'.Carbon::now()->format('Ymd_His').'.xlsx';
+
         return Excel::download(new ModelsExport, $fileName);
     }
 }
