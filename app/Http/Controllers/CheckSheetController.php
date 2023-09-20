@@ -39,7 +39,7 @@ class CheckSheetController extends Controller
     {
         // Retrieve the model names from your database
         $limitedChecksheet = DB::table('forms')
-            ->where('form_name', 'LIKE', '%' . $query . '%')
+            ->where('form_name', 'LIKE', '%'.$query.'%')
             ->pluck('form_name')
             ->take(5)
             ->toArray();
@@ -157,7 +157,7 @@ class CheckSheetController extends Controller
     {
         $id = $request->input('id');
 
-        Storage::disk('form_path')->delete('form' . $id . '.vue');
+        Storage::disk('form_path')->delete('form'.$id.'.vue');
         $result = Form::find($id)->delete();
 
         if ($result) {
