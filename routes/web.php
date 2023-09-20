@@ -4,7 +4,6 @@ use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\AuditController;
 use App\Http\Controllers\CheckSheetController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\FormGeneratorController;
 use App\Http\Controllers\ModelController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ResponseController;
