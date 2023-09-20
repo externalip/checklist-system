@@ -12,6 +12,8 @@ import swal from 'sweetalert2';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 
+import 'vue-multiselect/dist/vue-multiselect.css';
+
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 

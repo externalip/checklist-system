@@ -24,3 +24,13 @@ Route::get('/audit', [\App\Http\Controllers\AuditController::class, 'index'])
 
 Route::get('/TableView', [\App\Http\Controllers\ModelController::class, 'TableView'])
     ->name('TableView');
+
+//Model Manager Multiselect Autocomplete
+Route::get('/model-names/{query}', [\App\Http\Controllers\ModelController::class, 'limitedModelNames'])->name('api.limited-model-names');
+Route::get('/model-names', [\App\Http\Controllers\ModelController::class, 'getModelNames'])->name('api.model-names');
+
+//Personnel Manager Multiselect Autocomplete
+Route::get('/user-usernames/{query}', [\App\Http\Controllers\UserController::class, 'limitedUsernameOptions'])->name('api.limited-usernames');
+Route::get('/user-usernames', [\App\Http\Controllers\UserController::class, 'usernameOptions'])->name('api.usernames');
+Route::get('/user-names/{query}', [\App\Http\Controllers\UserController::class, 'limitedNameOptions'])->name('api.limited-names');
+Route::get('/user-names', [\App\Http\Controllers\UserController::class, 'nameOptions'])->name('api.names');
