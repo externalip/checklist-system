@@ -160,4 +160,33 @@ class ModelController extends Controller
 
         return response()->json($results);
     }
+
+    public function limitedModelNames($query)
+    {
+        // Retrieve the model names from your database
+        $limitedModelNames = DB::table('Models')
+            ->where('model_name', 'LIKE', '%'.$query.'%')
+            ->pluck('model_name')
+            ->take(5)
+            ->toArray();
+
+        // Return the model names as JSON response
+        return response()->json([
+            'limitedModelNames' => $limitedModelNames,
+        ]);
+    }
+
+    public function getModelNames()
+    {
+        // Retrieve the model names from your database
+        $modelNames = DB::table('Models')
+            ->pluck('model_name')
+            ->take(5)
+            ->toArray();
+
+        // Return the model names as JSON response
+        return response()->json([
+            'modelNames' => $modelNames,
+        ]);
+    }
 }

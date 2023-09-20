@@ -1,11 +1,17 @@
-<script setup>
-import { ref, watch } from 'vue';
-import { Link, router } from '@inertiajs/vue3';
+<script setup >
+import { ref, watch, onMounted } from 'vue';
+import {  Link, router } from '@inertiajs/vue3';
 import Switch from './Switch.vue';
+import VueMultiselect from 'vue-multiselect';
+
+
 let searchUsername = ref('');
 const selectedAccountStatus = ref([]);
 let searchName = ref('');
 const FilterRole = ref('');
+
+let usernameOptions = ref([]); //Initialize Options ref
+let nameOptions = ref([]); //Initialize Options ref
 
 let props = defineProps({
     filters: Object,
@@ -35,8 +41,69 @@ watch([searchUsername, selectedAccountStatus, searchName, FilterRole], ([usernam
         replace: true,
         append: true,
     });
-
 });
+
+// Fetch model names from your database
+const fetchUsernameOptions = async (searchInput) => {
+    //Limited options based on user input
+    if (searchInput) {
+        try {
+	    // Fetch model names from your Laravel API endpoint
+            const response = await fetch(`/api/user-usernames/${searchInput}`); //change route
+            const data = await response.json();
+
+            // Set the fetched model names as options
+            usernameOptions.value = data.limitedUsernames;
+        } catch (error) {
+            console.error('Error fetching usernames:', error);
+        }
+
+    //Take first 10 options if no user input
+    }else{
+        try {
+            // Fetch model names from your Laravel API endpoint
+            const response = await fetch(`/api/user-usernames`); //change route
+            const data = await response.json();
+
+            // Set the fetched model names as options
+            usernameOptions.value = data.usernames;
+        } catch (error) {
+            console.error('Error fetching usernames:', error);
+        }
+    }
+};
+// Fetch model names from your database
+const fetchNameOptions = async (searchInput) => {
+    //Limited options based on user input
+    if (searchInput) {
+        try {
+	    // Fetch model names from your Laravel API endpoint
+            const response = await fetch(`/api/user-names/${searchInput}`); //change route
+            const data = await response.json();
+
+            // Set the fetched model names as options
+            nameOptions.value = data.limitedNames;
+        } catch (error) {
+            console.error('Error fetching names:', error);
+        }
+
+    //Take first 10 options if no user input
+    }else{
+        try {
+            // Fetch model names from your Laravel API endpoint
+            const response = await fetch(`/api/user-names`); //change route
+            const data = await response.json();
+
+            // Set the fetched model names as options
+            nameOptions.value = data.names;
+        } catch (error) {
+            console.error('Error fetching names:', error);
+        }
+    }
+};
+//Call function on page render
+onMounted(fetchUsernameOptions);
+onMounted(fetchNameOptions);
 </script>
 
 <template>
@@ -98,8 +165,7 @@ watch([searchUsername, selectedAccountStatus, searchName, FilterRole], ([usernam
                                         stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                             </svg>
                         </div>
-                        <input
-                            v-model="searchUsername" type="search" id="default-search-name" class="block w-full p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Username" required>
+                        <VueMultiselect v-model="searchUsername" :options="usernameOptions" :show-labels="false" @searchChange="fetchUsernameOptions" id="default-search-name" placeholder="Search Username" class="" required></VueMultiselect>
                     </div>
                 </form>
 
@@ -116,9 +182,7 @@ watch([searchUsername, selectedAccountStatus, searchName, FilterRole], ([usernam
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"  stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                         </svg>
                     </div>
-
-                    <input v-model="searchName" type="search" id="default-search-name" class="block w-full p-2.5 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Search Name" required>
+                    <VueMultiselect v-model="searchName" :options="nameOptions" :show-labels="false" @searchChange="fetchNameOptions" id="default-search-name" placeholder="Search Name" class="" required></VueMultiselect>
                 </div>
 
             </div>

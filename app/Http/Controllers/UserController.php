@@ -253,6 +253,77 @@ class UserController extends Controller
         return Inertia::render('Create-Checklist/ChecklistApproval/Index');
     }
 
+
+    /*
+    Username Autocomplete
+    */
+
+    //Fetch only the data corresponding to user input
+    public function limitedUsernameOptions($name)
+    {
+        // Retrieve the model names from your database
+        $limitedUsernames = DB::table('users')
+            ->where('username', 'LIKE', '%'.$name.'%')
+            ->pluck('username')
+            ->take(10)
+            ->toArray();
+
+        // Return the model names as JSON response
+        return response()->json([
+            'limitedUsernames' => $limitedUsernames,
+        ]);
+    }
+
+    //take only first 10 data from database
+    public function usernameOptions()
+    {
+        // Retrieve the model names from your database
+        $usernames = DB::table('users')
+            ->pluck('username')
+            ->take(10)
+            ->toArray();
+
+        // Return the model names as JSON response
+        return response()->json([
+            'usernames' => $usernames,
+        ]);
+    }
+    /*
+    Name Autocomplete
+    */
+
+    //Fetch only the data corresponding to user input
+    public function limitedNameOptions($query)
+    {
+        // Retrieve the model names from your database
+        $limitedNames = DB::table('employees')
+            ->where(DB::raw("CONCAT(`first_name`, ' ' ,`last_name`)"), 'LIKE', '%'.$query.'%')
+            ->pluck(DB::raw("CONCAT(`first_name`, ' ' ,`last_name`) AS full_name"))
+            ->take(5)
+            ->toArray();
+
+        // Return the model names as JSON response
+        return response()->json([
+            'limitedNames' => $limitedNames,
+        ]);
+    }
+
+    //take only first 10 data from database
+    public function nameOptions()
+    {
+        // Retrieve the model names from your database
+        $names = DB::table('employees')
+            ->pluck(DB::raw("CONCAT(`first_name`, ' ' ,`last_name`) AS full_name"))
+            ->take(5)
+            ->toArray();
+
+        // Return the model names as JSON response
+        return response()->json([
+            'names' => $names,
+        ]);
+    }
+
+
     public function exportUsers()
     {
         $fileName = 'user-data_' . Carbon::now()->format('Ymd_His') . '.xlsx';
