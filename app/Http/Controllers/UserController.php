@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ModelsExport;
+use App\Exports\UsersExport;
 use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -11,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -248,11 +251,10 @@ class UserController extends Controller
     {
         return Inertia::render('Create-Checklist/ChecklistApproval/Index');
     }
-
     /*
     Username Autocomplete
     */
-    
+
     //Fetch only the data corresponding to user input
     public function limitedUsernameOptions($query)
     {
@@ -268,6 +270,7 @@ class UserController extends Controller
             'limitedUsernames' => $limitedUsernames,
         ]);
     }
+
     //take only first 10 data from database
     public function usernameOptions()
     {
@@ -285,17 +288,17 @@ class UserController extends Controller
     /*
     Name Autocomplete
     */
-    
+
     //Fetch only the data corresponding to user input
     public function limitedNameOptions($query)
     {
         // Retrieve the model names from your database
         $limitedNames = DB::table('employees')
-        ->where(DB::raw("CONCAT(`first_name`, ' ' ,`last_name`)"), 'LIKE', '%'.$query.'%')
-        ->pluck(DB::raw("CONCAT(`first_name`, ' ' ,`last_name`) AS full_name"))
-        ->take(5)  
-        ->toArray();
-    
+            ->where(DB::raw("CONCAT(`first_name`, ' ' ,`last_name`)"), 'LIKE', '%'.$query.'%')
+            ->pluck(DB::raw("CONCAT(`first_name`, ' ' ,`last_name`) AS full_name"))
+            ->take(5)
+            ->toArray();
+
         // Return the model names as JSON response
         return response()->json([
             'limitedNames' => $limitedNames,
@@ -306,13 +309,24 @@ class UserController extends Controller
     {
         // Retrieve the model names from your database
         $names = DB::table('employees')
-        ->pluck(DB::raw("CONCAT(`first_name`, ' ' ,`last_name`) AS full_name"))
-        ->take(5) 
-        ->toArray();
-    
+            ->pluck(DB::raw("CONCAT(`first_name`, ' ' ,`last_name`) AS full_name"))
+            ->take(5)
+            ->toArray();
+
         // Return the model names as JSON response
         return response()->json([
             'names' => $names,
         ]);
+    }
+
+    public function exportUsers()
+    {
+        return Excel::download(new UsersExport, 'users.xlsx');
+    }
+
+    public function exportModels()
+    {
+        return Excel::download(new ModelsExport, 'models.xlsx');
+
     }
 }
