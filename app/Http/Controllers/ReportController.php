@@ -16,7 +16,7 @@ class ReportController extends Controller
     {
         // Get existing check sheet forms
         $forms = DB::table('forms')
-            ->select('form_name')
+            ->select('form_name','id')
             ->orderBy('form_name')
             ->get();
 
