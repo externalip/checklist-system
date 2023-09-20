@@ -34,4 +34,3 @@ Route::get('/user-usernames/{query}', [\App\Http\Controllers\UserController::cla
 Route::get('/user-usernames', [\App\Http\Controllers\UserController::class, 'usernameOptions'])->name('api.usernames');
 Route::get('/user-names/{query}', [\App\Http\Controllers\UserController::class, 'limitedNameOptions'])->name('api.limited-names');
 Route::get('/user-names', [\App\Http\Controllers\UserController::class, 'nameOptions'])->name('api.names');
-
