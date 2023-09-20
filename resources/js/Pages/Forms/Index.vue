@@ -412,6 +412,8 @@ const submit = async () => {
                 text: "The form was successfully submitted.",
                 icon: "success",
             });
+
+            form.fieldAnswers = {};
         } catch (error) {
             console.error("Form submission error", error);
         }

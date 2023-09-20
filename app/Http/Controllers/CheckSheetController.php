@@ -39,7 +39,7 @@ class CheckSheetController extends Controller
     {
         // Retrieve the model names from your database
         $limitedChecksheet = DB::table('forms')
-            ->where('form_name', 'LIKE', '%'.$query.'%')
+            ->where('form_name', 'LIKE', '%' . $query . '%')
             ->pluck('form_name')
             ->take(5)
             ->toArray();
@@ -116,7 +116,6 @@ class CheckSheetController extends Controller
             'form_name' => $form_name,
             'updated_at' => Carbon::now(),
         ]);
-        $form_generator->generateForm($form_id, $form_name, $form_config);
 
         // if ($result) {
         //     return response()->json([
@@ -143,7 +142,7 @@ class CheckSheetController extends Controller
     {
         $id = $request->input('id');
 
-        Storage::disk('form_path')->delete('form'.$id.'.vue');
+        Storage::disk('form_path')->delete('form' . $id . '.vue');
         $result = Form::find($id)->delete();
 
         if ($result) {
@@ -157,5 +156,20 @@ class CheckSheetController extends Controller
                 'status' => 'error',
             ], 400);
         }
+    }
+    public function Form($id)
+    {
+        $formdata = Form::findOrFail($id);
+
+        $models = DB::table('models')
+            ->join('tags', 'models.id', '=', 'tags.model_id')
+            ->where('tags.form_id', $id)
+            ->select('models.*')
+            ->get();
+
+        return Inertia::render('Forms/Index', [
+            'formData' => $formdata,
+            'models' => $models,
+        ]);
     }
 }

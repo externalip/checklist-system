@@ -41,7 +41,6 @@ Route::get('/Login', function () {
     ]);
 });
 
-Route::get('/test/{id}', [UserController::class, 'test']);
 // Registration Page
 Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
 
@@ -90,22 +89,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::middleware(['permission:view-checklist'])->group(function () {
 
         //Forms
-        Route::get('Forms/{id}', function ($form_id) {
-            // Get form path
-            $path = 'Forms/form'.$form_id;
-
-            // Get all models
-            $models = DB::table('tags')
-                ->join('models', 'tags.model_id', '=', 'models.id')
-                ->join('forms', 'tags.form_id', '=', 'forms.id')
-                ->select('models.model_name', 'forms.form_name', 'tags.*')
-                ->get();
-
-            // Send list of models to url
-            return Inertia::render($path, [
-                'models' => $models,
-            ]);
-        })->name('showForm');
+        Route::get('Forms/{id}', [CheckSheetController::class, 'Form'])->name('showForm');
         // Form Submission Function
         Route::post('/submit', [ResponseController::class, 'storeResponse']);
     });
@@ -164,5 +148,4 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     });
 
     Route::get('/audit/{auditId}/view', [AuditController::class, 'viewDataProperties'])->name('audit.data.view');
-
 });
