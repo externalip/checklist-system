@@ -1,9 +1,6 @@
 <script setup >
 import { ref, watch, onMounted } from 'vue';
 import {  Link, router } from '@inertiajs/vue3';
-<script setup >
-import { ref, watch, onMounted } from 'vue';
-import {  Link, router } from '@inertiajs/vue3';
 import Switch from './Switch.vue';
 import VueMultiselect from 'vue-multiselect';
 
@@ -15,9 +12,6 @@ let searchUsername = ref('');
 const selectedAccountStatus = ref([]);
 let searchName = ref('');
 const FilterRole = ref('');
-
-let usernameOptions = ref([]); //Initialize Options ref
-let nameOptions = ref([]); //Initialize Options ref
 
 let usernameOptions = ref([]); //Initialize Options ref
 let nameOptions = ref([]); //Initialize Options ref
