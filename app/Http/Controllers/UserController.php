@@ -7,6 +7,7 @@ use App\Exports\UsersExport;
 use App\Models\Employee;
 use App\Models\Form;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -257,13 +258,13 @@ class UserController extends Controller
     */
 
     //Fetch only the data corresponding to user input
-    public function limitedUsernameOptions($name)
+    public function limitedUsernameOptions($query)
     {
         // Retrieve the model names from your database
         $limitedUsernames = DB::table('users')
             ->where('username', 'LIKE', '%' . $name . '%')
             ->pluck('username')
-            ->take(10)
+            ->take(5)
             ->toArray();
 
         // Return the model names as JSON response
@@ -278,7 +279,7 @@ class UserController extends Controller
         // Retrieve the model names from your database
         $usernames = DB::table('users')
             ->pluck('username')
-            ->take(10)
+            ->take(5)
             ->toArray();
 
         // Return the model names as JSON response
@@ -306,7 +307,7 @@ class UserController extends Controller
         ]);
     }
 
-    //take only first 10 data from database
+    //take only first 5 data from database
     public function nameOptions()
     {
         // Retrieve the model names from your database
@@ -323,27 +324,13 @@ class UserController extends Controller
 
     public function exportUsers()
     {
-        return Excel::download(new UsersExport, 'users.xlsx');
+        $fileName = 'user-data_' . Carbon::now()->format('Ymd_His') . '.xlsx';
+
+        return Excel::download(new UsersExport, $fileName);
     }
 
     public function exportModels()
     {
         return Excel::download(new ModelsExport, 'models.xlsx');
-    }
-    public function test($id)
-    {
-        $formdata = Form::findOrFail($id);
-
-        $models = DB::table('models')
-            ->join('tags', 'models.id', '=', 'tags.model_id')
-            ->where('tags.form_id', $id)
-            ->select('models.*')
-            ->get();
-
-        // dd($models);
-        return Inertia::render('test', [
-            'formData' => $formdata,
-            'models' => $models,
-        ]);
     }
 }
