@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\ModelsExport;
 use App\Exports\UsersExport;
 use App\Models\Employee;
+use App\Models\Form;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -39,14 +40,14 @@ class UserController extends Controller
 
         if ($request->filled('username')) {
             $searchUsername = $request->input('username');
-            $query->where('username', 'like', '%'.$searchUsername.'%');
+            $query->where('username', 'like', '%' . $searchUsername . '%');
         }
 
         // searchName (First Name, Last Name) filter
         if ($request->filled('name')) {
             $searchName = $request->input('name');
             $query->whereHas('employee', function ($q) use ($searchName) {
-                $q->where(DB::raw('CONCAT(first_name, " ", last_name)'), 'like', '%'.$searchName.'%');
+                $q->where(DB::raw('CONCAT(first_name, " ", last_name)'), 'like', '%' . $searchName . '%');
             });
         }
         if ($request->filled('role')) {
@@ -195,7 +196,7 @@ class UserController extends Controller
 
         $user->syncRoles($input['role_id']);
 
-        if (! empty($input['password'])) {
+        if (!empty($input['password'])) {
             $user->update([
                 'password' => Hash::make($input['password']),
             ]);
@@ -227,7 +228,7 @@ class UserController extends Controller
 
     public function showForm($id)
     {
-        $path = 'Forms/form'.$id;
+        $path = 'Forms/form' . $id;
 
         return Inertia::render($path);
     }
@@ -260,7 +261,7 @@ class UserController extends Controller
     {
         // Retrieve the model names from your database
         $limitedUsernames = DB::table('users')
-            ->where('username', 'LIKE', '%'.$name.'%')
+            ->where('username', 'LIKE', '%' . $name . '%')
             ->pluck('username')
             ->take(10)
             ->toArray();
@@ -294,7 +295,7 @@ class UserController extends Controller
     {
         // Retrieve the model names from your database
         $limitedNames = DB::table('employees')
-            ->where(DB::raw("CONCAT(`first_name`, ' ' ,`last_name`)"), 'LIKE', '%'.$query.'%')
+            ->where(DB::raw("CONCAT(`first_name`, ' ' ,`last_name`)"), 'LIKE', '%' . $query . '%')
             ->pluck(DB::raw("CONCAT(`first_name`, ' ' ,`last_name`) AS full_name"))
             ->take(5)
             ->toArray();
@@ -328,6 +329,21 @@ class UserController extends Controller
     public function exportModels()
     {
         return Excel::download(new ModelsExport, 'models.xlsx');
+    }
+    public function test($id)
+    {
+        $formdata = Form::findOrFail($id);
 
+        $models = DB::table('models')
+            ->join('tags', 'models.id', '=', 'tags.model_id')
+            ->where('tags.form_id', $id)
+            ->select('models.*')
+            ->get();
+
+        // dd($models);
+        return Inertia::render('test', [
+            'formData' => $formdata,
+            'models' => $models,
+        ]);
     }
 }
