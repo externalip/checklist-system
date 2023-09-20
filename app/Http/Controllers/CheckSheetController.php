@@ -34,6 +34,36 @@ class CheckSheetController extends Controller
         ]);
     }
 
+    //Fetch only the data corresponding to user input
+    public function limitedChecksheetOptions($query)
+    {
+        // Retrieve the model names from your database
+        $limitedChecksheet = DB::table('forms')
+        ->where('form_name', 'LIKE', '%'.$query.'%')
+        ->pluck('form_name')
+        ->take(5) 
+        ->toArray();
+
+        // Return the model names as JSON response
+        return response()->json([
+            'limitedChecksheet' => $limitedChecksheet,
+        ]);
+    }
+    //take only first 5 data from database
+    public function checksheetOptions()
+    {
+        // Retrieve the model names from your database
+        $checksheet = DB::table('forms')
+        ->pluck('form_name')
+        ->take(5) 
+        ->toArray();
+
+        // Return the model names as JSON response
+        return response()->json([
+            'checksheet' => $checksheet,
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
