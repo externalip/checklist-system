@@ -4,6 +4,10 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 
 <template>
     <AppLayout title="User Manual">
+        <p class="mb-10 lg:mx-[35%] text-center text-gray-500">
+            In this section, you will find the step-by-step process on how to
+            use the system.
+        </p>
         <section
             class="text-[--blue] grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 mt-5"
         >
@@ -21,7 +25,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
                     Register a Personnel
                 </h5>
                 <iframe
-                    src="https://scribehow.com/embed/Creating_a_new_user_account__Uk8Dmx80RGefVX8Yxv5oAA"
+                    src="https://scribehow.com/embed/Create_a_New_User_Account_in_the_Dashboard__WbfYgQNWSR-oFUldQ9WN-A"
                     width="100%"
                     height="640"
                     allowfullscreen
@@ -87,7 +91,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
                     Create a new checklist
                 </h5>
                 <iframe
-                    src="https://scribehow.com/embed/Creating_a_Check_sheet__UCzJFUReQD2OYFKHX8DTBg"
+                    src="https://scribehow.com/embed/How_to_Create_a_Checksheet__LyzSuglYS5K8SREkyWjXTg"
                     width="100%"
                     height="640"
                     allowfullscreen
@@ -95,29 +99,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
                 ></iframe>
             </div>
 
-            <!-- Edit Delete a Check sheet -->
-            <div
-                class="flex flex-col items-center border-2 border-gray-100 rounded-2xl p-5 hover:bg-gray-100 duration-200"
-            >
-                <span
-                    class="bg-blue-100 text-blue-800 text-md font-semibold px-2.5 py-0.5 rounded-full dark:bg-blue-200 dark:text-blue-800 w-max"
-                >
-                    Checksheet Manager
-                </span>
-                <h2 class="text-center">How to</h2>
-                <h5 class="mb-5 font-normal text-md text-gray-500 text-center">
-                    Edit / Delete a Check sheet
-                </h5>
-                <iframe
-                    src="https://scribehow.com/embed/Edit_and_Delete_a_check_sheet__xJV4Q14LT3qmEB9XuWVdDw"
-                    width="100%"
-                    height="640"
-                    allowfullscreen
-                    frameborder="0"
-                ></iframe>
-            </div>
-
-            <!-- Answer a checklist -->
+            <!-- Check a checklist -->
             <div
                 class="flex flex-col items-center border-2 border-gray-100 rounded-2xl p-5 hover:bg-gray-100 duration-200"
             >
@@ -128,12 +110,12 @@ import AppLayout from "@/Layouts/AppLayout.vue";
                 </span>
                 <h2 class="text-center">How to</h2>
                 <h5 class="mb-5 font-normal text-md text-gray-500 text-center">
-                    Answer a checklist
+                    Check a checklist form
                 </h5>
                 <iframe
-                    src="https://scribehow.com/embed/Dashboard_Try__AWVAY5kCQeq4Vv-w_Gqmsw"
+                    src="https://scribehow.com/embed/Check_a_Checklist_Form__P4tNM-5-Qy2uqVZSJ4WDTQ"
                     width="100%"
-                    height="540"
+                    height="640"
                     allowfullscreen
                     frameborder="0"
                 ></iframe>
