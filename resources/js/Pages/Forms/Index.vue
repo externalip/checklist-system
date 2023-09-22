@@ -32,8 +32,8 @@
                                 required
                                 v-model="form.fieldAnswers['Model Name']"
                             >
-                                <option selected>Select an Option</option>
-                                <option
+                                    <option disabled :value="null">Select an Option</option>
+                                    <option
                                     v-for="model in models"
                                     :value="model.model_name"
                                     :key="model.id"

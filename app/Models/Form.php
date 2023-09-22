@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\Activitylog\LogOptions;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Activitylog\Traits\LogsActivity;
 
-class Form extends User
+class Form extends Model
 {
     use HasFactory;
-
+    use LogsActivity;
     //only grab the changes
     protected static $logOnlyDirty = true;
 

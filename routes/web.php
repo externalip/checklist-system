@@ -97,6 +97,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::prefix('/generate')->group(function () {
             Route::get('/', [CheckSheetController::class, 'create'])->name('generate');
             Route::post('/', [CheckSheetController::class, 'store'])->name('generate.store');
+            Route::put('/', [CheckSheetController::class, 'update'])->name('generate.update');
         });
 
         // Form Editor
@@ -137,13 +138,15 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('users/export/', [UserController::class, 'exportUsers']);
     Route::get('models/export/', [UserController::class, 'exportModels']);
 
-    Route::middleware(['permission:revision'])->group(function () {
+    // Route::middleware(['permission:revision'])->group(function () {
         // Revision History
-        Route::get('/revision', [UserController::class, 'showAmendment'])->name('revision');
+        Route::get('/revision/{id}', [CheckSheetController::class, 'showRevision'])->name('revision');
 
         // DCC
         Route::get('/dcc', [UserController::class, 'showPendingApproval'])->name('dcc');
-    });
+    // });
 
     Route::get('/audit/{auditId}/view', [AuditController::class, 'viewDataProperties'])->name('audit.data.view');
 });
+
+route::get('/test/{id}', [CheckSheetController::class, 'draftForm']);

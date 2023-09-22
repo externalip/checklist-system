@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Form;
 use Carbon\Carbon;
+use App\Models\Form;
+use Inertia\Inertia;
 use Illuminate\Http\Request;
+use App\Models\FormDraftChange;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Inertia\Inertia;
 
 class CheckSheetController extends Controller
 {
@@ -119,31 +120,40 @@ class CheckSheetController extends Controller
         $form_config = $request->input('new_config');
         $form_name = $form_config['form_name'];
 
-        // DB::table('forms')
-        //     ->where('id', $form_id)
-        //     ->update([
-        //         'form_data' => $form_config,
-        //         'form_name' => $form_name,
-        //         'updated_at' => Carbon::now(),
-        //     ]);
-        Form::find($form_id)->update([
-            'form_data' => $form_config,
+        $form_data_json = json_encode($form_config);
+
+        // Create a new draft change entry
+        $draftChange = FormDraftChange::create([
+            'form_id' => $form_id,
+            'form_data' => $form_data_json,
             'form_name' => $form_name,
+            'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
 
-        // if ($result) {
-        //     return response()->json([
-        //         'message' => 'Form updated successfully',
-        //         'status' => 'success',
-        //     ], 200);
-        // } else {
-        //     return response()->json([
-        //         'message' => 'Form update failed',
-        //         'status' => 'error',
-        //     ], 400);
-        // }
+        // Create a new approval request entry
+      $approvalRequest = DB::table('approval_requests')
+            ->insert([
+                'form_id' => $form_id,
+                'requested_by' => auth()->user()->id,
+                'requested_at' => Carbon::now(),
+                'status' => 'pending',
+                'draft_change_id' => $draftChange->id,
+            ]);
 
+        // Roles are temporary
+        $roles = ['DCC', 'Line Leader', 'Quality Control', 'Admin'];
+        foreach ($roles as $role) {
+            DB::table('approval_requests_signatures')->insert([
+                'approval_request_id' => $approvalRequest,
+                'role' => $role,
+                'user_id' => null, // Initially no user has signed
+                'status' => 'pending',
+                'signed_at' => null, // Initially no signature timestamp
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
         return response()->json([
             'message' => 'Form updated successfully',
             'status' => 'success',
@@ -192,5 +202,28 @@ class CheckSheetController extends Controller
     public function create()
     {
         return Inertia::render('Create-Checklist/Create');
+    }
+    public function showRevision($id)
+    {
+        $form = Form::findOrFail($id);
+        $revisionHistory =
+        $form->activities()
+        ->where('event', 'updated')
+        ->get();
+
+
+        return Inertia::render('Create-Checklist/Revision/Index', [
+            'form' => $form,
+            'revisionHistory' => $revisionHistory,
+        ]);
+    }
+
+    public function draftForm($id){
+        $form = FormDraftChange::findOrFail($id);
+
+       return Inertia::render('Create-Checklist/Draft/Index', [
+            'formData' => $form,
+        ]);
+
     }
 }

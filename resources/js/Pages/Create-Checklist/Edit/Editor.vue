@@ -32,9 +32,9 @@ import AppLayout from "@/Layouts/AppLayout.vue";
                                 <!-- FORM NAME INPUT FIELD -->
                                 <input v-model="form_config.form_name" type="text" id="checksheet-id" name="checksheet-name"
                                     class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                    placeholder=" " required 
+                                    placeholder=" " required
                                 />
-                                    
+
                                 <!-- PLACEHOLDER -->
                                 <label for="checksheet-id"
                                     class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
@@ -50,15 +50,15 @@ import AppLayout from "@/Layouts/AppLayout.vue";
                                 <input v-model="form_config.control_no"
                                     type="text" name="control-no" id="control-no"
                                     class="text-xs block px-2.5 pb-1.5 pt-3 w-full text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                    placeholder=" " required 
+                                    placeholder=" " required
                                 />
-                                                
+
                                 <!-- PLACEHOLDER -->
                                 <label for="control-no"
                                     class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1"
                                     >Control No.
                                 </label>
-                                
+
                             </div>
 
                         </div>
@@ -100,7 +100,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
                                                     type="text" :name="'section_name' + key" :id="'section_name' + key"
                                                     class="text-xs block px-2.5 pb-1.5 pt-3 w-full text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                                     placeholder=" " required/>
-                                                
+
                                                 <!-- PLACEHOLDER -->
                                                 <label :for="'section_name' + key"
                                                     class="required absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-3 scale-75 top-1 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Type
@@ -1103,15 +1103,11 @@ export default {
         async submit() {
             try {
                 // Remove these code's comment to enable checksheet overwrite
-                // const response = await axios.put(route('checksheet.update'), {
-                //     form_id: this.form_id,
-                //     new_config: form_config,
-                // });
-                
-                // Create new form (does not overwrite edited form)
-                const response = await axios.post(
-                    route('generate.store'), form_config
-                );
+                const response = await axios.put(route('generate.update'), {
+                    form_id: this.form_id,
+                    new_config: form_config,
+                });
+
 
                 if (response.data.status === 'success') {
                     Swal.fire({
