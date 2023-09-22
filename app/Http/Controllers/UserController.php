@@ -252,6 +252,7 @@ class UserController extends Controller
     {
         return Inertia::render('Create-Checklist/ChecklistApproval/Index');
     }
+
     /*
     Username Autocomplete
     */
