@@ -358,8 +358,7 @@ function colorCode(question, answer) {
                                 <div id="pending-record-remarks" class="p-3 lg:flex lg:flex-col">
                                     <!-- Header -->
                                     <div class="pending-section-header px-5">
-                                        <h3 class="font-bold text-2xl">{{
-                                            Object.keys(JSON.parse(row.response).fieldAnswers)[8] }}</h3>
+                                        <h3 class="font-bold text-2xl">Remarks</h3>
                                     </div>
 
                                     <!-- Disabled TextArea -->

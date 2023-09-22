@@ -4,14 +4,8 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 
 <template>
     <AppLayout title="User Manual">
-        <p class="mb-10 lg:mx-[25%] text-center text-gray-500">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Error et
-            beatae quod maxime, repellendus saepe fugiat numquam, obcaecati
-            architecto, sit quos doloremque accusantium velit porro.
-            Voluptatibus animi culpa nesciunt cupiditate.
-        </p>
         <section
-            class="text-[--blue] grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5"
+            class="text-[--blue] grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 mt-5"
         >
             <!-- Add a Personnel -->
             <div
