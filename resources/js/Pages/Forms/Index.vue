@@ -406,7 +406,8 @@ const submit = async () => {
     });
     if (confirmResult.isConfirmed) {
         try {
-            const response = await axios.post("/submit", form);
+
+            const response = await axios.post(route('FormSubmission'), form);
 
             if (response.status == 200) {
                 const success = await Swal.fire({

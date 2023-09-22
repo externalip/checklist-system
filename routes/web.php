@@ -89,7 +89,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         //Forms
         Route::get('Forms/{id}', [CheckSheetController::class, 'Form'])->name('showForm');
         // Form Submission Function
-        Route::post('/submit', [ResponseController::class, 'storeResponse']);
+        Route::post('/submit', [ResponseController::class, 'storeResponse'])->name('FormSubmission');
     });
 
     Route::middleware(['permission:manage-checksheet'])->group(function () {
