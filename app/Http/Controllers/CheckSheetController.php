@@ -70,7 +70,23 @@ class CheckSheetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $employee_id = auth()->user()->employee_id;
+        $config = $request->only('form_name', 'control_no', 'form_content');
+        $form_name = $request->input('form_name');
+        Form::create([
+            'created_by' => $employee_id,
+            'form_name' => $form_name,
+            'completed' => 1,
+            'form_data' => json_encode($config),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Form added',
+        ], 200);
     }
 
     /**
@@ -98,7 +114,6 @@ class CheckSheetController extends Controller
      */
     public function update(Request $request)
     {
-        $form_generator = new FormGeneratorController();
 
         $form_id = $request->input('form_id');
         $form_config = $request->input('new_config');
@@ -116,7 +131,6 @@ class CheckSheetController extends Controller
             'form_name' => $form_name,
             'updated_at' => Carbon::now(),
         ]);
-        $form_generator->generateForm($form_id, $form_name, $form_config);
 
         // if ($result) {
         //     return response()->json([
@@ -157,5 +171,26 @@ class CheckSheetController extends Controller
                 'status' => 'error',
             ], 400);
         }
+    }
+
+    public function Form($id)
+    {
+        $formdata = Form::findOrFail($id);
+
+        $models = DB::table('models')
+            ->join('tags', 'models.id', '=', 'tags.model_id')
+            ->where('tags.form_id', $id)
+            ->select('models.*')
+            ->get();
+
+        return Inertia::render('Forms/Index', [
+            'formData' => $formdata,
+            'models' => $models,
+        ]);
+    }
+
+    public function create()
+    {
+        return Inertia::render('Create-Checklist/Create');
     }
 }

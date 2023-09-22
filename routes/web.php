@@ -4,14 +4,12 @@ use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\AuditController;
 use App\Http\Controllers\CheckSheetController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\FormGeneratorController;
 use App\Http\Controllers\ModelController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -91,31 +89,16 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::middleware(['permission:view-checklist'])->group(function () {
 
         //Forms
-        Route::get('Forms/{id}', function ($form_id) {
-            // Get form path
-            $path = 'Forms/form'.$form_id;
-
-            // Get all models
-            $models = DB::table('tags')
-                ->join('models', 'tags.model_id', '=', 'models.id')
-                ->join('forms', 'tags.form_id', '=', 'forms.id')
-                ->select('models.model_name', 'forms.form_name', 'tags.*')
-                ->get();
-
-            // Send list of models to url
-            return Inertia::render($path, [
-                'models' => $models,
-            ]);
-        })->name('showForm');
+        Route::get('Forms/{id}', [CheckSheetController::class, 'Form'])->name('showForm');
         // Form Submission Function
-        Route::post('/submit', [ResponseController::class, 'storeResponse']);
+        Route::post('/submit', [ResponseController::class, 'storeResponse'])->name('FormSubmission');
     });
 
     Route::middleware(['permission:manage-checksheet'])->group(function () {
         // Form Creator/Generator
         Route::prefix('/generate')->group(function () {
-            Route::get('/', [FormGeneratorController::class, 'index'])->name('generate');
-            Route::post('/', [FormGeneratorController::class, 'store'])->name('generate.store');
+            Route::get('/', [CheckSheetController::class, 'create'])->name('generate');
+            Route::post('/', [CheckSheetController::class, 'store'])->name('generate.store');
         });
 
         // Form Editor
@@ -164,4 +147,5 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('/dcc', [UserController::class, 'showPendingApproval'])->name('dcc');
     });
 
+    Route::get('/audit/{auditId}/view', [AuditController::class, 'viewDataProperties'])->name('audit.data.view');
 });

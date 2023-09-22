@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\ModelsExport;
 use App\Exports\UsersExport;
 use App\Models\Employee;
+use App\Models\Form;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -331,8 +332,6 @@ class UserController extends Controller
 
     public function exportModels()
     {
-        $fileName = 'model-data_'.Carbon::now()->format('Ymd_His').'.xlsx';
-
-        return Excel::download(new ModelsExport, $fileName);
+        return Excel::download(new ModelsExport, 'models.xlsx');
     }
 }
