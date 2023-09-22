@@ -9,7 +9,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
             use the system.
         </p>
         <section
-            class="text-[--blue] grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5"
+            class="text-[--blue] grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 mt-5"
         >
             <!-- Add a Personnel -->
             <div

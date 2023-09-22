@@ -16,8 +16,8 @@
                 ans1: null,
                 ans2: null,
                 ans3: null,
-                ans4: null,
-                ans5: null,
+                ans4: null,ans5: null,ans6: null,ans7: null,ans8: null,ans9: null,ans10: null,ans11: null,ans12: null,
+                ans13: null,
             }
         });
 
@@ -50,7 +50,7 @@
                     }
 
                     // Send user input to ResponseController
-                    router.post('/submit', form)
+                    router.post('/submit', form);
 
                     // Show success prompt
                     Swal.fire(
@@ -75,7 +75,7 @@
         </style>
 
         <template>
-            <AppLayout title="Test" control_no="Control No.: QR-BIPH-103027FR1">
+            <AppLayout title="ON Board Programming Startup" control_no="Control No.: QR-332564-FR1">
                 <div class="5s lg:mx-[25%]">
                     <form @submit.prevent="submit()" method="post" id="1">
 
@@ -173,13 +173,13 @@
 
                 </section>
 
-        <section id="form-section" class="p-10 mt-5 mb-5 border-2 rounded-lg"><h2 id="section-name" class="mb-2">General Check Methods</h2>
+        <section id="form-section" class="p-10 mt-5 mb-5 border-2 rounded-lg"><h2 id="section-name" class="mb-2">Items</h2>
                         <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
                     
-                            <h5 id="question4" class="required">Stocks are distributed equally</h5>
+                            <h5 id="question4" class="required">FP6 Program</h5>
                         
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                            
+                            Must be turned on
                         </label>
                     
                             <ul class="bottom-0 items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
@@ -187,7 +187,7 @@
                                     <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                         <div class="flex items-center pl-3">
                                             <input v-model="form.fieldAnswers.ans4" id="production-checksheet-radio-1" type="radio"
-                                                value="✔" name="production-checksheet-radio-General Check Methodsquestion1"
+                                                value="✔" name="production-checksheet-radio-Itemsquestion1"
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
                                             <label for="production-checksheet-radio-1"
                                                 class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">✔
@@ -198,7 +198,7 @@
                                     <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                         <div class="flex items-center pl-3">
                                             <input v-model="form.fieldAnswers.ans4" id="production-checksheet-radio-2" type="radio"
-                                                value="✘" name="production-checksheet-radio-General Check Methodsquestion1"
+                                                value="✘" name="production-checksheet-radio-Itemsquestion1"
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
                                             <label for="production-checksheet-radio-2"
                                                 class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">✘
@@ -209,9 +209,263 @@
                                     <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
                                         <div class="flex items-center pl-3">
                                             <input v-model="form.fieldAnswers.ans4" id="production-checksheet-radio-3" type="radio"
-                                                value="✔✘" name="production-checksheet-radio-General Check Methodsquestion1"
+                                                value="✔✘" name="production-checksheet-radio-Itemsquestion1"
                                                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
                                             <label for="production-checksheet-radio-3"
+                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">✔✘
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul></div>
+                        <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
+                    
+                            <h5 id="question5" class="required">FP6 Power Supply</h5>
+                        
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Must be 5v
+                        </label>
+                    
+                            <ul class="bottom-0 items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        
+                                    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                        <div class="flex items-center pl-3">
+                                            <input v-model="form.fieldAnswers.ans5" id="production-checksheet-radio-4" type="radio"
+                                                value="✔" name="production-checksheet-radio-Itemsquestion2"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
+                                            <label for="production-checksheet-radio-4"
+                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">✔
+                                            </label>
+                                        </div>
+                                    </li>
+                                
+                                    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                        <div class="flex items-center pl-3">
+                                            <input v-model="form.fieldAnswers.ans5" id="production-checksheet-radio-5" type="radio"
+                                                value="✘" name="production-checksheet-radio-Itemsquestion2"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
+                                            <label for="production-checksheet-radio-5"
+                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">✘
+                                            </label>
+                                        </div>
+                                    </li>
+                                
+                                    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                        <div class="flex items-center pl-3">
+                                            <input v-model="form.fieldAnswers.ans5" id="production-checksheet-radio-6" type="radio"
+                                                value="✔✘" name="production-checksheet-radio-Itemsquestion2"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
+                                            <label for="production-checksheet-radio-6"
+                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">✔✘
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul></div>
+                        <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
+                    
+                            <h5 id="question6" class="required">Unit Power Supply</h5>
+                        
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Must be 12V
+                        </label>
+                    
+                            <ul class="bottom-0 items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        
+                                    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                        <div class="flex items-center pl-3">
+                                            <input v-model="form.fieldAnswers.ans6" id="production-checksheet-radio-7" type="radio"
+                                                value="✔" name="production-checksheet-radio-Itemsquestion3"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
+                                            <label for="production-checksheet-radio-7"
+                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">✔
+                                            </label>
+                                        </div>
+                                    </li>
+                                
+                                    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                        <div class="flex items-center pl-3">
+                                            <input v-model="form.fieldAnswers.ans6" id="production-checksheet-radio-8" type="radio"
+                                                value="✘" name="production-checksheet-radio-Itemsquestion3"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
+                                            <label for="production-checksheet-radio-8"
+                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">✘
+                                            </label>
+                                        </div>
+                                    </li>
+                                
+                                    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                        <div class="flex items-center pl-3">
+                                            <input v-model="form.fieldAnswers.ans6" id="production-checksheet-radio-9" type="radio"
+                                                value="✔✘" name="production-checksheet-radio-Itemsquestion3"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
+                                            <label for="production-checksheet-radio-9"
+                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">✔✘
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul></div>
+                        <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
+                    
+                            <h5 id="question7" class="required">Press Machine</h5>
+                        
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Lever Lock must be present on the area.
+                        </label>
+                    
+                            <ul class="bottom-0 items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        
+                                    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                        <div class="flex items-center pl-3">
+                                            <input v-model="form.fieldAnswers.ans7" id="production-checksheet-radio-10" type="radio"
+                                                value="✔" name="production-checksheet-radio-Itemsquestion4"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
+                                            <label for="production-checksheet-radio-10"
+                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">✔
+                                            </label>
+                                        </div>
+                                    </li>
+                                
+                                    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                        <div class="flex items-center pl-3">
+                                            <input v-model="form.fieldAnswers.ans7" id="production-checksheet-radio-11" type="radio"
+                                                value="✘" name="production-checksheet-radio-Itemsquestion4"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
+                                            <label for="production-checksheet-radio-11"
+                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">✘
+                                            </label>
+                                        </div>
+                                    </li>
+                                
+                                    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                        <div class="flex items-center pl-3">
+                                            <input v-model="form.fieldAnswers.ans7" id="production-checksheet-radio-12" type="radio"
+                                                value="✔✘" name="production-checksheet-radio-Itemsquestion4"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
+                                            <label for="production-checksheet-radio-12"
+                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">✔✘
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul></div>
+                        <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
+                    
+                            <h5 id="question8" class="required">Tools</h5>
+                        
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Sharpie is available (Black)
+                        </label>
+                    
+                            <ul class="bottom-0 items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        
+                                    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                        <div class="flex items-center pl-3">
+                                            <input v-model="form.fieldAnswers.ans8" id="production-checksheet-radio-13" type="radio"
+                                                value="✔" name="production-checksheet-radio-Itemsquestion5"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
+                                            <label for="production-checksheet-radio-13"
+                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">✔
+                                            </label>
+                                        </div>
+                                    </li>
+                                
+                                    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                        <div class="flex items-center pl-3">
+                                            <input v-model="form.fieldAnswers.ans8" id="production-checksheet-radio-14" type="radio"
+                                                value="✘" name="production-checksheet-radio-Itemsquestion5"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
+                                            <label for="production-checksheet-radio-14"
+                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">✘
+                                            </label>
+                                        </div>
+                                    </li>
+                                
+                                    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                        <div class="flex items-center pl-3">
+                                            <input v-model="form.fieldAnswers.ans8" id="production-checksheet-radio-15" type="radio"
+                                                value="✔✘" name="production-checksheet-radio-Itemsquestion5"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
+                                            <label for="production-checksheet-radio-15"
+                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">✔✘
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul></div></section><section id="form-section" class="p-10 mt-5 mb-5 border-2 rounded-lg"><h2 id="section-name" class="mb-2">Program Loading</h2>
+                        <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
+                    
+                            <h5 id="question9" class="required">Program</h5>
+                        
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Must be correct based on Program Matrix. Program Name will be on Projects Menu
+                        </label>
+                    
+                                <div class="">
+                                    <input v-model="form.fieldAnswers.ans9" type="text" id="ltnum"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                </div>
+                            </div>
+                        <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
+                    
+                            <h5 id="question10" class="required">Endian Setting</h5>
+                        
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Must be Little Endian.
+                        </label>
+                    
+                                <div class="">
+                                    <input v-model="form.fieldAnswers.ans10" type="text" id="ltnum"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                </div>
+                            </div>
+                        <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
+                    
+                            <h5 id="question11" class="required">CRC32</h5>
+                        
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            "Must be correct based on below details: D410 - 70DA4E95 D460 - D9DF9D53 D610 - 1D856FCB"
+                        </label>
+                    
+                                <div class="">
+                                    <input v-model="form.fieldAnswers.ans11" type="text" id="ltnum"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                                </div>
+                            </div>
+                        <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
+                    
+                            <h5 id="question12" class="required">Checksum Matrix</h5>
+                        
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Must be present. Check on the 1st unit every SU/CM.
+                        </label>
+                    
+                            <ul class="bottom-0 items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        
+                                    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                        <div class="flex items-center pl-3">
+                                            <input v-model="form.fieldAnswers.ans12" id="production-checksheet-radio-16" type="radio"
+                                                value="✔" name="production-checksheet-radio-Program Loadingquestion4"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
+                                            <label for="production-checksheet-radio-16"
+                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">✔
+                                            </label>
+                                        </div>
+                                    </li>
+                                
+                                    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                        <div class="flex items-center pl-3">
+                                            <input v-model="form.fieldAnswers.ans12" id="production-checksheet-radio-17" type="radio"
+                                                value="✘" name="production-checksheet-radio-Program Loadingquestion4"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
+                                            <label for="production-checksheet-radio-17"
+                                                class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">✘
+                                            </label>
+                                        </div>
+                                    </li>
+                                
+                                    <li class="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                                        <div class="flex items-center pl-3">
+                                            <input v-model="form.fieldAnswers.ans12" id="production-checksheet-radio-18" type="radio"
+                                                value="✔✘" name="production-checksheet-radio-Program Loadingquestion4"
+                                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" required>
+                                            <label for="production-checksheet-radio-18"
                                                 class="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">✔✘
                                             </label>
                                         </div>
@@ -221,11 +475,11 @@
                 <section id="form-section" class="p-10 mt-5 mb-5 border-2 rounded-lg">
                     <h2 class="mb-2">Remarks</h2>
                     <div id="question" class="border-2 mb-3 py-5 px-10 md:px-10 md:py-5 rounded-md md:rounded-md">
-                        <h5 id="question5">Remarks on the Model</h5>
+                        <h5 id="question13">Remarks on the Model</h5>
                         <label for="message" class="block mb-2 text-sm font-medium dark:text-white">Please
                                     type
                                     possible problems regarding with the machine.</label>
-                        <textarea v-model="form.fieldAnswers.ans5" id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        <textarea v-model="form.fieldAnswers.ans13" id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Write here...">
                         </textarea>
                     </div>

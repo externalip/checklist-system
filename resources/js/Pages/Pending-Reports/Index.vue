@@ -146,13 +146,7 @@ function colorCode(question, answer) {
                         @change="showDiv(selectedForm.form_name)"
                     >
                         <option value="">Select a Form</option>
-                        <option
-                            v-for="form in forms"
-                            :key="form.id"
-                            :value="form.form_name"
-                        >
-                            {{ form.form_name }}
-                        </option>
+                        <option v-for="form in forms" :key="form.id" :value="form.id">{{ form.form_name }}</option>
                     </select>
                 </section>
 
@@ -280,17 +274,9 @@ function colorCode(question, answer) {
             <section id="pending-accordions">
                 <div :id="selectedForm.form_name" class="hidden_div accordions">
                     <div v-for="formcount in formcount" :key="formcount.id">
-                        <div
-                            v-if="
-                                formcount.form_name === selectedForm.form_name
-                            "
-                        >
-                            <h4 class="font-bold">
-                                <span class="text-[--overdue] font-bold">{{
-                                    formcount.pending_count
-                                }}</span>
-                                Pending Reports on {{ selectedForm.form_name }}
-                            </h4>
+                        <div v-if="formcount.id == selectedForm.form_name">
+                            <h4 class="font-bold"><span class="text-[--overdue] font-bold">{{ formcount.pending_count
+                            }}</span> Pending Reports on {{ formcount.form_name }}</h4>
                         </div>
                     </div>
 
@@ -301,18 +287,10 @@ function colorCode(question, answer) {
                         id="accordion-flush"
                         data-accordion="collapse"
                         data-active-classes="bg-white dark:bg-gray-900 text-blue-500 dark:text-white"
-                        data-inactive-classes="text-gray-500 dark:text-gray-400"
-                        class="border-lg"
-                    >
-                        <ul v-show="row.form_name === selectedForm.form_name">
-                            <h2
-                                :id="
-                                    'accordion-flush-heading-' +
-                                    index.toString()
-                                "
-                            >
-                                <button
-                                    type="button"
+                        data-inactive-classes="text-gray-500 dark:text-gray-400" class="border-lg">
+                        <ul v-show="row.form_id == selectedForm.form_name">
+                            <h2 :id="'accordion-flush-heading-' + index.toString()">
+                                <button type="button"
                                     class="flex items-center justify-between w-full py-5 text-lg font-regular antialiased text-left border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
                                     :data-accordion-target="
                                         '#accordion-flush-body-' +
@@ -583,9 +561,7 @@ function colorCode(question, answer) {
                                 >
                                     <!-- Header -->
                                     <div class="pending-section-header px-5">
-                                        <h3 class="font-bold text-2xl">
-                                            Remarks
-                                        </h3>
+                                        <h3 class="font-bold text-2xl">Remarks</h3>
                                     </div>
 
                                     <!-- Disabled TextArea -->
