@@ -34,7 +34,7 @@ const props = defineProps({
         <!-- Dynamic Card -->
                 
                 <div v-for="form in forms" :key="form.id" class="hover:bg-gray-50 duration-200 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
-                    <Link href="/Pending-Reports" :data="{ form_name: form.form_name }" preserve-state >
+                    <Link href="/Pending-Reports" :data="{ form_name: form.id }" preserve-state >
                         <div class="p-4 px-6 h-full flex flex-col">
                             <span class="text-[--blue] font-bold bg-clip-text text-2xl flex md:justify-end justify-center">{{ form.pending_count }}</span>
                             

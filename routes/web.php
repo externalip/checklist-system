@@ -84,6 +84,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::get('/audit', [AuditController::class, 'index'])->name('audit');
     });
 
+    Route::get('/audit/{auditId}/view', [AuditController::class, 'viewDataProperties'])->name('audit.data.view');
+
     Route::middleware(['permission:view-checklist'])->group(function () {
 
         //Forms
