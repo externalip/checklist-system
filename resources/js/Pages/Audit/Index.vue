@@ -1,144 +1,138 @@
-
 <template>
-    <AppLayout title="Audit Tracking">
-        <div id="audit-track" class="lg:mx-20 text-[--blue]">
-            <section id="audit-filter">
-                <div class="audit-filter-header">
-                    <h4>Filter by:</h4>
+<AppLayout title="Audit Tracking">
+    <div id="audit-track" class="lg:mx-20 text-[--blue]">
+        <section id="audit-filter">
+            <div class="audit-filter-header">
+                <h4>Filter by:</h4>
+            </div>
+
+            <section id="io-audit-filter" class="mb-5 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-2 gap-3">
+                <div id="filter-user">
+
+                    <label for="filter-user-select" class="block mb-2 text-sm font-medium  dark:text-white">Filter by user</label>
+                    <select id="filter-user-select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" v-model="selectedUser">
+                        <option value="">Choose a User
+                        </option>
+                        <option v-for="user in users" :value="user.id" :key="user.id">
+                            {{ user.first_name[0] }}. {{ user.last_name }}
+                        </option>
+                    </select>
+
                 </div>
 
-                <section id="io-audit-filter" class="mb-5 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-2 gap-3">
-                    <div id="filter-user">
+                <div id="filter-action">
 
-                        <label for="filter-user-select" class="block mb-2 text-sm font-medium  dark:text-white">Filter by user</label>
-                        <select id="filter-user-select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            v-model="selectedUser">
-                                    <option value="">Choose a User
-                                    </option>
-                                    <option v-for="user in users" :value="user.id" :key="user.id">
-                                   {{ user.first_name[0] }}. {{ user.last_name }}
-                                    </option>
-                                </select>
-
-                    </div>
-
-                    <div id="filter-action">
-
-                        <label for="filter-action-select" class="block mb-2 text-sm font-medium  dark:text-white">Filter by action</label>
-                        <select id="filter-action-select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            v-model="selectedAction">
-                                    <option value="">Choose a action
-                                    </option>
-                                    <option v-for="event in events" :value="event.event" :key="event.id">{{
+                    <label for="filter-action-select" class="block mb-2 text-sm font-medium  dark:text-white">Filter by action</label>
+                    <select id="filter-action-select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" v-model="selectedAction">
+                        <option value="">Choose a action
+                        </option>
+                        <option v-for="event in events" :value="event.event" :key="event.id">{{
                                         event.event
                                     }}</option>
-                                </select>
+                    </select>
 
-                    </div>
+                </div>
 
-                    <div id="filter-datepicker">
-                        <label for="filter-datepick" class="block mb-2 text-sm font-medium dark:text-white">Choose Date</label>
+                <div id="filter-datepicker">
+                    <label for="filter-datepick" class="block mb-2 text-sm font-medium dark:text-white">Choose Date</label>
 
-                        <div class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <div class=" absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <div class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <div class=" absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
 
-                            </div>
-                            <!-- <DateRangePickerComponent placeholder="Select a Date Range" v-model="selectedDateRange" /> -->
-                            <VueDatePicker v-model="selectedDateRange" range @range-start="onRangeStart" @range-end="onRangeEnd"></VueDatePicker>
                         </div>
-
+                        <!-- <DateRangePickerComponent placeholder="Select a Date Range" v-model="selectedDateRange" /> -->
+                        <VueDatePicker v-model="selectedDateRange" range @range-start="onRangeStart" @range-end="onRangeEnd"></VueDatePicker>
                     </div>
 
-                    <div id="export-button" class="place-items-end">
-                        <label for="export-btn" class="block mb-2 text-sm font-medium dark:text-white">Export
-                                    to</label>
+                </div>
 
-                        <button id="export-btn" data-dropdown-toggle="dropdown" class="text-white bg-[--blue] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                            type="button">Export <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="m1 1 4 4 4-4" />
-                                    </svg></button>
-                        <!-- Dropdown menu -->
-                        <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                                <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">to
-                                                PDF</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">to
-                                                Excel</a>
-                                </li>
-                            </ul>
-                        </div>
+                <div id="export-button" class="place-items-end">
+                    <label for="export-btn" class="block mb-2 text-sm font-medium dark:text-white">Export
+                        to</label>
 
+                    <button id="export-btn" data-dropdown-toggle="dropdown" class="text-white bg-[--blue] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Export <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+                        </svg></button>
+                    <!-- Dropdown menu -->
+                    <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                            <li>
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">to
+                                    PDF</a>
+                            </li>
+                            <li>
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">to
+                                    Excel</a>
+                            </li>
+                        </ul>
                     </div>
-                </section>
 
+                </div>
             </section>
-            <div class="relative overflow-x-auto rounded-lg">
-                <table id="audit-table" class="w-full text-sm text-center text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-white uppercase bg-[--blue] dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" class="px-6 py-3">
-                                User ID
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                User Name
-                            </th>
 
-                            <th scope="col" class="px-6 py-3">
-                               Log Name
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                               Log Description
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                               Action
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                               Properties
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Date and Time
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="audit in audits.data" :key="audit.id" class="text-xs bg-white border-b dark:bg-gray-800 dark:border-gray-700 duration-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ audit.causer_id  ?? 'No ID'}}
-                            </th>
-                            <td class="px-6 py-4">
-                                {{ audit.causer_name ?? 'N/A' }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ audit.log_name }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ audit.description }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ audit.event }}
-                            </td>
-                            <td class="px-6 py-4">
-                                   <Link :href="route('audit.data.view', audit.id)" class="text-blue-500 hover:underline">View Data</Link>
+        </section>
+        <div class="relative overflow-x-auto rounded-lg">
+            <table id="audit-table" class="w-full text-sm text-center text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-white uppercase bg-[--blue] dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            User ID
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            User Name
+                        </th>
 
-                            </td>
+                        <th scope="col" class="px-6 py-3">
+                            Log Name
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Log Description
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Action
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Properties
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Date and Time
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="audit in audits.data" :key="audit.id" class="text-xs bg-white border-b dark:bg-gray-800 dark:border-gray-700 duration-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ audit.causer_id  ?? 'No ID'}}
+                        </th>
+                        <td class="px-6 py-4">
+                            {{ audit.causer_name ?? 'N/A' }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ audit.log_name }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ audit.description }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ audit.event }}
+                        </td>
+                        <td class="px-6 py-4">
+                            <Link :href="route('audit.data.view', audit.id)" class="text-blue-500 hover:underline">View Data</Link>
 
-                            <td class="px-6 py-4">
-                                {{ audit.created_at }}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                        </td>
+
+                        <td class="px-6 py-4">
+                            {{ audit.created_at }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="p-5 flex flex-col items-center">
-            <Pagination :data="audits" />
-        </div>
-    </AppLayout>
+    </div>
+    <div class="p-5 flex flex-col items-center">
+        <Pagination :data="audits" />
+    </div>
+</AppLayout>
 </template>
 
 <script setup>
@@ -160,7 +154,6 @@ const isDropdownOpen = ref(false);
 const toggleDropdown = () => {
     isDropdownOpen.value = !isDropdownOpen.value;
 };
-
 
 watch([selectedUser, selectedAction, selectedDateRange], ([user, action, date]) => {
     const filter = { ...props.filters };
@@ -186,8 +179,6 @@ watch([selectedUser, selectedAction, selectedDateRange], ([user, action, date]) 
     });
 });
 </script >
-
-
 
 <style>
 .wrapper {
