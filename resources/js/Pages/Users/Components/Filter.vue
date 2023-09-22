@@ -2,8 +2,9 @@
 import {
     ref,
     watch,
-    onMounted
-} from 'vue';
+    onMounted,
+    defineProps
+} from 'vue';   
 import {
     Link,
     router
