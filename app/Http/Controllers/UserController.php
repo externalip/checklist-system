@@ -261,11 +261,11 @@ class UserController extends Controller
     {
         // Retrieve the model names from your database
         $limitedUsernames = DB::table('users')
-        ->where('username', 'LIKE', '%'.$query.'%')
-        ->pluck('username')
-        ->take(5) 
-        ->toArray();
-    
+            ->where('username', 'LIKE', '%'.$query.'%')
+            ->pluck('username')
+            ->take(5)
+            ->toArray();
+
         // Return the model names as JSON response
         return response()->json([
             'limitedUsernames' => $limitedUsernames,
@@ -277,10 +277,10 @@ class UserController extends Controller
     {
         // Retrieve the model names from your database
         $usernames = DB::table('users')
-        ->pluck('username')
-        ->take(5) 
-        ->toArray();
-    
+            ->pluck('username')
+            ->take(5)
+            ->toArray();
+
         // Return the model names as JSON response
         return response()->json([
             'usernames' => $usernames,
@@ -305,6 +305,7 @@ class UserController extends Controller
             'limitedNames' => $limitedNames,
         ]);
     }
+
     //take only first 5 data from database
     public function nameOptions()
     {
@@ -319,7 +320,6 @@ class UserController extends Controller
             'names' => $names,
         ]);
     }
-
 
     public function exportUsers()
     {
