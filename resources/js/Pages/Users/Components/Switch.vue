@@ -1,16 +1,16 @@
 <template>
     <!-- LINKS TO SWITCH PAGES -->
-    <div class="flex gap-2">
+    <div class="flex gap-2 text-blue-800">
 
         <!-- user page -->
-        <Link :href="route('users')" as="button" :class="{
-                'underline': $page.url.startsWith('/Users'),}"> User
-        </Link>
+        <a :href="route('users')" as="button" :class="{
+                'underline': $page.url.startsWith('/Users')}"> User
+        </a>
 
         <!-- roles page -->
-        <Link :href="route('roles.index')" as="button" :class="{
-            'underline':  $page.url.startsWith('/roles') }"> Roles
-        </Link>
+        <a :href="route('roles.index')" as="button" :class="{
+            'underline':  $page.url.startsWith('/roles')}"> Roles
+        </a>
     </div>
 </template>
 

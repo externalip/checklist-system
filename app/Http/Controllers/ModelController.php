@@ -161,7 +161,12 @@ class ModelController extends Controller
         return response()->json($results);
     }
 
-    public function limitedModelNames($query)
+    /*
+    Model name Autocomplete
+    */
+
+    //Fetch only the data corresponding to user input
+    public function limitedModelNameOptions($query)
     {
         // Retrieve the model names from your database
         $limitedModelNames = DB::table('Models')
@@ -176,7 +181,8 @@ class ModelController extends Controller
         ]);
     }
 
-    public function getModelNames()
+    //take only first 5 data from database
+    public function modelNameOptions()
     {
         // Retrieve the model names from your database
         $modelNames = DB::table('Models')

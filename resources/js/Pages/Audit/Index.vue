@@ -9,24 +9,20 @@
             <section id="io-audit-filter" class="mb-5 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-2 gap-3">
                 <div id="filter-user">
 
-                    <label for="filter-user-select" class="block mb-2 text-sm font-medium  dark:text-white">Filter by user</label>
-                    <select id="filter-user-select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" v-model="selectedUser">
-                        <option value="">Choose a User
-                        </option>
-                        <option v-for="user in users" :value="user.id" :key="user.id">
-                            {{ user.first_name[0] }}. {{ user.last_name }}
-                        </option>
-                    </select>
+                        <label for="filter-user-select" class="block mb-2 text-sm font-medium  dark:text-white">Filter by user</label>
+                        
+                        <VueMultiselect v-model="selectedUser" :options="userOptions" :show-labels="false"  @searchChange="fetchUserOptions" id="filter-user-select" placeholder="Choose a User" class="" required>
+                        </VueMultiselect>
+                    </div>
 
-                </div>
+                    <div id="filter-action">
 
-                <div id="filter-action">
-
-                    <label for="filter-action-select" class="block mb-2 text-sm font-medium  dark:text-white">Filter by action</label>
-                    <select id="filter-action-select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" v-model="selectedAction">
-                        <option value="">Choose a action
-                        </option>
-                        <option v-for="event in events" :value="event.event" :key="event.id">{{
+                        <label for="filter-action-select" class="block mb-2 text-sm font-medium  dark:text-white">Filter by action</label>
+                        <select id="filter-action-select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            v-model="selectedAction">
+                                    <option value="">Choose a action
+                                    </option>
+                                    <option v-for="event in events" :value="event.event" :key="event.id">{{
                                         event.event
                                     }}</option>
                     </select>
@@ -136,10 +132,13 @@
 </template>
 
 <script setup>
-import { ref, computed, watch} from 'vue';
+import { ref, onMounted, watch} from 'vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Pagination from '@/Shared/Pagination.vue';
 import { Link, router } from '@inertiajs/vue3';
+
+import VueMultiselect from 'vue-multiselect';
+
 const props = defineProps({
     audits: Array,
     events: Array,
@@ -151,9 +150,44 @@ const selectedAction = ref('');
 const selectedDateRange = ref('');
 const isDropdownOpen = ref(false);
 
+let userOptions = ref([]); //Initialize options ref
+
 const toggleDropdown = () => {
     isDropdownOpen.value = !isDropdownOpen.value;
 };
+
+// Fetch users from your database
+const fetchUserOptions = async (searchInput) => {
+    //fetch limited options from api	
+    if (searchInput) {
+        try {
+        // Fetch users from your Laravel API endpoint
+            const response = await fetch(`/api/audit-users/${searchInput}`);
+            const data = await response.json();
+            
+            // Set the fetched users as options
+            userOptions.value = data.limitedUsers;
+        } catch (error) {
+            console.error('Error fetching users:', error); //return error if data is not fetched properly
+        }
+    //fetch only 5 options from api
+    }else{
+        try {
+            // Fetch users from your Laravel API endpoint
+            const response = await fetch(`/api/audit-users`);
+            const data = await response.json();
+            
+            // Set the fetched users as options
+            userOptions.value = data.users;
+        } catch (error) {
+            console.error('Error fetching user:', error); //return error if data is not fetched properly
+        } 
+    }
+};
+
+
+onMounted(fetchUserOptions); // execute fetch function on page render 
+
 
 watch([selectedUser, selectedAction, selectedDateRange], ([user, action, date]) => {
     const filter = { ...props.filters };

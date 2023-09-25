@@ -273,7 +273,7 @@ class UserController extends Controller
         ]);
     }
 
-    //take only first 10 data from database
+    //take only first 5 data from database
     public function usernameOptions()
     {
         // Retrieve the model names from your database

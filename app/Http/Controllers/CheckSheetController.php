@@ -34,6 +34,10 @@ class CheckSheetController extends Controller
         ]);
     }
 
+    /*
+    Checksheet Autocomplete
+    */
+
     //Fetch only the data corresponding to user input
     public function limitedChecksheetOptions($query)
     {

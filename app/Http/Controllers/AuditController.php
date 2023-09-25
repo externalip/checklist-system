@@ -82,6 +82,51 @@ class AuditController extends Controller
         ]);
     }
 
+    /*
+    Users Autocomplete
+    */
+
+    //Fetch only the data corresponding to user input
+    public function limitedUserOptions($query)
+    {
+        // Retrieve the model names from your database
+        $limitedUsers = DB::table('activity_log')
+            ->whereNotNull('activity_log.causer_id')
+            ->where('users.id', 'LIKE', '%'.$query.'%')
+            ->join('users', 'activity_log.causer_id', '=', 'users.id')
+            ->join('employees', 'users.employee_id', '=', 'employees.id')
+            ->orderBy(db::raw("CONCAT(employees.first_name, ' ', employees.last_name)"))
+            ->distinct()
+            ->pluck('users.id')
+            ->take(5)
+            ->toArray();
+
+        // Return the model names as JSON response
+        return response()->json([
+            'limitedUsers' => $limitedUsers,
+        ]);
+    }
+
+    //take only first 5 data from database
+    public function userOptions()
+    {
+        // Retrieve the model names from your database
+        $users= DB::table('activity_log')
+            ->whereNotNull('activity_log.causer_id')
+            ->join('users', 'activity_log.causer_id', '=', 'users.id')
+            ->join('employees', 'users.employee_id', '=', 'employees.id')
+            ->orderBy(db::raw("CONCAT(employees.first_name, ' ', employees.last_name)"))
+            ->distinct()
+            ->pluck('users.id')
+            ->take(5)
+            ->toArray();
+
+        // Return the model names as JSON response
+        return response()->json([
+            'users' => $users,
+        ]);
+    }
+
     public function viewDataProperties($auditId)
     {
         // Fetch the audit by ID (replace 'Audit' with your actual model name)
