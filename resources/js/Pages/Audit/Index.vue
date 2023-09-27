@@ -11,7 +11,7 @@
 
                         <label for="filter-user-select" class="block mb-2 text-sm font-medium  dark:text-white">Filter by user</label>
                         
-                        <VueMultiselect v-model="selectedUser" :options="userOptions" :show-labels="false"  @searchChange="fetchUserOptions" id="filter-user-select" placeholder="Choose a User" class="" required>
+                        <VueMultiselect v-model="selectedUser" :options="userOptions" :show-labels="false"  @searchChange="fetchUserOptions" id="filter-user-select" track-by="id" label="name" placeholder="Choose a User" class="" required>
                         </VueMultiselect>
                     </div>
 
@@ -157,31 +157,40 @@ const toggleDropdown = () => {
 };
 
 // Fetch users from your database
-const fetchUserOptions = async (searchInput) => {
-    //fetch limited options from api	
-    if (searchInput) {
-        try {
-        // Fetch users from your Laravel API endpoint
-            const response = await fetch(`/api/audit-users/${searchInput}`);
-            const data = await response.json();
-            
-            // Set the fetched users as options
-            userOptions.value = data.limitedUsers;
-        } catch (error) {
-            console.error('Error fetching users:', error); //return error if data is not fetched properly
+const fetchUserOptions = async (searchInput) => {   
+    try {
+        
+        let response;
+        
+        if (searchInput) {    
+            // Fetch limited options from the API    
+            response = await fetch(`/api/audit-users/${searchInput}`);;
+        }else{
+            //fetch only 5 options from api
+            response = await fetch(`/api/audit-users`);
         }
-    //fetch only 5 options from api
-    }else{
-        try {
-            // Fetch users from your Laravel API endpoint
-            const response = await fetch(`/api/audit-users`);
-            const data = await response.json();
-            
+
+        const data = await response.json();
+        //First 5 options
+        if (data && data.users) {
             // Set the fetched users as options
-            userOptions.value = data.users;
-        } catch (error) {
-            console.error('Error fetching user:', error); //return error if data is not fetched properly
-        } 
+            const fetchedUsers = data.users;
+
+            // Transform the fetched users into the desired structure
+            const transformedUsers = fetchedUsers.map(user => {
+                return {
+                    id: user.id,
+                    name: user.name
+                };
+            });
+
+            // Set the transformed users as options
+            userOptions.value = transformedUsers;
+        } else {
+            console.error('Error fetching users: Invalid data format');
+        }
+    } catch (error) {
+        console.error('Error fetching users:', error); //return error if data is not fetched properly
     }
 };
 
@@ -216,6 +225,6 @@ watch([selectedUser, selectedAction, selectedDateRange], ([user, action, date]) 
 
 <style>
 .wrapper {
-    max-width: 220px;
+    max-width: 220px; 
 }
 </style>

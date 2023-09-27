@@ -90,20 +90,21 @@ class AuditController extends Controller
     public function limitedUserOptions($query)
     {
         // Retrieve the model names from your database
-        $limitedUsers = DB::table('activity_log')
+        $users = DB::table('activity_log')
+            ->select(db::raw("users.id, concat(employees.first_name, ' ', employees.last_name) AS name"))
             ->whereNotNull('activity_log.causer_id')
             ->where('users.id', 'LIKE', '%'.$query.'%')
+            ->orWhere(db::raw("concat(employees.first_name, ' ', employees.last_name)"), 'LIKE', '%'.$query.'%')
             ->join('users', 'activity_log.causer_id', '=', 'users.id')
             ->join('employees', 'users.employee_id', '=', 'employees.id')
             ->orderBy(db::raw("CONCAT(employees.first_name, ' ', employees.last_name)"))
             ->distinct()
-            ->pluck('users.id')
             ->take(5)
-            ->toArray();
+            ->get();
 
         // Return the model names as JSON response
         return response()->json([
-            'limitedUsers' => $limitedUsers,
+            'users' => $users,
         ]);
     }
 
@@ -112,14 +113,14 @@ class AuditController extends Controller
     {
         // Retrieve the model names from your database
         $users= DB::table('activity_log')
+            ->select(db::raw("users.id, concat(employees.first_name, ' ', employees.last_name) AS name"))
             ->whereNotNull('activity_log.causer_id')
             ->join('users', 'activity_log.causer_id', '=', 'users.id')
             ->join('employees', 'users.employee_id', '=', 'employees.id')
             ->orderBy(db::raw("CONCAT(employees.first_name, ' ', employees.last_name)"))
             ->distinct()
-            ->pluck('users.id')
             ->take(5)
-            ->toArray();
+            ->get();
 
         // Return the model names as JSON response
         return response()->json([
