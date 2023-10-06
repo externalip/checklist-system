@@ -42,3 +42,9 @@ Route::get('/checksheet-names', [\App\Http\Controllers\CheckSheetController::cla
 //Audit Tracking Multiselect Autocomplete
 Route::get('/audit-users/{query}', [\App\Http\Controllers\AuditController::class, 'limitedUserOptions'])->name('api.*audit-limitedUsers');
 Route::get('/audit-users', [\App\Http\Controllers\AuditController::class, 'userOptions'])->name('api.audit-users');
+
+//Archive Multiselect Autocomplete
+Route::get('/archive-employees/{query}', [\App\Http\Controllers\ArchiveController::class, 'limitedEmployeeOptions'])->name('api.archive-limitedEmployees');
+Route::get('/archive-employees', [\App\Http\Controllers\ArchiveController::class, 'employeeOptions'])->name('api.archive-employees');
+Route::get('/archive-checksheets/{query}', [\App\Http\Controllers\ArchiveController::class, 'limitedChecksheetOptions'])->name('api.archive-limitedChecksheets');
+Route::get('/archive-checksheets', [\App\Http\Controllers\ArchiveController::class, 'checksheetOptions'])->name('api.archive-checksheets');

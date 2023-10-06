@@ -197,7 +197,6 @@ const fetchUserOptions = async (searchInput) => {
 
 onMounted(fetchUserOptions); // execute fetch function on page render 
 
-
 watch([selectedUser, selectedAction, selectedDateRange], ([user, action, date]) => {
     const filter = { ...props.filters };
 
@@ -212,7 +211,7 @@ watch([selectedUser, selectedAction, selectedDateRange], ([user, action, date]) 
         filter.date = date;
     }
 
-    console.log(filter);
+    //console.log(filter);
 
     router.get(route('audit'), filter, {
         preserveState: true,

@@ -83,4 +83,110 @@ class ArchiveController extends Controller
             'formdata' => $formdata,
         ]);
     }
+
+    /*
+    Employee Autocomplete
+    */
+
+    //Fetch only the data corresponding to user input
+    public function limitedEmployeeOptions($query)
+    {
+        // Retrieve the model names from your database
+        $employees = DB::table('users')
+            ->select(
+                db::raw("users.*, concat(employees.last_name, ', ', employees.first_name) AS name")
+            )
+            ->join(
+                'employees', 
+                'employees.id', 
+                '=', 
+                'users.employee_id'
+            )
+            ->where(
+                'role_id', 
+                '=', 
+                '1'
+            )
+            ->where(
+                db::raw("concat(employees.last_name, ', ', employees.first_name)"), 
+                'LIKE', 
+                '%'.$query.'%'
+            )
+            ->take(5)
+            ->get();
+
+        // Return the model names as JSON response
+        return response()->json([
+            'employees' => $employees,
+        ]);
+    }
+
+    //take only first 5 data from database
+    public function employeeOptions()
+    {
+        // Retrieve the model names from your database
+        $employees = DB::table('users')
+        ->select(
+            db::raw("users.*, concat(employees.last_name, ', ', employees.first_name) AS name")
+        )
+        ->join(
+            'employees', 
+            'employees.id', 
+            '=', 
+            'users.employee_id'
+        )
+        ->where(
+            'role_id', 
+            '=', 
+            '1'
+        )
+        ->take(5)
+        ->get();
+
+        // Return the model names as JSON response
+        return response()->json([
+            'employees' => $employees,
+        ]);
+    }
+
+    /*
+    Check Sheet Autocomplete
+    */
+
+    //Fetch only the data corresponding to user input
+    public function limitedChecksheetOptions($query)
+    {
+        // Retrieve the model names from your database
+        $checksheets = DB::table('forms')
+        ->select('form_name', 'id')
+        ->where(
+            'form_name', 
+            'LIKE', 
+            '%'.$query.'%'
+        )
+        ->orderBy('form_name')
+        ->take(5)
+        ->get();
+
+        // Return the model names as JSON response
+        return response()->json([
+            'checksheets' => $checksheets,
+        ]);
+    }
+
+    //take only first 5 data from database
+    public function checksheetOptions()
+    {
+        // Retrieve the model names from your database
+        $checksheets = DB::table('forms')
+        ->select('form_name', 'id')
+        ->orderBy('form_name')
+        ->take(5)
+        ->get();
+
+        // Return the model names as JSON response
+        return response()->json([
+            'checksheets' => $checksheets,
+        ]);
+    }
 }
